@@ -4,6 +4,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-30 · Git + mise en ligne sur GitHub (sync PC ↔ Mac)
+
+- **Demande :** versionner le workspace et pouvoir le retrouver sur Mac.
+- **Action :** `git init` + 1er commit (identité locale du dépôt : Mathis Gourden / mathisgourden05@gmail.com). Dépôt distant créé : **https://github.com/mathisgourden05-ux/luffy-workspace** (Private). Branche `main` poussée. `.env` exclu (non versionné).
+- **Infos durables :** pseudo GitHub = `mathisgourden05-ux` (nom d'affichage « Akalix »). `gh` CLI non installé → on fait au git classique.
+- **Rappel pour Mathis :** sur Mac → `git clone` puis recréer `.env` à la main (via `.env.example`). Rythme : `git pull` en début de session, `git add -A && git commit -m "..." && git push` en fin.
+
 ## 2026-05-30 · Structure workspace : livrable/, contexte-import/ et fichiers env/git
 
 - **Demande :** mettre en place un dossier `livrable/` (sous-dossiers `site-web/`, `applications/`, `BTS/`) avec READMEs, et créer `.env`, `.env.example`, `.gitignore`.

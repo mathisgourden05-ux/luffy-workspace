@@ -51,6 +51,8 @@ Ce que Luffy sait de Mathis et qui reste vrai dans le temps. Mis à jour au fil 
 
 ## Faits utiles à retenir
 
+- **GitHub :** pseudo `mathisgourden05-ux` (nom d'affichage « Akalix »). Workspace versionné et poussé sur https://github.com/mathisgourden05-ux/luffy-workspace (dépôt privé, branche `main`). `gh` CLI pas installé.
+- **Multi-machines :** travaille sur PC + Mac → sync via GitHub. `.env` n'est jamais versionné (à recréer à la main sur chaque machine via `.env.example`).
 - *(à compléter au fil des échanges : budget, nom définitif de l'assistant, réseau choisi pour le contenu…)*
 
 ---
