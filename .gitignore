@@ -1,0 +1,40 @@
+# ===== Secrets & environnement =====
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.*
+*credentials*
+
+# ===== Dépendances =====
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# ===== Builds / sorties =====
+dist/
+build/
+.next/
+out/
+.cache/
+
+# ===== Éditeurs / IDE =====
+.vscode/
+.idea/
+*.swp
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Logs & temporaires =====
+*.log
+logs/
+*.tmp
+*.temp
+tmp/
