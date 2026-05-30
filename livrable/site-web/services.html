@@ -198,91 +198,36 @@
   </div>
 </section>
 
-<!-- FORMULAIRE ESSAI -->
+<!-- ESSAI CTA -->
 <section id="essai" style="background:var(--bg-2);padding:100px 0">
   <div class="wrap">
-    <div class="form-grid">
-      <div class="form-info reveal">
-        <p class="eyebrow">/ Gratuit & sans engagement</p>
-        <h2>Réserver un essai</h2>
-        <p>Choisissez votre Triumph, votre créneau, et venez la prendre en main sur les routes de Toulon et du Var.</p>
-        <div class="form-info" style="margin-top:32px">
-          <div class="detail">
-            <span class="ico">📍</span>
-            <div><b>Adresse</b><span>142 avenue de la Mer, 83000 Toulon</span></div>
-          </div>
-          <div class="detail">
-            <span class="ico">☎</span>
-            <div><b>Téléphone</b><a href="tel:+33494000000" style="color:var(--ink);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--ink)'">04 94 00 00 00</a></div>
-          </div>
-          <div class="detail">
-            <span class="ico">🕐</span>
-            <div><b>Horaires</b><span>Mar–Ven 9h–18h · Sam 9h–17h · Dim fermé</span></div>
-          </div>
-          <div class="detail">
-            <span class="ico">✉</span>
-            <div><b>Email</b><a href="mailto:essai@roadspirit.fr" style="color:var(--orange)">essai@roadspirit.fr</a></div>
-          </div>
-        </div>
-      </div>
-
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
       <div class="reveal">
-        <form id="essaiForm" novalidate>
-          <div class="form-row">
-            <div class="field">
-              <label for="prenom">Prénom *</label>
-              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required/>
-            </div>
-            <div class="field">
-              <label for="nom">Nom *</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" required/>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" placeholder="votre@email.fr" required/>
-            </div>
-            <div class="field">
-              <label for="tel">Téléphone *</label>
-              <input type="tel" id="tel" name="tel" placeholder="06 xx xx xx xx" required/>
-            </div>
-          </div>
-          <div class="field">
-            <label for="modele">Modèle souhaité *</label>
-            <select id="modele" name="modele" required>
-              <option value="">Choisir un modèle Triumph</option>
-              <option>Speed Triple RR — 19 950 €</option>
-              <option>Tiger 900 — 14 200 €</option>
-              <option>Bonneville T120 — 13 700 €</option>
-              <option>Daytona Moto2 — 16 800 €</option>
-              <option>Thruxton RS — 16 200 €</option>
-              <option>Tiger 1200 — 21 500 €</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <div class="field">
-              <label for="date">Date souhaitée *</label>
-              <input type="date" id="date" name="date" required/>
-            </div>
-            <div class="field">
-              <label for="heure">Créneau</label>
-              <select id="heure" name="heure">
-                <option>Matin (9h–12h)</option>
-                <option>Après-midi (14h–17h)</option>
-              </select>
-            </div>
-          </div>
-          <div class="field">
-            <label for="message">Message (optionnel)</label>
-            <textarea id="message" name="message" placeholder="Votre expérience, vos questions…"></textarea>
-          </div>
-          <button type="submit" class="submit-btn"><span>Réserver mon essai gratuit →</span></button>
-        </form>
-        <div class="form-success" id="formSuccess">
-          <div class="ico">🏍️</div>
-          <h3>Demande envoyée !</h3>
-          <p>Notre équipe vous contacte sous 24h pour confirmer votre créneau. À bientôt sur la route.</p>
+        <p class="eyebrow">/ Via Triumph officiel</p>
+        <h2 style="font-family:var(--head);font-size:clamp(44px,6vw,80px);line-height:.9;text-transform:uppercase;margin:14px 0 24px">Réserver<br>un essai</h2>
+        <p style="color:var(--muted);font-size:16px;max-width:440px;margin-bottom:32px;line-height:1.7">La réservation d'essai se fait directement sur le site officiel Triumph. Choisissez votre modèle, votre créneau, et sélectionnez <b style="color:var(--ink)">Road Spirit — Ollioules</b> comme concession.</p>
+        <a href="https://www.triumphmotorcycles.com/forms/test-ride" target="_blank" rel="noopener" class="btn" style="display:inline-flex">
+          <span>Réserver sur Triumph.com →</span>
+        </a>
+        <p style="color:var(--muted);font-size:13px;margin-top:16px;font-family:var(--sub);letter-spacing:.06em">Vous serez redirigé vers le site officiel Triumph Motorcycles</p>
+      </div>
+      <div class="reveal" style="background:var(--bg-3);border:1px solid var(--line);border-top:2px solid var(--orange);padding:40px">
+        <p style="font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--chrome);margin-bottom:24px">/ Infos pratiques</p>
+        <div class="detail" style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;font-size:15px">
+          <span style="font-size:20px">📍</span>
+          <div><b style="color:var(--ink);display:block;font-family:var(--sub);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;margin-bottom:3px">Adresse</b><span style="color:var(--muted)">Espace Mermoz, 212 chemin des Delphiniums, 83190 Ollioules</span></div>
+        </div>
+        <div class="detail" style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;font-size:15px">
+          <span style="font-size:20px">☎</span>
+          <div><b style="color:var(--ink);display:block;font-family:var(--sub);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;margin-bottom:3px">Téléphone</b><a href="tel:+33494201002" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">04 94 20 10 02</a></div>
+        </div>
+        <div class="detail" style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;font-size:15px">
+          <span style="font-size:20px">🕐</span>
+          <div><b style="color:var(--ink);display:block;font-family:var(--sub);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;margin-bottom:3px">Horaires</b><span style="color:var(--muted)">Mar–Sam 9h–12h · 14h–19h · Dim fermé</span></div>
+        </div>
+        <div class="detail" style="display:flex;gap:14px;align-items:flex-start;font-size:15px">
+          <span style="font-size:20px">✉</span>
+          <div><b style="color:var(--ink);display:block;font-family:var(--sub);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;margin-bottom:3px">Email</b><a href="mailto:contact@roadspirit.fr" style="color:var(--orange)">contact@roadspirit.fr</a></div>
         </div>
       </div>
     </div>
@@ -295,11 +240,11 @@
     <div class="contact-grid">
       <div class="contact-item reveal">
         <span class="ico">📍</span>
-        <div><h4>Adresse</h4><p>142 avenue de la Mer<br>83000 Toulon, France</p></div>
+        <div><h4>Adresse</h4><p>142 avenue de la Mer<br>83190 Ollioules, France</p></div>
       </div>
       <div class="contact-item reveal">
         <span class="ico">☎</span>
-        <div><h4>Téléphone</h4><a href="tel:+33494000000">04 94 00 00 00</a></div>
+        <div><h4>Téléphone</h4><a href="tel:+33494000000">04 94 20 10 02</a></div>
       </div>
       <div class="contact-item reveal">
         <span class="ico">✉</span>
