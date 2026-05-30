@@ -178,3 +178,4 @@ Tout document rédigé pour Mathis (rapport, synthèse, fiche, email, compte-ren
 - Longueur raisonnable — un étudiant ne rédige pas des rapports de 15 pages
 - Éviter les formulations trop formelles ou trop soutenues
 - Passer le texte par le skill `humanizer` avant de livrer tout document rédigé
+- **Ne jamais dépasser le niveau BTS MCO** : pas de notions hors programme, pas d'analyses trop poussées, pas de références à des concepts de niveau licence ou master. Si une notion dépasse le programme, la simplifier ou l'écarter.
