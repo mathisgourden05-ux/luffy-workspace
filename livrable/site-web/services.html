@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <style>
-  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#E8431A;--chrome:#C0C0C0;--ink:#F5F5F0;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#C9A84C;--chrome:#C2B280;--ink:#F5F1E8;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
   *{margin:0;padding:0;box-sizing:border-box;cursor:none}
   @media(pointer:coarse){*{cursor:auto}}
   html{scroll-behavior:smooth}
@@ -46,7 +46,7 @@
   .svc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
   .svc-card{background:var(--bg-2);padding:52px 40px;border:1px solid var(--line);position:relative;overflow:hidden;transition:background .35s}
   .svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .35s}
-  .svc-card:hover{background:rgba(232,67,26,.04)}
+  .svc-card:hover{background:rgba(201,168,76,.04)}
   .svc-card:hover::before{background:var(--orange)}
   .svc-ico{width:52px;height:52px;color:var(--orange);margin-bottom:28px}
   .svc-card h3{font-family:var(--head);font-size:36px;letter-spacing:.03em;text-transform:uppercase;line-height:1;margin-bottom:14px}
@@ -78,7 +78,7 @@
   .submit-btn:hover span{color:var(--orange)}
 
   /* SUCCESS MESSAGE */
-  .form-success{display:none;text-align:center;padding:48px 32px;border:1px solid var(--orange);background:rgba(232,67,26,.06)}
+  .form-success{display:none;text-align:center;padding:48px 32px;border:1px solid var(--orange);background:rgba(201,168,76,.06)}
   .form-success.show{display:block}
   .form-success .ico{font-size:48px;margin-bottom:16px}
   .form-success h3{font-family:var(--head);font-size:40px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:12px}
@@ -106,7 +106,7 @@
 
   /* CURSOR */
   .cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
   .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
   .page-overlay.out{transform:scaleY(1);pointer-events:all}
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
@@ -326,7 +326,7 @@
       <a href="boutique.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Boutique</a>
       <a href="Road Spirit.html#contact" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
     </div>
-    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon · <a href="mentions-legales.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Mentions légales</a> · <a href="cgv.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">CGV</a> · <a href="confidentialite.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">RGPD</a></span>
   </div>
 </footer>
 

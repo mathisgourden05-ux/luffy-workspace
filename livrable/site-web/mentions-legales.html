@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mentions légales — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--orange:#C9A84C;--chrome:#C2B280;--ink:#F5F1E8;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.8;-webkit-font-smoothing:antialiased}
+  a{color:var(--orange);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;background:rgba(10,10,10,.96);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+  .brand{font-family:var(--head);font-size:28px;letter-spacing:.06em;color:var(--orange);text-decoration:none}
+  .brand span{color:var(--ink)}
+  .back{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:13px;color:var(--muted);transition:color .2s}
+  .back:hover{color:var(--orange);text-decoration:none}
+  .page{max-width:780px;margin:0 auto;padding:140px 40px 100px}
+  .page-label{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:12px;color:var(--orange);margin-bottom:12px}
+  .page h1{font-family:var(--head);font-size:clamp(44px,6vw,80px);line-height:.92;text-transform:uppercase;margin-bottom:48px}
+  .section{margin-bottom:42px;padding-bottom:42px;border-bottom:1px solid var(--line)}
+  .section:last-child{border-bottom:0}
+  .section h2{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:14px;color:var(--chrome);margin-bottom:16px}
+  .section p{color:rgba(245,241,232,.75);font-size:16px;margin-bottom:10px;max-width:65ch}
+  .section p:last-child{margin-bottom:0}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px;margin-top:4px}
+  .info-item .label{font-family:var(--sub);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--muted);margin-bottom:4px}
+  .info-item .val{font-size:15px;color:var(--ink)}
+  footer{border-top:1px solid var(--line);padding:30px 40px;text-align:center}
+  footer p{font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  footer a{color:var(--orange)}
+  .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+  .page-overlay.out{transform:scaleY(1);pointer-events:all}
+  @media(max-width:600px){.page{padding:120px 22px 80px}.nav{padding:16px 22px}.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <a href="Road Spirit.html" class="back page-link">Retour au site</a>
+</nav>
+
+<main class="page">
+  <p class="page-label">Informations légales</p>
+  <h1>Mentions légales</h1>
+
+  <div class="section">
+    <h2>Éditeur du site</h2>
+    <div class="info-grid">
+      <div class="info-item"><div class="label">Raison sociale</div><div class="val">Road Spirit SAS</div></div>
+      <div class="info-item"><div class="label">Forme juridique</div><div class="val">Société par Actions Simplifiée</div></div>
+      <div class="info-item"><div class="label">Capital social</div><div class="val">50 000 €</div></div>
+      <div class="info-item"><div class="label">SIRET</div><div class="val">XXX XXX XXX 00014</div></div>
+      <div class="info-item"><div class="label">RCS</div><div class="val">Toulon B XXX XXX XXX</div></div>
+      <div class="info-item"><div class="label">N° TVA intracommunautaire</div><div class="val">FR XX XXX XXX XXX</div></div>
+      <div class="info-item"><div class="label">Siège social</div><div class="val">142 avenue de la Mer, 83000 Toulon</div></div>
+      <div class="info-item"><div class="label">Téléphone</div><div class="val">04 94 00 00 00</div></div>
+      <div class="info-item"><div class="label">Email</div><div class="val"><a href="mailto:contact@roadspirit.fr">contact@roadspirit.fr</a></div></div>
+      <div class="info-item"><div class="label">Directeur de publication</div><div class="val">Gérant de Road Spirit SAS</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Hébergement</h2>
+    <p>Ce site est hébergé par :</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="label">Hébergeur</div><div class="val">OVHcloud SAS</div></div>
+      <div class="info-item"><div class="label">Adresse</div><div class="val">2 rue Kellermann, 59100 Roubaix, France</div></div>
+      <div class="info-item"><div class="label">Téléphone</div><div class="val">1007 (service client OVH)</div></div>
+      <div class="info-item"><div class="label">Site</div><div class="val"><a href="https://www.ovhcloud.com" target="_blank" rel="noopener">ovhcloud.com</a></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Activité réglementée</h2>
+    <p>Road Spirit SAS est concessionnaire Triumph Motorcycles agrée. La vente de véhicules à moteur est soumise à la réglementation française en vigueur, notamment les articles L.121-1 et suivants du Code de la consommation.</p>
+    <p>Numéro d'immatriculation ORIAS (intermédiaire en financement) : XXXXXXXX — consultable sur <a href="https://www.orias.fr" target="_blank" rel="noopener">orias.fr</a>.</p>
+  </div>
+
+  <div class="section">
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, sons) est la propriété exclusive de Road Spirit SAS ou de ses fournisseurs de contenu, et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle.</p>
+    <p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de Road Spirit SAS.</p>
+    <p>Le nom et l'identité visuelle de Triumph Motorcycles sont des marques déposées de Triumph Designs Ltd. Leur utilisation sur ce site s'effectue dans le cadre du partenariat de concession officielle.</p>
+  </div>
+
+  <div class="section">
+    <h2>Liens hypertextes</h2>
+    <p>Le site roadspirit.fr peut contenir des liens vers d'autres sites. Road Spirit SAS n'est pas responsable du contenu de ces sites tiers et n'assume aucune responsabilité quant à leur disponibilité ou leur contenu.</p>
+    <p>Tout lien vers le site roadspirit.fr doit faire l'objet d'une autorisation préalable de Road Spirit SAS.</p>
+  </div>
+
+  <div class="section">
+    <h2>Cookies et données personnelles</h2>
+    <p>La gestion des cookies et des données personnelles collectées sur ce site est détaillée dans notre <a href="confidentialite.html" class="page-link">Politique de confidentialité</a>.</p>
+    <p>Conformément au Règlement Général sur la Protection des Données (RGPD) n°2016/679 et à la loi Informatique et Libertés n°78-17 du 6 janvier 1978 modifiée, vous disposez de droits sur vos données personnelles détaillés dans cette politique.</p>
+  </div>
+
+  <div class="section">
+    <h2>Droit applicable</h2>
+    <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents. Le tribunal compétent est le Tribunal de Commerce de Toulon.</p>
+    <p><em style="color:var(--muted);font-size:14px">Mentions légales mises à jour le 30 mai 2026.</em></p>
+  </div>
+</main>
+
+<footer>
+  <p><a href="Road Spirit.html" class="page-link">Accueil</a> &nbsp;·&nbsp; <a href="confidentialite.html" class="page-link">Confidentialité</a> &nbsp;·&nbsp; <a href="cgv.html" class="page-link">CGV</a></p>
+  <p style="margin-top:10px">© 2024 Road Spirit SAS · Toulon · Tous droits réservés</p>
+</footer>
+
+<script>
+(function(){
+  var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+  function navigate(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);}
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();navigate(h);});
+  });
+})();
+</script>
+</body>
+</html>

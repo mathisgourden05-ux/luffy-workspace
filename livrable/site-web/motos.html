@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <style>
-  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#E8431A;--chrome:#C0C0C0;--ink:#F5F5F0;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#C9A84C;--chrome:#C2B280;--ink:#F5F1E8;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
   *{margin:0;padding:0;box-sizing:border-box;cursor:none}
   @media(pointer:coarse){*{cursor:auto}}
   html{scroll-behavior:smooth}
@@ -39,7 +39,7 @@
 
   /* PAGE HERO */
   .page-hero{padding:160px 0 90px;background:var(--bg-2);position:relative;overflow:hidden}
-  .page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,67,26,.06),transparent 60%)}
+  .page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06),transparent 60%)}
   .page-hero-bg-text{position:absolute;top:50%;left:-20px;transform:translateY(-50%);font-family:var(--head);font-size:clamp(120px,18vw,280px);color:rgba(255,255,255,.025);text-transform:uppercase;white-space:nowrap;pointer-events:none;line-height:1}
   .page-hero h1{font-family:var(--head);font-size:clamp(56px,8vw,120px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:14px 0 20px}
   .page-hero p{color:var(--muted);font-size:18px;max-width:560px}
@@ -54,7 +54,7 @@
   .moto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-bottom:120px}
   .moto-card{position:relative;background:var(--bg-2);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s,border-color .35s}
   .moto-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s}
-  .moto-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.9);border-color:rgba(232,67,26,.4)}
+  .moto-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.9);border-color:rgba(201,168,76,.4)}
   .moto-card:hover::after{transform:scaleX(1)}
   .moto-card.hidden{display:none}
   .moto-img{height:280px;overflow:hidden;background:#15110d;position:relative}
@@ -99,7 +99,7 @@
 
   /* CURSOR */
   .cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
-  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 
   /* PAGE TRANSITION */
   .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
@@ -280,7 +280,7 @@
       <a href="services.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Services</a>
       <a href="Road Spirit.html#contact" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
     </div>
-    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon · <a href="mentions-legales.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Mentions légales</a> · <a href="cgv.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">CGV</a> · <a href="confidentialite.html" class="page-link" style="color:var(--muted);transition:color .2s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">RGPD</a></span>
   </div>
 </footer>
 
