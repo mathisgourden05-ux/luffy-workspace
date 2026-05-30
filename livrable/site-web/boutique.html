@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Boutique Équipement — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#E8431A;--chrome:#C0C0C0;--ink:#F5F5F0;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box;cursor:none}
+  @media(pointer:coarse){*{cursor:auto}}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:#fff}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:13px;color:var(--orange)}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(10,10,10,.95);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+  .brand{font-family:var(--head);font-size:32px;letter-spacing:.06em;color:var(--orange)}
+  .brand span{color:var(--ink)}
+  .nav-links{display:flex;gap:38px;list-style:none}
+  .nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:15px;color:var(--ink);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+  .nav-links a:hover,.nav-links a.active{color:var(--orange)}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:15px;padding:16px 30px;border:1px solid var(--orange);color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0}
+  .btn span{position:relative;z-index:2;transition:color .35s}
+  .btn::after{content:"";position:absolute;inset:0;background:var(--orange);z-index:1;transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+  .btn:hover::after{transform:translateX(-101%)}
+  .btn:hover span{color:var(--orange)}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+  /* PAGE HERO */
+  .page-hero{padding:160px 0 80px;background:var(--bg-2);position:relative;overflow:hidden}
+  .page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,67,26,.06),transparent 60%)}
+  .page-hero-bg-text{position:absolute;top:50%;right:-20px;transform:translateY(-50%);font-family:var(--head);font-size:clamp(100px,16vw,240px);color:rgba(255,255,255,.025);text-transform:uppercase;white-space:nowrap;pointer-events:none;line-height:1}
+  .page-hero h1{font-family:var(--head);font-size:clamp(52px,8vw,110px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:14px 0 20px}
+  .page-hero p{color:var(--muted);font-size:17px;max-width:500px}
+
+  /* SHOP LAYOUT */
+  .shop{padding:60px 0 120px}
+  .shop-layout{display:grid;grid-template-columns:240px 1fr;gap:56px;align-items:start}
+  .sidebar{}
+  .sidebar-section{margin-bottom:36px}
+  .sidebar-section h4{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:12px;color:var(--chrome);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .cat-list{list-style:none;display:grid;gap:4px}
+  .cat-list li a{font-family:var(--sub);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);transition:color .22s}
+  .cat-list li a:hover,.cat-list li a.active{color:var(--orange)}
+  .cat-list li a .count{font-size:12px;color:var(--muted)}
+  .price-range{display:flex;flex-direction:column;gap:10px}
+  .price-range input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);outline:0;border-radius:0;accent-color:var(--orange)}
+  .price-label{font-family:var(--sub);font-weight:600;font-size:14px;color:var(--muted);letter-spacing:.08em}
+
+  /* PRODUCTS */
+  .products-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+  .products-count{font-family:var(--sub);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--muted)}
+  .sort-select{font-family:var(--sub);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;background:var(--bg-3);color:var(--ink);border:1px solid var(--line);padding:8px 14px;cursor:pointer;outline:0}
+  .sort-select option{background:var(--bg-3)}
+  .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .product-card{background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;transition:transform .32s,box-shadow .32s,border-color .32s;display:flex;flex-direction:column}
+  .product-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .32s}
+  .product-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -16px rgba(0,0,0,.85);border-color:rgba(232,67,26,.35)}
+  .product-card:hover::after{transform:scaleX(1)}
+  .product-card.hidden{display:none}
+  .product-img{height:260px;overflow:hidden;background:#16120e;position:relative}
+  .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
+  .product-card:hover .product-img img{transform:scale(1.06)}
+  .product-badge{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px;padding:4px 10px}
+  .product-badge.new{background:var(--orange);color:#fff}
+  .product-badge.promo{background:#fff;color:#0a0a0a}
+  .product-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .product-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+  .product-name{font-family:var(--sub);font-weight:700;font-size:17px;line-height:1.25;color:var(--ink)}
+  .product-sizes{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+  .size-dot{font-family:var(--sub);font-weight:600;font-size:11px;letter-spacing:.06em;padding:3px 8px;border:1px solid var(--line);color:var(--muted);transition:border-color .2s,color .2s;cursor:pointer}
+  .size-dot:hover{border-color:var(--orange);color:var(--orange)}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+  .product-price{font-family:var(--sub);font-weight:700;font-size:19px;color:var(--ink)}
+  .product-price s{font-size:13px;color:var(--muted);font-weight:500;margin-right:5px}
+  .add-btn{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:12px;padding:10px 14px;background:var(--orange);color:#fff;border:0;cursor:pointer;transition:background .25s,transform .2s;white-space:nowrap}
+  .add-btn:hover{background:#c93610;transform:scale(1.03)}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:32px;right:32px;z-index:9995;background:var(--bg-3);border:1px solid var(--orange);font-family:var(--sub);font-weight:600;letter-spacing:.08em;font-size:15px;color:var(--ink);padding:16px 24px;display:flex;align-items:center;gap:12px;transform:translateY(100px);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;pointer-events:none}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast-ico{color:var(--orange);font-size:20px}
+
+  /* CURSOR */
+  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+
+  /* PAGE TRANSITION */
+  .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+  .page-overlay.out{transform:scaleY(1);pointer-events:all}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){.shop-layout{grid-template-columns:1fr}.sidebar{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:540px){
+    .wrap{padding:0 22px}.nav{padding:16px 22px}
+    .nav-links{position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);flex-direction:column;justify-content:center;gap:30px;padding:40px;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);border-left:1px solid var(--orange)}
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:26px}
+    .hamburger{display:flex;z-index:1001}
+    .product-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="motos.html" class="page-link">Motos</a></li>
+    <li><a href="Road Spirit.html#equipements" class="page-link">Équipements</a></li>
+    <li><a href="boutique.html" class="active">Boutique</a></li>
+    <li><a href="services.html" class="page-link">Services</a></li>
+    <li><a href="Road Spirit.html#contact" class="page-link">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:18px">
+    <a href="services.html" class="btn page-link"><span>Essai gratuit</span></a>
+    <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg-text">SHOP</div>
+  <div class="wrap">
+    <p class="eyebrow reveal">/ Équipement motard</p>
+    <h1 class="reveal">La boutique</h1>
+    <p class="reveal">Sélection premium de blousons, casques, gants, pantalons et chaussures moto. Tous homologués CE, disponibles en boutique et en livraison.</p>
+  </div>
+</section>
+
+<section class="shop">
+  <div class="wrap">
+    <div class="shop-layout">
+
+      <aside class="sidebar reveal">
+        <div class="sidebar-section">
+          <h4>Catégories</h4>
+          <ul class="cat-list" id="catList">
+            <li><a href="#" data-cat="all" class="active">Tous les produits <span class="count">16</span></a></li>
+            <li><a href="#" data-cat="blouson">Blousons <span class="count">4</span></a></li>
+            <li><a href="#" data-cat="casque">Casques <span class="count">4</span></a></li>
+            <li><a href="#" data-cat="pantalon">Pantalons <span class="count">3</span></a></li>
+            <li><a href="#" data-cat="gants">Gants <span class="count">3</span></a></li>
+            <li><a href="#" data-cat="chaussures">Chaussures <span class="count">2</span></a></li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <h4>Prix maximum</h4>
+          <div class="price-range">
+            <input type="range" id="priceRange" min="50" max="1000" value="1000" step="10"/>
+            <span class="price-label">Jusqu'à <span id="priceVal">1 000</span> €</span>
+          </div>
+        </div>
+      </aside>
+
+      <div>
+        <div class="products-header reveal">
+          <span class="products-count" id="productCount">16 produits</span>
+          <select class="sort-select" id="sortSelect" aria-label="Trier par">
+            <option value="default">Trier par défaut</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+            <option value="new">Nouveautés</option>
+          </select>
+        </div>
+        <div class="product-grid" id="productGrid">
+
+          <article class="product-card reveal" data-cat="blouson" data-price="389" data-new="1">
+            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Scrambler cuir noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Blouson</span>
+              <span class="product-name">Triumph Scrambler — Cuir</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
+              <div class="product-footer"><span class="product-price">389 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="casque" data-price="649" data-new="1">
+            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque Shoei NXR2 noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Casque Intégral</span>
+              <span class="product-name">Shoei NXR2 — Matt Black</span>
+              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">649 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="blouson" data-price="239">
+            <div class="product-img"><span class="product-badge promo">−20 %</span><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson Triumph Meridian textile gris" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Blouson Textile</span>
+              <span class="product-name">Triumph Meridian — Gris</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price"><s>299 €</s>239 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="gants" data-price="179">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=600&q=80" alt="Gants Alpinestars GP Plus R cuir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Gants</span>
+              <span class="product-name">Alpinestars GP Plus R — Cuir</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
+              <div class="product-footer"><span class="product-price">179 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="casque" data-price="879">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Arai RX-7V Evo blanc" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Casque Intégral</span>
+              <span class="product-name">Arai RX-7V Evo — Blanc</span>
+              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span></div>
+              <div class="product-footer"><span class="product-price">879 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="pantalon" data-price="249" data-new="1">
+            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven textile noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Pantalon</span>
+              <span class="product-name">Triumph Raven — Textile</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
+              <div class="product-footer"><span class="product-price">249 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="chaussures" data-price="219">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Forma Adventure marron" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Chaussures</span>
+              <span class="product-name">Forma Adventure — Marron</span>
+              <div class="product-sizes"><span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span></div>
+              <div class="product-footer"><span class="product-price">219 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="gants" data-price="109">
+            <div class="product-img"><span class="product-badge promo">−15 %</span><img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Café Racer cuir vintage" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Gants</span>
+              <span class="product-name">Triumph Café Racer — Vintage</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price"><s>129 €</s>109 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="blouson" data-price="459" data-new="1">
+            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Bonneville cuir marron" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Blouson</span>
+              <span class="product-name">Triumph Bonneville — Marron</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">459 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="casque" data-price="399">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque Shark Skwal 3 graphite" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Casque Modulable</span>
+              <span class="product-name">Shark Skwal 3 — Graphite</span>
+              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">399 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="pantalon" data-price="189">
+            <div class="product-img"><span class="product-badge promo">−10 %</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Alpinestars Andes v3 noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Pantalon</span>
+              <span class="product-name">Alpinestars Andes v3 — Noir</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
+              <div class="product-footer"><span class="product-price"><s>209 €</s>189 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="chaussures" data-price="279">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Triumph Cadwell cuir noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Bottes</span>
+              <span class="product-name">Triumph Cadwell — Noir</span>
+              <div class="product-sizes"><span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span><span class="size-dot">46</span></div>
+              <div class="product-footer"><span class="product-price">279 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="blouson" data-price="319">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson Rev'it Oregon textile kaki" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Blouson Textile</span>
+              <span class="product-name">Rev'it Oregon — Kaki</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
+              <div class="product-footer"><span class="product-price">319 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="casque" data-price="549">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Bell Eliminator café racer noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Casque Jet</span>
+              <span class="product-name">Bell Eliminator — Café Racer</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">549 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="gants" data-price="89">
+            <div class="product-img"><img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Stripe cuir été" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Gants Été</span>
+              <span class="product-name">Triumph Stripe — Été</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">89 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+          <article class="product-card reveal" data-cat="pantalon" data-price="299" data-new="1">
+            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven Cuir noir" loading="lazy"/></div>
+            <div class="product-body">
+              <span class="product-cat">Pantalon Cuir</span>
+              <span class="product-name">Triumph Raven Cuir — Noir</span>
+              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
+              <div class="product-footer"><span class="product-price">299 €</span><button class="add-btn">+ Panier</button></div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"><span class="toast-ico">✓</span><span id="toastMsg">Produit ajouté au panier</span></div>
+
+<footer style="background:#080808;border-top:1px solid var(--orange);padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <a href="Road Spirit.html" class="brand page-link" style="font-size:26px">ROAD <span>SPIRIT</span></a>
+    <div style="display:flex;gap:28px">
+      <a href="motos.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Motos</a>
+      <a href="services.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Services</a>
+      <a href="Road Spirit.html#contact" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+    </div>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+  function navigate(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);}
+  window.navigate=navigate;
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();navigate(h);});
+  });
+
+  if(window.matchMedia('(pointer:fine)').matches){
+    var dot=document.createElement('div');dot.className='cursor-dot';
+    var ring=document.createElement('div');ring.className='cursor-ring';
+    document.body.appendChild(dot);document.body.appendChild(ring);
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
+  }
+
+  var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
+  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
+  if(links)links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.classList.contains('page-link'))return;links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Category filter (sidebar + URL param)
+  var allCards=Array.from(document.querySelectorAll('.product-card'));
+  var countEl=document.getElementById('productCount');
+  function filterCat(cat){
+    var vis=0;
+    allCards.forEach(function(c){
+      var show=cat==='all'||c.getAttribute('data-cat')===cat;
+      c.classList.toggle('hidden',!show);
+      if(show)vis++;
+    });
+    countEl.textContent=vis+' produit'+(vis>1?'s':'');
+    document.querySelectorAll('#catList a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-cat')===cat);});
+  }
+  document.querySelectorAll('#catList a').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();filterCat(a.getAttribute('data-cat'));});
+  });
+  var urlCat=new URLSearchParams(window.location.search).get('cat');
+  if(urlCat)filterCat(urlCat);
+
+  // Price range
+  var priceRange=document.getElementById('priceRange');
+  var priceVal=document.getElementById('priceVal');
+  if(priceRange){
+    priceRange.addEventListener('input',function(){
+      var max=+priceRange.value;
+      priceVal.textContent=max.toLocaleString('fr-FR');
+      allCards.forEach(function(c){
+        var p=+c.getAttribute('data-price');
+        if(!c.classList.contains('hidden-cat'))c.classList.toggle('hidden',p>max);
+      });
+    });
+  }
+
+  // Toast
+  var toast=document.getElementById('toast');
+  var toastMsg=document.getElementById('toastMsg');
+  var toastTimer;
+  document.querySelectorAll('.add-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var name=btn.closest('.product-card').querySelector('.product-name');
+      toastMsg.textContent=(name?name.textContent:'Produit')+' ajouté au panier';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer=setTimeout(function(){toast.classList.remove('show');},3000);
+    });
+  });
+})();
+</script>
+</body>
+</html>

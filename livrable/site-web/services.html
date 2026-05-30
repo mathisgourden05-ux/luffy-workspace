@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Services & Essai — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#E8431A;--chrome:#C0C0C0;--ink:#F5F5F0;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box;cursor:none}
+  @media(pointer:coarse){*{cursor:auto}}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:#fff}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:13px;color:var(--orange)}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(10,10,10,.95);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+  .brand{font-family:var(--head);font-size:32px;letter-spacing:.06em;color:var(--orange)}
+  .brand span{color:var(--ink)}
+  .nav-links{display:flex;gap:38px;list-style:none}
+  .nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:15px;color:var(--ink);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+  .nav-links a:hover,.nav-links a.active{color:var(--orange)}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:15px;padding:16px 30px;border:1px solid var(--orange);color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0}
+  .btn span{position:relative;z-index:2;transition:color .35s}
+  .btn::after{content:"";position:absolute;inset:0;background:var(--orange);z-index:1;transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+  .btn:hover::after{transform:translateX(-101%)}
+  .btn:hover span{color:var(--orange)}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+  /* PAGE HERO */
+  .page-hero{padding:160px 0 90px;background:var(--bg-2);position:relative;overflow:hidden}
+  .page-hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1528975798892-fd6817392525?w=1600&q=80') center/cover;opacity:.12}
+  .page-hero h1{font-family:var(--head);font-size:clamp(56px,9vw,120px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:14px 0 20px;position:relative}
+  .page-hero p{color:var(--muted);font-size:17px;max-width:540px;position:relative}
+
+  /* SERVICES GRID */
+  .svc-section{padding:100px 0}
+  .svc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+  .svc-card{background:var(--bg-2);padding:52px 40px;border:1px solid var(--line);position:relative;overflow:hidden;transition:background .35s}
+  .svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .35s}
+  .svc-card:hover{background:rgba(232,67,26,.04)}
+  .svc-card:hover::before{background:var(--orange)}
+  .svc-ico{width:52px;height:52px;color:var(--orange);margin-bottom:28px}
+  .svc-card h3{font-family:var(--head);font-size:36px;letter-spacing:.03em;text-transform:uppercase;line-height:1;margin-bottom:14px}
+  .svc-card p{color:var(--muted);font-size:15px;line-height:1.7}
+
+  /* ESSAI FORM */
+  .form-section{padding:0 0 100px;background:var(--bg)}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .form-info h2{font-family:var(--head);font-size:clamp(44px,6vw,80px);line-height:.9;text-transform:uppercase;margin:14px 0 24px}
+  .form-info p{color:var(--muted);font-size:16px;margin-bottom:18px;max-width:440px}
+  .form-info .detail{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px;font-size:15px}
+  .form-info .detail .ico{color:var(--orange);font-size:20px;margin-top:2px;flex-shrink:0}
+  .form-info .detail b{color:var(--ink);display:block;font-family:var(--sub);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:13px;margin-bottom:3px}
+  .form-info .detail span{color:var(--muted)}
+
+  form{display:grid;gap:18px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{display:flex;flex-direction:column;gap:7px}
+  .field label{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:12px;color:var(--chrome)}
+  .field input,.field select,.field textarea{background:var(--bg-2);border:1px solid var(--line);color:var(--ink);font-family:var(--body);font-size:15px;padding:14px 16px;outline:none;transition:border-color .25s;-webkit-appearance:none;appearance:none}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange)}
+  .field select option{background:var(--bg-2)}
+  .field textarea{resize:vertical;min-height:120px}
+  .field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+  .submit-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:16px;padding:20px 40px;border:1px solid var(--orange);color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0;width:100%;margin-top:8px}
+  .submit-btn span{position:relative;z-index:2;transition:color .35s}
+  .submit-btn::after{content:"";position:absolute;inset:0;background:var(--orange);z-index:1;transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+  .submit-btn:hover::after{transform:translateX(-101%)}
+  .submit-btn:hover span{color:var(--orange)}
+
+  /* SUCCESS MESSAGE */
+  .form-success{display:none;text-align:center;padding:48px 32px;border:1px solid var(--orange);background:rgba(232,67,26,.06)}
+  .form-success.show{display:block}
+  .form-success .ico{font-size:48px;margin-bottom:16px}
+  .form-success h3{font-family:var(--head);font-size:40px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:12px}
+  .form-success p{color:var(--muted)}
+
+  /* CONTACT BAR */
+  .contact-bar{background:var(--bg-2);border-top:1px solid var(--line);padding:60px 0}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);divide:1px solid var(--line);gap:0}
+  .contact-item{padding:36px 40px;border-right:1px solid var(--line);display:flex;align-items:flex-start;gap:18px}
+  .contact-item:last-child{border-right:0}
+  .contact-item .ico{font-size:28px;flex-shrink:0}
+  .contact-item h4{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;color:var(--chrome);margin-bottom:6px}
+  .contact-item a,.contact-item p{color:var(--ink);font-size:16px;transition:color .25s}
+  .contact-item a:hover{color:var(--orange)}
+
+  /* MAP PLACEHOLDER */
+  .map-section{height:360px;background:var(--bg-3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .map-section::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,var(--line) 0px,var(--line) 1px,transparent 1px,transparent 60px),repeating-linear-gradient(90deg,var(--line) 0px,var(--line) 1px,transparent 1px,transparent 60px)}
+  .map-pin{position:relative;z-index:2;text-align:center}
+  .map-pin .pin{font-size:48px;display:block;margin-bottom:12px;animation:bounce 2s ease-in-out infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .map-pin p{font-family:var(--sub);font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:14px;color:var(--chrome)}
+  .map-pin a{color:var(--orange);transition:opacity .25s}
+  .map-pin a:hover{opacity:.7}
+
+  /* CURSOR */
+  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+  .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+  .page-overlay.out{transform:scaleY(1);pointer-events:all}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .form-grid{grid-template-columns:1fr}
+    .svc-cards{grid-template-columns:1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .contact-item{border-right:0;border-bottom:1px solid var(--line)}
+    .contact-item:last-child{border-bottom:0}
+  }
+  @media(max-width:640px){
+    .wrap{padding:0 22px}.nav{padding:16px 22px}
+    .nav-links{position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);flex-direction:column;justify-content:center;gap:30px;padding:40px;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);border-left:1px solid var(--orange)}
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:26px}
+    .hamburger{display:flex;z-index:1001}
+    .form-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="motos.html" class="page-link">Motos</a></li>
+    <li><a href="Road Spirit.html#equipements" class="page-link">Équipements</a></li>
+    <li><a href="boutique.html" class="page-link">Boutique</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:18px">
+    <a href="#essai" class="btn"><span>Essai gratuit</span></a>
+    <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-img"></div>
+  <div class="wrap">
+    <p class="eyebrow reveal">/ Road Spirit · Toulon</p>
+    <h1 class="reveal">Plus qu'un<br>magasin</h1>
+    <p class="reveal">Essais gratuits, atelier, préparation sur-mesure — chez Road Spirit, la passion s'entretient.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="svc-section">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">/ Ce que nous faisons</p>
+      <h2 style="font-family:var(--head);font-size:clamp(44px,6vw,80px);line-height:.9;text-transform:uppercase;margin-top:14px">Nos services</h2>
+    </div>
+    <div class="svc-cards">
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="34" r="7"/><circle cx="36" cy="34" r="7"/><path d="M12 34l9-13h11l4 13M21 21l-4-7h-5"/><path d="M32 21l3-5h6"/></svg>
+        <h3>Essai routier gratuit</h3>
+        <p>Réservez votre modèle Triumph, on prépare la moto, vous prenez la route. Aucun engagement, juste la vraie expérience avant d'acheter.</p>
+      </div>
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M30 8a8 8 0 0 0-10 10L8 30l6 6 12-12a8 8 0 0 0 10-10l-5 5-5-1-1-5 5-5Z"/></svg>
+        <h3>Atelier & Révisions</h3>
+        <p>Entretien constructeur Triumph, vidanges, pneumatiques, freins. Nos techniciens certifiés s'occupent de votre machine.</p>
+      </div>
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><circle cx="24" cy="24" r="16"/><path d="M24 12v4M24 32v4M12 24h4M32 24h4"/><circle cx="24" cy="24" r="4"/></svg>
+        <h3>Customisation</h3>
+        <p>Guidons, selles, silencieux, carénages — on transforme votre Triumph selon vos envies. Devis gratuit sur rendez-vous.</p>
+      </div>
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 30l4-12h16l8 8h6a2 2 0 0 1 2 2v6M10 36h28"/><circle cx="16" cy="38" r="4"/><circle cx="34" cy="38" r="4"/></svg>
+        <h3>Livraison nationale</h3>
+        <p>Commandez en boutique ou en ligne, on expédie vos équipements partout en France. Motos livrées clé en main par transport spécialisé.</p>
+      </div>
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><path d="M24 6l4 8 9 1.5-6.5 6.5L32 31l-8-4-8 4 1.5-9L11 15.5l9-1.5Z"/><path d="M10 38h28"/></svg>
+        <h3>Reprise de votre moto</h3>
+        <p>Estimez votre moto en ligne ou en concession. On reprend tous modèles, toutes marques, en état de rouler.</p>
+      </div>
+      <div class="svc-card reveal">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M16 24h16M24 16v16"/></svg>
+        <h3>Financement</h3>
+        <p>Jusqu'à 84 mois de crédit, réponse immédiate. Financement Triumph Financial Services disponible sur l'ensemble de la gamme.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE ESSAI -->
+<section id="essai" style="background:var(--bg-2);padding:100px 0">
+  <div class="wrap">
+    <div class="form-grid">
+      <div class="form-info reveal">
+        <p class="eyebrow">/ Gratuit & sans engagement</p>
+        <h2>Réserver un essai</h2>
+        <p>Choisissez votre Triumph, votre créneau, et venez la prendre en main sur les routes de Toulon et du Var.</p>
+        <div class="form-info" style="margin-top:32px">
+          <div class="detail">
+            <span class="ico">📍</span>
+            <div><b>Adresse</b><span>142 avenue de la Mer, 83000 Toulon</span></div>
+          </div>
+          <div class="detail">
+            <span class="ico">☎</span>
+            <div><b>Téléphone</b><a href="tel:+33494000000" style="color:var(--ink);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--ink)'">04 94 00 00 00</a></div>
+          </div>
+          <div class="detail">
+            <span class="ico">🕐</span>
+            <div><b>Horaires</b><span>Mar–Ven 9h–18h · Sam 9h–17h · Dim fermé</span></div>
+          </div>
+          <div class="detail">
+            <span class="ico">✉</span>
+            <div><b>Email</b><a href="mailto:essai@roadspirit.fr" style="color:var(--orange)">essai@roadspirit.fr</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form id="essaiForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="prenom">Prénom *</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required/>
+            </div>
+            <div class="field">
+              <label for="nom">Nom *</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" required/>
+            </div>
+            <div class="field">
+              <label for="tel">Téléphone *</label>
+              <input type="tel" id="tel" name="tel" placeholder="06 xx xx xx xx" required/>
+            </div>
+          </div>
+          <div class="field">
+            <label for="modele">Modèle souhaité *</label>
+            <select id="modele" name="modele" required>
+              <option value="">Choisir un modèle Triumph</option>
+              <option>Speed Triple RR — 19 950 €</option>
+              <option>Tiger 900 — 14 200 €</option>
+              <option>Bonneville T120 — 13 700 €</option>
+              <option>Daytona Moto2 — 16 800 €</option>
+              <option>Thruxton RS — 16 200 €</option>
+              <option>Tiger 1200 — 21 500 €</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="date">Date souhaitée *</label>
+              <input type="date" id="date" name="date" required/>
+            </div>
+            <div class="field">
+              <label for="heure">Créneau</label>
+              <select id="heure" name="heure">
+                <option>Matin (9h–12h)</option>
+                <option>Après-midi (14h–17h)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message (optionnel)</label>
+            <textarea id="message" name="message" placeholder="Votre expérience, vos questions…"></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><span>Réserver mon essai gratuit →</span></button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="ico">🏍️</div>
+          <h3>Demande envoyée !</h3>
+          <p>Notre équipe vous contacte sous 24h pour confirmer votre créneau. À bientôt sur la route.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT BAR -->
+<section class="contact-bar" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-item reveal">
+        <span class="ico">📍</span>
+        <div><h4>Adresse</h4><p>142 avenue de la Mer<br>83000 Toulon, France</p></div>
+      </div>
+      <div class="contact-item reveal">
+        <span class="ico">☎</span>
+        <div><h4>Téléphone</h4><a href="tel:+33494000000">04 94 00 00 00</a></div>
+      </div>
+      <div class="contact-item reveal">
+        <span class="ico">✉</span>
+        <div><h4>Email</h4><a href="mailto:contact@roadspirit.fr">contact@roadspirit.fr</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div class="map-section">
+  <div class="map-pin">
+    <span class="pin">📍</span>
+    <p>Road Spirit — 142 avenue de la Mer, Toulon</p>
+    <a href="https://maps.google.com/?q=142+avenue+de+la+Mer+Toulon" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a>
+  </div>
+</div>
+
+<footer style="background:#080808;border-top:1px solid var(--orange);padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <a href="Road Spirit.html" class="brand page-link" style="font-size:26px">ROAD <span>SPIRIT</span></a>
+    <div style="display:flex;gap:28px">
+      <a href="motos.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Motos</a>
+      <a href="boutique.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Boutique</a>
+      <a href="Road Spirit.html#contact" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+    </div>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+  function navigate(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);}
+  window.navigate=navigate;
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();navigate(h);});
+  });
+
+  if(window.matchMedia('(pointer:fine)').matches){
+    var dot=document.createElement('div');dot.className='cursor-dot';
+    var ring=document.createElement('div');ring.className='cursor-ring';
+    document.body.appendChild(dot);document.body.appendChild(ring);
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
+  }
+
+  var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
+  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
+  if(links)links.querySelectorAll('a:not(.page-link)').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Form
+  var form=document.getElementById('essaiForm');
+  var success=document.getElementById('formSuccess');
+  if(form){
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var valid=true;
+      form.querySelectorAll('[required]').forEach(function(f){
+        if(!f.value.trim()){f.style.borderColor='var(--orange)';valid=false;}
+        else{f.style.borderColor='';}
+      });
+      if(!valid)return;
+      form.style.display='none';
+      success.classList.add('show');
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Nos Triumph — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#E8431A;--chrome:#C0C0C0;--ink:#F5F5F0;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box;cursor:none}
+  @media(pointer:coarse){*{cursor:auto}}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:#fff}
+  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+  .eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:13px;color:var(--orange)}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(10,10,10,.95);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+  .brand{font-family:var(--head);font-size:32px;letter-spacing:.06em;color:var(--orange)}
+  .brand span{color:var(--ink)}
+  .nav-links{display:flex;gap:38px;list-style:none}
+  .nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:15px;color:var(--ink);position:relative;padding:4px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+  .nav-links a:hover{color:var(--orange)}
+  .nav-links a:hover::after{width:100%}
+  .nav-links a.active{color:var(--orange)}
+  .nav-links a.active::after{width:100%}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:15px;padding:16px 30px;border:1px solid var(--orange);color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0}
+  .btn span{position:relative;z-index:2;transition:color .35s}
+  .btn::after{content:"";position:absolute;inset:0;background:var(--orange);z-index:1;transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+  .btn:hover::after{transform:translateX(-101%)}
+  .btn:hover span{color:var(--orange)}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+  /* PAGE HERO */
+  .page-hero{padding:160px 0 90px;background:var(--bg-2);position:relative;overflow:hidden}
+  .page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,67,26,.06),transparent 60%)}
+  .page-hero-bg-text{position:absolute;top:50%;left:-20px;transform:translateY(-50%);font-family:var(--head);font-size:clamp(120px,18vw,280px);color:rgba(255,255,255,.025);text-transform:uppercase;white-space:nowrap;pointer-events:none;line-height:1}
+  .page-hero h1{font-family:var(--head);font-size:clamp(56px,8vw,120px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:14px 0 20px}
+  .page-hero p{color:var(--muted);font-size:18px;max-width:560px}
+
+  /* FILTER */
+  .filter-bar{display:flex;gap:0;border:1px solid var(--line);width:fit-content;margin:52px 0 48px}
+  .filter-btn{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;padding:12px 26px;background:transparent;border:0;border-right:1px solid var(--line);color:var(--muted);cursor:pointer;transition:background .25s,color .25s;white-space:nowrap}
+  .filter-btn:last-child{border-right:0}
+  .filter-btn.active,.filter-btn:hover{background:var(--orange);color:#fff}
+
+  /* MOTO GRID */
+  .moto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-bottom:120px}
+  .moto-card{position:relative;background:var(--bg-2);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:transform .35s,box-shadow .35s,border-color .35s}
+  .moto-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .moto-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.9);border-color:rgba(232,67,26,.4)}
+  .moto-card:hover::after{transform:scaleX(1)}
+  .moto-card.hidden{display:none}
+  .moto-img{height:280px;overflow:hidden;background:#15110d;position:relative}
+  .moto-img .ph{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s}
+  .moto-card:hover .moto-img .ph{transform:scale(1.05)}
+  .moto-tag{position:absolute;top:16px;left:16px;z-index:2;background:var(--orange);color:#fff;font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;padding:5px 12px}
+  .moto-body{padding:26px}
+  .moto-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  .moto-name{font-family:var(--head);font-size:38px;line-height:.95;letter-spacing:.02em;text-transform:uppercase;margin:6px 0 14px}
+  .moto-desc{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:18px}
+  .moto-meta{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px;gap:12px}
+  .moto-price{font-family:var(--sub);font-weight:700;font-size:22px}
+  .moto-price small{display:block;font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:600}
+  .moto-spec{font-family:var(--sub);font-weight:600;font-size:13px;color:var(--chrome);letter-spacing:.06em;text-align:right}
+  .moto-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--orange);margin-top:16px;transition:gap .3s}
+  .moto-cta:hover{gap:14px}
+  .arrow-link{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:14px;color:var(--orange);display:inline-flex;align-items:center;gap:10px;transition:gap .3s}
+  .arrow-link:hover{gap:18px}
+
+  /* DETAIL MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(6px)}
+  .modal-bg.open{opacity:1;pointer-events:all}
+  .modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);z-index:2001;width:min(900px,92vw);max-height:90vh;overflow-y:auto;background:var(--bg-3);border:1px solid var(--line);border-top:3px solid var(--orange);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
+  .modal-bg.open .modal{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+  .modal-inner{display:grid;grid-template-columns:1fr 1fr;min-height:480px}
+  .modal-img{background-size:cover;background-position:center;background-color:#15110d}
+  .modal-body{padding:48px 40px}
+  .modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--ink);font-size:18px;cursor:pointer;display:grid;place-items:center;transition:background .25s}
+  .modal-close:hover{background:var(--orange)}
+  .modal-tag{font-family:var(--sub);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--orange);margin-bottom:8px}
+  .modal-name{font-family:var(--head);font-size:clamp(42px,5vw,64px);line-height:.92;text-transform:uppercase;margin-bottom:16px}
+  .modal-specs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0 28px;border:1px solid var(--line);padding:20px}
+  .spec-item .label{font-family:var(--sub);font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+  .spec-item .val{font-family:var(--sub);font-weight:700;font-size:20px;color:var(--ink);margin-top:2px}
+  .modal-price{font-family:var(--sub);font-weight:700;font-size:28px;margin-bottom:24px}
+  .modal-price small{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.1em;text-transform:uppercase;display:block}
+  @media(max-width:700px){
+    .modal-inner{grid-template-columns:1fr}
+    .modal-img{min-height:240px}
+    .modal-body{padding:32px 24px}
+  }
+
+  /* CURSOR */
+  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+
+  /* PAGE TRANSITION */
+  .page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+  .page-overlay.out{transform:scaleY(1);pointer-events:all}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:980px){.moto-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){
+    .wrap{padding:0 22px}
+    .nav{padding:16px 22px}
+    .nav-links{position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);flex-direction:column;justify-content:center;gap:30px;padding:40px;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);border-left:1px solid var(--orange)}
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:26px}
+    .hamburger{display:flex;z-index:1001}
+    .moto-grid{grid-template-columns:1fr}
+    .filter-bar{flex-wrap:wrap;width:100%}
+    .filter-btn{flex:1;min-width:100px;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="Road Spirit.html#motos" class="page-link">Motos</a></li>
+    <li><a href="Road Spirit.html#equipements" class="page-link">Équipements</a></li>
+    <li><a href="boutique.html" class="page-link">Boutique</a></li>
+    <li><a href="services.html" class="page-link">Services</a></li>
+    <li><a href="Road Spirit.html#contact" class="page-link">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:18px">
+    <a href="services.html" class="btn page-link"><span>Essai gratuit</span></a>
+    <button class="hamburger" id="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg-text">TRIUMPH</div>
+  <div class="wrap">
+    <p class="eyebrow reveal">/ Catalogue 2024</p>
+    <h1 class="reveal">Nos<br>Triumph</h1>
+    <p class="reveal">Toutes les machines disponibles chez Road Spirit Toulon — en stock ou sur commande. Essai gratuit sur la plupart des modèles.</p>
+  </div>
+</section>
+
+<section style="background:var(--bg);padding:0 0 40px">
+  <div class="wrap">
+    <div class="filter-bar reveal" role="tablist">
+      <button class="filter-btn active" data-filter="all">Toutes</button>
+      <button class="filter-btn" data-filter="roadster">Roadster</button>
+      <button class="filter-btn" data-filter="adventure">Adventure</button>
+      <button class="filter-btn" data-filter="classic">Modern Classic</button>
+      <button class="filter-btn" data-filter="sport">Sport</button>
+    </div>
+    <div class="moto-grid" id="motoGrid">
+
+      <article class="moto-card reveal" data-cat="roadster" data-modal="speed-triple">
+        <span class="moto-tag">Roadster</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1630874295754-41b346c23c6a?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Sport · 1160 cc</p>
+          <h3 class="moto-name" id="speed-triple">Speed Triple RR</h3>
+          <p class="moto-desc">La reine des roadsters. 180 chevaux dans un châssis de 198 kg. Construite pour dominer chaque virage.</p>
+          <div class="moto-meta">
+            <div class="moto-price">19 950 €<small>À partir de</small></div>
+            <div class="moto-spec">180 ch · 198 kg<br>0–100 en 2,8 s</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+      <article class="moto-card reveal" data-cat="adventure" data-modal="tiger-900">
+        <span class="moto-tag">Adventure</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1722244836958-32a60d2aed0c?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Trail · 888 cc</p>
+          <h3 class="moto-name" id="tiger">Tiger 900</h3>
+          <p class="moto-desc">Route, piste ou hors-route — la Tiger 900 est à l'aise partout. Un triomphe de polyvalence.</p>
+          <div class="moto-meta">
+            <div class="moto-price">14 200 €<small>À partir de</small></div>
+            <div class="moto-spec">108 ch · 201 kg<br>Modes tout-terrain</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+      <article class="moto-card reveal" data-cat="classic" data-modal="bonneville">
+        <span class="moto-tag">Classic</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1495480393121-409eb65c7fbe?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Modern Classic · 1200 cc</p>
+          <h3 class="moto-name" id="bonneville">Bonneville T120</h3>
+          <p class="moto-desc">L'icône britannique. 60 ans de légende, technologie moderne dissimulée derrière un style intemporel.</p>
+          <div class="moto-meta">
+            <div class="moto-price">13 700 €<small>À partir de</small></div>
+            <div class="moto-spec">80 ch · 236 kg<br>Rétro · 2 cylindres</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+      <article class="moto-card reveal" data-cat="sport" data-modal="daytona">
+        <span class="moto-tag">Sport</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1528975798892-fd6817392525?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Supersport · 675 cc</p>
+          <h3 class="moto-name" id="daytona">Daytona Moto2</h3>
+          <p class="moto-desc">Hommage à la compétition Moto2. 765 cc triple cylindre, édition limitée à 765 exemplaires.</p>
+          <div class="moto-meta">
+            <div class="moto-price">16 800 €<small>Édition limitée</small></div>
+            <div class="moto-spec">128 ch · 183 kg<br>Triple · Piste</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+      <article class="moto-card reveal" data-cat="classic" data-modal="thruxton">
+        <span class="moto-tag">Café Racer</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1635477906625-ef1aea584e17?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Café Racer · 1200 cc</p>
+          <h3 class="moto-name" id="thruxton">Thruxton RS</h3>
+          <p class="moto-desc">L'essence du café racer anglais. Carénage demi-bulle, guidon bas, âme de circuit habillée de cuir.</p>
+          <div class="moto-meta">
+            <div class="moto-price">16 200 €<small>À partir de</small></div>
+            <div class="moto-spec">105 ch · 203 kg<br>Twin · Classique</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+      <article class="moto-card reveal" data-cat="adventure" data-modal="tiger-1200">
+        <span class="moto-tag">Grand Tourer</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1533047096914-6ea296e2f51c?w=800&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Grand Tourer · 1160 cc</p>
+          <h3 class="moto-name" id="tiger-1200">Tiger 1200</h3>
+          <p class="moto-desc">Pour les voyages sans limites. Confort long-distance, équipement électronique complet, triple cylindre.</p>
+          <div class="moto-meta">
+            <div class="moto-price">21 500 €<small>À partir de</small></div>
+            <div class="moto-spec">150 ch · 252 kg<br>Tourer · Long range</div>
+          </div>
+          <span class="moto-cta">Voir les détails <svg width="18" height="10" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 6h20M15 1l5 5-5 5"/></svg></span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- MODAL DÉTAIL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Fermer">✕</button>
+    <div class="modal-inner">
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-body">
+        <p class="modal-tag" id="modalTag"></p>
+        <h2 class="modal-name" id="modalName"></h2>
+        <p style="color:var(--muted);font-size:15px;margin-bottom:18px" id="modalDesc"></p>
+        <div class="modal-specs" id="modalSpecs"></div>
+        <div class="modal-price" id="modalPrice"></div>
+        <a href="services.html" class="btn page-link" style="margin-top:8px"><span>Réserver un essai gratuit</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:#080808;border-top:1px solid var(--orange);padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <a href="Road Spirit.html" class="brand page-link" style="font-size:26px">ROAD <span>SPIRIT</span></a>
+    <div style="display:flex;gap:28px">
+      <a href="boutique.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Boutique</a>
+      <a href="services.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Services</a>
+      <a href="Road Spirit.html#contact" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+    </div>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+  </div>
+</footer>
+
+<script>
+var MOTOS = {
+  'speed-triple':{tag:'Roadster · Sport',name:'Speed Triple RR',desc:'La reine des roadsters anglais. 180 chevaux dans un châssis de 198 kg — organe vital d\'un triple cylindre de 1160 cc bénéficiant de la technologie Öhlins NIX30 et S46 sur les deux roues.',specs:[['Cylindrée','1 160 cc'],['Puissance','180 ch'],['Couple','125 Nm'],['Poids','198 kg'],['0–100 km/h','2,8 s'],['Vitesse max','+ 240 km/h']],price:'À partir de 19 950 €',img:'https://images.unsplash.com/photo-1630874295754-41b346c23c6a?w=800&q=80'},
+  'tiger-900':{tag:'Adventure · Trail',name:'Tiger 900',desc:'Conçue pour aller partout. Route, piste, off-road — la Tiger 900 avale les kilomètres avec une aisance désarmante. Triple cylindre 888 cc, modes de conduite multiples.',specs:[['Cylindrée','888 cc'],['Puissance','108 ch'],['Couple','87 Nm'],['Poids','201 kg'],['Réservoir','20 L'],['Modes','Route / Pluie / Sport']],price:'À partir de 14 200 €',img:'https://images.unsplash.com/photo-1722244836958-32a60d2aed0c?w=800&q=80'},
+  'bonneville':{tag:'Modern Classic · Icône',name:'Bonneville T120',desc:'Depuis 1959, la Bonneville trace la légende Triumph. Ce modèle T120 incarne 60 ans de culture moto britannique dans un cadre résolument moderne. L\'âme de la route, distillée.',specs:[['Cylindrée','1 200 cc'],['Puissance','80 ch'],['Couple','105 Nm'],['Poids','236 kg'],['Type','Parallèle twin'],['Style','Modern Classic']],price:'À partir de 13 700 €',img:'https://images.unsplash.com/photo-1495480393121-409eb65c7fbe?w=800&q=80'},
+  'daytona':{tag:'Sport · Édition Limitée',name:'Daytona Moto2',desc:'765 exemplaires pour rendre hommage à la victoire Triumph en Moto2. Triple cylindre 765 cc, cadre Moto2, suspensions Öhlins, freins Brembo Stylema. Collector.',specs:[['Cylindrée','765 cc'],['Puissance','128 ch'],['Couple','77 Nm'],['Poids','183 kg'],['Exemplaires','765 unités'],['Freins','Brembo Stylema']],price:'16 800 € — Édition limitée',img:'https://images.unsplash.com/photo-1528975798892-fd6817392525?w=800&q=80'},
+  'thruxton':{tag:'Café Racer · Classic',name:'Thruxton RS',desc:'Le café racer par excellence. Twin 1200 cc, carénage demi-bulle, guidon semi-basse — l\'esprit Ton-Up Boys des années 60 réinterprété avec la fiabilité d\'aujourd\'hui.',specs:[['Cylindrée','1 200 cc'],['Puissance','105 ch'],['Couple','112 Nm'],['Poids','203 kg'],['Style','Café Racer'],['Transmission','6 vitesses']],price:'À partir de 16 200 €',img:'https://images.unsplash.com/photo-1635477906625-ef1aea584e17?w=800&q=80'},
+  'tiger-1200':{tag:'Grand Tourer · Adventure',name:'Tiger 1200',desc:'Le voyageur absolu. Triple cylindre 1160 cc, 150 chevaux, ADV-L Semi-Active suspension. Pour ceux qui veulent aller loin, confortablement, sans jamais renoncer au plaisir.',specs:[['Cylindrée','1 160 cc'],['Puissance','150 ch'],['Couple','130 Nm'],['Poids','252 kg'],['Réservoir','30 L'],['Suspensions','Semi-Actives']],price:'À partir de 21 500 €',img:'https://images.unsplash.com/photo-1533047096914-6ea296e2f51c?w=800&q=80'}
+};
+
+(function(){
+  // Page overlay
+  var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+  function navigate(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);}
+  window.navigate=navigate;
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();navigate(h);});
+  });
+
+  // Cursor
+  if(window.matchMedia('(pointer:fine)').matches){
+    var dot=document.createElement('div');dot.className='cursor-dot';
+    var ring=document.createElement('div');ring.className='cursor-ring';
+    document.body.appendChild(dot);document.body.appendChild(ring);
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
+  }
+
+  // Hamburger
+  var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
+  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
+  if(links)links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var f=btn.getAttribute('data-filter');
+      document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+      btn.classList.add('active');
+      document.querySelectorAll('.moto-card').forEach(function(c){
+        c.classList.toggle('hidden',f!=='all'&&c.getAttribute('data-cat')!==f);
+      });
+    });
+  });
+
+  // Reveal
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  document.querySelectorAll('.moto-card').forEach(function(el,i){el.style.transitionDelay=(i%3*0.1)+'s';});
+
+  // Modal
+  var modalBg=document.getElementById('modalBg');
+  var modalClose=document.getElementById('modalClose');
+
+  function openModal(key){
+    var d=MOTOS[key];if(!d)return;
+    document.getElementById('modalImg').style.backgroundImage='url('+d.img+')';
+    document.getElementById('modalTag').textContent=d.tag;
+    document.getElementById('modalName').textContent=d.name;
+    document.getElementById('modalDesc').textContent=d.desc;
+    document.getElementById('modalSpecs').innerHTML=d.specs.map(function(s){return'<div class="spec-item"><div class="label">'+s[0]+'</div><div class="val">'+s[1]+'</div></div>';}).join('');
+    document.getElementById('modalPrice').innerHTML='<small>Tarif</small>'+d.price;
+    modalBg.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){modalBg.classList.remove('open');document.body.style.overflow='';}
+
+  document.querySelectorAll('.moto-card').forEach(function(card){
+    card.addEventListener('click',function(){openModal(card.getAttribute('data-modal'));});
+    card.addEventListener('keydown',function(e){if(e.key==='Enter')openModal(card.getAttribute('data-modal'));});
+  });
+  modalClose.addEventListener('click',closeModal);
+  modalBg.addEventListener('click',function(e){if(e.target===modalBg)closeModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+
+  // Open anchor on load
+  var hash=window.location.hash.replace('#','');
+  if(hash&&MOTOS[hash])setTimeout(function(){openModal(hash);},400);
+})();
+</script>
+</body>
+</html>

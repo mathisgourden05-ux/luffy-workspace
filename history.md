@@ -4,6 +4,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-30 · Prompt refonte roadspirit.fr (Claude Design)
+
+- **Demande :** refonte totale du site roadspirit.fr (concessionnaire Triumph Toulon) — moderne, dynamique, belles animations. Recherche préalable des meilleurs skills web + audit sécurité.
+- **Action :** analyse du site (secteur moto, e-commerce + showroom, design noir/rouge statique). Recherche de skills : `frontend-design` (officiel Anthropic, déjà installé) retenu. Koomook/claude-frontend-skills écarté (structure inaccessible publiquement). Prompt complet rédigé et sauvegardé dans `livrable/site-web/prompt-refonte-roadspirit.md`.
+- **Contenu du prompt :** direction editoriale cinématique, palette noir-charbon + orange Triumph, typos Bebas Neue + Barlow Condensed, 6 animations CSS natives (hero reveal, scroll reveal, nav sticky, card hover, CTA slide, clip-path sections), 7 sections (nav, hero, motos, équipement, services, brand story, footer), HTML single-file deployable.
+- **À faire :** coller le prompt dans claude.ai/design → récupérer le HTML → importer dans le workspace.
+
 ## 2026-05-30 · Skill `humanizer` installé + rendu obligatoire pour les docs
 
 - **Demande :** cloner, analyser et installer le skill `humanizer` (repo `blader/humanizer`) ; l'utiliser obligatoirement pour toute rédaction/complétion de docs.

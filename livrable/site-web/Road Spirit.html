@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Road Spirit — Concession Triumph officielle · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0a0a;
+    --bg-2:#0f0f0f;
+    --bg-3:#111111;
+    --bg-4:#080808;
+    --orange:#E8431A;
+    --orange-soft:rgba(232,67,26,.14);
+    --chrome:#C0C0C0;
+    --ink:#F5F5F0;
+    --muted:#999999;
+    --line:rgba(255,255,255,.08);
+    --head:'Bebas Neue', Impact, sans-serif;
+    --sub:'Barlow Condensed', sans-serif;
+    --body:'DM Sans', system-ui, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--orange);color:#fff}
+
+  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+  .eyebrow{
+    font-family:var(--sub);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.28em;
+    font-size:13px;
+    color:var(--orange);
+  }
+  .eyebrow.chrome{color:var(--chrome)}
+  h2.section-title{
+    font-family:var(--head);
+    font-weight:400;
+    font-size:clamp(48px,7vw,104px);
+    line-height:.92;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:14px 0 0;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;
+    transition:background .4s ease, padding .4s ease, border-color .4s ease, backdrop-filter .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  .nav.scrolled{
+    background:rgba(10,10,10,.95);
+    border-bottom:1px solid var(--orange);
+    padding:14px 40px;
+    backdrop-filter:blur(8px);
+  }
+  .brand{
+    font-family:var(--head);font-size:32px;letter-spacing:.06em;
+    color:var(--orange);line-height:1;
+  }
+  .brand span{color:var(--ink)}
+  .nav-links{display:flex;gap:38px;list-style:none}
+  .nav-links a{
+    font-family:var(--sub);font-weight:600;text-transform:uppercase;
+    letter-spacing:.18em;font-size:15px;color:var(--ink);
+    position:relative;padding:4px 0;transition:color .25s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
+    background:var(--orange);transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--orange)}
+  .nav-links a:hover::after{width:100%}
+  .nav-right{display:flex;align-items:center;gap:24px}
+  .cart{position:relative;display:grid;place-items:center;color:var(--ink);transition:color .25s}
+  .cart:hover{color:var(--orange)}
+  .cart .dot{
+    position:absolute;top:-4px;right:-6px;background:var(--orange);
+    color:#fff;font-family:var(--sub);font-weight:700;font-size:11px;
+    width:16px;height:16px;border-radius:50%;display:grid;place-items:center;line-height:1;
+  }
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+  .hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    position:relative;display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--sub);font-weight:700;text-transform:uppercase;
+    letter-spacing:.16em;font-size:15px;
+    padding:16px 30px;border:1px solid var(--orange);
+    color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0;
+  }
+  .btn span{position:relative;z-index:2;transition:color .35s}
+  .btn::after{
+    content:"";position:absolute;inset:0;background:var(--orange);z-index:1;
+    transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1);
+  }
+  .btn:hover::after{transform:translateX(-101%)}
+  .btn:hover span{color:var(--orange)}
+  .btn.ghost{border-color:rgba(255,255,255,.4);color:#fff}
+  .btn.ghost::after{background:#fff;transform:translateX(-101%)}
+  .btn.ghost span{color:#fff}
+  .btn.ghost:hover::after{transform:translateX(0)}
+  .btn.ghost:hover span{color:#0a0a0a}
+  .btn.ghost:hover{border-color:#fff}
+
+  .arrow-link{
+    font-family:var(--sub);font-weight:700;text-transform:uppercase;
+    letter-spacing:.16em;font-size:15px;color:var(--orange);
+    display:inline-flex;align-items:center;gap:10px;transition:gap .3s;
+  }
+  .arrow-link:hover{gap:18px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background:#1a1410 url('https://images.unsplash.com/photo-1533047096914-6ea296e2f51c?w=1920&q=80') center/cover no-repeat;
+    transform:scale(1.08);animation:slowZoom 18s ease-out forwards;
+    will-change:transform;
+  }
+  @keyframes slowZoom{to{transform:scale(1)}}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,.35) 45%, rgba(10,10,10,.65) 100%),
+      linear-gradient(to right, rgba(10,10,10,.7), rgba(10,10,10,.1));
+  }
+  .hero-inner{position:relative;z-index:3;width:100%;padding-bottom:96px}
+  .hero h1{
+    font-family:var(--head);font-weight:400;line-height:.86;
+    font-size:clamp(72px,13vw,184px);letter-spacing:.01em;text-transform:uppercase;
+    margin:18px 0 0;
+  }
+  .hero h1 .l1,.hero h1 .l2{display:block;overflow:hidden}
+  .hero h1 .l1 i,.hero h1 .l2 i{display:block;font-style:normal;opacity:0}
+  .hero h1 .l1 i{animation:inLeft .9s cubic-bezier(.16,1,.3,1) .3s forwards}
+  .hero h1 .l2 i{animation:inRight .9s cubic-bezier(.16,1,.3,1) .45s forwards;color:var(--ink)}
+  .hero h1 .l2 em{font-style:normal;color:var(--orange)}
+  @keyframes inLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes inRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+  .hero .subline{
+    font-family:var(--sub);font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--chrome);font-size:clamp(16px,1.6vw,22px);position:relative;
+    display:inline-block;padding-bottom:14px;margin-top:8px;opacity:0;
+    animation:fadeUp .8s ease .9s forwards;
+  }
+  .hero .subline::after{
+    content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);
+    animation:drawLine .9s cubic-bezier(.7,0,.2,1) 1.3s forwards;
+  }
+  @keyframes drawLine{to{width:100%}}
+  .hero-cta{display:flex;gap:18px;margin-top:38px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease 1.15s forwards}
+  .hero-cta .btn{animation:pulseBtn 2.6s ease 2s infinite}
+  @keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(232,67,26,0)}50%{box-shadow:0 0 0 8px rgba(232,67,26,0)}8%{box-shadow:0 0 0 0 rgba(232,67,26,.5)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+  .scroll-ind{
+    position:absolute;right:48px;bottom:40px;z-index:4;display:flex;flex-direction:column;
+    align-items:center;gap:12px;opacity:0;animation:fadeUp .8s ease 1.6s forwards;
+  }
+  .scroll-ind .label{font-family:var(--sub);font-weight:600;letter-spacing:.2em;font-size:11px;color:var(--muted);writing-mode:vertical-rl;text-transform:uppercase}
+  .scroll-ind .track{width:1px;height:60px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
+  .scroll-ind .track::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--orange);animation:scrollPulse 1.8s ease-in-out infinite}
+  @keyframes scrollPulse{0%{top:-40%}100%{top:100%}}
+
+  /* ---------- SECTION SHELL / REVEAL ---------- */
+  section{position:relative}
+  .pad{padding:130px 0}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+
+  /* ---------- MOTORCYCLES ---------- */
+  .motos{background:var(--bg-2)}
+  .moto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .moto-card{
+    position:relative;background:#0a0a0a;border:1px solid var(--line);
+    overflow:hidden;cursor:pointer;
+    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+  .moto-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .moto-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.9);border-color:rgba(232,67,26,.4)}
+  .moto-card:hover::after{transform:scaleX(1)}
+  .moto-img{height:330px;overflow:hidden;background:#15110d}
+  .moto-img .ph{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;transform:scale(1)}
+  .moto-card:hover .moto-img .ph{transform:scale(1.05)}
+  .moto-tag{
+    position:absolute;top:16px;left:16px;z-index:2;background:var(--orange);color:#fff;
+    font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    font-size:12px;padding:5px 12px;
+  }
+  .moto-body{padding:26px 26px 30px}
+  .moto-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  .moto-name{font-family:var(--head);font-size:40px;line-height:.95;letter-spacing:.02em;text-transform:uppercase;margin:6px 0 16px}
+  .moto-meta{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px}
+  .moto-price{font-family:var(--sub);font-weight:700;font-size:24px;color:var(--ink)}
+  .moto-price small{display:block;font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:600}
+  .moto-spec{font-family:var(--sub);font-weight:600;font-size:14px;color:var(--chrome);letter-spacing:.06em;text-align:right}
+
+  /* ---------- EQUIPMENT ---------- */
+  .equip{background:var(--bg-3)}
+  .equip-block{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;padding:70px 0}
+  .equip-block + .equip-block{border-top:1px solid var(--line)}
+  .equip-block.flip .equip-visual{order:2}
+  .equip-visual{position:relative;height:440px}
+  .equip-ghost{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:1;
+    font-family:var(--head);font-size:clamp(90px,13vw,190px);line-height:.8;
+    color:rgba(245,245,240,.06);text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;pointer-events:none;
+  }
+  .equip-block:not(.flip) .equip-ghost{left:-18px}
+  .equip-block.flip .equip-ghost{right:-18px;text-align:right}
+  .equip-photo{position:absolute;inset:24px 12px 12px 24px;z-index:2;background-size:cover;background-position:center;background-color:#16120e;border:1px solid var(--line)}
+  .equip-block.flip .equip-photo{inset:24px 24px 12px 12px}
+  .equip-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.5),transparent 60%)}
+  .equip-text .num{font-family:var(--sub);font-weight:700;color:var(--orange);letter-spacing:.2em;font-size:14px}
+  .equip-text h3{font-family:var(--head);font-size:clamp(40px,5vw,64px);line-height:.95;text-transform:uppercase;letter-spacing:.02em;margin:8px 0 18px}
+  .equip-text p.lead{color:var(--muted);font-size:16px;max-width:440px;margin-bottom:22px}
+  .equip-feats{list-style:none;margin:0 0 30px;display:grid;gap:12px}
+  .equip-feats li{display:flex;align-items:center;gap:14px;font-family:var(--sub);font-weight:600;letter-spacing:.04em;font-size:16px;color:var(--ink)}
+  .equip-feats li::before{content:"";width:8px;height:8px;background:var(--orange);transform:rotate(45deg);flex:0 0 auto}
+
+  /* diagonal cut */
+  .diag-top{clip-path:polygon(0 56px,100% 0,100% 100%,0 100%)}
+  .diag-bottom{clip-path:polygon(0 0,100% 0,100% calc(100% - 56px),0 100%)}
+
+  /* ---------- BOUTIQUE ---------- */
+  .boutique{background:var(--bg)}
+  .filter-bar{display:flex;gap:0;border:1px solid var(--line);width:fit-content;margin-bottom:52px}
+  .filter-btn{
+    font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;
+    padding:12px 26px;background:transparent;border:0;border-right:1px solid var(--line);
+    color:var(--muted);cursor:pointer;transition:background .25s, color .25s;white-space:nowrap;
+  }
+  .filter-btn:last-child{border-right:0}
+  .filter-btn.active,.filter-btn:hover{background:var(--orange);color:#fff}
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .product-card{
+    background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;
+    transition:transform .32s ease, box-shadow .32s ease, border-color .32s ease;
+    display:flex;flex-direction:column;
+  }
+  .product-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .32s ease}
+  .product-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -16px rgba(0,0,0,.85);border-color:rgba(232,67,26,.35)}
+  .product-card:hover::after{transform:scaleX(1)}
+  .product-card[data-cat].hidden{display:none}
+  .product-img{height:280px;overflow:hidden;background:#16120e;position:relative}
+  .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+  .product-card:hover .product-img img{transform:scale(1.06)}
+  .product-badge{
+    position:absolute;top:14px;left:14px;z-index:2;
+    font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    font-size:11px;padding:4px 10px;
+  }
+  .product-badge.new{background:var(--orange);color:#fff}
+  .product-badge.promo{background:#fff;color:#0a0a0a}
+  .product-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .product-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+  .product-name{font-family:var(--sub);font-weight:700;font-size:18px;line-height:1.25;color:var(--ink)}
+  .product-sizes{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .size-dot{
+    font-family:var(--sub);font-weight:600;font-size:11px;letter-spacing:.06em;
+    padding:3px 8px;border:1px solid var(--line);color:var(--muted);
+    transition:border-color .2s, color .2s;cursor:pointer;
+  }
+  .size-dot:hover{border-color:var(--orange);color:var(--orange)}
+  .product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+  .product-price{font-family:var(--sub);font-weight:700;font-size:20px;color:var(--ink)}
+  .product-price s{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px}
+  .add-btn{
+    font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:12px;
+    padding:10px 16px;background:var(--orange);color:#fff;border:0;cursor:pointer;
+    transition:background .25s, transform .2s;white-space:nowrap;
+  }
+  .add-btn:hover{background:#c93610;transform:scale(1.03)}
+  @media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:760px){
+    .product-grid{grid-template-columns:repeat(2,1fr)}
+    .filter-bar{flex-wrap:wrap;width:100%}
+    .filter-btn{flex:1;min-width:100px;text-align:center}
+  }
+  @media(max-width:460px){.product-grid{grid-template-columns:1fr}}
+
+  /* ---------- CURSOR CUSTOM ---------- */
+  *{cursor:none}
+  @media(pointer:coarse){*{cursor:auto}}
+  .cursor-dot{
+    position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;
+    pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+    transition:width .2s, height .2s, background .2s;
+  }
+  .cursor-ring{
+    position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,67,26,.6);border-radius:50%;
+    pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+    transition:transform .12s ease, width .3s ease, height .3s ease, border-color .3s;
+  }
+  body:has(a:hover) .cursor-dot,body:has(button:hover) .cursor-dot{width:14px;height:14px}
+  body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:54px;height:54px;border-color:var(--orange)}
+
+  /* ---------- PAGE TRANSITION ---------- */
+  .page-overlay{
+    position:fixed;inset:0;background:var(--bg);z-index:9990;
+    transform:scaleY(0);transform-origin:bottom;
+    transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none;
+  }
+  .page-overlay.out{transform:scaleY(1);pointer-events:all}
+  .page-overlay.in{transform-origin:top}
+
+  /* ---------- TOAST PANIER ---------- */
+  .toast{
+    position:fixed;bottom:32px;right:32px;z-index:9995;
+    background:var(--bg-3);border:1px solid var(--orange);
+    font-family:var(--sub);font-weight:600;letter-spacing:.08em;font-size:15px;color:var(--ink);
+    padding:16px 24px;display:flex;align-items:center;gap:12px;
+    transform:translateY(100px);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1), opacity .4s;
+    pointer-events:none;
+  }
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast-ico{color:var(--orange);font-size:20px;line-height:1}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--bg-3);margin-top:-40px;padding-top:170px}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
+  .svc{padding:54px 44px;border-right:1px solid var(--line);position:relative;transition:background .35s}
+  .svc:last-child{border-right:0}
+  .svc:hover{background:rgba(232,67,26,.05)}
+  .svc-ico{width:46px;height:46px;color:var(--orange);margin-bottom:24px}
+  .svc h4{font-family:var(--head);font-size:30px;letter-spacing:.03em;text-transform:uppercase;line-height:1;margin-bottom:12px}
+  .svc p{color:var(--muted);font-size:15px;max-width:320px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;text-align:center}
+  .stat .n{font-family:var(--head);font-size:clamp(56px,7vw,90px);line-height:.9;color:var(--ink)}
+  .stat .n b{color:var(--orange);font-weight:400}
+  .stat .t{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--muted);margin-top:6px}
+
+  /* ---------- STORY ---------- */
+  .story{background:var(--bg);overflow:hidden}
+  .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch}
+  .story-text{padding:120px 70px 120px 0}
+  .story-quote{font-family:var(--head);font-size:clamp(40px,4.6vw,68px);line-height:1.02;text-transform:uppercase;letter-spacing:.01em;margin:22px 0 30px}
+  .story-quote em{font-style:normal;color:var(--orange)}
+  .story-text p{color:var(--muted);font-size:17px;max-width:520px;margin-bottom:18px}
+  .story-visual{position:relative;min-height:560px;background:#16120e url('https://images.unsplash.com/photo-1635477906625-ef1aea584e17?w=1200&q=80') center/cover no-repeat}
+  .story-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,1),rgba(10,10,10,.15) 40%,transparent)}
+  .story-sign{position:absolute;bottom:36px;right:40px;z-index:2;font-family:var(--head);font-size:26px;letter-spacing:.06em;color:rgba(245,245,240,.6)}
+  .story-sign b{color:var(--orange);font-weight:400}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--bg-4);border-top:1px solid var(--orange);padding:80px 0 0}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:50px}
+  .foot h5{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:var(--chrome);margin-bottom:22px}
+  .foot .brand{font-size:38px;margin-bottom:16px}
+  .foot p{color:var(--muted);font-size:15px;max-width:300px}
+  .foot ul{list-style:none;display:grid;gap:12px}
+  .foot ul a{color:var(--muted);font-size:15px;transition:color .25s}
+  .foot ul a:hover{color:var(--orange)}
+  .foot .contact-row{display:flex;gap:10px;color:var(--muted);font-size:15px;margin-bottom:12px}
+  .foot .contact-row b{color:var(--ink);font-weight:500}
+  .socials{display:flex;gap:12px}
+  .socials a{width:42px;height:42px;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);transition:.3s}
+  .socials a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+  .foot-bottom{margin-top:70px;border-top:1px solid var(--line);padding:26px 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot-bottom,.foot-bottom a{font-family:var(--sub);font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  .foot-bottom a:hover{color:var(--orange)}
+
+  /* ---------- MOBILE ---------- */
+  @media(max-width:980px){
+    .moto-grid{grid-template-columns:1fr 1fr}
+    .story-grid{grid-template-columns:1fr}
+    .story-text{padding:90px 0}
+    .story-visual{min-height:420px}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 22px}
+    .nav,.nav.scrolled{padding:16px 22px}
+    .nav-links{
+      position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);
+      flex-direction:column;justify-content:center;gap:30px;padding:40px;
+      transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
+      border-left:1px solid var(--orange);
+    }
+    .nav-links.open{transform:translateX(0)}
+    .nav-links a{font-size:26px}
+    .hamburger{display:flex;z-index:1001}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .nav-right .btn{display:none}
+    .pad{padding:90px 0}
+    .moto-grid{grid-template-columns:1fr}
+    .equip-block,.equip-block.flip .equip-visual{grid-template-columns:1fr;gap:30px}
+    .equip-block .equip-visual{order:-1}
+    .equip-visual{height:320px}
+    .svc-grid{grid-template-columns:1fr}
+    .svc{border-right:0;border-bottom:1px solid var(--line)}
+    .svc:last-child{border-bottom:0}
+    .stats{grid-template-columns:1fr;gap:40px}
+    .scroll-ind{right:22px}
+    .foot-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav" aria-label="Navigation principale">
+  <a href="#" class="brand" aria-label="Road Spirit, accueil">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#motos">Motos</a></li>
+    <li><a href="#equipements">Équipements</a></li>
+    <li><a href="#boutique">Boutique</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="cart" aria-label="Panier, 2 articles">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7Z"/><path d="M8.5 7V5.5a3.5 3.5 0 0 1 7 0V7"/></svg>
+      <span class="dot">2</span>
+    </a>
+    <a href="services.html" class="btn page-link"><span>Essai gratuit</span></a>
+    <button class="hamburger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg" role="img" aria-label="Motard sur route au crépuscule"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner wrap">
+    <p class="eyebrow">/ Concession Triumph officielle · Toulon</p>
+    <h1>
+      <span class="l1"><i>La route</i></span>
+      <span class="l2"><i><em>est à vous</em></i></span>
+    </h1>
+    <span class="subline">L'esprit road. La mécanique anglaise. Votre prochain départ.</span>
+    <div class="hero-cta">
+      <a href="#motos" class="btn"><span>Découvrir les motos</span></a>
+      <a href="#equipements" class="btn ghost"><span>Voir l'équipement</span></a>
+    </div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true">
+    <span class="label">Scroll</span>
+    <span class="track"></span>
+  </div>
+</header>
+
+<!-- MOTORCYCLES -->
+<section class="motos pad" id="motos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">/ Nouveautés 2024</p>
+        <h2 class="section-title">Nos Triumph</h2>
+      </div>
+      <a href="motos.html" class="arrow-link page-link">Voir toutes les motos
+        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
+      </a>
+    </div>
+    <div class="moto-grid">
+      <article class="moto-card reveal" onclick="navigate('motos.html#speed-triple')" role="link" tabindex="0" aria-label="Voir la Speed Triple RR">
+        <span class="moto-tag">Roadster</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1630874295754-41b346c23c6a?w=900&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Sport · 1160 cc</p>
+          <h3 class="moto-name">Speed Triple RR</h3>
+          <div class="moto-meta">
+            <div class="moto-price">19 950 €<small>À partir de</small></div>
+            <div class="moto-spec">180 ch<br>198 kg</div>
+          </div>
+        </div>
+      </article>
+      <article class="moto-card reveal" onclick="navigate('motos.html#tiger')" role="link" tabindex="0" aria-label="Voir la Tiger 900">
+        <span class="moto-tag">Adventure</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1722244836958-32a60d2aed0c?w=900&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Trail · 888 cc</p>
+          <h3 class="moto-name">Tiger 900</h3>
+          <div class="moto-meta">
+            <div class="moto-price">14 200 €<small>À partir de</small></div>
+            <div class="moto-spec">108 ch<br>201 kg</div>
+          </div>
+        </div>
+      </article>
+      <article class="moto-card reveal" onclick="navigate('motos.html#bonneville')" role="link" tabindex="0" aria-label="Voir la Bonneville T120">
+        <span class="moto-tag">Classic</span>
+        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1495480393121-409eb65c7fbe?w=900&q=80')"></div></div>
+        <div class="moto-body">
+          <p class="moto-cat">Modern Classic · 1200 cc</p>
+          <h3 class="moto-name">Bonneville T120</h3>
+          <div class="moto-meta">
+            <div class="moto-price">13 700 €<small>À partir de</small></div>
+            <div class="moto-spec">80 ch<br>236 kg</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="equip pad" id="equipements">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">/ Boutique</p>
+        <h2 class="section-title">L'équipement</h2>
+      </div>
+    </div>
+
+    <div class="equip-block reveal">
+      <div class="equip-visual">
+        <span class="equip-ghost">Blousons</span>
+        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&q=80')" role="img" aria-label="Blouson moto en cuir"></div>
+      </div>
+      <div class="equip-text">
+        <span class="num">01 — Protection</span>
+        <h3>Blousons</h3>
+        <p class="lead">Cuir pleine fleur et textiles techniques homologués CE. Coupe ajustée pensée pour la route comme pour la ville.</p>
+        <ul class="equip-feats">
+          <li>Coques épaules &amp; coudes niveau 2</li>
+          <li>Membrane imperméable respirante</li>
+          <li>Cuir tanné en Europe</li>
+        </ul>
+        <a href="boutique.html?cat=blouson" class="btn page-link"><span>Voir les blousons</span></a>
+      </div>
+    </div>
+
+    <div class="equip-block flip reveal">
+      <div class="equip-visual">
+        <span class="equip-ghost">Casques</span>
+        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=900&q=80')" role="img" aria-label="Casque moto intégral"></div>
+      </div>
+      <div class="equip-text">
+        <span class="num">02 — Sécurité</span>
+        <h3>Casques</h3>
+        <p class="lead">Intégraux, modulables ou jet. Une sélection homologuée ECE 22.06, du quotidien urbain à la piste.</p>
+        <ul class="equip-feats">
+          <li>Coque fibre &amp; composite légère</li>
+          <li>Écran anti-buée Pinlock inclus</li>
+          <li>Intérieur lavable &amp; antibactérien</li>
+        </ul>
+        <a href="boutique.html?cat=casque" class="btn page-link"><span>Voir les casques</span></a>
+      </div>
+    </div>
+
+    <div class="equip-block reveal">
+      <div class="equip-visual">
+        <span class="equip-ghost">Gants</span>
+        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=900&q=80')" role="img" aria-label="Gants et chaussures moto"></div>
+      </div>
+      <div class="equip-text">
+        <span class="num">03 — Du bout des doigts au talon</span>
+        <h3>Gants &amp; Chaussures</h3>
+        <p class="lead">Le contact avec la machine. Préhension, abrasion, étanchéité — sans jamais sacrifier le toucher des commandes.</p>
+        <ul class="equip-feats">
+          <li>Renforts paume &amp; malléoles</li>
+          <li>Cuir perforé ventilé</li>
+          <li>Semelle anti-glisse renforcée</li>
+        </ul>
+        <a href="boutique.html?cat=gants" class="btn page-link"><span>Voir la sélection</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOUTIQUE -->
+<section class="boutique pad" id="boutique">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow">/ Boutique en ligne</p>
+        <h2 class="section-title">Nos produits</h2>
+      </div>
+      <a href="boutique.html" class="arrow-link page-link">Voir tout le catalogue
+        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
+      </a>
+    </div>
+    <div class="filter-bar reveal" role="tablist" aria-label="Filtrer par catégorie">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tous</button>
+      <button class="filter-btn" data-filter="blouson" role="tab" aria-selected="false">Blousons</button>
+      <button class="filter-btn" data-filter="casque" role="tab" aria-selected="false">Casques</button>
+      <button class="filter-btn" data-filter="pantalon" role="tab" aria-selected="false">Pantalons</button>
+      <button class="filter-btn" data-filter="gants" role="tab" aria-selected="false">Gants</button>
+      <button class="filter-btn" data-filter="chaussures" role="tab" aria-selected="false">Chaussures</button>
+    </div>
+    <div class="product-grid" id="productGrid">
+
+      <article class="product-card reveal" data-cat="blouson">
+        <div class="product-img">
+          <span class="product-badge new">Nouveau</span>
+          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Scrambler en cuir noir" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Blouson</span>
+          <span class="product-name">Triumph Scrambler — Cuir</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">389 €</span>
+            <button class="add-btn" aria-label="Ajouter Triumph Scrambler au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="casque">
+        <div class="product-img">
+          <span class="product-badge new">Nouveau</span>
+          <img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque intégral Shoei NXR2 noir mat" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Casque Intégral</span>
+          <span class="product-name">Shoei NXR2 — Matt Black</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">649 €</span>
+            <button class="add-btn" aria-label="Ajouter Shoei NXR2 au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="blouson">
+        <div class="product-img">
+          <span class="product-badge promo">−20 %</span>
+          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson textile Triumph Meridian gris" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Blouson Textile</span>
+          <span class="product-name">Triumph Meridian — Gris</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price"><s>299 €</s>239 €</span>
+            <button class="add-btn" aria-label="Ajouter Triumph Meridian au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="gants">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=600&q=80" alt="Gants Alpinestars GP Plus R cuir noir" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Gants</span>
+          <span class="product-name">Alpinestars GP Plus R — Cuir</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">179 €</span>
+            <button class="add-btn" aria-label="Ajouter Alpinestars GP Plus R au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="casque">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Arai RX-7V Evo blanc" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Casque Intégral</span>
+          <span class="product-name">Arai RX-7V Evo — Blanc</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">879 €</span>
+            <button class="add-btn" aria-label="Ajouter Arai RX-7V Evo au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="pantalon">
+        <div class="product-img">
+          <span class="product-badge new">Nouveau</span>
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven noir" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Pantalon</span>
+          <span class="product-name">Triumph Raven — Textile</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">249 €</span>
+            <button class="add-btn" aria-label="Ajouter Triumph Raven au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="chaussures">
+        <div class="product-img">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Forma Adventure marron" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Chaussures</span>
+          <span class="product-name">Forma Adventure — Marron</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price">219 €</span>
+            <button class="add-btn" aria-label="Ajouter Forma Adventure au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal" data-cat="gants">
+        <div class="product-img">
+          <span class="product-badge promo">−15 %</span>
+          <img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Café Racer cuir vintage" loading="lazy" />
+        </div>
+        <div class="product-body">
+          <span class="product-cat">Gants</span>
+          <span class="product-name">Triumph Café Racer — Vintage</span>
+          <div class="product-sizes" aria-label="Tailles disponibles">
+            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
+          </div>
+          <div class="product-footer">
+            <span class="product-price"><s>129 €</s>109 €</span>
+            <button class="add-btn" aria-label="Ajouter Triumph Café Racer au panier">+ Panier</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services pad diag-top" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow chrome">/ L'atelier Road Spirit</p>
+        <h2 class="section-title">Plus qu'un magasin</h2>
+      </div>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="34" r="7"/><circle cx="36" cy="34" r="7"/><path d="M12 34l9-13h11l4 13M21 21l-4-7h-5"/><path d="M32 21l3-5h6"/></svg>
+        <h4>Essai routier gratuit</h4>
+        <p>Réservez votre modèle, prenez la route. Aucun engagement, juste les sensations.</p>
+      </div>
+      <div class="svc">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M30 8a8 8 0 0 0-10 10L8 30l6 6 12-12a8 8 0 0 0 10-10l-5 5-5-1-1-5 5-5Z"/></svg>
+        <h4>Atelier &amp; Customisation</h4>
+        <p>Entretien constructeur, préparation et pièces sur-mesure par nos mécaniciens.</p>
+      </div>
+      <div class="svc">
+        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 30l4-12h16l8 8h6a2 2 0 0 1 2 2v6M10 36h28"/><circle cx="16" cy="38" r="4"/><circle cx="34" cy="38" r="4"/></svg>
+        <h4>Livraison nationale</h4>
+        <p>Équipement expédié partout en France. Motos livrées clé en main près de chez vous.</p>
+      </div>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n" data-count="32"><b>+</b>0</div><div class="t">Années sur la route</div></div>
+      <div class="stat"><div class="n" data-count="48">0</div><div class="t">Modèles en showroom</div></div>
+      <div class="stat"><div class="n" data-count="6500"><b>+</b>0</div><div class="t">Motards équipés</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-grid">
+    <div class="wrap" style="max-width:none;padding-left:max(40px,calc((100vw - 1320px)/2 + 40px));padding-right:0">
+      <div class="story-text reveal">
+        <p class="eyebrow">/ L'esprit Road Spirit</p>
+        <blockquote class="story-quote">Nous ne vendons pas des motos. Nous vendons <em>l'envie de partir.</em></blockquote>
+        <p>Depuis Toulon, face à la Méditerranée, Road Spirit fait rouler la passion Triumph depuis plus de trente ans. Une concession, un atelier, une communauté.</p>
+        <p>Ici, chaque machine est préparée comme si c'était la nôtre — parce qu'au fond, la route, on la prend ensemble.</p>
+      </div>
+    </div>
+    <div class="story-visual" role="img" aria-label="Motard sur une route ouverte au coucher du soleil">
+      <div class="story-sign">— <b>Road Spirit</b>, Toulon</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot">
+        <div class="brand">ROAD <span>SPIRIT</span></div>
+        <p>Concession et boutique Triumph officielle. La route est à vous depuis 1992.</p>
+      </div>
+      <div class="foot">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#motos">Motos</a></li>
+          <li><a href="#equipements">Équipements</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#story">L'esprit</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h5>Contact</h5>
+        <div class="contact-row"><span>📍</span><b>142 avenue de la Mer, 83000 Toulon</b></div>
+        <div class="contact-row"><span>☎</span><b>04 94 00 00 00</b></div>
+        <div class="contact-row"><span>✉</span><b>contact@roadspirit.fr</b></div>
+      </div>
+      <div class="foot">
+        <h5>Suivez la route</h5>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5h2.5V5.5H14c-2 0-3.5 1.5-3.5 3.5v2H8v3h2.5V21h3v-7H16l.5-3H13.5V9.2c0-.4.3-.7.5-.7Z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8a3 3 0 0 0-2-2c-2-.5-8-.5-8-.5s-6 0-8 .5a3 3 0 0 0-2 2 31 31 0 0 0 0 8 3 3 0 0 0 2 2c2 .5 8 .5 8 .5s6 0 8-.5a3 3 0 0 0 2-2 31 31 0 0 0 0-8ZM10 15V9l5 3-5 3Z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2024 Road Spirit — Toulon. Tous droits réservés.</span>
+      <span><a href="#">Mentions légales</a> · <a href="#">CGV</a> · <a href="#">Confidentialité</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  // ── PAGE OVERLAY (transition) ──────────────────────────────
+  var overlay = document.createElement('div');
+  overlay.className = 'page-overlay';
+  document.body.appendChild(overlay);
+
+  function navigate(url){
+    overlay.classList.add('out');
+    setTimeout(function(){ window.location.href = url; }, 560);
+  }
+  window.navigate = navigate;
+
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var href = a.getAttribute('href');
+      if(!href || href.startsWith('#')) return;
+      e.preventDefault();
+      navigate(href);
+    });
+  });
+
+  // ── CUSTOM CURSOR ──────────────────────────────────────────
+  if(window.matchMedia('(pointer:fine)').matches){
+    var dot = document.createElement('div'); dot.className = 'cursor-dot';
+    var ring = document.createElement('div'); ring.className = 'cursor-ring';
+    document.body.appendChild(dot); document.body.appendChild(ring);
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){
+      mx=e.clientX; my=e.clientY;
+      dot.style.left=mx+'px'; dot.style.top=my+'px';
+    });
+    (function lerp(){
+      rx+=(mx-rx)*.14; ry+=(my-ry)*.14;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
+      requestAnimationFrame(lerp);
+    })();
+  }
+
+  // ── TOAST PANIER ───────────────────────────────────────────
+  var toast = document.createElement('div');
+  toast.className='toast';
+  toast.innerHTML='<span class="toast-ico">✓</span><span>Produit ajouté au panier</span>';
+  document.body.appendChild(toast);
+  var toastTimer;
+  document.querySelectorAll('.add-btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var name = btn.closest('.product-card').querySelector('.product-name');
+      toast.querySelector('span:last-child').textContent = (name ? name.textContent : 'Produit') + ' ajouté au panier';
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3000);
+    });
+  });
+
+  // ── HERO PARALLAX ─────────────────────────────────────────
+  var heroBg = document.querySelector('.hero-bg');
+  if(heroBg){
+    window.addEventListener('scroll',function(){
+      var s = window.scrollY;
+      if(s < window.innerHeight){
+        heroBg.style.transform = 'scale(1) translateY('+(s*0.3)+'px)';
+      }
+    },{passive:true});
+  }
+
+  // Nav scroll state
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 80); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Mobile menu
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true':'false');
+    burger.setAttribute('aria-label', open ? 'Fermer le menu':'Ouvrir le menu');
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  // Scroll reveal with stagger
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.16, rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  // Stagger children inside grids
+  document.querySelectorAll('.moto-grid, .equip').forEach(function(grid){
+    grid.querySelectorAll('.reveal').forEach(function(el,i){
+      el.style.transitionDelay = (i*0.1)+'s';
+    });
+  });
+
+  // Boutique filters
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var productCards = document.querySelectorAll('.product-card[data-cat]');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.getAttribute('data-filter');
+      filterBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+      productCards.forEach(function(c){
+        if(f === 'all' || c.getAttribute('data-cat') === f){
+          c.classList.remove('hidden');
+        } else {
+          c.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Counter animation
+  function animateCount(el){
+    var target = +el.getAttribute('data-count');
+    var prefix = el.querySelector('b') ? el.querySelector('b').outerHTML : '';
+    var dur = 1600, start = performance.now();
+    function tick(now){
+      var p = Math.min((now-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      var val = Math.round(target*eased);
+      el.innerHTML = prefix + val.toLocaleString('fr-FR');
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var statIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ animateCount(e.target); statIO.unobserve(e.target); }
+    });
+  }, {threshold:.6});
+  document.querySelectorAll('.stat .n[data-count]').forEach(function(el){ statIO.observe(el); });
+})();
+</script>
+</body>
+</html>
