@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "docx": "^9.7.1",
+    "pptxgenjs": "^4.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "name": "luffy-workspace-main",
+  "version": "1.0.0",
+  "description": "Assistant IA personnel construit avec Claude Code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathisgourden05-ux/luffy-workspace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mathisgourden05-ux/luffy-workspace/issues"
+  },
+  "homepage": "https://github.com/mathisgourden05-ux/luffy-workspace#readme"
+}
