@@ -167,3 +167,14 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 4. **Droit** : Toujours citer le texte applicable (article, code), puis appliquer au cas concret.
 5. **Simulations d'épreuves** : Respecter le format officiel, le barème et le temps imparti.
 6. **Ton** : Clair, pédagogique, exemples tirés du retail/commerce. Décomposer les notions complexes étape par étape.
+
+## Ton des documents produits — RÈGLE IMPORTANTE
+
+Tout document rédigé pour Mathis (rapport, synthèse, fiche, email, compte-rendu…) doit sonner comme écrit par un **étudiant sérieux en BTS MCO**, pas par un professionnel ou un expert :
+
+- Phrases simples et directes, sans jargon inutile
+- Vocabulaire courant du commerce, pas de termes trop techniques ou pompeux
+- Petites imperfections de style naturelles (pas trop lisses, pas trop parfaites)
+- Longueur raisonnable — un étudiant ne rédige pas des rapports de 15 pages
+- Éviter les formulations trop formelles ou trop soutenues
+- Passer le texte par le skill `humanizer` avant de livrer tout document rédigé
