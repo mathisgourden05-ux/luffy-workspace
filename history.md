@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-30 · Prompt site web « grenouilles » (Claude Artifacts)
+
+- **Demande :** créer un prompt pour générer via Claude un site vitrine esthétique autour des grenouilles (informer + business de vente), conceptuel mais réalisable.
+- **Action :** prompt rédigé puis sauvegardé dans `livrable/site-web/prompt-site-grenouilles.md`. Commit `df436a9` poussé sur `main`.
+- **Choix assumés :** angle business = élevage responsable + accessoires (à ajuster). Note réglo CITES intégrée au fichier.
+
 ## 2026-05-30 · Git + mise en ligne sur GitHub (sync PC ↔ Mac)
 
 - **Demande :** versionner le workspace et pouvoir le retrouver sur Mac.
