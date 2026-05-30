@@ -26,7 +26,7 @@ Fichier de règles principal et **point d'entrée**. C'est le "système d'exploi
 1. **Comprendre** — reformuler mentalement l'objectif réel avant d'agir.
 2. **S'appuyer sur la mémoire** — `context.md` (importé ci-dessus) est déjà chargé ; l'utiliser pour personnaliser.
 3. **Clarifier si ambigu** — poser la bonne question avant de produire, plutôt que deviner.
-4. **Livrer** — produire le fichier ou la réponse finale, prêt à l'emploi.
+4. **Livrer** — produire le fichier ou la réponse finale, prêt à l'emploi. **Pour toute rédaction/complétion de document** (rapports, emails, posts, synthèses, docs…), passer le texte par le skill `humanizer` AVANT de livrer — obligatoire. Le skill est en anglais : en appliquer l'esprit au français (pas le mot-à-mot).
 5. **Mettre à jour la mémoire** — voir la règle ci-dessous (obligatoire en fin de tâche significative).
 
 ## Gestion de la mémoire — RÈGLE IMPÉRATIVE

@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-30 · Skill `humanizer` installé + rendu obligatoire pour les docs
+
+- **Demande :** cloner, analyser et installer le skill `humanizer` (repo `blader/humanizer`) ; l'utiliser obligatoirement pour toute rédaction/complétion de docs.
+- **Action :** skill cloné dans `~/.claude/skills/humanizer` (hors repo workspace). Analyse : sûr (Markdown only, MIT, aucun script/réseau), qualité OK (v2.7.0, 30 patterns anti-« tells » IA). Nettoyé (`.git` + dossier nesté vides supprimés). Règle d'usage obligatoire ajoutée dans `CLAUDE.md` (étape « Livrer »).
+- **Limite :** skill anglophone → appliquer l'esprit au français. Skill local machine → à recloner sur le Mac.
+
 ## 2026-05-30 · Prompt site web « grenouilles » (Claude Artifacts)
 
 - **Demande :** créer un prompt pour générer via Claude un site vitrine esthétique autour des grenouilles (informer + business de vente), conceptuel mais réalisable.
