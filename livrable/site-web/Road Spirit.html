@@ -1,1020 +1,643 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Road Spirit — Concession Triumph officielle · Toulon</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Road Spirit — Concession Triumph officielle · Ollioules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <style>
-  :root{
-    --bg:#0a0a0a;
-    --bg-2:#0f0f0f;
-    --bg-3:#111111;
-    --bg-4:#080808;
-    --orange:#C9A84C;
-    --orange-soft:rgba(201,168,76,.14);
-    --chrome:#C2B280;
-    --ink:#F5F1E8;
-    --muted:#999999;
-    --line:rgba(255,255,255,.08);
-    --head:'Bebas Neue', Impact, sans-serif;
-    --sub:'Barlow Condensed', sans-serif;
-    --body:'DM Sans', system-ui, sans-serif;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:var(--body);
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  img{display:block;max-width:100%}
-  a{color:inherit;text-decoration:none}
-  ::selection{background:var(--orange);color:#000}
+:root{
+  --bg:#080808;--bg2:#0d0d0d;--bg3:#111111;--bg4:#050505;
+  --gold:#C9A84C;--gold2:#B8933B;--gold-soft:rgba(201,168,76,.1);--gold-dim:rgba(201,168,76,.3);
+  --chrome:#C2B280;--ink:#F5F1E8;--ink2:rgba(245,241,232,.62);--muted:#666;
+  --line:rgba(255,255,255,.06);--line2:rgba(255,255,255,.12);
+  --head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);--ease-io:cubic-bezier(0.76,0,0.24,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:var(--body)}
+::selection{background:var(--gold);color:#000}
 
-  /* ── SCROLL PROGRESS ──────────────────────────────── */
-  .progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--orange);z-index:2000;width:0;transition:width .1s linear;transform-origin:left}
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--bg4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.l-logo{font-family:var(--head);font-size:clamp(40px,7vw,80px);letter-spacing:.12em;color:var(--gold);line-height:1;overflow:hidden}
+.l-logo em{font-style:normal;color:var(--ink)}
+.l-char{display:inline-block;transform:translateY(110%)}
+.l-bar-wrap{width:180px;height:1px;background:var(--line2)}
+.l-bar{height:100%;width:0;background:var(--gold)}
+.l-pct{font-family:var(--sub);font-weight:600;letter-spacing:.3em;font-size:10px;color:var(--muted);text-transform:uppercase}
 
-  /* ── FILM GRAIN ───────────────────────────────────── */
-  .grain{position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:.028}
-  .grain::after{content:"";position:absolute;inset:-200%;width:calc(100% + 400%);height:calc(100% + 400%);background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grainAnim 0.4s steps(1) infinite}
-  @keyframes grainAnim{0%{transform:translate(0,0)}25%{transform:translate(-5%,-5%)}50%{transform:translate(-10%,5%)}75%{transform:translate(5%,-10%)}100%{transform:translate(-5%,10%)}}
+/* CURSOR */
+*{cursor:none}
+@media(pointer:coarse){*{cursor:auto}}
+.c-dot{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s var(--ease-out),height .2s var(--ease-out)}
+.c-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .35s var(--ease-out),height .35s var(--ease-out),border-color .2s}
+.c-dot.hov{width:0;height:0}
+.c-ring.hov{width:56px;height:56px;border-color:var(--gold)}
 
-  /* ── GOLD GLOW on interactive ─────────────────────── */
-  :root{--glow:0 0 0 1px rgba(201,168,76,.0),0 8px 32px rgba(201,168,76,.0)}
+/* GRAIN + PROGRESS */
+.grain{position:fixed;inset:0;z-index:9996;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .5s steps(2) infinite}
+@keyframes gr{0%,100%{transform:translate(0,0)}25%{transform:translate(-3%,-3%)}75%{transform:translate(3%,-6%)}}
+#prog{position:fixed;top:0;left:0;height:1px;background:var(--gold);z-index:9990;width:0;pointer-events:none}
 
-  .wrap{max-width:1320px;margin:0 auto;padding:0 40px}
-  .eyebrow{
-    font-family:var(--sub);
-    font-weight:600;
-    text-transform:uppercase;
-    letter-spacing:.28em;
-    font-size:13px;
-    color:var(--orange);
-  }
-  .eyebrow.chrome{color:var(--chrome)}
-  h2.section-title{
-    font-family:var(--head);
-    font-weight:400;
-    font-size:clamp(48px,7vw,104px);
-    line-height:.92;
-    letter-spacing:.01em;
-    text-transform:uppercase;
-    margin:14px 0 0;
-  }
+/* UTILS */
+.wrap{max-width:1360px;margin:0 auto;padding:0 48px}
+.eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:12px;color:var(--gold);display:block}
+h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,7.5vw,112px);line-height:.88;letter-spacing:.01em;text-transform:uppercase;margin:12px 0 0}
 
-  /* ---------- NAV ---------- */
-  .nav{
-    position:fixed;top:0;left:0;right:0;z-index:1000;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:22px 40px;
-    transition:background .4s ease, padding .4s ease, border-color .4s ease, backdrop-filter .4s ease;
-    border-bottom:1px solid transparent;
-  }
-  .nav.scrolled{
-    background:rgba(10,10,10,.95);
-    border-bottom:1px solid var(--orange);
-    padding:14px 40px;
-    backdrop-filter:blur(8px);
-  }
-  .brand{
-    font-family:var(--head);font-size:32px;letter-spacing:.06em;
-    color:var(--orange);line-height:1;
-  }
-  .brand span{color:var(--ink)}
-  .nav-links{display:flex;gap:38px;list-style:none}
-  .nav-links a{
-    font-family:var(--sub);font-weight:600;text-transform:uppercase;
-    letter-spacing:.18em;font-size:15px;color:var(--ink);
-    position:relative;padding:4px 0;transition:color .25s;
-  }
-  .nav-links a::after{
-    content:"";position:absolute;left:0;bottom:0;height:2px;width:0;
-    background:var(--orange);transition:width .3s ease;
-  }
-  .nav-links a:hover{color:var(--orange)}
-  .nav-links a:hover::after{width:100%}
-  .nav-right{display:flex;align-items:center;gap:24px}
-  .cart{position:relative;display:grid;place-items:center;color:var(--ink);transition:color .25s}
-  .cart:hover{color:var(--orange)}
-  .cart .dot{
-    position:absolute;top:-4px;right:-6px;background:var(--orange);
-    color:#fff;font-family:var(--sub);font-weight:700;font-size:11px;
-    width:16px;height:16px;border-radius:50%;display:grid;place-items:center;line-height:1;
-  }
-  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
-  .hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:26px 48px;transition:background .5s,padding .5s,border-color .5s;border-bottom:1px solid transparent}
+.nav.s{background:rgba(8,8,8,.96);border-bottom-color:rgba(201,168,76,.18);padding:16px 48px;backdrop-filter:blur(14px)}
+.brand{font-family:var(--head);font-size:28px;letter-spacing:.08em;color:var(--gold)}
+.brand em{font-style:normal;color:var(--ink)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:rgba(245,241,232,.55);position:relative;padding:4px 0;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-1px;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease-out)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.nav-r{display:flex;align-items:center;gap:20px}
+.nav-cart{position:relative;color:var(--ink);transition:color .25s}
+.nav-cart:hover{color:var(--gold)}
+.nav-badge{position:absolute;top:-5px;right:-7px;background:var(--gold);color:#000;font-family:var(--sub);font-weight:700;font-size:10px;width:16px;height:16px;border-radius:50%;display:grid;place-items:center}
+.hbg{display:none;flex-direction:column;gap:5px;background:0;border:0;padding:4px}
+.hbg span{width:24px;height:1.5px;background:var(--ink);transition:.3s}
 
-  /* ---------- BUTTONS ---------- */
-  .btn{
-    position:relative;display:inline-flex;align-items:center;gap:10px;
-    font-family:var(--sub);font-weight:700;text-transform:uppercase;
-    letter-spacing:.16em;font-size:15px;
-    padding:16px 30px;border:1px solid var(--orange);
-    color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0;
-  }
-  .btn span{position:relative;z-index:2;transition:color .35s}
-  .btn::after{
-    content:"";position:absolute;inset:0;background:var(--orange);z-index:1;
-    transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1);
-  }
-  .btn:hover::after{transform:translateX(-101%)}
-  .btn:hover span{color:var(--orange)}
-  .btn.ghost{border-color:rgba(255,255,255,.4);color:#fff}
-  .btn.ghost::after{background:#fff;transform:translateX(-101%)}
-  .btn.ghost span{color:#fff}
-  .btn.ghost:hover::after{transform:translateX(0)}
-  .btn.ghost:hover span{color:#0a0a0a}
-  .btn.ghost:hover{border-color:#fff}
+/* BUTTONS */
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;padding:15px 28px;border:1px solid var(--gold);color:var(--ink);overflow:hidden;z-index:0;background:transparent;transition:color .35s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--gold);z-index:-1;transform:scaleX(1);transform-origin:left;transition:transform .45s var(--ease-io)}
+.btn:hover::before{transform:scaleX(0);transform-origin:right}
+.btn:hover{color:var(--gold)}
+.btn.ghost{border-color:rgba(245,241,232,.28);color:var(--ink)}
+.btn.ghost::before{background:rgba(255,255,255,.07);transform:scaleX(0);transform-origin:left}
+.btn.ghost:hover::before{transform:scaleX(1)}
+.btn.ghost:hover{color:var(--ink);border-color:rgba(245,241,232,.5)}
+.arrow-link{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:13px;color:var(--gold);display:inline-flex;align-items:center;gap:10px;transition:gap .35s var(--ease-out)}
+.arrow-link:hover{gap:18px}
 
-  .arrow-link{
-    font-family:var(--sub);font-weight:700;text-transform:uppercase;
-    letter-spacing:.16em;font-size:15px;color:var(--orange);
-    display:inline-flex;align-items:center;gap:10px;transition:gap .3s;
-  }
-  .arrow-link:hover{gap:18px}
+/* HERO */
+.hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;overflow:hidden}
+.h-bg{position:absolute;inset:-10%;background:var(--bg4) url('https://images.unsplash.com/photo-1533047096914-6ea296e2f51c?w=1920&q=85') center/cover no-repeat;will-change:transform}
+.h-vig{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,1) 0%,rgba(8,8,8,.18) 50%,rgba(8,8,8,.55) 100%),linear-gradient(to right,rgba(8,8,8,.88) 0%,transparent 55%)}
+.h-grid{position:absolute;inset:0;pointer-events:none;opacity:0;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:80px 80px}
+.h-inner{position:relative;z-index:3;width:100%;padding-bottom:100px}
+.h-label{display:flex;align-items:center;gap:16px;margin-bottom:22px;opacity:0;transform:translateY(20px)}
+.h-label-line{width:36px;height:1px;background:var(--gold)}
+.hero h1{font-family:var(--head);font-weight:400;line-height:.84;font-size:clamp(80px,14vw,200px);letter-spacing:.01em;text-transform:uppercase}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln-i{display:block;transform:translateY(110%);opacity:0}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.h-sub{font-family:var(--sub);font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--chrome);font-size:clamp(14px,1.4vw,18px);margin-top:16px;position:relative;display:inline-block;padding-bottom:16px;opacity:0}
+.h-sub::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--gold);animation:none}
+.h-sub.animate::after{animation:drawL .9s var(--ease-out) forwards}
+@keyframes drawL{to{width:100%}}
+.h-cta{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;opacity:0;transform:translateY(20px)}
+.h-scroll{position:absolute;right:48px;bottom:48px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0}
+.h-scroll-lbl{font-family:var(--sub);font-weight:600;letter-spacing:.24em;font-size:10px;color:var(--muted);text-transform:uppercase;writing-mode:vertical-rl}
+.h-scroll-tr{width:1px;height:64px;background:var(--line2);position:relative;overflow:hidden}
+.h-scroll-tr::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--gold);animation:sP 1.6s ease-in-out infinite}
+@keyframes sP{0%{top:-40%}100%{top:110%}}
 
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;
-    overflow:hidden;
-  }
-  .hero-bg{
-    position:absolute;inset:0;
-    background:#1a1410 url('https://images.unsplash.com/photo-1533047096914-6ea296e2f51c?w=1920&q=80') center/cover no-repeat;
-    transform:scale(1.08);animation:slowZoom 18s ease-out forwards;
-    will-change:transform;
-  }
-  @keyframes slowZoom{to{transform:scale(1)}}
-  .hero-overlay{
-    position:absolute;inset:0;
-    background:
-      linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,.35) 45%, rgba(10,10,10,.65) 100%),
-      linear-gradient(to right, rgba(10,10,10,.7), rgba(10,10,10,.1));
-  }
-  .hero-inner{position:relative;z-index:3;width:100%;padding-bottom:96px}
-  .hero h1{
-    font-family:var(--head);font-weight:400;line-height:.86;
-    font-size:clamp(72px,13vw,184px);letter-spacing:.01em;text-transform:uppercase;
-    margin:18px 0 0;
-  }
-  .hero h1 .l1,.hero h1 .l2{display:block;overflow:hidden}
-  .hero h1 .l1 i,.hero h1 .l2 i{display:block;font-style:normal;opacity:0}
-  .hero h1 .l1 i{animation:inLeft .9s cubic-bezier(0.16,1,0.3,1) .3s forwards}
-  .hero h1 .l2 i{animation:inRight .9s cubic-bezier(0.16,1,0.3,1) .45s forwards;color:var(--ink)}
-  .hero h1 .l2 em{font-style:normal;color:var(--orange)}
-  @keyframes inLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes inRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
-  .hero .subline{
-    font-family:var(--sub);font-weight:500;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--chrome);font-size:clamp(16px,1.6vw,22px);position:relative;
-    display:inline-block;padding-bottom:14px;margin-top:8px;opacity:0;
-    animation:fadeUp .8s ease .9s forwards;
-  }
-  .hero .subline::after{
-    content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);
-    animation:drawLine .9s cubic-bezier(.7,0,.2,1) 1.3s forwards;
-  }
-  @keyframes drawLine{to{width:100%}}
-  .hero-cta{display:flex;gap:18px;margin-top:38px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease 1.15s forwards}
-  .hero-cta .btn{animation:pulseBtn 2.6s ease 2s infinite}
-  @keyframes pulseBtn{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}50%{box-shadow:0 0 0 8px rgba(201,168,76,0)}8%{box-shadow:0 0 0 0 rgba(201,168,76,.5)}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* MARQUEE */
+.marquee{background:var(--gold);padding:13px 0;overflow:hidden;border-top:1px solid var(--gold2);border-bottom:1px solid var(--gold2)}
+.m-track{display:flex;width:max-content;animation:mq 22s linear infinite}
+.m-track:hover{animation-play-state:paused}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.m-item{font-family:var(--head);font-size:15px;letter-spacing:.2em;color:#000;padding:0 32px;white-space:nowrap;display:flex;align-items:center;gap:32px}
+.m-dot{width:4px;height:4px;background:#000;border-radius:50%;opacity:.35}
 
-  .scroll-ind{
-    position:absolute;right:48px;bottom:40px;z-index:4;display:flex;flex-direction:column;
-    align-items:center;gap:12px;opacity:0;animation:fadeUp .8s ease 1.6s forwards;
-  }
-  .scroll-ind .label{font-family:var(--sub);font-weight:600;letter-spacing:.2em;font-size:11px;color:var(--muted);writing-mode:vertical-rl;text-transform:uppercase}
-  .scroll-ind .track{width:1px;height:60px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
-  .scroll-ind .track::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--orange);animation:scrollPulse 1.8s ease-in-out infinite}
-  @keyframes scrollPulse{0%{top:-40%}100%{top:100%}}
+/* SECTION */
+.pad{padding:140px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:64px}
 
-  /* ---------- SECTION SHELL / REVEAL ---------- */
-  section{position:relative}
-  .pad{padding:130px 0}
-  .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(0.16,1,0.3,1), transform .8s cubic-bezier(0.16,1,0.3,1)}
-  .reveal.in{opacity:1;transform:none}
-  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:60px}
+/* MOTOS */
+.motos-s{background:var(--bg2)}
+.motos-h{padding:80px 48px 56px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.motos-outer{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.motos-outer::-webkit-scrollbar{display:none}
+.motos-track{display:flex;gap:3px;padding:0 48px 80px;width:max-content}
+.mc{width:38vw;min-width:360px;max-width:540px;flex-shrink:0;position:relative;overflow:hidden;background:var(--bg);border:1px solid var(--line);transition:border-color .4s;cursor:none}
+.mc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-out)}
+.mc:hover{border-color:var(--gold-dim)}
+.mc:hover::after{transform:scaleX(1)}
+.mc-sp{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(201,168,76,.07),transparent 70%);transition:opacity .3s}
+.mc:hover .mc-sp{opacity:1}
+.mc-img{height:370px;overflow:hidden;background:#12100c}
+.mc-ph{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .7s var(--ease-out)}
+.mc:hover .mc-ph{transform:scale(1.06)}
+.mc-tag{position:absolute;top:18px;left:18px;z-index:2;background:var(--gold);color:#000;font-family:var(--sub);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:11px;padding:5px 12px}
+.mc-body{padding:26px}
+.mc-cat{font-family:var(--sub);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+.mc-name{font-family:var(--head);font-size:42px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;margin:8px 0 18px}
+.mc-meta{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px}
+.mc-price{font-family:var(--sub);font-weight:700;font-size:21px}
+.mc-price small{display:block;font-size:10px;letter-spacing:.18em;color:var(--muted);font-weight:600;text-transform:uppercase}
+.mc-spec{font-family:var(--sub);font-weight:600;font-size:13px;color:var(--chrome);letter-spacing:.08em;text-align:right}
 
-  /* ---------- MOTORCYCLES ---------- */
-  .motos{background:var(--bg-2)}
-  .moto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-  .moto-card{
-    position:relative;background:#0a0a0a;border:1px solid var(--line);
-    overflow:hidden;cursor:pointer;
-    transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
-  }
-  .moto-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-  .moto-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.9),0 0 0 1px rgba(201,168,76,.3),0 0 40px rgba(201,168,76,.06);border-color:rgba(201,168,76,.5)}
-  .moto-card:hover::after{transform:scaleX(1)}
-  .moto-img{height:330px;overflow:hidden;background:#15110d}
-  .moto-img .ph{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;transform:scale(1)}
-  .moto-card:hover .moto-img .ph{transform:scale(1.05)}
-  .moto-tag{
-    position:absolute;top:16px;left:16px;z-index:2;background:var(--orange);color:#fff;
-    font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-    font-size:12px;padding:5px 12px;
-  }
-  .moto-body{padding:26px 26px 30px}
-  .moto-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--muted)}
-  .moto-name{font-family:var(--head);font-size:40px;line-height:.95;letter-spacing:.02em;text-transform:uppercase;margin:6px 0 16px}
-  .moto-meta{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--line);padding-top:16px}
-  .moto-price{font-family:var(--sub);font-weight:700;font-size:24px;color:var(--ink)}
-  .moto-price small{display:block;font-size:11px;letter-spacing:.16em;color:var(--muted);font-weight:600}
-  .moto-spec{font-family:var(--sub);font-weight:600;font-size:14px;color:var(--chrome);letter-spacing:.06em;text-align:right}
+/* EQUIPMENT */
+.equip{background:var(--bg3)}
+.eq-block{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:80px 0}
+.eq-block+.eq-block{border-top:1px solid var(--line)}
+.eq-block.flip .eq-vis{order:2}
+.eq-vis{position:relative;height:480px}
+.eq-ghost{position:absolute;top:50%;transform:translateY(-50%);z-index:1;font-family:var(--head);font-size:clamp(100px,14vw,200px);line-height:.8;color:rgba(201,168,76,.03);text-transform:uppercase;white-space:nowrap;pointer-events:none}
+.eq-block:not(.flip) .eq-ghost{left:-24px}
+.eq-block.flip .eq-ghost{right:-24px}
+.eq-photo{position:absolute;inset:20px 10px 10px 20px;z-index:2;background-size:cover;background-position:center;background-color:#14110d;border:1px solid var(--line);overflow:hidden}
+.eq-block.flip .eq-photo{inset:20px 20px 10px 10px}
+.eq-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.6),transparent 60%)}
+.eq-photo-i{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .8s var(--ease-out)}
+.eq-vis:hover .eq-photo-i{transform:scale(1.04)}
+.eq-num{font-family:var(--sub);font-weight:700;color:var(--gold);letter-spacing:.22em;font-size:13px}
+.eq-text h3{font-family:var(--head);font-size:clamp(44px,5.5vw,72px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:10px 0 20px}
+.eq-text p{color:var(--ink2);font-size:16px;max-width:440px;margin-bottom:24px}
+.eq-feats{list-style:none;margin:0 0 32px;display:grid;gap:12px}
+.eq-feats li{display:flex;align-items:center;gap:14px;font-family:var(--sub);font-weight:600;font-size:15px;letter-spacing:.04em}
+.eq-feats li::before{content:"";width:6px;height:6px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
 
-  /* ---------- EQUIPMENT ---------- */
-  .equip{background:var(--bg-3)}
-  .equip-block{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;padding:70px 0}
-  .equip-block + .equip-block{border-top:1px solid var(--line)}
-  .equip-block.flip .equip-visual{order:2}
-  .equip-visual{position:relative;height:440px}
-  .equip-ghost{
-    position:absolute;top:50%;transform:translateY(-50%);z-index:1;
-    font-family:var(--head);font-size:clamp(90px,13vw,190px);line-height:.8;
-    color:rgba(245,241,232,.06);text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;pointer-events:none;
-  }
-  .equip-block:not(.flip) .equip-ghost{left:-18px}
-  .equip-block.flip .equip-ghost{right:-18px;text-align:right}
-  .equip-photo{position:absolute;inset:24px 12px 12px 24px;z-index:2;background-size:cover;background-position:center;background-color:#16120e;border:1px solid var(--line)}
-  .equip-block.flip .equip-photo{inset:24px 24px 12px 12px}
-  .equip-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.5),transparent 60%)}
-  .equip-text .num{font-family:var(--sub);font-weight:700;color:var(--orange);letter-spacing:.2em;font-size:14px}
-  .equip-text h3{font-family:var(--head);font-size:clamp(40px,5vw,64px);line-height:.95;text-transform:uppercase;letter-spacing:.02em;margin:8px 0 18px}
-  .equip-text p.lead{color:var(--muted);font-size:16px;max-width:440px;margin-bottom:22px}
-  .equip-feats{list-style:none;margin:0 0 30px;display:grid;gap:12px}
-  .equip-feats li{display:flex;align-items:center;gap:14px;font-family:var(--sub);font-weight:600;letter-spacing:.04em;font-size:16px;color:var(--ink)}
-  .equip-feats li::before{content:"";width:8px;height:8px;background:var(--orange);transform:rotate(45deg);flex:0 0 auto}
+/* BOUTIQUE */
+.boutique{background:var(--bg)}
+.fbr{display:flex;gap:0;border:1px solid var(--line);width:fit-content;margin-bottom:52px}
+.fb{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:12px;padding:11px 24px;background:transparent;border:0;border-right:1px solid var(--line);color:var(--muted);transition:background .25s,color .25s;white-space:nowrap}
+.fb:last-child{border-right:0}
+.fb.a,.fb:hover{background:var(--gold);color:#000}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pc{background:var(--bg2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:none;display:flex;flex-direction:column;transition:border-color .35s}
+.pc:hover{border-color:var(--gold-dim)}
+.pc::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out)}
+.pc:hover::after{transform:scaleX(1)}
+.pc.hidden{display:none}
+.pc-img{height:250px;overflow:hidden;background:#14110d;position:relative}
+.pc-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}
+.pc:hover .pc-img img{transform:scale(1.07)}
+.pbadge{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:10px;padding:4px 10px}
+.pbadge.new{background:var(--gold);color:#000}
+.pbadge.promo{background:#fff;color:#000}
+.pc-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;gap:6px}
+.pc-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:10px;color:var(--muted)}
+.pc-name{font-family:var(--sub);font-weight:700;font-size:16px;line-height:1.25;color:var(--ink)}
+.sz-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.sz{font-family:var(--sub);font-weight:600;font-size:10px;letter-spacing:.08em;padding:3px 7px;border:1px solid var(--line);color:var(--muted);transition:.2s}
+.sz:hover{border-color:var(--gold);color:var(--gold)}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
+.pc-price{font-family:var(--sub);font-weight:700;font-size:18px}
+.pc-price s{font-size:12px;color:var(--muted);font-weight:500;margin-right:4px}
+.add-btn{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:11px;padding:9px 14px;background:var(--gold);color:#000;border:0;transition:background .2s,transform .15s}
+.add-btn:hover{background:var(--gold2)}
+.add-btn:active{transform:scale(0.96)}
 
-  /* diagonal cut */
-  .diag-top{clip-path:polygon(0 56px,100% 0,100% 100%,0 100%)}
-  .diag-bottom{clip-path:polygon(0 0,100% 0,100% calc(100% - 56px),0 100%)}
+/* SERVICES */
+.services{background:var(--bg3)}
+.diag-top{clip-path:polygon(0 60px,100% 0,100% 100%,0 100%);margin-top:-60px;padding-top:140px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
+.svc{padding:50px 42px;border-right:1px solid var(--line);position:relative;transition:background .35s}
+.svc:last-child{border-right:0}
+.svc:hover{background:var(--gold-soft)}
+.svc::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:transparent;transition:background .35s}
+.svc:hover::before{background:var(--gold)}
+.svc-ico{width:44px;height:44px;color:var(--gold);margin-bottom:22px}
+.svc h4{font-family:var(--head);font-size:28px;letter-spacing:.03em;text-transform:uppercase;line-height:1.1;margin-bottom:10px}
+.svc p{color:var(--ink2);font-size:14px;max-width:300px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:56px}
+.stat{padding:52px 42px;border-right:1px solid var(--line);text-align:center}
+.stat:last-child{border-right:0}
+.stat-n{font-family:var(--head);font-size:clamp(60px,7vw,96px);line-height:.9}
+.stat-n b{color:var(--gold);font-weight:400}
+.stat-t{font-family:var(--sub);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--muted);margin-top:8px}
 
-  /* ---------- BOUTIQUE ---------- */
-  .boutique{background:var(--bg)}
-  .filter-bar{display:flex;gap:0;border:1px solid var(--line);width:fit-content;margin-bottom:52px}
-  .filter-btn{
-    font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;
-    padding:12px 26px;background:transparent;border:0;border-right:1px solid var(--line);
-    color:var(--muted);cursor:pointer;transition:background .25s, color .25s;white-space:nowrap;
-  }
-  .filter-btn:last-child{border-right:0}
-  .filter-btn.active,.filter-btn:hover{background:var(--orange);color:#fff}
-  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-  .product-card{
-    background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;
-    transition:transform .32s ease, box-shadow .32s ease, border-color .32s ease;
-    display:flex;flex-direction:column;
-  }
-  .product-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .32s ease}
-  .product-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -16px rgba(0,0,0,.85),0 0 0 1px rgba(201,168,76,.25),0 0 32px rgba(201,168,76,.05);border-color:rgba(201,168,76,.45)}
-  .product-card:hover::after{transform:scaleX(1)}
-  .product-card[data-cat].hidden{display:none}
-  .product-img{height:280px;overflow:hidden;background:#16120e;position:relative}
-  .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
-  .product-card:hover .product-img img{transform:scale(1.06)}
-  .product-badge{
-    position:absolute;top:14px;left:14px;z-index:2;
-    font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-    font-size:11px;padding:4px 10px;
-  }
-  .product-badge.new{background:var(--orange);color:#fff}
-  .product-badge.promo{background:#fff;color:#0a0a0a}
-  .product-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
-  .product-cat{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:var(--muted)}
-  .product-name{font-family:var(--sub);font-weight:700;font-size:18px;line-height:1.25;color:var(--ink)}
-  .product-sizes{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-  .size-dot{
-    font-family:var(--sub);font-weight:600;font-size:11px;letter-spacing:.06em;
-    padding:3px 8px;border:1px solid var(--line);color:var(--muted);
-    transition:border-color .2s, color .2s;cursor:pointer;
-  }
-  .size-dot:hover{border-color:var(--orange);color:var(--orange)}
-  .product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
-  .product-price{font-family:var(--sub);font-weight:700;font-size:20px;color:var(--ink)}
-  .product-price s{font-size:14px;color:var(--muted);font-weight:500;margin-right:6px}
-  .add-btn{
-    font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:12px;
-    padding:10px 16px;background:var(--orange);color:#fff;border:0;cursor:pointer;
-    transition:background .25s, transform .2s;white-space:nowrap;
-  }
-  .add-btn:hover{background:#B8933B;transform:scale(1.03)}
-  @media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:760px){
-    .product-grid{grid-template-columns:repeat(2,1fr)}
-    .filter-bar{flex-wrap:wrap;width:100%}
-    .filter-btn{flex:1;min-width:100px;text-align:center}
-  }
-  @media(max-width:460px){.product-grid{grid-template-columns:1fr}}
+/* STORY */
+.story{background:var(--bg);overflow:hidden}
+.story-grid{display:grid;grid-template-columns:1.1fr .9fr;align-items:stretch}
+.story-txt{padding:120px 0}
+.story-inner{padding:0 80px 0 max(48px,calc((100vw - 1360px)/2 + 48px))}
+.story-q{font-family:var(--head);font-size:clamp(44px,5vw,72px);line-height:1;text-transform:uppercase;letter-spacing:.01em;margin:18px 0 30px}
+.story-q em{font-style:normal;color:var(--gold)}
+.story-txt p{color:var(--ink2);font-size:17px;max-width:480px;margin-bottom:16px}
+.story-vis{position:relative;min-height:580px;background:var(--bg2) url('https://images.unsplash.com/photo-1635477906625-ef1aea584e17?w=1200&q=85') center/cover no-repeat;overflow:hidden}
+.story-vis::before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,1) 0%,rgba(8,8,8,.05) 40%,transparent)}
+.story-tag{position:absolute;bottom:36px;right:40px;z-index:2;font-family:var(--head);font-size:22px;letter-spacing:.08em;color:rgba(245,241,232,.35)}
+.story-tag b{color:var(--gold);font-weight:400}
 
-  /* ---------- CURSOR CUSTOM ---------- */
-  *{cursor:none}
-  @media(pointer:coarse){*{cursor:auto}}
-  .cursor-dot{
-    position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;
-    pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
-    transition:width .2s, height .2s, background .2s;
-  }
-  .cursor-ring{
-    position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;
-    pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
-    transition:transform .12s ease, width .3s ease, height .3s ease, border-color .3s;
-  }
-  body:has(a:hover) .cursor-dot,body:has(button:hover) .cursor-dot{width:14px;height:14px}
-  body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:54px;height:54px;border-color:var(--orange)}
+/* FOOTER */
+footer{background:var(--bg4);border-top:1px solid rgba(201,168,76,.18);padding:80px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr 1fr;gap:48px}
+.foot h5{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:11px;color:var(--chrome);margin-bottom:20px}
+.foot .brand{font-size:36px;margin-bottom:14px}
+.foot-desc{color:var(--muted);font-size:14px;max-width:280px;line-height:1.75}
+.foot-lnk{list-style:none;display:grid;gap:10px}
+.foot-lnk a{color:var(--muted);font-size:14px;transition:color .2s}
+.foot-lnk a:hover{color:var(--gold)}
+.cr{display:flex;gap:10px;color:var(--muted);font-size:14px;margin-bottom:10px}
+.cr b{color:var(--ink);font-weight:500}
+.socials{display:flex;gap:10px;margin-top:4px}
+.socials a{width:40px;height:40px;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);transition:.25s}
+.socials a:hover{background:var(--gold);border-color:var(--gold);color:#000}
+.foot-bot{margin-top:64px;border-top:1px solid var(--line);padding:24px 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot-bot,.foot-bot a{font-family:var(--sub);font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:11px;color:var(--muted)}
+.foot-bot a:hover{color:var(--gold)}
 
-  /* ---------- PAGE TRANSITION ---------- */
-  .page-overlay{
-    position:fixed;inset:0;background:var(--bg);z-index:9990;
-    transform:scaleY(0);transform-origin:bottom;
-    transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none;
-  }
-  .page-overlay.out{transform:scaleY(1);pointer-events:all}
-  .page-overlay.in{transform-origin:top}
+/* TRANSITIONS */
+.pov{position:fixed;inset:0;background:var(--bg4);z-index:9000;transform:scaleY(0);transform-origin:bottom;transition:transform .6s cubic-bezier(0.86,0,0.07,1);pointer-events:none}
+.pov.out{transform:scaleY(1);pointer-events:all}
 
-  /* ---------- TOAST PANIER ---------- */
-  .toast{
-    position:fixed;bottom:32px;right:32px;z-index:9995;
-    background:var(--bg-3);border:1px solid var(--orange);
-    font-family:var(--sub);font-weight:600;letter-spacing:.08em;font-size:15px;color:var(--ink);
-    padding:16px 24px;display:flex;align-items:center;gap:12px;
-    transform:translateY(100px);opacity:0;transition:transform .4s cubic-bezier(0.16,1,0.3,1), opacity .4s;
-    pointer-events:none;
-  }
-  .toast.show{transform:translateY(0);opacity:1}
-  .toast-ico{color:var(--orange);font-size:20px;line-height:1}
+/* TOAST */
+.toast{position:fixed;bottom:30px;right:30px;z-index:8000;background:var(--bg3);border:1px solid var(--gold);font-family:var(--sub);font-weight:600;letter-spacing:.1em;font-size:14px;color:var(--ink);padding:14px 22px;display:flex;align-items:center;gap:12px;transform:translateY(80px);opacity:0;transition:transform .4s var(--ease-out),opacity .4s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
 
-  /* ---------- SERVICES ---------- */
-  .services{background:var(--bg-3);margin-top:-40px;padding-top:170px}
-  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line)}
-  .svc{padding:54px 44px;border-right:1px solid var(--line);position:relative;transition:background .35s}
-  .svc:last-child{border-right:0}
-  .svc:hover{background:rgba(201,168,76,.05)}
-  .svc-ico{width:46px;height:46px;color:var(--orange);margin-bottom:24px}
-  .svc h4{font-family:var(--head);font-size:30px;letter-spacing:.03em;text-transform:uppercase;line-height:1;margin-bottom:12px}
-  .svc p{color:var(--muted);font-size:15px;max-width:320px}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;text-align:center}
-  .stat .n{font-family:var(--head);font-size:clamp(56px,7vw,90px);line-height:.9;color:var(--ink)}
-  .stat .n b{color:var(--orange);font-weight:400}
-  .stat .t{font-family:var(--sub);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--muted);margin-top:6px}
-
-  /* ---------- STORY ---------- */
-  .story{background:var(--bg);overflow:hidden}
-  .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:0;align-items:stretch}
-  .story-text{padding:120px 70px 120px 0}
-  .story-quote{font-family:var(--head);font-size:clamp(40px,4.6vw,68px);line-height:1.02;text-transform:uppercase;letter-spacing:.01em;margin:22px 0 30px}
-  .story-quote em{font-style:normal;color:var(--orange)}
-  .story-text p{color:var(--muted);font-size:17px;max-width:520px;margin-bottom:18px}
-  .story-visual{position:relative;min-height:560px;background:#16120e url('https://images.unsplash.com/photo-1635477906625-ef1aea584e17?w=1200&q=80') center/cover no-repeat}
-  .story-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,1),rgba(10,10,10,.15) 40%,transparent)}
-  .story-sign{position:absolute;bottom:36px;right:40px;z-index:2;font-family:var(--head);font-size:26px;letter-spacing:.06em;color:rgba(245,241,232,.6)}
-  .story-sign b{color:var(--orange);font-weight:400}
-
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--bg-4);border-top:1px solid var(--orange);padding:80px 0 0}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr 1fr;gap:50px}
-  .foot h5{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:13px;color:var(--chrome);margin-bottom:22px}
-  .foot .brand{font-size:38px;margin-bottom:16px}
-  .foot p{color:var(--muted);font-size:15px;max-width:300px}
-  .foot ul{list-style:none;display:grid;gap:12px}
-  .foot ul a{color:var(--muted);font-size:15px;transition:color .25s}
-  .foot ul a:hover{color:var(--orange)}
-  .foot .contact-row{display:flex;gap:10px;color:var(--muted);font-size:15px;margin-bottom:12px}
-  .foot .contact-row b{color:var(--ink);font-weight:500}
-  .socials{display:flex;gap:12px}
-  .socials a{width:42px;height:42px;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);transition:.3s}
-  .socials a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
-  .foot-bottom{margin-top:70px;border-top:1px solid var(--line);padding:26px 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-  .foot-bottom,.foot-bottom a{font-family:var(--sub);font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--muted)}
-  .foot-bottom a:hover{color:var(--orange)}
-
-  /* ---------- MOBILE ---------- */
-  @media(max-width:980px){
-    .moto-grid{grid-template-columns:1fr 1fr}
-    .story-grid{grid-template-columns:1fr}
-    .story-text{padding:90px 0}
-    .story-visual{min-height:420px}
-    .foot-grid{grid-template-columns:1fr 1fr}
-  }
-  @media(max-width:760px){
-    .wrap{padding:0 22px}
-    .nav,.nav.scrolled{padding:16px 22px}
-    .nav-links{
-      position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);
-      flex-direction:column;justify-content:center;gap:30px;padding:40px;
-      transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
-      border-left:1px solid var(--orange);
-    }
-    .nav-links.open{transform:translateX(0)}
-    .nav-links a{font-size:26px}
-    .hamburger{display:flex;z-index:1001}
-    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-    .hamburger.open span:nth-child(2){opacity:0}
-    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    .nav-right .btn{display:none}
-    .pad{padding:90px 0}
-    .moto-grid{grid-template-columns:1fr}
-    .equip-block,.equip-block.flip .equip-visual{grid-template-columns:1fr;gap:30px}
-    .equip-block .equip-visual{order:-1}
-    .equip-visual{height:320px}
-    .svc-grid{grid-template-columns:1fr}
-    .svc{border-right:0;border-bottom:1px solid var(--line)}
-    .svc:last-child{border-bottom:0}
-    .stats{grid-template-columns:1fr;gap:40px}
-    .scroll-ind{right:22px}
-    .foot-grid{grid-template-columns:1fr}
-  }
+/* MOBILE */
+@media(max-width:1100px){.pgrid{grid-template-columns:repeat(3,1fr)}.mc{width:50vw}}
+@media(max-width:900px){
+  .wrap{padding:0 30px}.story-grid{grid-template-columns:1fr}
+  .story-inner{padding:80px 30px}.story-vis{min-height:420px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .eq-block,.eq-block.flip .eq-vis{grid-template-columns:1fr;gap:40px}
+  .eq-block .eq-vis{order:-1!important}.eq-vis{height:340px}
+  .svc-grid{grid-template-columns:1fr}.svc{border-right:0;border-bottom:1px solid var(--line)}.svc:last-child{border-bottom:0}
+  .stats-row{grid-template-columns:1fr}.stat{border-right:0;border-bottom:1px solid var(--line)}.stat:last-child{border-bottom:0}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .wrap{padding:0 20px}.nav,.nav.s{padding:16px 20px}
+  .nav-links{position:fixed;inset:0 0 0 auto;width:75%;max-width:320px;background:rgba(5,5,5,.98);flex-direction:column;justify-content:center;gap:28px;padding:40px;transform:translateX(110%);transition:transform .45s var(--ease-out);border-left:1px solid var(--line)}
+  .nav-links.open{transform:translateX(0)}.nav-links a{font-size:24px;letter-spacing:.12em}
+  .hbg{display:flex;z-index:1001}
+  .hbg.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hbg.o span:nth-child(2){opacity:0}
+  .hbg.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-r .btn{display:none}.pad{padding:90px 0}
+  .h-scroll{right:20px;bottom:28px}.motos-track{padding:0 20px 60px}
+  .mc{width:82vw;min-width:290px}.pgrid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr}.fbr{flex-wrap:wrap;width:100%}
+  .fb{flex:1;min-width:80px;text-align:center}
+}
+@media(max-width:400px){.pgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
-<div class="grain" aria-hidden="true"></div>
+<div id="loader">
+  <div class="l-logo"><span class="l-char">R</span><span class="l-char">O</span><span class="l-char">A</span><span class="l-char">D</span>&nbsp;<em><span class="l-char">S</span><span class="l-char">P</span><span class="l-char">I</span><span class="l-char">R</span><span class="l-char">I</span><span class="l-char">T</span></em></div>
+  <div class="l-bar-wrap"><div class="l-bar" id="l-bar"></div></div>
+  <div class="l-pct" id="l-pct">0%</div>
+</div>
 
-<!-- NAVIGATION -->
-<nav class="nav" id="nav" aria-label="Navigation principale">
-  <a href="#" class="brand" aria-label="Road Spirit, accueil">ROAD <span>SPIRIT</span></a>
-  <ul class="nav-links" id="navLinks">
+<div class="c-dot" id="c-dot"></div>
+<div class="c-ring" id="c-ring"></div>
+<div class="grain" aria-hidden="true"></div>
+<div id="prog" aria-hidden="true"></div>
+<div class="pov" id="pov"></div>
+
+<nav class="nav" id="nav" aria-label="Navigation">
+  <a href="#" class="brand">ROAD <em>SPIRIT</em></a>
+  <ul class="nav-links" id="nl">
     <li><a href="#motos">Motos</a></li>
     <li><a href="#equipements">Équipements</a></li>
-    <li><a href="#boutique">Boutique</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="boutique.html" class="pl">Boutique</a></li>
+    <li><a href="services.html" class="pl">Services</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="nav-right">
-    <a href="#" class="cart" aria-label="Panier, 2 articles">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7Z"/><path d="M8.5 7V5.5a3.5 3.5 0 0 1 7 0V7"/></svg>
-      <span class="dot">2</span>
+  <div class="nav-r">
+    <a href="boutique.html" class="nav-cart pl" aria-label="Panier">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7Z"/><path d="M8.5 7V5.5a3.5 3.5 0 0 1 7 0V7"/></svg>
+      <span class="nav-badge">0</span>
     </a>
-    <a href="services.html" class="btn page-link"><span>Essai gratuit</span></a>
-    <button class="hamburger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a href="services.html" class="btn pl"><span>Essai gratuit</span></a>
+    <button class="hbg" id="hbg" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-bg" role="img" aria-label="Motard sur route au crépuscule"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-inner wrap">
-    <p class="eyebrow">/ Concession Triumph officielle · Toulon</p>
+<header class="hero" id="hero">
+  <div class="h-bg" id="h-bg"></div>
+  <div class="h-vig"></div>
+  <div class="h-grid" id="h-grid"></div>
+  <div class="h-inner wrap">
+    <div class="h-label" id="h-lbl">
+      <div class="h-label-line"></div>
+      <span class="eyebrow" style="margin:0">Concession Triumph officielle · Ollioules</span>
+    </div>
     <h1>
-      <span class="l1"><i>La route</i></span>
-      <span class="l2"><i><em>est à vous</em></i></span>
+      <span class="ln"><span class="ln-i" id="hl1">La route</span></span>
+      <span class="ln"><span class="ln-i" id="hl2"><em>est à vous</em></span></span>
     </h1>
-    <span class="subline">L'esprit road. La mécanique anglaise. Votre prochain départ.</span>
-    <div class="hero-cta">
+    <span class="h-sub" id="h-sub">L'esprit road. La mécanique anglaise.</span>
+    <div class="h-cta" id="h-cta">
       <a href="#motos" class="btn"><span>Découvrir les motos</span></a>
       <a href="#equipements" class="btn ghost"><span>Voir l'équipement</span></a>
     </div>
   </div>
-  <div class="scroll-ind" aria-hidden="true">
-    <span class="label">Scroll</span>
-    <span class="track"></span>
+  <div class="h-scroll" id="h-scroll" aria-hidden="true">
+    <span class="h-scroll-lbl">Scroll</span>
+    <span class="h-scroll-tr"></span>
   </div>
 </header>
 
-<!-- MOTORCYCLES -->
-<section class="motos pad" id="motos">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow">/ Nouveautés 2024</p>
-        <h2 class="section-title">Nos Triumph</h2>
-      </div>
-      <a href="motos.html" class="arrow-link page-link">Voir toutes les motos
-        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
-      </a>
+<div class="marquee" aria-hidden="true">
+  <div class="m-track">
+    <div class="m-item">TRIUMPH<div class="m-dot"></div>ROAD SPIRIT<div class="m-dot"></div>OLLIOULES<div class="m-dot"></div>DEPUIS 1992<div class="m-dot"></div>CONCESSION OFFICIELLE<div class="m-dot"></div>ESSAI GRATUIT<div class="m-dot"></div>ATELIER &amp; CUSTOMISATION<div class="m-dot"></div></div>
+    <div class="m-item">TRIUMPH<div class="m-dot"></div>ROAD SPIRIT<div class="m-dot"></div>OLLIOULES<div class="m-dot"></div>DEPUIS 1992<div class="m-dot"></div>CONCESSION OFFICIELLE<div class="m-dot"></div>ESSAI GRATUIT<div class="m-dot"></div>ATELIER &amp; CUSTOMISATION<div class="m-dot"></div></div>
+  </div>
+</div>
+
+<section class="motos-s" id="motos">
+  <div class="motos-h">
+    <div>
+      <span class="eyebrow">/ Nouveautés 2024</span>
+      <h2 class="stitle">Nos Triumph</h2>
     </div>
-    <div class="moto-grid">
-      <article class="moto-card reveal" onclick="navigate('motos.html#speed-triple')" role="link" tabindex="0" aria-label="Voir la Speed Triple RR">
-        <span class="moto-tag">Roadster</span>
-        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1630874295754-41b346c23c6a?w=900&q=80')"></div></div>
-        <div class="moto-body">
-          <p class="moto-cat">Sport · 1160 cc</p>
-          <h3 class="moto-name">Speed Triple RR</h3>
-          <div class="moto-meta">
-            <div class="moto-price">19 950 €<small>À partir de</small></div>
-            <div class="moto-spec">180 ch<br>198 kg</div>
-          </div>
-        </div>
+    <a href="motos.html" class="arrow-link pl">Voir toutes les motos
+      <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
+    </a>
+  </div>
+  <div class="motos-outer">
+    <div class="motos-track" id="mt">
+      <article class="mc" onclick="navigate('motos.html#speed-triple')" tabindex="0">
+        <div class="mc-sp"></div><span class="mc-tag">Roadster</span>
+        <div class="mc-img"><div class="mc-ph" style="background-image:url('https://images.unsplash.com/photo-1630874295754-41b346c23c6a?w=900&q=85')"></div></div>
+        <div class="mc-body"><p class="mc-cat">Sport · 1160 cc</p><h3 class="mc-name">Speed Triple RR</h3><div class="mc-meta"><div class="mc-price">19 950 €<small>À partir de</small></div><div class="mc-spec">180 ch<br>198 kg</div></div></div>
       </article>
-      <article class="moto-card reveal" onclick="navigate('motos.html#tiger')" role="link" tabindex="0" aria-label="Voir la Tiger 900">
-        <span class="moto-tag">Adventure</span>
-        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1722244836958-32a60d2aed0c?w=900&q=80')"></div></div>
-        <div class="moto-body">
-          <p class="moto-cat">Trail · 888 cc</p>
-          <h3 class="moto-name">Tiger 900</h3>
-          <div class="moto-meta">
-            <div class="moto-price">14 200 €<small>À partir de</small></div>
-            <div class="moto-spec">108 ch<br>201 kg</div>
-          </div>
-        </div>
+      <article class="mc" onclick="navigate('motos.html#tiger')" tabindex="0">
+        <div class="mc-sp"></div><span class="mc-tag">Adventure</span>
+        <div class="mc-img"><div class="mc-ph" style="background-image:url('https://images.unsplash.com/photo-1722244836958-32a60d2aed0c?w=900&q=85')"></div></div>
+        <div class="mc-body"><p class="mc-cat">Trail · 888 cc</p><h3 class="mc-name">Tiger 900</h3><div class="mc-meta"><div class="mc-price">14 200 €<small>À partir de</small></div><div class="mc-spec">108 ch<br>201 kg</div></div></div>
       </article>
-      <article class="moto-card reveal" onclick="navigate('motos.html#bonneville')" role="link" tabindex="0" aria-label="Voir la Bonneville T120">
-        <span class="moto-tag">Classic</span>
-        <div class="moto-img"><div class="ph" style="background-image:url('https://images.unsplash.com/photo-1495480393121-409eb65c7fbe?w=900&q=80')"></div></div>
-        <div class="moto-body">
-          <p class="moto-cat">Modern Classic · 1200 cc</p>
-          <h3 class="moto-name">Bonneville T120</h3>
-          <div class="moto-meta">
-            <div class="moto-price">13 700 €<small>À partir de</small></div>
-            <div class="moto-spec">80 ch<br>236 kg</div>
-          </div>
-        </div>
+      <article class="mc" onclick="navigate('motos.html#bonneville')" tabindex="0">
+        <div class="mc-sp"></div><span class="mc-tag">Classic</span>
+        <div class="mc-img"><div class="mc-ph" style="background-image:url('https://images.unsplash.com/photo-1495480393121-409eb65c7fbe?w=900&q=85')"></div></div>
+        <div class="mc-body"><p class="mc-cat">Modern Classic · 1200 cc</p><h3 class="mc-name">Bonneville T120</h3><div class="mc-meta"><div class="mc-price">13 700 €<small>À partir de</small></div><div class="mc-spec">80 ch<br>236 kg</div></div></div>
+      </article>
+      <article class="mc" onclick="navigate('motos.html#thruxton')" tabindex="0">
+        <div class="mc-sp"></div><span class="mc-tag">Café Racer</span>
+        <div class="mc-img"><div class="mc-ph" style="background-image:url('https://images.unsplash.com/photo-1528975798892-fd6817392525?w=900&q=85')"></div></div>
+        <div class="mc-body"><p class="mc-cat">Café Racer · 1200 cc</p><h3 class="mc-name">Thruxton RS</h3><div class="mc-meta"><div class="mc-price">16 200 €<small>À partir de</small></div><div class="mc-spec">105 ch<br>203 kg</div></div></div>
       </article>
     </div>
   </div>
 </section>
 
-<!-- EQUIPMENT -->
 <section class="equip pad" id="equipements">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow">/ Boutique</p>
-        <h2 class="section-title">L'équipement</h2>
-      </div>
+    <div class="sec-head">
+      <div><span class="eyebrow">/ Boutique</span><h2 class="stitle">L'équipement</h2></div>
     </div>
-
-    <div class="equip-block reveal">
-      <div class="equip-visual">
-        <span class="equip-ghost">Blousons</span>
-        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&q=80')" role="img" aria-label="Blouson moto en cuir"></div>
-      </div>
-      <div class="equip-text">
-        <span class="num">01 — Protection</span>
-        <h3>Blousons</h3>
-        <p class="lead">Cuir pleine fleur et textiles techniques homologués CE. Coupe ajustée pensée pour la route comme pour la ville.</p>
-        <ul class="equip-feats">
-          <li>Coques épaules &amp; coudes niveau 2</li>
-          <li>Membrane imperméable respirante</li>
-          <li>Cuir tanné en Europe</li>
-        </ul>
-        <a href="boutique.html?cat=blouson" class="btn page-link"><span>Voir les blousons</span></a>
-      </div>
+    <div class="eq-block">
+      <div class="eq-vis"><span class="eq-ghost">Blousons</span><div class="eq-photo"><div class="eq-photo-i" style="background-image:url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=900&q=85')"></div></div></div>
+      <div class="eq-text"><span class="eq-num">01 — Protection</span><h3>Blousons</h3><p>Cuir pleine fleur et textiles techniques homologués CE. Coupe ajustée pensée pour la route comme pour la ville.</p><ul class="eq-feats"><li>Coques épaules &amp; coudes niveau 2</li><li>Membrane imperméable respirante</li><li>Cuir tanné en Europe</li></ul><a href="boutique.html?cat=blouson" class="btn pl"><span>Voir les blousons</span></a></div>
     </div>
-
-    <div class="equip-block flip reveal">
-      <div class="equip-visual">
-        <span class="equip-ghost">Casques</span>
-        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=900&q=80')" role="img" aria-label="Casque moto intégral"></div>
-      </div>
-      <div class="equip-text">
-        <span class="num">02 — Sécurité</span>
-        <h3>Casques</h3>
-        <p class="lead">Intégraux, modulables ou jet. Une sélection homologuée ECE 22.06, du quotidien urbain à la piste.</p>
-        <ul class="equip-feats">
-          <li>Coque fibre &amp; composite légère</li>
-          <li>Écran anti-buée Pinlock inclus</li>
-          <li>Intérieur lavable &amp; antibactérien</li>
-        </ul>
-        <a href="boutique.html?cat=casque" class="btn page-link"><span>Voir les casques</span></a>
-      </div>
+    <div class="eq-block flip">
+      <div class="eq-vis"><span class="eq-ghost">Casques</span><div class="eq-photo"><div class="eq-photo-i" style="background-image:url('https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=900&q=85')"></div></div></div>
+      <div class="eq-text"><span class="eq-num">02 — Sécurité</span><h3>Casques</h3><p>Intégraux, modulables ou jet. Une sélection homologuée ECE 22.06, du quotidien urbain à la piste.</p><ul class="eq-feats"><li>Coque fibre &amp; composite légère</li><li>Écran anti-buée Pinlock inclus</li><li>Intérieur lavable &amp; antibactérien</li></ul><a href="boutique.html?cat=casque" class="btn pl"><span>Voir les casques</span></a></div>
     </div>
-
-    <div class="equip-block reveal">
-      <div class="equip-visual">
-        <span class="equip-ghost">Gants</span>
-        <div class="equip-photo" style="background-image:url('https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=900&q=80')" role="img" aria-label="Gants et chaussures moto"></div>
-      </div>
-      <div class="equip-text">
-        <span class="num">03 — Du bout des doigts au talon</span>
-        <h3>Gants &amp; Chaussures</h3>
-        <p class="lead">Le contact avec la machine. Préhension, abrasion, étanchéité — sans jamais sacrifier le toucher des commandes.</p>
-        <ul class="equip-feats">
-          <li>Renforts paume &amp; malléoles</li>
-          <li>Cuir perforé ventilé</li>
-          <li>Semelle anti-glisse renforcée</li>
-        </ul>
-        <a href="boutique.html?cat=gants" class="btn page-link"><span>Voir la sélection</span></a>
-      </div>
+    <div class="eq-block">
+      <div class="eq-vis"><span class="eq-ghost">Gants</span><div class="eq-photo"><div class="eq-photo-i" style="background-image:url('https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=900&q=85')"></div></div></div>
+      <div class="eq-text"><span class="eq-num">03 — Du bout des doigts au talon</span><h3>Gants &amp; Chaussures</h3><p>Le contact avec la machine. Préhension, abrasion, étanchéité — sans sacrifier le toucher des commandes.</p><ul class="eq-feats"><li>Renforts paume &amp; malléoles</li><li>Cuir perforé ventilé</li><li>Semelle anti-glisse renforcée</li></ul><a href="boutique.html?cat=gants" class="btn pl"><span>Voir la sélection</span></a></div>
     </div>
   </div>
 </section>
 
-<!-- BOUTIQUE -->
 <section class="boutique pad" id="boutique">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow">/ Boutique en ligne</p>
-        <h2 class="section-title">Nos produits</h2>
-      </div>
-      <a href="boutique.html" class="arrow-link page-link">Voir tout le catalogue
-        <svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h20M15 1l5 5-5 5"/></svg>
-      </a>
+    <div class="sec-head">
+      <div><span class="eyebrow">/ Boutique en ligne</span><h2 class="stitle">Nos produits</h2></div>
+      <a href="boutique.html" class="arrow-link pl">Voir tout le catalogue<svg width="22" height="12" viewBox="0 0 22 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M0 6h20M15 1l5 5-5 5"/></svg></a>
     </div>
-    <div class="filter-bar reveal" role="tablist" aria-label="Filtrer par catégorie">
-      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tous</button>
-      <button class="filter-btn" data-filter="blouson" role="tab" aria-selected="false">Blousons</button>
-      <button class="filter-btn" data-filter="casque" role="tab" aria-selected="false">Casques</button>
-      <button class="filter-btn" data-filter="pantalon" role="tab" aria-selected="false">Pantalons</button>
-      <button class="filter-btn" data-filter="gants" role="tab" aria-selected="false">Gants</button>
-      <button class="filter-btn" data-filter="chaussures" role="tab" aria-selected="false">Chaussures</button>
+    <div class="fbr" role="tablist">
+      <button class="fb a" data-f="all">Tous</button>
+      <button class="fb" data-f="blouson">Blousons</button>
+      <button class="fb" data-f="casque">Casques</button>
+      <button class="fb" data-f="pantalon">Pantalons</button>
+      <button class="fb" data-f="gants">Gants</button>
+      <button class="fb" data-f="chaussures">Chaussures</button>
     </div>
-    <div class="product-grid" id="productGrid">
-
-      <article class="product-card reveal" data-cat="blouson">
-        <div class="product-img">
-          <span class="product-badge new">Nouveau</span>
-          <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Scrambler en cuir noir" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Blouson</span>
-          <span class="product-name">Triumph Scrambler — Cuir</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">389 €</span>
-            <button class="add-btn" aria-label="Ajouter Triumph Scrambler au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="casque">
-        <div class="product-img">
-          <span class="product-badge new">Nouveau</span>
-          <img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque intégral Shoei NXR2 noir mat" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Casque Intégral</span>
-          <span class="product-name">Shoei NXR2 — Matt Black</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">649 €</span>
-            <button class="add-btn" aria-label="Ajouter Shoei NXR2 au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="blouson">
-        <div class="product-img">
-          <span class="product-badge promo">−20 %</span>
-          <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson textile Triumph Meridian gris" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Blouson Textile</span>
-          <span class="product-name">Triumph Meridian — Gris</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price"><s>299 €</s>239 €</span>
-            <button class="add-btn" aria-label="Ajouter Triumph Meridian au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="gants">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=600&q=80" alt="Gants Alpinestars GP Plus R cuir noir" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Gants</span>
-          <span class="product-name">Alpinestars GP Plus R — Cuir</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">179 €</span>
-            <button class="add-btn" aria-label="Ajouter Alpinestars GP Plus R au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="casque">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Arai RX-7V Evo blanc" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Casque Intégral</span>
-          <span class="product-name">Arai RX-7V Evo — Blanc</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">879 €</span>
-            <button class="add-btn" aria-label="Ajouter Arai RX-7V Evo au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="pantalon">
-        <div class="product-img">
-          <span class="product-badge new">Nouveau</span>
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven noir" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Pantalon</span>
-          <span class="product-name">Triumph Raven — Textile</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">249 €</span>
-            <button class="add-btn" aria-label="Ajouter Triumph Raven au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="chaussures">
-        <div class="product-img">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Forma Adventure marron" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Chaussures</span>
-          <span class="product-name">Forma Adventure — Marron</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price">219 €</span>
-            <button class="add-btn" aria-label="Ajouter Forma Adventure au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-cat="gants">
-        <div class="product-img">
-          <span class="product-badge promo">−15 %</span>
-          <img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Café Racer cuir vintage" loading="lazy" />
-        </div>
-        <div class="product-body">
-          <span class="product-cat">Gants</span>
-          <span class="product-name">Triumph Café Racer — Vintage</span>
-          <div class="product-sizes" aria-label="Tailles disponibles">
-            <span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span>
-          </div>
-          <div class="product-footer">
-            <span class="product-price"><s>129 €</s>109 €</span>
-            <button class="add-btn" aria-label="Ajouter Triumph Café Racer au panier">+ Panier</button>
-          </div>
-        </div>
-      </article>
-
+    <div class="pgrid" id="pgrid">
+      <article class="pc" data-cat="blouson"><div class="pc-img"><span class="pbadge new">Nouveau</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Scrambler" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Blouson</span><span class="pc-name">Triumph Scrambler — Cuir</span><div class="sz-row"><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span><span class="sz">XL</span></div><div class="pc-foot"><span class="pc-price">389 €</span><button class="add-btn" data-n="Triumph Scrambler">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="casque"><div class="pc-img"><span class="pbadge new">Nouveau</span><img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque Shoei NXR2" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Casque Intégral</span><span class="pc-name">Shoei NXR2 — Matt Black</span><div class="sz-row"><span class="sz">XS</span><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span></div><div class="pc-foot"><span class="pc-price">649 €</span><button class="add-btn" data-n="Shoei NXR2">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="blouson"><div class="pc-img"><span class="pbadge promo">-20%</span><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson Triumph Meridian" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Blouson Textile</span><span class="pc-name">Triumph Meridian — Gris</span><div class="sz-row"><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span></div><div class="pc-foot"><span class="pc-price"><s>299 €</s>239 €</span><button class="add-btn" data-n="Triumph Meridian">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="gants"><div class="pc-img"><img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=600&q=80" alt="Gants Alpinestars" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Gants</span><span class="pc-name">Alpinestars GP Plus R</span><div class="sz-row"><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span><span class="sz">XL</span></div><div class="pc-foot"><span class="pc-price">179 €</span><button class="add-btn" data-n="Alpinestars GP Plus R">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="casque"><div class="pc-img"><img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Arai RX-7V" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Casque Intégral</span><span class="pc-name">Arai RX-7V Evo — Blanc</span><div class="sz-row"><span class="sz">XS</span><span class="sz">S</span><span class="sz">M</span></div><div class="pc-foot"><span class="pc-price">879 €</span><button class="add-btn" data-n="Arai RX-7V">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="pantalon"><div class="pc-img"><span class="pbadge new">Nouveau</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Pantalon</span><span class="pc-name">Triumph Raven — Textile</span><div class="sz-row"><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span><span class="sz">XL</span></div><div class="pc-foot"><span class="pc-price">249 €</span><button class="add-btn" data-n="Triumph Raven">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="chaussures"><div class="pc-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Forma Adventure" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Chaussures</span><span class="pc-name">Forma Adventure — Marron</span><div class="sz-row"><span class="sz">42</span><span class="sz">43</span><span class="sz">44</span><span class="sz">45</span></div><div class="pc-foot"><span class="pc-price">219 €</span><button class="add-btn" data-n="Forma Adventure">+ Panier</button></div></div></article>
+      <article class="pc" data-cat="gants"><div class="pc-img"><span class="pbadge promo">-15%</span><img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Café Racer" loading="lazy"/></div><div class="pc-body"><span class="pc-cat">Gants</span><span class="pc-name">Triumph Café Racer — Vintage</span><div class="sz-row"><span class="sz">S</span><span class="sz">M</span><span class="sz">L</span></div><div class="pc-foot"><span class="pc-price"><s>129 €</s>109 €</span><button class="add-btn" data-n="Triumph Café Racer">+ Panier</button></div></div></article>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services pad diag-top" id="services">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <p class="eyebrow chrome">/ L'atelier Road Spirit</p>
-        <h2 class="section-title">Plus qu'un magasin</h2>
-      </div>
+<section class="services diag-top" id="services">
+  <div class="wrap" style="padding-top:20px;padding-bottom:140px">
+    <div class="sec-head">
+      <div><span class="eyebrow" style="color:var(--chrome)">/ L'atelier Road Spirit</span><h2 class="stitle">Plus qu'un magasin</h2></div>
     </div>
-    <div class="svc-grid reveal">
-      <div class="svc">
-        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="34" r="7"/><circle cx="36" cy="34" r="7"/><path d="M12 34l9-13h11l4 13M21 21l-4-7h-5"/><path d="M32 21l3-5h6"/></svg>
-        <h4>Essai routier gratuit</h4>
-        <p>Réservez votre modèle, prenez la route. Aucun engagement, juste les sensations.</p>
-      </div>
-      <div class="svc">
-        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M30 8a8 8 0 0 0-10 10L8 30l6 6 12-12a8 8 0 0 0 10-10l-5 5-5-1-1-5 5-5Z"/></svg>
-        <h4>Atelier &amp; Customisation</h4>
-        <p>Entretien constructeur, préparation et pièces sur-mesure par nos mécaniciens.</p>
-      </div>
-      <div class="svc">
-        <svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 30l4-12h16l8 8h6a2 2 0 0 1 2 2v6M10 36h28"/><circle cx="16" cy="38" r="4"/><circle cx="34" cy="38" r="4"/></svg>
-        <h4>Livraison nationale</h4>
-        <p>Équipement expédié partout en France. Motos livrées clé en main près de chez vous.</p>
-      </div>
+    <div class="svc-grid">
+      <div class="svc"><svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="34" r="7"/><circle cx="36" cy="34" r="7"/><path d="M12 34l9-13h11l4 13M21 21l-4-7h-5"/><path d="M32 21l3-5h6"/></svg><h4>Essai routier gratuit</h4><p>Réservez votre modèle, prenez la route. Aucun engagement, juste les sensations.</p></div>
+      <div class="svc"><svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M30 8a8 8 0 0 0-10 10L8 30l6 6 12-12a8 8 0 0 0 10-10l-5 5-5-1-1-5 5-5Z"/></svg><h4>Atelier &amp; Customisation</h4><p>Entretien constructeur, préparation et pièces sur-mesure par nos mécaniciens.</p></div>
+      <div class="svc"><svg class="svc-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 30l4-12h16l8 8h6a2 2 0 0 1 2 2v6M10 36h28"/><circle cx="16" cy="38" r="4"/><circle cx="34" cy="38" r="4"/></svg><h4>Livraison nationale</h4><p>Équipement expédié partout en France. Motos livrées clé en main.</p></div>
     </div>
-    <div class="stats reveal">
-      <div class="stat"><div class="n" data-count="32"><b>+</b>0</div><div class="t">Années sur la route</div></div>
-      <div class="stat"><div class="n" data-count="48">0</div><div class="t">Modèles en showroom</div></div>
-      <div class="stat"><div class="n" data-count="6500"><b>+</b>0</div><div class="t">Motards équipés</div></div>
+    <div class="stats-row">
+      <div class="stat"><div class="stat-n"><b>+</b><span data-count="32">0</span></div><div class="stat-t">Années sur la route</div></div>
+      <div class="stat"><div class="stat-n"><span data-count="48">0</span></div><div class="stat-t">Modèles en showroom</div></div>
+      <div class="stat"><div class="stat-n"><b>+</b><span data-count="6500">0</span></div><div class="stat-t">Motards équipés</div></div>
     </div>
   </div>
 </section>
 
-<!-- STORY -->
 <section class="story" id="story">
   <div class="story-grid">
-    <div class="wrap" style="max-width:none;padding-left:max(40px,calc((100vw - 1320px)/2 + 40px));padding-right:0">
-      <div class="story-text reveal">
-        <p class="eyebrow">/ L'esprit Road Spirit</p>
-        <blockquote class="story-quote">Nous ne vendons pas des motos. Nous vendons <em>l'envie de partir.</em></blockquote>
-        <p>Depuis Toulon, face à la Méditerranée, Road Spirit fait rouler la passion Triumph depuis plus de trente ans. Une concession, un atelier, une communauté.</p>
-        <p>Ici, chaque machine est préparée comme si c'était la nôtre — parce qu'au fond, la route, on la prend ensemble.</p>
-      </div>
-    </div>
-    <div class="story-visual" role="img" aria-label="Motard sur une route ouverte au coucher du soleil">
-      <div class="story-sign">— <b>Road Spirit</b>, Toulon</div>
-    </div>
+    <div class="story-txt"><div class="story-inner">
+      <span class="eyebrow">/ L'esprit Road Spirit</span>
+      <blockquote class="story-q">Nous ne vendons pas des motos.<br>Nous vendons <em>l'envie de partir.</em></blockquote>
+      <p>Depuis Ollioules, face à la Méditerranée, Road Spirit fait rouler la passion Triumph depuis plus de trente ans. Une concession, un atelier, une communauté.</p>
+      <p>Ici, chaque machine est préparée comme si c'était la nôtre — parce qu'au fond, la route, on la prend ensemble.</p>
+    </div></div>
+    <div class="story-vis"><div class="story-tag">— <b>Road Spirit</b>, Ollioules</div></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer id="contact">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot">
-        <div class="brand">ROAD <span>SPIRIT</span></div>
-        <p>Concession et boutique Triumph officielle. La route est à vous depuis 1992.</p>
-      </div>
-      <div class="foot">
-        <h5>Navigation</h5>
-        <ul>
-          <li><a href="#motos">Motos</a></li>
-          <li><a href="#equipements">Équipements</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#story">L'esprit</a></li>
-        </ul>
-      </div>
-      <div class="foot">
-        <h5>Contact</h5>
-        <div class="contact-row"><span>📍</span><b>142 avenue de la Mer, 83000 Toulon</b></div>
-        <div class="contact-row"><span>☎</span><b>04 94 00 00 00</b></div>
-        <div class="contact-row"><span>✉</span><b>contact@roadspirit.fr</b></div>
-      </div>
-      <div class="foot">
-        <h5>Suivez la route</h5>
-        <div class="socials">
-          <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5h2.5V5.5H14c-2 0-3.5 1.5-3.5 3.5v2H8v3h2.5V21h3v-7H16l.5-3H13.5V9.2c0-.4.3-.7.5-.7Z"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8a3 3 0 0 0-2-2c-2-.5-8-.5-8-.5s-6 0-8 .5a3 3 0 0 0-2 2 31 31 0 0 0 0 8 3 3 0 0 0 2 2c2 .5 8 .5 8 .5s6 0 8-.5a3 3 0 0 0 2-2 31 31 0 0 0 0-8ZM10 15V9l5 3-5 3Z"/></svg></a>
-        </div>
-      </div>
+      <div class="foot"><div class="brand">ROAD <em>SPIRIT</em></div><p class="foot-desc">Concession et boutique Triumph officielle. La route est à vous depuis 1992.</p></div>
+      <div class="foot"><h5>Navigation</h5><ul class="foot-lnk"><li><a href="#motos">Motos</a></li><li><a href="#equipements">Équipements</a></li><li><a href="boutique.html" class="pl">Boutique</a></li><li><a href="services.html" class="pl">Services</a></li><li><a href="#story">L'esprit</a></li></ul></div>
+      <div class="foot"><h5>Contact</h5><div class="cr"><span>📍</span><b>Espace Mermoz, 212 ch. des Delphiniums, 83190 Ollioules</b></div><div class="cr"><span>☎</span><b><a href="tel:+33494201002" style="color:var(--ink)">04 94 20 10 02</a></b></div><div class="cr"><span>🕐</span><b>Mar–Sam 9h–12h / 14h–19h</b></div><div class="cr"><span>✉</span><b><a href="mailto:contact@roadspirit.fr" style="color:var(--gold)">contact@roadspirit.fr</a></b></div></div>
+      <div class="foot"><h5>Suivez la route</h5><div class="socials"><a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5h2.5V5.5H14c-2 0-3.5 1.5-3.5 3.5v2H8v3h2.5V21h3v-7H16l.5-3H13.5V9.2c0-.4.3-.7.5-.7Z"/></svg></a><a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8a3 3 0 0 0-2-2c-2-.5-8-.5-8-.5s-6 0-8 .5a3 3 0 0 0-2 2 31 31 0 0 0 0 8 3 3 0 0 0 2 2c2 .5 8 .5 8 .5s6 0 8-.5a3 3 0 0 0 2-2 31 31 0 0 0 0-8ZM10 15V9l5 3-5 3Z"/></svg></a></div></div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2024 Road Spirit — Toulon. Tous droits réservés.</span>
-      <span><a href="mentions-legales.html" class="page-link">Mentions légales</a> · <a href="cgv.html" class="page-link">CGV</a> · <a href="confidentialite.html" class="page-link">Confidentialité</a></span>
+    <div class="foot-bot">
+      <span>© 2024 Road Spirit — Ollioules. Tous droits réservés.</span>
+      <span><a href="mentions-legales.html" class="pl">Mentions légales</a> · <a href="cgv.html" class="pl">CGV</a> · <a href="confidentialite.html" class="pl">Confidentialité</a></span>
     </div>
   </div>
 </footer>
 
+<div class="toast" id="toast"><span style="color:var(--gold);font-size:18px">✓</span><span id="t-msg">Produit ajouté</span></div>
+
 <script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── LENIS ──────────────────────────────────── */
+const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+let lenis;
+if(!reduced){
+  lenis = new Lenis({ duration:1.25, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* ── LOADING ────────────────────────────────── */
 (function(){
+  const loader = document.getElementById('loader');
+  const bar = document.getElementById('l-bar');
+  const pct = document.getElementById('l-pct');
+  const chars = document.querySelectorAll('.l-char');
 
-  // ── SCROLL PROGRESS BAR ───────────────────────────────────
-  var progressBar = document.getElementById('progressBar');
-  if(progressBar){
-    window.addEventListener('scroll', function(){
-      var h = document.documentElement.scrollHeight - window.innerHeight;
-      progressBar.style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%';
-    }, {passive:true});
-  }
+  gsap.to(chars, { y:0, opacity:1, duration:.55, stagger:.04, ease:'power3.out', delay:.15 });
 
-  // ── BUTTON :ACTIVE PRESS (Emil Kowalski) ──────────────────
-  document.querySelectorAll('.btn, .add-btn, .submit-btn').forEach(function(btn){
-    btn.addEventListener('mousedown', function(){ btn.style.transform = 'scale(0.97)'; });
-    btn.addEventListener('mouseup', function(){ btn.style.transform = ''; });
-    btn.addEventListener('mouseleave', function(){ btn.style.transform = ''; });
-  });
-
-  // ── PAGE OVERLAY (transition) ──────────────────────────────
-  var overlay = document.createElement('div');
-  overlay.className = 'page-overlay';
-  document.body.appendChild(overlay);
-
-  function navigate(url){
-    overlay.classList.add('out');
-    setTimeout(function(){ window.location.href = url; }, 560);
-  }
-  window.navigate = navigate;
-
-  document.querySelectorAll('a.page-link').forEach(function(a){
-    a.addEventListener('click', function(e){
-      var href = a.getAttribute('href');
-      if(!href || href.startsWith('#')) return;
-      e.preventDefault();
-      navigate(href);
-    });
-  });
-
-  // ── CUSTOM CURSOR ──────────────────────────────────────────
-  if(window.matchMedia('(pointer:fine)').matches){
-    var dot = document.createElement('div'); dot.className = 'cursor-dot';
-    var ring = document.createElement('div'); ring.className = 'cursor-ring';
-    document.body.appendChild(dot); document.body.appendChild(ring);
-    var mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',function(e){
-      mx=e.clientX; my=e.clientY;
-      dot.style.left=mx+'px'; dot.style.top=my+'px';
-    });
-    (function lerp(){
-      rx+=(mx-rx)*.14; ry+=(my-ry)*.14;
-      ring.style.left=rx+'px'; ring.style.top=ry+'px';
-      requestAnimationFrame(lerp);
-    })();
-  }
-
-  // ── TOAST PANIER ───────────────────────────────────────────
-  var toast = document.createElement('div');
-  toast.className='toast';
-  toast.innerHTML='<span class="toast-ico">✓</span><span>Produit ajouté au panier</span>';
-  document.body.appendChild(toast);
-  var toastTimer;
-  document.querySelectorAll('.add-btn').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      var name = btn.closest('.product-card').querySelector('.product-name');
-      toast.querySelector('span:last-child').textContent = (name ? name.textContent : 'Produit') + ' ajouté au panier';
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3000);
-    });
-  });
-
-  // ── HERO PARALLAX ─────────────────────────────────────────
-  var heroBg = document.querySelector('.hero-bg');
-  if(heroBg){
-    window.addEventListener('scroll',function(){
-      var s = window.scrollY;
-      if(s < window.innerHeight){
-        heroBg.style.transform = 'scale(1) translateY('+(s*0.3)+'px)';
-      }
-    },{passive:true});
-  }
-
-  // Nav scroll state
-  var nav = document.getElementById('nav');
-  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 80); }
-  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
-
-  // Mobile menu
-  var burger = document.getElementById('burger');
-  var links = document.getElementById('navLinks');
-  burger.addEventListener('click', function(){
-    var open = links.classList.toggle('open');
-    burger.classList.toggle('open', open);
-    burger.setAttribute('aria-expanded', open ? 'true':'false');
-    burger.setAttribute('aria-label', open ? 'Fermer le menu':'Ouvrir le menu');
-  });
-  links.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      links.classList.remove('open'); burger.classList.remove('open');
-      burger.setAttribute('aria-expanded','false');
-    });
-  });
-
-  // Scroll reveal with stagger
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, {threshold:.16, rootMargin:'0px 0px -8% 0px'});
-
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-
-  // Stagger children inside grids
-  document.querySelectorAll('.moto-grid, .equip').forEach(function(grid){
-    grid.querySelectorAll('.reveal').forEach(function(el,i){
-      el.style.transitionDelay = (i*0.1)+'s';
-    });
-  });
-
-  // Boutique filters
-  var filterBtns = document.querySelectorAll('.filter-btn');
-  var productCards = document.querySelectorAll('.product-card[data-cat]');
-  filterBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var f = btn.getAttribute('data-filter');
-      filterBtns.forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
-      btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-      productCards.forEach(function(c){
-        if(f === 'all' || c.getAttribute('data-cat') === f){
-          c.classList.remove('hidden');
-        } else {
-          c.classList.add('hidden');
-        }
-      });
-    });
-  });
-
-  // Counter animation
-  function animateCount(el){
-    var target = +el.getAttribute('data-count');
-    var prefix = el.querySelector('b') ? el.querySelector('b').outerHTML : '';
-    var dur = 1600, start = performance.now();
-    function tick(now){
-      var p = Math.min((now-start)/dur, 1);
-      var eased = 1 - Math.pow(1-p, 3);
-      var val = Math.round(target*eased);
-      el.innerHTML = prefix + val.toLocaleString('fr-FR');
-      if(p<1) requestAnimationFrame(tick);
+  let p=0;
+  const iv = setInterval(()=>{
+    p += Math.random()*16;
+    if(p>=100){ p=100; clearInterval(iv);
+      setTimeout(()=>{
+        gsap.to(loader,{ yPercent:-100, duration:.85, ease:'power4.inOut',
+          onComplete(){ loader.style.display='none'; heroIn(); }
+        });
+      },280);
     }
-    requestAnimationFrame(tick);
-  }
-  var statIO = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){ animateCount(e.target); statIO.unobserve(e.target); }
-    });
-  }, {threshold:.6});
-  document.querySelectorAll('.stat .n[data-count]').forEach(function(el){ statIO.observe(el); });
+    bar.style.width=p+'%';
+    pct.textContent=Math.round(p)+'%';
+  },75);
 })();
+
+/* ── HERO ENTRANCE ─────────────────────────── */
+function heroIn(){
+  const tl = gsap.timeline();
+  tl.to('#h-grid',{opacity:1,duration:1.5,ease:'power2.out'},0)
+    .to('#h-lbl',{opacity:1,y:0,duration:.8,ease:'power3.out'},.25)
+    .to('#hl1',{y:0,opacity:1,duration:1,ease:'power4.out'},.4)
+    .to('#hl2',{y:0,opacity:1,duration:1,ease:'power4.out'},.55)
+    .to('#h-sub',{opacity:1,duration:.7,ease:'power2.out'}, .8)
+    .to('#h-cta',{opacity:1,y:0,duration:.7,ease:'power3.out'},.95)
+    .to('#h-scroll',{opacity:1,duration:.5},1.3)
+    .call(()=>{ document.getElementById('h-sub').classList.add('animate'); },.85);
+}
+
+/* ── CURSOR ─────────────────────────────────── */
+if(window.matchMedia('(pointer:fine)').matches){
+  const dot=document.getElementById('c-dot'), ring=document.getElementById('c-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY; dot.style.left=mx+'px';dot.style.top=my+'px'; });
+  (function lp(){ rx+=(mx-rx)*.12;ry+=(my-ry)*.12; ring.style.left=rx+'px';ring.style.top=ry+'px'; requestAnimationFrame(lp); })();
+  const hov=['a','button','.mc','.pc','.fb'].join(',');
+  document.querySelectorAll(hov).forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ dot.classList.add('hov');ring.classList.add('hov'); });
+    el.addEventListener('mouseleave',()=>{ dot.classList.remove('hov');ring.classList.remove('hov'); });
+  });
+  document.querySelectorAll('.btn,.add-btn').forEach(b=>{
+    b.addEventListener('mousemove',e=>{ const r=b.getBoundingClientRect(); gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.18,y:(e.clientY-r.top-r.height/2)*.18,duration:.3,ease:'power2.out'}); });
+    b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.5,ease:'elastic.out(1,.5)'}));
+    b.addEventListener('mousedown',()=>gsap.to(b,{scale:.96,duration:.1}));
+    b.addEventListener('mouseup',()=>gsap.to(b,{scale:1,duration:.25,ease:'back.out(2)'}));
+  });
+}
+
+/* ── SPOTLIGHT ──────────────────────────────── */
+document.querySelectorAll('.mc').forEach(c=>{
+  const sp=c.querySelector('.mc-sp');
+  c.addEventListener('mousemove',e=>{ const r=c.getBoundingClientRect(); sp.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%'); sp.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%'); });
+});
+
+/* ── NAV ────────────────────────────────────── */
+const nav=document.getElementById('nav');
+ScrollTrigger.create({ start:80, onEnter:()=>nav.classList.add('s'), onLeaveBack:()=>nav.classList.remove('s') });
+
+/* ── PROGRESS ───────────────────────────────── */
+const prog=document.getElementById('prog');
+ScrollTrigger.create({ start:0,end:'max', onUpdate:s=>prog.style.width=(s.progress*100)+'%' });
+
+/* ── PARALLAX ───────────────────────────────── */
+gsap.to('#h-bg',{ yPercent:28,ease:'none', scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true} });
+gsap.to('.story-vis',{ backgroundPositionY:'60%',ease:'none', scrollTrigger:{trigger:'.story',start:'top bottom',end:'bottom top',scrub:true} });
+
+/* ── REVEALS ────────────────────────────────── */
+gsap.utils.toArray('.eyebrow').forEach(el=>{
+  gsap.from(el,{opacity:0,x:-20,duration:.8,ease:'power3.out', scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+gsap.utils.toArray('.stitle').forEach(el=>{
+  gsap.from(el,{opacity:0,y:60,duration:1.1,ease:'power4.out', scrollTrigger:{trigger:el,start:'top 85%',once:true}});
+});
+gsap.utils.toArray('.eq-block').forEach(b=>{
+  const flip=b.classList.contains('flip');
+  gsap.from(b.querySelector('.eq-vis'),{opacity:0,x:flip?60:-60,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:b,start:'top 80%',once:true}});
+  gsap.from(b.querySelector('.eq-text'),{opacity:0,x:flip?-60:60,duration:1.1,ease:'power3.out',delay:.1,scrollTrigger:{trigger:b,start:'top 80%',once:true}});
+});
+gsap.from('.svc',{opacity:0,y:40,duration:.9,stagger:.12,ease:'power3.out', scrollTrigger:{trigger:'.svc-grid',start:'top 80%',once:true}});
+gsap.from('.pc',{opacity:0,y:30,duration:.7,stagger:.07,ease:'power2.out', scrollTrigger:{trigger:'#pgrid',start:'top 82%',once:true}});
+gsap.from('.story-q',{opacity:0,y:50,duration:1.2,ease:'power4.out', scrollTrigger:{trigger:'.story-q',start:'top 80%',once:true}});
+gsap.from('.mc',{opacity:0,x:60,duration:1,stagger:.15,ease:'power3.out', scrollTrigger:{trigger:'.motos-s',start:'top 82%',once:true}});
+
+/* ── COUNTERS ───────────────────────────────── */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const t=+el.getAttribute('data-count');
+  ScrollTrigger.create({ trigger:el,start:'top 75%',once:true,
+    onEnter(){ gsap.to(el,{textContent:t,duration:2,ease:'power2.out',
+      snap:{textContent:t>100?50:1},
+      onUpdate(){ el.textContent=Math.round(+el.textContent).toLocaleString('fr-FR'); }
+    }); }
+  });
+});
+
+/* ── FILTERS ────────────────────────────────── */
+document.querySelectorAll('.fb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const f=btn.dataset.f;
+    document.querySelectorAll('.fb').forEach(b=>b.classList.remove('a'));
+    btn.classList.add('a');
+    document.querySelectorAll('.pc').forEach(c=>{
+      const show=f==='all'||c.dataset.cat===f;
+      c.classList.toggle('hidden',!show);
+      if(show) gsap.fromTo(c,{opacity:0,y:16},{opacity:1,y:0,duration:.35,ease:'power2.out'});
+    });
+  });
+});
+
+/* ── TOAST ──────────────────────────────────── */
+const toast=document.getElementById('toast'), tmsg=document.getElementById('t-msg');
+let tt;
+document.querySelectorAll('.add-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{ e.stopPropagation();
+    tmsg.textContent=(btn.dataset.n||'Produit')+' ajouté au panier';
+    toast.classList.add('show'); clearTimeout(tt);
+    tt=setTimeout(()=>toast.classList.remove('show'),3200);
+  });
+});
+
+/* ── MOBILE MENU ────────────────────────────── */
+const hbg=document.getElementById('hbg'), nl=document.getElementById('nl');
+hbg.addEventListener('click',()=>{
+  const o=nl.classList.toggle('open');
+  hbg.classList.toggle('o',o); hbg.setAttribute('aria-expanded',o);
+  if(lenis) o?lenis.stop():lenis.start();
+});
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ nl.classList.remove('open');hbg.classList.remove('o');if(lenis)lenis.start(); }));
+
+/* ── PAGE TRANSITIONS ───────────────────────── */
+const pov=document.getElementById('pov');
+function navigate(url){ if(lenis)lenis.stop(); pov.classList.add('out'); setTimeout(()=>window.location.href=url,640); }
+window.navigate=navigate;
+document.querySelectorAll('a.pl').forEach(a=>{
+  a.addEventListener('click',e=>{ const h=a.getAttribute('href'); if(!h||h.startsWith('#'))return; e.preventDefault(); navigate(h); });
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{ const id=a.getAttribute('href'); if(id.length<2)return; e.preventDefault();
+    const el=document.querySelector(id); if(!el)return;
+    if(lenis) lenis.scrollTo(el,{offset:-80}); else el.scrollIntoView({behavior:'smooth'});
+  });
+});
 </script>
 </body>
 </html>

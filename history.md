@@ -4,6 +4,11 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-30 · À FAIRE — Refaire l'interface de l'appli interne avec Claude Design
+
+- **Rappel explicite de Mathis** : refaire l'UI de `interne/app.html` via Claude Design pour un rendu plus soigné, puis rebrancher le code Supabase dessus.
+- À faire après avoir terminé la connexion Supabase + création du compte admin.
+
 ## 2026-05-30 · Prompt refonte roadspirit.fr (Claude Design)
 
 - **Demande :** refonte totale du site roadspirit.fr (concessionnaire Triumph Toulon) — moderne, dynamique, belles animations. Recherche préalable des meilleurs skills web + audit sécurité.
