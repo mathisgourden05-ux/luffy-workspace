@@ -4,6 +4,14 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## À FAIRE — Prochaine session (priorités)
+
+1. **Connexion boutique ↔ Supabase** : boutique.html et produit.html chargent depuis Supabase. Road Spirit gère son catalogue depuis l'app interne. Importer les 150 produits JSON dans Supabase d'abord.
+2. **PWA (Progressive Web App)** : manifest.json + meta tags → l'app s'installe comme une vraie app sur téléphone/tablette/desktop en un clic.
+3. **Bouton "Accéder au site web"** dans l'app interne → lien vers le site Road Spirit.
+
+---
+
 ## 2026-05-31 · À FAIRE EN PRIORITÉ — Connexion boutique ↔ Supabase
 
 - **Problème identifié :** la boutique charge depuis `catalogue-data.js` (statique), l'app gère les produits dans Supabase → les deux ne sont pas connectés. Road Spirit ne peut pas gérer son catalogue sans toucher au code.
