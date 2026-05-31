@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Devis 2026-001 — Road Spirit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:#f2f2f2;
+    color:#1a1a1a;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .page{
+    width:210mm;
+    min-height:297mm;
+    margin:20px auto;
+    background:#fff;
+    padding:18mm 18mm 16mm;
+    box-shadow:0 4px 32px rgba(0,0,0,.12);
+  }
+
+  /* ── TOP BAR ── */
+  .topbar{
+    height:5px;
+    background:linear-gradient(90deg,#8B6914,#C9A84C,#8B6914);
+    margin:-18mm -18mm 0;
+    margin-bottom:10mm;
+  }
+
+  /* ── HEADER ── */
+  .header{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:9mm;
+  }
+  .emitter-name{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:3px}
+  .emitter-sub{font-size:12px;color:#777;line-height:1.7}
+  .emitter-email{font-size:12px;color:#8B6914;margin-top:6px}
+
+  .client-box{
+    background:#f8f8f8;
+    border-left:3px solid #C9A84C;
+    padding:12px 16px;
+  }
+  .client-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:#aaa;margin-bottom:5px}
+  .client-name{font-size:15px;font-weight:700;color:#1a1a1a}
+  .client-sub{font-size:12px;color:#777;margin-top:2px}
+
+  /* ── TITLE ── */
+  .title-block{margin-bottom:8mm}
+  .devis-num{font-size:34px;font-weight:700;color:#1a1a1a;letter-spacing:-.5px;line-height:1}
+  .devis-sub{font-size:14px;color:#777;margin-top:5px}
+  .devis-meta{font-size:11px;color:#aaa;margin-top:6px}
+  .devis-meta span{color:#8B6914;font-weight:500}
+
+  .divider{height:1px;background:#e0e0e0;margin:7mm 0}
+  .divider.gold{background:linear-gradient(90deg,#C9A84C,transparent)}
+
+  /* ── SECTION TITLE ── */
+  .section-title{
+    font-size:10px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.16em;color:#8B6914;
+    margin:7mm 0 4mm;
+  }
+
+  /* ── TABLE PRESTATIONS ── */
+  table{width:100%;border-collapse:collapse}
+
+  .tbl-prest thead th{
+    background:#1a1a1a;color:#fff;
+    font-size:10px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;
+    padding:9px 12px;
+    text-align:left;
+  }
+  .tbl-prest thead th:last-child{text-align:right}
+  .tbl-prest thead th:first-child{width:28px;text-align:center}
+
+  .tbl-prest tbody td{
+    padding:10px 12px;
+    font-size:12px;
+    border-bottom:1px solid #f0f0f0;
+    vertical-align:top;
+  }
+  .tbl-prest tbody tr:nth-child(even) td{background:#fafafa}
+  .tbl-prest tbody td:first-child{
+    text-align:center;font-size:11px;color:#aaa;width:28px;font-weight:500
+  }
+  .tbl-prest tbody td:nth-child(2){
+    font-weight:600;color:#1a1a1a;width:130px;
+  }
+  .tbl-prest tbody td:nth-child(3){color:#555;line-height:1.55}
+  .tbl-prest tbody td:last-child{
+    text-align:right;font-weight:500;color:#1a1a1a;white-space:nowrap;width:72px;
+  }
+
+  .tbl-prest tfoot td{
+    padding:10px 12px;
+    background:linear-gradient(135deg,#8B6914,#C9A84C);
+    color:#fff;font-weight:700;font-size:14px;
+  }
+  .tbl-prest tfoot td:last-child{text-align:right;font-size:16px}
+
+  .tva-note{
+    text-align:right;font-size:10px;
+    font-style:italic;color:#aaa;margin-top:6px;
+  }
+
+  /* ── TABLE PAIEMENT ── */
+  .tbl-pay thead th{
+    background:#1a1a1a;color:#fff;
+    font-size:10px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;
+    padding:9px 12px;text-align:left;
+  }
+  .tbl-pay thead th:nth-child(2){text-align:right}
+  .tbl-pay tbody td{
+    padding:10px 12px;font-size:12px;border-bottom:1px solid #f0f0f0;
+  }
+  .tbl-pay tbody tr:nth-child(odd) td{background:#fafafa}
+  .tbl-pay td:nth-child(1){font-weight:600;color:#1a1a1a}
+  .tbl-pay td:nth-child(2){text-align:right;font-weight:600;color:#8B6914}
+
+  .iban{font-size:11px;color:#777;margin-top:7px}
+
+  /* ── INCLUS / NON INCLUS ── */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:5mm}
+  .inclus-box h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+  .inclus-box h4.green{color:#27AE60}
+  .inclus-box h4.red{color:#C0392B}
+  .inclus-box ul{list-style:none;padding:0}
+  .inclus-box li{
+    font-size:11px;color:#555;line-height:1.55;
+    padding-left:14px;position:relative;margin-bottom:4px;
+  }
+  .inclus-box li::before{
+    content:'•';position:absolute;left:0;
+    font-weight:700;
+  }
+  .inclus-box.ok li::before{color:#27AE60}
+  .inclus-box.no li::before{color:#C0392B}
+
+  /* ── SIGNATURE ── */
+  .sign-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:5mm}
+  .sign-box{
+    border:1px solid #ddd;
+    padding:12px 16px 40px;
+    background:#fafafa;
+  }
+  .sign-label{font-size:11px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+  .sign-sub{font-size:10px;color:#aaa}
+
+  /* ── FOOTER ── */
+  .doc-footer{
+    margin-top:9mm;
+    padding-top:6mm;
+    border-top:1px solid #e0e0e0;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .doc-footer p{font-size:10px;color:#bbb}
+  .doc-footer .num{
+    font-size:11px;font-weight:600;color:#C9A84C;
+    letter-spacing:.08em;
+  }
+
+  /* ── PRINT ── */
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none;width:100%;padding:14mm 16mm 14mm}
+    .topbar{margin:-14mm -16mm 0;margin-bottom:8mm}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="emitter-name">Mathis Gourden</div>
+      <div class="emitter-sub">
+        Développeur web freelance<br>
+        Micro-entrepreneur<br>
+        SIRET : <em>[en cours de création]</em>
+      </div>
+      <div class="emitter-email">mathisgourden05@gmail.com</div>
+    </div>
+    <div class="client-box">
+      <div class="client-label">Client</div>
+      <div class="client-name">Road Spirit</div>
+      <div class="client-sub">Concession Triumph Officielle<br>Ollioules (83)</div>
+    </div>
+  </div>
+
+  <div class="divider gold"></div>
+
+  <!-- TITLE -->
+  <div class="title-block" style="margin-top:7mm">
+    <div class="devis-num">DEVIS N° 2026-001</div>
+    <div class="devis-sub">Création site web &amp; application de gestion interne</div>
+    <div class="devis-meta">
+      Date d'émission : <span>31 mai 2026</span> &nbsp;|&nbsp; Validité : <span>30 jours</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PRESTATIONS -->
+  <div class="section-title">Détail des prestations</div>
+  <table class="tbl-prest">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Prestation</th>
+        <th>Détail</th>
+        <th>Montant HT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Homepage premium</td>
+        <td>Design sur mesure, animations GSAP / Lenis, hero moto animé, sections motos, équipements, services, brand story. Entièrement responsive.</td>
+        <td>1 800 €</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Boutique e-commerce</td>
+        <td>Catalogue 150+ produits, filtres par catégorie et prix, tri, page produit détaillée, gestion des tailles et couleurs.</td>
+        <td>1 500 €</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Tunnel de commande</td>
+        <td>Panier, page paiement complète (CB / PayPal / virement), intégration Stripe Payment Link, page confirmation automatique.</td>
+        <td>700 €</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Pages secondaires</td>
+        <td>Motos (grille + modale détail), Services + formulaire contact, CGV, Mentions légales, Politique de confidentialité.</td>
+        <td>500 €</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Optimisations techniques</td>
+        <td>SEO on-page (meta, Open Graph, favicon), CSS partagé, catalogue embarqué sans serveur, compatibilité multi-navigateurs.</td>
+        <td>300 €</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Application interne</td>
+        <td>Interface sécurisée (Supabase auth), tableau de bord temps réel, gestion essais / commandes / stock / équipe, export CSV.</td>
+        <td>1 800 €</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align:right;letter-spacing:.08em;font-size:12px">TOTAL HT</td>
+        <td>6 600 €</td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="tva-note">TVA non applicable — article 293 B du CGI</div>
+
+  <!-- PAIEMENT -->
+  <div class="section-title">Conditions de paiement</div>
+  <table class="tbl-pay">
+    <thead>
+      <tr>
+        <th>Échéance</th>
+        <th>Montant</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Acompte</td>
+        <td>1 980 € <small style="color:#aaa;font-weight:400">(30 %)</small></td>
+        <td>À la signature du devis</td>
+      </tr>
+      <tr>
+        <td>Solde</td>
+        <td>4 620 € <small style="color:#aaa;font-weight:400">(70 %)</small></td>
+        <td>À la livraison finale validée</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="iban">Paiement par virement bancaire — IBAN : <strong>[à compléter à la création du compte pro]</strong></div>
+
+  <!-- INCLUS / NON INCLUS -->
+  <div class="two-col">
+    <div class="inclus-box ok">
+      <h4 class="green">✓ Inclus dans la prestation</h4>
+      <ul>
+        <li>Mise en ligne sur Netlify (hébergement gratuit) ou hébergement client</li>
+        <li>30 jours de corrections post-livraison inclus</li>
+        <li>Formation utilisation app interne (1 h en visioconférence)</li>
+        <li>Code source complet livré — le client en est propriétaire</li>
+      </ul>
+    </div>
+    <div class="inclus-box no">
+      <h4 class="red">✗ Non inclus</h4>
+      <ul>
+        <li>Nom de domaine et hébergement (~15 €/mois)</li>
+        <li>Frais Stripe : 2,9 % + 0,25 € par transaction</li>
+        <li>Maintenance mensuelle (sur devis : à partir de 150 €/mois)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="section-title" style="margin-top:8mm">Signature</div>
+  <div class="sign-grid">
+    <div class="sign-box">
+      <div class="sign-label">Bon pour accord — Signature et cachet client</div>
+      <div class="sign-sub">Précédé de la mention manuscrite "Lu et approuvé"</div>
+    </div>
+    <div class="sign-box">
+      <div class="sign-label">Date</div>
+      <div class="sign-sub">&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <p>Devis valable 30 jours. Ce devis vaut contrat à la signature — aucun acompte avant accord écrit.</p>
+    <div class="num">N° 2026-001</div>
+  </div>
+
+</div>
+</body>
+</html>

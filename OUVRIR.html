@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Luffy — Accès rapide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700&family=DM+Sans:wght@400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#06060E;color:#F2EEE8;
+    font-family:'DM Sans',system-ui,sans-serif;
+    min-height:100vh;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    gap:0;
+  }
+
+  .logo{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:48px;letter-spacing:.08em;
+    color:#D4A853;margin-bottom:6px;
+  }
+  .logo span{color:#F2EEE8}
+  .sub{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;text-transform:uppercase;
+    letter-spacing:.28em;font-size:11px;
+    color:rgba(242,238,232,.35);
+    margin-bottom:52px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    width:min(680px,90vw);
+    margin-bottom:48px;
+  }
+
+  .card{
+    background:#0A0A14;
+    border:1px solid rgba(255,255,255,.06);
+    padding:32px 28px;
+    cursor:pointer;
+    text-decoration:none;color:inherit;
+    transition:border-color .3s,transform .25s,background .3s;
+    position:relative;overflow:hidden;
+    display:block;
+  }
+  .card::before{
+    content:"";position:absolute;
+    top:0;left:0;right:0;height:2px;
+    background:transparent;
+    transition:background .3s;
+  }
+  .card:hover{
+    border-color:rgba(212,168,83,.3);
+    transform:translateY(-4px);
+    background:#0D0D1A;
+  }
+  .card:hover::before{background:#D4A853}
+
+  .card-ico{font-size:32px;margin-bottom:14px;display:block}
+  .card-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:26px;letter-spacing:.04em;
+    color:#F2EEE8;margin-bottom:8px;
+  }
+  .card-desc{
+    font-size:13px;color:rgba(242,238,232,.45);
+    line-height:1.6;
+  }
+  .card-tag{
+    display:inline-block;margin-top:16px;
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:700;text-transform:uppercase;
+    letter-spacing:.16em;font-size:10px;
+    padding:4px 12px;
+    background:rgba(212,168,83,.12);
+    border:1px solid rgba(212,168,83,.2);
+    color:#D4A853;
+  }
+
+  .card.devis{grid-column:span 2}
+  .card.devis .card-title{font-size:22px}
+
+  .footer{
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:600;letter-spacing:.16em;font-size:11px;
+    text-transform:uppercase;color:rgba(242,238,232,.2);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">ROAD <span>SPIRIT</span></div>
+<div class="sub">Espace de travail — Accès rapide</div>
+
+<div class="grid">
+
+  <a class="card" href="livrable/site-web/Road Spirit.html" target="_blank">
+    <span class="card-ico">🌐</span>
+    <div class="card-title">Site Web</div>
+    <div class="card-desc">
+      Homepage, boutique, motos, services, panier, paiement. Site complet Road Spirit.
+    </div>
+    <span class="card-tag">Road Spirit.html</span>
+  </a>
+
+  <a class="card" href="livrable/site-web/interne/app.html" target="_blank">
+    <span class="card-ico">⚙️</span>
+    <div class="card-title">App Interne</div>
+    <div class="card-desc">
+      Dashboard, essais, commandes, stock, équipe. Connexion Supabase ou mode démo.
+    </div>
+    <span class="card-tag">app.html</span>
+  </a>
+
+  <a class="card devis" href="livrable/devis-roadspirit-2026-001.html" target="_blank">
+    <span class="card-ico">📄</span>
+    <div class="card-title">Devis N° 2026-001 — Road Spirit</div>
+    <div class="card-desc">
+      Devis 6 600 € HT. Ouvrir puis Cmd+P → Enregistrer en PDF pour l'envoyer.
+    </div>
+    <span class="card-tag">devis-roadspirit-2026-001.html</span>
+  </a>
+
+</div>
+
+<div class="footer">Luffy Workspace · Mathis Gourden</div>
+
+</body>
+</html>
