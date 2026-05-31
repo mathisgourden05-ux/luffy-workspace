@@ -694,12 +694,16 @@ function exportCSV(data, filename){
   const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click();
 }
 
+// Helper sécurisé : évite les crash si l'élément n'existe pas
+function on(id, event, fn){ const el=document.getElementById(id); if(el) el.addEventListener(event, fn); }
+function el(id){ return document.getElementById(id); }
+
 // ══════════════════════════════════════════════════════════
 //  AUTH
 // ══════════════════════════════════════════════════════════
 async function checkAuth(){
   // En local (file://) → démo automatique sans login
-  if(window.location.protocol === 'file:' || !db){
+  if(window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !db){
     isDemoMode = true;
     currentProfile = DEMO.profile;
     showApp();
@@ -770,7 +774,7 @@ document.getElementById('btn-login').addEventListener('click', async()=>{
   else { currentUser=(await db.auth.getUser()).data.user; await loadProfile(); showApp(); }
 });
 
-document.getElementById('password').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btn-login').click(); });
+on('password', 'keydown', e=>{ if(e.key==='Enter') document.getElementById('btn-login').click(); });
 
 document.getElementById('btn-logout').addEventListener('click', async()=>{
   if(db && !isDemoMode) await db.auth.signOut();
@@ -935,7 +939,7 @@ async function loadAPreparer(){
 function renderAPreparer(data){
   const tbody = document.getElementById('table-prep');
   if(!data.length){ tbody.innerHTML='<tr><td colspan="7"><div class="empty"><div class="ico">✅</div><p>Aucune commande à préparer</p></div></td></tr>'; return; }
-  const ageTag = d => { const days=Math.floor((Date.now()-new Date(d))/86400000); return days>=2?`<span class="urgent-tag">${days}j</span>`:days>=1?`<span class="urgent-tag orange">hier</span>`:'<span style="font-size:11px;color:var(--muted)">auj.</span>`; };
+  const ageTag = d => { const days=Math.floor((Date.now()-new Date(d))/86400000); return days>=2?`<span class="urgent-tag">${days}j</span>`:days>=1?`<span class="urgent-tag orange">hier</span>`:''; };
   tbody.innerHTML = data.map(c=>`<tr>
     <td><b>${c.client_nom}</b></td>
     <td style="color:var(--gold)">${c.client_tel||'—'}</td>
@@ -1115,7 +1119,7 @@ document.getElementById('search-cmd').addEventListener('input', e=>{
     (!f || c.statut===f)
   ));
 });
-document.getElementById('filter-cmd-statut').addEventListener('change', ()=>{ document.getElementById('search-cmd').dispatchEvent(new Event('input')); });
+on('filter-cmd-statut', 'change', ()=>{ document.getElementById('search-cmd').dispatchEvent(new Event('input')); });
 
 function openModalCmd(id, statut){ document.getElementById('modal-cmd-id').value=id; document.getElementById('modal-cmd-statut').value=statut; openModal('modal-statut-cmd'); }
 
@@ -1126,7 +1130,7 @@ document.getElementById('btn-save-cmd-statut').addEventListener('click', async()
   if(error){ toast('Erreur','error'); } else { toast('Statut mis à jour'); closeModal('modal-statut-cmd'); loadCommandes(); loadBadges(); }
 });
 
-document.getElementById('btn-export-cmd').addEventListener('click', ()=>{ exportCSV(allCommandes, `commandes_${new Date().toISOString().split('T')[0]}.csv`); });
+on('btn-export-cmd', 'click', ()=>{ exportCSV(allCommandes, `commandes_${new Date().toISOString().split('T')[0]}.csv`); });
 
 // ══════════════════════════════════════════════════════════
 //  STOCK
@@ -1222,7 +1226,7 @@ async function deleteProduit(id){
 }
 
 // ── IMPORT CSV G8 ────────────────────────────────
-document.getElementById('btn-import-csv').addEventListener('click', ()=>openModal('modal-import-csv'));
+on('btn-import-csv', 'click', ()=>openModal('modal-import-csv'));
 
 document.getElementById('csv-input').addEventListener('change', e=>{
   const file = e.target.files[0];
