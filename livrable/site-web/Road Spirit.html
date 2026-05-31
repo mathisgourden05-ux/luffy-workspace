@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -210,6 +211,26 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
 .eq-frame::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,14,.65),transparent 55%);z-index:2;pointer-events:none}
 .eq-photo-i{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .9s var(--ease)}
 .eq-vis:hover .eq-photo-i{transform:scale(1.05)}
+/* ---- Faux-3D produit (blouson + gants) : balancement avec volume + ombre dynamique ---- */
+.eq-frame{perspective:1500px}
+.eq-photo-i{
+  transform-style:preserve-3d;
+  transform-origin:center 70%;
+  animation:eqsway 7s ease-in-out infinite;
+}
+.eq-vis:hover .eq-photo-i{animation-play-state:paused}  /* survol = pause pour observer */
+.eq-vis::after{animation:eqshadow 7s ease-in-out infinite}  /* l'ombre au sol suit le balancement */
+@keyframes eqsway{
+  0%   {transform:rotateY(-26deg) rotateX(3deg) translateY(0)}
+  50%  {transform:rotateY( 26deg) rotateX(3deg) translateY(-10px)}
+  100% {transform:rotateY(-26deg) rotateX(3deg) translateY(0)}
+}
+@keyframes eqshadow{
+  0%   {transform:translateX(-16px) scaleX(.92);opacity:.75}
+  50%  {transform:translateX( 16px) scaleX(.92);opacity:.5}
+  100% {transform:translateX(-16px) scaleX(.92);opacity:.75}
+}
+@media (prefers-reduced-motion:reduce){.eq-photo-i,.eq-vis::after{animation:none}}
 /* corner brackets */
 .eq-corner{position:absolute;z-index:3;width:16px;height:16px;border-color:var(--gold);border-style:solid;border-width:0;transition:width .4s var(--ease),height .4s var(--ease)}
 .eq-vis:hover .eq-corner{width:24px;height:24px}
