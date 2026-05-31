@@ -4,6 +4,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-31 · Animation équipement Road Spirit + clé Gemini (Nano Banana)
+
+- **Demande :** faire « tourner » le blouson et les gants sur la home en 3D (rendu pro), pour proposer le site à l'entreprise.
+- **Action :** d'abord rotation 360° à plat → effet « carte 2D » moche. Remplacé par un **faux-3D** (balancement ±26° avec perspective, flottement, ombre au sol dynamique, pause au survol, `prefers-reduced-motion`). Dans `Road Spirit.html`, classe `.eq-photo-i`. Commit `0abfdfd` poussé.
+- **Vrai 360° fidèle (reporté) :** prévu via Nano Banana (Gemini image) = générer 6-8 angles par produit puis les enchaîner. Clé API Gemini de Mathis ajoutée dans `.env` (format `AQ.…`, valide, HTTP 200). **Bloqué :** génération d'images en `quota:0` sur le free tier → exige la **facturation à l'usage** activée sur le projet Google Cloud (≠ abonnement 8 €/mois, qui ne débloque PAS l'API). À faire si l'entreprise valide : activer billing → génération (~<1 € pour 16 images).
+- **Note :** Mathis veut proposer ce site à l'entreprise (concession Triumph). Version « clean de A à Z » à prévoir si intérêt.
+
 ## 2026-05-31 · Audit + corrections fonctionnelles site Road Spirit
 
 - **Problèmes corrigés :**
