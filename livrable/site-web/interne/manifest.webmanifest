@@ -1,0 +1,17 @@
+{
+  "name": "Road Spirit — Espace Gestion",
+  "short_name": "RS Gestion",
+  "description": "Outil interne Road Spirit : commandes, essais et catalogue.",
+  "lang": "fr",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0a",
+  "theme_color": "#C9A84C",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

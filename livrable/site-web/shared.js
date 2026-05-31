@@ -11,3 +11,11 @@ window.addEventListener('pageshow', function (e) {
     }
   }
 });
+
+/* PWA — enregistre le service worker (rend le site installable + hors-ligne basique).
+   Ne s'active qu'en HTTP(S) ; ignoré quand on ouvre le fichier en local (file://). */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}

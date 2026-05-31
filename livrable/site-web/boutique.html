@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
@@ -11,11 +11,17 @@
 <meta property="og:locale" content="fr_FR"/>
 <meta name="theme-color" content="#D4A853"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="Road Spirit"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="shared.css"/>
 <script src="catalogue-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="catalogue-supabase.js"></script>
 <script src="shared.js" defer></script>
 <style>
 
@@ -44,9 +50,9 @@
   .product-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -16px rgba(0,0,0,.85);border-color:rgba(201,168,76,.35)}
   .product-card:hover::after{transform:scaleX(1)}
   .product-card.hidden{display:none}
-  .product-img{height:260px;overflow:hidden;background:#16120e;position:relative}
-  .product-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s}
-  .product-card:hover .product-img img{transform:scale(1.06)}
+  .product-img{height:260px;overflow:hidden;background:#f4f1ea;position:relative;display:flex;align-items:center;justify-content:center}
+  .product-img img{width:100%;height:100%;object-fit:contain;padding:20px;box-sizing:border-box;transition:transform .45s;mix-blend-mode:multiply}
+  .product-card:hover .product-img img{transform:scale(1.05)}
   .product-badge{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px;padding:4px 10px}
   .product-badge.new{background:var(--orange);color:#fff}
   .product-badge.promo{background:#fff;color:#0a0a0a}
@@ -156,8 +162,8 @@
 </footer>
 
 <style>
-.img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0e0e1c,#1a1a2e);padding:16px;text-align:center}
-.img-ph span{font-family:var(--sub,sans-serif);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,168,83,.45);line-height:1.5}
+.img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f4f1ea;padding:16px;text-align:center}
+.img-ph span{font-family:var(--sub,sans-serif);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(20,18,14,.4);line-height:1.5}
 </style>
 <script>
 (function(){
@@ -245,13 +251,13 @@
       var btn=e.target.closest('.add-btn');if(!btn)return;
       e.stopPropagation();
       var card=btn.closest('.product-card');
-      var pid=card?parseInt(card.getAttribute('data-id')):null;
-      // Cherche le produit dans allCards et ajoute au panier
+      var pid=card?card.getAttribute('data-id'):null;
+      // Cherche le produit (id en texte : compatible entiers ET id Supabase)
       if(pid&&window._catalogue){
-        var prod=window._catalogue.find(function(p){return p.id===pid;});
+        var prod=window._catalogue.find(function(p){return String(p.id)===String(pid);});
         if(prod){
           // Redirige vers la page produit pour choisir une taille
-          navigate('produit.html?id='+pid);return;
+          navigate('produit.html?id='+encodeURIComponent(pid));return;
         }
       }
       var name=btn.closest('.product-card').querySelector('.product-name');
@@ -302,15 +308,16 @@
     initFilters();
   }
 
-  // Utilise les données pré-chargées (catalogue-data.js) ou fetch en fallback
-  if(window._rs_catalogue){
+  // Source unique : Supabase si dispo (temps réel), sinon catalogue statique
+  if(typeof window.rsLoadCatalogue==='function'){
+    window.rsLoadCatalogue().then(function(res){
+      window._catalogue=res.produits;
+      if(!res.produits.length){document.getElementById('productGrid').innerHTML='<p style="color:#666;padding:40px;grid-column:1/-1">Catalogue indisponible.</p>';return;}
+      renderProducts(res.produits);
+    });
+  } else if(window._rs_catalogue){
     window._catalogue=window._rs_catalogue.produits;
     renderProducts(window._rs_catalogue.produits);
-  } else {
-    fetch('catalogue-roadspirit.json')
-      .then(function(r){return r.json();})
-      .then(function(data){window._catalogue=data.produits;renderProducts(data.produits);})
-      .catch(function(){document.getElementById('productGrid').innerHTML='<p style="color:#666;padding:40px;grid-column:1/-1">Catalogue indisponible.</p>';});
   }
 })();
 </script>

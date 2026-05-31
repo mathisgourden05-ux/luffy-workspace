@@ -1,0 +1,17 @@
+{
+  "name": "Road Spirit — Concession Triumph Ollioules",
+  "short_name": "Road Spirit",
+  "description": "Concession Triumph officielle à Ollioules : motos neuves, équipement, atelier et essais.",
+  "lang": "fr",
+  "start_url": "./Road%20Spirit.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0C0C14",
+  "theme_color": "#D4A853",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -4,6 +4,14 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Road Spirit — Espace Interne</title>
+<meta name="theme-color" content="#C9A84C"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="icon" href="icon-192.png" type="image/png"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="RS Gestion"/>
+<script>if('serviceWorker' in navigator && location.protocol.indexOf('http')===0){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <style>
@@ -64,6 +72,8 @@ input,select,textarea{font-family:var(--body)}
 .nav-item svg{width:16px;height:16px;flex-shrink:0}
 .nav-item .badge{margin-left:auto;background:var(--gold);color:#000;font-size:10px;font-weight:700;padding:2px 6px;font-family:var(--sub);letter-spacing:.06em}
 .sidebar-footer{padding:16px 20px;border-top:1px solid var(--line)}
+.btn-site{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;margin-bottom:10px;background:var(--gold-soft);border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:12px;text-decoration:none;transition:background .2s,border-color .2s}
+.btn-site:hover{background:var(--gold);border-color:var(--gold);color:#111}
 .btn-logout{width:100%;padding:10px;background:transparent;border:1px solid var(--line);color:var(--muted);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:12px;transition:border-color .2s,color .2s}
 .btn-logout:hover{border-color:var(--red);color:var(--red)}
 
@@ -119,6 +129,22 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 .modal .field label{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
 .modal .field input,.modal .field select,.modal .field textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:12px 14px;font-size:14px;outline:none;transition:border-color .2s}
 .modal .field input:focus,.modal .field select:focus,.modal .field textarea:focus{border-color:var(--gold)}
+/* DROPZONE PHOTO */
+.dropzone{position:relative;border:2px dashed var(--line);border-radius:10px;background:var(--bg);min-height:150px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s;overflow:hidden}
+.dropzone:hover{border-color:var(--gold-dim)}
+.dropzone.drag{border-color:var(--gold);background:var(--gold-soft)}
+.dz-empty{text-align:center;padding:22px 16px;pointer-events:none}
+.dz-ico{font-size:30px;margin-bottom:8px}
+.dz-txt{font-size:14px;color:var(--ink)}
+.dz-txt b{color:var(--gold)}
+.dz-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.dz-preview{position:relative;width:100%;height:200px;background:#f4f1ea;display:flex;align-items:center;justify-content:center}
+.dz-preview img{max-width:100%;max-height:100%;object-fit:contain;padding:14px;box-sizing:border-box;mix-blend-mode:multiply}
+.dz-remove{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:none;background:rgba(0,0,0,.6);color:#fff;font-size:14px;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.dz-remove:hover{background:var(--red)}
+.dz-loading{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px;color:var(--muted);font-size:13px}
+.dz-spin{width:32px;height:32px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:dzspin .8s linear infinite}
+@keyframes dzspin{to{transform:rotate(360deg)}}
 .modal .field select option{background:var(--bg-3)}
 .modal-footer{display:flex;gap:12px;justify-content:flex-end;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
 .btn-cancel{padding:10px 22px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;background:transparent;border:1px solid var(--line);color:var(--muted);transition:.2s}
@@ -278,6 +304,10 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
       </div>
     </nav>
     <div class="sidebar-footer">
+      <a class="btn-site" href="../Road Spirit.html" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+        Accéder au site web
+      </a>
       <button class="btn-logout" id="btn-logout">Déconnexion</button>
     </div>
   </aside>
@@ -570,7 +600,25 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
       <div class="field"><label>Stock *</label><input type="number" id="produit-stock" placeholder="0" min="0"/></div>
       <div class="field"><label>Réf. G8</label><input type="text" id="produit-ref" placeholder="REF-001"/></div>
     </div>
-    <div class="field"><label>URL image</label><input type="url" id="produit-image" placeholder="https://..."/></div>
+    <div class="field">
+      <label>Photo du produit</label>
+      <input type="hidden" id="produit-image"/>
+      <input type="file" id="produit-file" accept="image/*" style="display:none"/>
+      <div class="dropzone" id="produit-dropzone">
+        <div class="dz-empty" id="dz-empty">
+          <div class="dz-ico">📷</div>
+          <div class="dz-txt"><b>Glissez une photo ici</b> ou cliquez pour choisir</div>
+          <div class="dz-hint">JPG ou PNG · une photo nette sur fond clair, c'est l'idéal</div>
+        </div>
+        <div class="dz-preview" id="dz-preview" style="display:none">
+          <img id="dz-img" alt="aperçu"/>
+          <button type="button" class="dz-remove" id="dz-remove" title="Retirer la photo">✕</button>
+        </div>
+        <div class="dz-loading" id="dz-loading" style="display:none">
+          <div class="dz-spin"></div><span>Envoi de la photo…</span>
+        </div>
+      </div>
+    </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal('modal-produit')">Annuler</button>
       <button class="btn-primary" id="btn-save-produit">Enregistrer</button>
@@ -1177,11 +1225,48 @@ function renderStock(data){
   document.getElementById(id).addEventListener('change', ()=>document.getElementById('search-stock').dispatchEvent(new Event('input')));
 });
 
+/* ── PHOTO : aperçu + upload Supabase Storage ───── */
+function setProductImage(url){
+  document.getElementById('produit-image').value = url || '';
+  const empty=document.getElementById('dz-empty'), prev=document.getElementById('dz-preview'), load=document.getElementById('dz-loading');
+  if(url){ document.getElementById('dz-img').src=url; empty.style.display='none'; prev.style.display='flex'; load.style.display='none'; }
+  else   { empty.style.display='block'; prev.style.display='none'; load.style.display='none'; }
+}
+function dzLoading(on){
+  document.getElementById('dz-empty').style.display = on?'none':'block';
+  document.getElementById('dz-preview').style.display='none';
+  document.getElementById('dz-loading').style.display = on?'flex':'none';
+}
+async function uploadProductImage(file){
+  if(!file || !file.type.startsWith('image/')){ toast('Choisissez une image (JPG ou PNG)','error'); return; }
+  if(file.size > 6*1024*1024){ toast('Photo trop lourde (max 6 Mo)','error'); return; }
+  if(!db || isDemoMode){ toast('Connectez-vous pour ajouter une photo','error'); return; }
+  dzLoading(true);
+  const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+  const path='produits/'+Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.'+ext;
+  const { error } = await db.storage.from('produits').upload(path, file, { cacheControl:'3600', upsert:false, contentType:file.type });
+  if(error){ toast('Envoi échoué : '+error.message,'error'); dzLoading(false); setProductImage(document.getElementById('produit-image').value); return; }
+  const { data } = db.storage.from('produits').getPublicUrl(path);
+  setProductImage(data.publicUrl);
+  toast('Photo ajoutée');
+}
+(function initDropzone(){
+  const dz=document.getElementById('produit-dropzone'), input=document.getElementById('produit-file');
+  if(!dz) return;
+  dz.addEventListener('click', e=>{ if(e.target.id!=='dz-remove') input.click(); });
+  input.addEventListener('change', ()=>{ if(input.files[0]) uploadProductImage(input.files[0]); input.value=''; });
+  document.getElementById('dz-remove').addEventListener('click', e=>{ e.stopPropagation(); setProductImage(''); });
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add('drag'); }));
+  ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.remove('drag'); }));
+  dz.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) uploadProductImage(f); });
+})();
+
 document.getElementById('btn-new-produit').addEventListener('click', ()=>{
   document.getElementById('modal-produit-title').textContent = 'Nouveau produit';
   document.getElementById('modal-produit-id').value='';
-  ['nom','categorie','description','prix','stock','ref_g8','image_url'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
-  document.getElementById('produit-type').value='moto';
+  ['nom','categorie','description','prix','stock','ref'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
+  document.getElementById('produit-type').value='equipement';
+  setProductImage('');
   openModal('modal-produit');
 });
 
@@ -1189,13 +1274,13 @@ function editProduit(p){
   document.getElementById('modal-produit-title').textContent='Modifier le produit';
   document.getElementById('modal-produit-id').value=p.id;
   document.getElementById('produit-nom').value=p.nom||'';
-  document.getElementById('produit-type').value=p.type||'moto';
+  document.getElementById('produit-type').value=p.type||'equipement';
   document.getElementById('produit-categorie').value=p.categorie||'';
   document.getElementById('produit-description').value=p.description||'';
   document.getElementById('produit-prix').value=p.prix||'';
   document.getElementById('produit-stock').value=p.stock??'';
   document.getElementById('produit-ref').value=p.ref_g8||'';
-  document.getElementById('produit-image').value=p.image_url||'';
+  setProductImage(p.image_url||'');
   openModal('modal-produit');
 }
 

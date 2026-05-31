@@ -6,12 +6,33 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ## À FAIRE — Prochaine session (priorités)
 
-1. **Connexion boutique ↔ Supabase** : boutique.html et produit.html chargent depuis Supabase. Road Spirit gère son catalogue depuis l'app interne. Importer les 150 produits JSON dans Supabase d'abord.
-2. **PWA (Progressive Web App)** : manifest.json + meta tags → l'app s'installe comme une vraie app sur téléphone/tablette/desktop en un clic.
-3. **Bouton "Accéder au site web"** dans l'app interne → lien vers le site Road Spirit.
-4. **Refonte hero homepage** : remplacer l'image actuelle par une Triumph Bonneville T100 (chercher sur Triumph Media CDN), rendre le hero plus cinématique et "wow" (VanillaTilt sur la moto, titre plus grand, animation d'entrée plus dramatique, effet lumière sur le chrome).
+1. **Mathis : créer un compte vendeur** dans Supabase (Authentication → Users → Add user, cocher Auto Confirm) → identifiants pour se connecter à l'app interne (requis pour ajouter produits + uploader photos).
+2. **Tester le flux complet** une fois le site en ligne : app interne → Nouveau produit + photo glissée → vérifier qu'il apparaît sur la boutique.
+3. **Vérifier visuellement le nouveau hero** (cadrage image Bonneville) ; ajuster `background-position` de `.h-moto` si besoin.
+
+### Schéma Supabase réel (constaté le 2026-06-01, à ne pas oublier)
+- La table `produits` **préexistait** (pas créée par mon `create table`). Colonnes ajoutées via `alter table add column if not exists`.
+- `disponible` est une **colonne générée** (calculée depuis le stock) → ne JAMAIS l'insérer/écrire. L'import et l'app ne doivent pas la fournir.
+- `produits` est référencée par une FK depuis `commandes_items` → `truncate` interdit, utiliser `delete from`.
+- ✅ Setup SQL exécuté + 150 produits importés (stock=10 chacun).
 
 ---
+
+## 2026-06-01 · Boutique ↔ Supabase + upload photo vendeur + fond uniforme
+
+- **Objectif :** que le vendeur (zéro compétence info) ajoute un article avec photo depuis l'app, et qu'il s'affiche tout seul sur le site.
+- **Loader partagé** `catalogue-supabase.js` : `rsLoadCatalogue()` lit la table `produits` Supabase (temps réel), repli automatique sur le catalogue statique si Supabase tombe/vide. `rsMapRow()` mappe les colonnes vers le format boutique (gère promo/prix barré).
+- **boutique.html + produit.html branchés** : chargent via `rsLoadCatalogue`, SDK Supabase ajouté. Id géré en **texte** (compatible entiers statiques ET uuid Supabase) — corrigé bouton + Panier et lookup produit.
+- **Upload photo (app interne)** : champ « URL image » remplacé par une **zone de glisser-déposer** → upload vers Supabase Storage bucket `produits` → URL publique remplie automatiquement. Aperçu, spinner, suppression, garde-fous (image only, max 6 Mo, login requis). Défaut type = `equipement`. Corrige aussi un bug latent (l'image n'était pas réinitialisée en « Nouveau produit »).
+- **Fond uniforme des articles** (demande Mathis : certains fonds blancs tranchaient) : tuiles claires `#f4f1ea` + `object-fit:contain` + `mix-blend-mode:multiply` sur boutique ET page produit → les fonds blancs des photos se fondent, rendu cohérent. Choix validé par Mathis (vs détourage Cloudinary, écarté car moins fiable).
+- **Pour Mathis (livré, à exécuter) :** `interne/SUPABASE-SETUP.sql` (table + bucket + RLS, idempotent), `interne/SUPABASE-IMPORT-PRODUITS.sql` (150 produits, généré depuis le JSON, truncate+insert), `interne/GUIDE-SUPABASE.md` (pas-à-pas copier-coller). Clé Supabase = publishable (lecture publique, écriture réservée aux connectés).
+
+## 2026-06-01 · PWA (site + app interne), bouton site, refonte hero
+
+- **PWA installable** sur les deux : site public et app interne. Créés : `manifest.webmanifest` + `sw.js` (service worker network-first, hors-ligne basique) dans `site-web/` et `site-web/interne/`. Icônes PNG générées (192/512 + maskable, anneau or « RS » sur fond sombre) via PowerShell System.Drawing. Lien manifest + balises Apple ajoutés dans le `<head>` des 11 pages du site + app.html. Enregistrement SW centralisé dans `shared.js` (+ inline sur la home et l'app qui ne le chargent pas). **⚠️ L'install ne marche qu'en ligne (HTTPS, type Netlify), pas en `file://`.**
+- **Bouton « Accéder au site web »** ajouté dans le footer de la sidebar de l'app interne (`.btn-site`, or, ouvre `../Road Spirit.html` dans un nouvel onglet).
+- **Refonte hero** : image Bonneville (`photo-1495480393121-409eb65c7fbe`, déjà utilisée sur motos.html donc valide — le CDN Triumph officiel renvoie désormais 404, et le réseau du PC est sandboxé donc URLs externes non vérifiables ici). Titre plus grand (clamp max 228px) + glow doré sur « est à vous ». Reflet lumineux qui balaie le chrome (`.h-glint`, animation 8,5 s). Profondeur 3D : la moto suit la souris (parallaxe x + rotationY + rotationZ via `gsap.quickTo`) + flottement vertical continu ; `prefers-reduced-motion` respecté. Entrée plus ample (scale 1.08 → 1).
+- **Reste à faire :** Mathis vérifie le cadrage de l'image Bonneville dans le navigateur ; ajuster `.h-moto background-position` si la moto est mal centrée.
 
 ## 2026-05-31 · À FAIRE EN PRIORITÉ — Connexion boutique ↔ Supabase
 
