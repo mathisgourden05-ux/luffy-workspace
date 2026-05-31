@@ -155,6 +155,21 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 /* LOADING */
 .loading{text-align:center;padding:40px;color:var(--muted);font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
 
+/* QUICK ACTION */
+.btn-quick{padding:5px 12px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:11px;border:0;cursor:pointer;transition:background .2s,transform .15s}
+.btn-quick:active{transform:scale(.96)}
+.btn-quick.prep{background:var(--blue);color:#fff}
+.btn-quick.ship{background:var(--green);color:#fff}
+.btn-quick.done{background:var(--muted);color:#fff}
+.btn-quick.ok{background:var(--green);color:#fff}
+
+/* URGENCY */
+.urgent-tag{font-family:var(--sub);font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;background:rgba(192,57,43,.15);color:var(--red);border:1px solid rgba(192,57,43,.3)}
+.urgent-tag.orange{background:rgba(255,165,0,.12);color:orange;border-color:rgba(255,165,0,.3)}
+
+/* STAT BLUE */
+.stat-card .value.blue{color:var(--blue)}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   #screen-app{grid-template-columns:200px 1fr}
@@ -218,24 +233,44 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
         </div>
       </div>
       <div class="nav-section">
-        <div class="nav-section-label">Activité</div>
-        <div class="nav-item" data-page="reservations">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Essais
-          <span class="badge" id="badge-reservations" style="display:none">0</span>
+        <div class="nav-section-label">Commandes</div>
+        <div class="nav-item" data-page="a-preparer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+          À préparer
+          <span class="badge" id="badge-a-preparer" style="display:none">0</span>
+        </div>
+        <div class="nav-item" data-page="expediees">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Expédiées
+          <span class="badge" id="badge-expediees" style="display:none">0</span>
         </div>
         <div class="nav-item" data-page="commandes">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 7Z"/><path d="M8.5 7V5.5a3.5 3.5 0 0 1 7 0V7"/></svg>
-          Commandes
-          <span class="badge" id="badge-commandes" style="display:none">0</span>
+          Tout l'historique
         </div>
       </div>
-      <div class="nav-section" id="nav-admin-section">
-        <div class="nav-section-label">Gestion</div>
+      <div class="nav-section">
+        <div class="nav-section-label">Essais moto</div>
+        <div class="nav-item" data-page="essais-jour">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Essais du jour
+          <span class="badge" id="badge-essais-jour" style="display:none">0</span>
+        </div>
+        <div class="nav-item" data-page="reservations">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Toutes les demandes
+          <span class="badge" id="badge-reservations" style="display:none">0</span>
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Catalogue</div>
         <div class="nav-item" data-page="stock">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           Stock & Produits
         </div>
+      </div>
+      <div class="nav-section" id="nav-admin-section" style="display:none">
+        <div class="nav-section-label">Admin</div>
         <div class="nav-item" data-page="staff">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
           Équipe
@@ -261,40 +296,106 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
       <div class="main-body">
         <div class="stats-row">
           <div class="stat-card">
-            <div class="label">Essais en attente</div>
-            <div class="value gold" id="stat-essais">—</div>
-            <div class="delta">Demandes à confirmer</div>
+            <div class="label">À préparer</div>
+            <div class="value gold" id="stat-a-preparer">—</div>
+            <div class="delta">Commandes payées non traitées</div>
           </div>
           <div class="stat-card">
-            <div class="label">Commandes en attente</div>
-            <div class="value gold" id="stat-commandes">—</div>
-            <div class="delta">À traiter</div>
-          </div>
-          <div class="stat-card">
-            <div class="label">Produits en rupture</div>
-            <div class="value red" id="stat-rupture">—</div>
-            <div class="delta">Stock = 0</div>
+            <div class="label">En route</div>
+            <div class="value blue" id="stat-en-route">—</div>
+            <div class="delta">Colis expédiés</div>
           </div>
           <div class="stat-card">
             <div class="label">Essais aujourd'hui</div>
-            <div class="value" id="stat-today">—</div>
-            <div class="delta">Confirmés</div>
+            <div class="value gold" id="stat-today">—</div>
+            <div class="delta">Confirmés ce jour</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Alertes stock</div>
+            <div class="value red" id="stat-rupture">—</div>
+            <div class="delta">Ruptures (stock = 0)</div>
           </div>
         </div>
 
-        <div class="section-title">Dernières réservations <span class="count" id="res-count"></span></div>
+        <div class="section-title">🚨 Commandes urgentes — à préparer <span class="count" id="urgent-count"></span></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Client</th><th>Modèle</th><th>Date</th><th>Créneau</th><th>Statut</th><th></th></tr></thead>
-            <tbody id="table-res-body"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+            <thead><tr><th>Client</th><th>Articles</th><th>Total</th><th>Reçue le</th><th>Statut</th><th>Action rapide</th></tr></thead>
+            <tbody id="table-urgent"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
           </table>
         </div>
 
-        <div class="section-title">Dernières commandes <span class="count" id="cmd-count"></span></div>
+        <div class="section-title">📅 Essais du jour <span class="count" id="today-res-count"></span></div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Client</th><th>Total</th><th>Statut</th><th>Date</th><th></th></tr></thead>
+            <thead><tr><th>Client</th><th>Tél</th><th>Modèle</th><th>Créneau</th><th>Statut</th><th>Action rapide</th></tr></thead>
+            <tbody id="table-today-res"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+          </table>
+        </div>
+
+        <div class="section-title">Dernières ventes <span class="count" id="cmd-count"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Client</th><th>Articles</th><th>Total</th><th>Statut</th><th>Date</th></tr></thead>
             <tbody id="table-cmd-body"><tr><td colspan="5" class="loading">Chargement...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── À PRÉPARER ──────────────────────── -->
+    <div class="page" id="page-a-preparer">
+      <div class="main-header">
+        <div><h1>À préparer</h1><p class="sub">Commandes payées — triées par ancienneté</p></div>
+      </div>
+      <div class="main-body">
+        <div class="toolbar">
+          <input class="search-input" id="search-prep" placeholder="Rechercher un client..."/>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Client</th><th>Tél</th><th>Articles</th><th>Total</th><th>Reçue le</th><th>Statut</th><th>Passer à</th></tr></thead>
+            <tbody id="table-prep"><tr><td colspan="7" class="loading">Chargement...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── EXPÉDIÉES ─────────────────────── -->
+    <div class="page" id="page-expediees">
+      <div class="main-header">
+        <div><h1>Expédiées</h1><p class="sub">Colis en route chez le client</p></div>
+      </div>
+      <div class="main-body">
+        <div class="toolbar">
+          <input class="search-input" id="search-exp" placeholder="Rechercher un client..."/>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Client</th><th>Tél</th><th>Articles</th><th>Total</th><th>Expédiée le</th><th>Action</th></tr></thead>
+            <tbody id="table-exp"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ESSAIS DU JOUR ────────────────── -->
+    <div class="page" id="page-essais-jour">
+      <div class="main-header">
+        <div><h1>Essais du jour</h1><p class="sub" id="essais-jour-date"></p></div>
+      </div>
+      <div class="main-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Créneau</th><th>Client</th><th>Tél</th><th>Modèle</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="table-essais-jour"><tr><td colspan="6" class="loading">Chargement...</td></tr></tbody>
+          </table>
+        </div>
+        <div class="section-title" style="margin-top:32px">Demandes en attente de confirmation <span class="count" id="en-attente-count"></span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Client</th><th>Tél</th><th>Modèle</th><th>Date souhaitée</th><th>Actions</th></tr></thead>
+            <tbody id="table-en-attente"><tr><td colspan="5" class="loading">Chargement...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -511,19 +612,23 @@ try {
 } catch(e) { console.warn('Supabase indisponible, mode démo actif'); }
 
 // ── DONNÉES DÉMO ─────────────────────────────
+const TODAY = new Date().toISOString().split('T')[0];
 const DEMO = {
   profile: { prenom:'Mathis', nom:'Gourden', role:'admin' },
   reservations: [
-    { id:1, client_nom:'Thomas Leclerc', client_email:'thomas@email.fr', client_tel:'06 12 34 56 78', modele:'Tiger 900 Rally Pro', date_essai:'2026-06-05', creneau:'10h00', statut:'en_attente', created_at:'2026-05-31' },
-    { id:2, client_nom:'Julie Martin',   client_email:'julie.m@gmail.com', client_tel:'06 98 76 54 32', modele:'Speed Triple RR',     date_essai:'2026-06-06', creneau:'14h00', statut:'confirme',   created_at:'2026-05-30' },
-    { id:3, client_nom:'Pierre Dubois',  client_email:'pdubois@pro.fr',    client_tel:'07 11 22 33 44', modele:'Bonneville T120',     date_essai:'2026-06-04', creneau:'11h00', statut:'effectue',   created_at:'2026-05-28' },
-    { id:4, client_nom:'Sophie Bernard', client_email:'s.bernard@free.fr', client_tel:'06 55 44 33 22', modele:'Thruxton RS',        date_essai:'2026-06-07', creneau:'09h30', statut:'annule',     created_at:'2026-05-29' },
+    { id:1, client_nom:'Thomas Leclerc', client_email:'thomas@email.fr', client_tel:'06 12 34 56 78', modele:'Tiger 900 Rally Pro',  date_essai:TODAY,         creneau:'10h00', statut:'confirme',   created_at:'2026-05-31' },
+    { id:2, client_nom:'Julie Martin',   client_email:'julie.m@gmail.com', client_tel:'06 98 76 54 32', modele:'Speed Triple RR',   date_essai:TODAY,         creneau:'14h30', statut:'confirme',   created_at:'2026-05-30' },
+    { id:3, client_nom:'Romain Duval',   client_email:'romain.d@free.fr',  client_tel:'07 44 55 66 77', modele:'Bonneville T120',   date_essai:'2026-06-07',  creneau:'11h00', statut:'en_attente', created_at:'2026-05-29' },
+    { id:4, client_nom:'Sophie Bernard', client_email:'s.bernard@free.fr', client_tel:'06 55 44 33 22', modele:'Thruxton RS',       date_essai:'2026-06-09',  creneau:'09h30', statut:'en_attente', created_at:'2026-05-28' },
+    { id:5, client_nom:'Pierre Dubois',  client_email:'pdubois@pro.fr',    client_tel:'07 11 22 33 44', modele:'Tiger 900 GT Pro',  date_essai:'2026-06-03',  creneau:'16h00', statut:'effectue',   created_at:'2026-05-25' },
   ],
   commandes: [
-    { id:1, client_nom:'Lucas Petit',   total:378,  statut:'en_preparation', created_at:'2026-05-31', articles:'Blouson Braddan Air Race' },
-    { id:2, client_nom:'Emma Leroy',    total:112,  statut:'payee',          created_at:'2026-05-30', articles:'Gants Triple Sports' },
-    { id:3, client_nom:'Antoine Vidal', total:875,  statut:'expediee',       created_at:'2026-05-29', articles:'Blouson Vance + Gants' },
-    { id:4, client_nom:'Clara Morin',   total:244,  statut:'livree',         created_at:'2026-05-27', articles:'Blouson Triple Mesh' },
+    { id:1, client_nom:'Lucas Petit',    client_tel:'06 10 20 30 40', total:378,  statut:'en_preparation', created_at:'2026-05-29', articles:'Blouson Braddan Air Race Racing' },
+    { id:2, client_nom:'Emma Leroy',     client_tel:'06 50 60 70 80', total:112,  statut:'payee',          created_at:'2026-05-30', articles:'Gants Triple Sports' },
+    { id:3, client_nom:'Karim Benali',   client_tel:'07 11 22 33 44', total:649,  statut:'payee',          created_at:'2026-05-31', articles:'Blouson Vance + Gants Raven' },
+    { id:4, client_nom:'Antoine Vidal',  client_tel:'06 99 88 77 66', total:875,  statut:'expediee',       created_at:'2026-05-27', articles:'Blouson Triple Mesh × 2' },
+    { id:5, client_nom:'Lucie Faure',    client_tel:'06 33 44 55 66', total:244,  statut:'expediee',       created_at:'2026-05-26', articles:'Jean Pure Riding' },
+    { id:6, client_nom:'Clara Morin',    client_tel:'07 77 66 55 44', total:305,  statut:'livree',         created_at:'2026-05-22', articles:'MX Tech 7 × Alpinestars' },
   ],
   stock: [
     { id:1, nom:'Blouson Braddan Air Race Racing', categorie:'Blouson Cuir',  prix:540,  stock:3,  reference:'98456843' },
@@ -622,9 +727,9 @@ async function showApp(){
     : currentUser.email;
   document.getElementById('user-role').textContent = currentProfile?.role === 'admin' ? 'Administrateur' : 'Staff';
 
-  // Masquer section admin si staff
-  if(currentProfile?.role !== 'admin'){
-    document.getElementById('nav-admin-section').style.display = 'none';
+  // Afficher section admin si admin
+  if(currentProfile?.role === 'admin'){
+    document.getElementById('nav-admin-section').style.display = '';
   }
 
   document.getElementById('today-date').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
@@ -676,10 +781,13 @@ document.querySelectorAll('.nav-item').forEach(item=>{
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     item.classList.add('active');
     document.getElementById(`page-${page}`).classList.add('active');
-    if(page==='reservations') loadReservations();
-    if(page==='commandes') loadCommandes();
-    if(page==='stock') loadStock();
-    if(page==='staff') loadStaff();
+    if(page==='reservations')  loadReservations();
+    if(page==='commandes')     loadCommandes();
+    if(page==='stock')         loadStock();
+    if(page==='staff')         loadStaff();
+    if(page==='a-preparer')    loadAPreparer();
+    if(page==='expediees')     loadExpediees();
+    if(page==='essais-jour')   loadEssaisJour();
   });
 });
 
@@ -689,82 +797,218 @@ document.querySelectorAll('.nav-item').forEach(item=>{
 async function loadDashboard(){
   let reservations, commandes;
 
+  let allRes, allCmd, allStock;
   if(isDemoMode){
-    const attRes = DEMO.reservations.filter(r=>r.statut==='en_attente').length;
-    const attCmd = DEMO.commandes.filter(c=>c.statut==='en_attente'||c.statut==='payee').length;
-    const rupture = DEMO.stock.filter(s=>s.stock===0).length;
-    const today = new Date().toISOString().split('T')[0];
-    const todayRes = DEMO.reservations.filter(r=>r.date_essai===today&&r.statut==='confirme').length;
-    document.getElementById('stat-essais').textContent = attRes;
-    document.getElementById('stat-commandes').textContent = attCmd;
-    document.getElementById('stat-rupture').textContent = rupture;
-    document.getElementById('stat-today').textContent = todayRes;
-    reservations = DEMO.reservations;
-    commandes = DEMO.commandes;
+    allRes   = DEMO.reservations;
+    allCmd   = DEMO.commandes;
+    allStock = DEMO.stock;
   } else {
-    const today = new Date().toISOString().split('T')[0];
-    const [res, cmd, rupt, todayRes] = await Promise.all([
-      db.from('reservations').select('*',{count:'exact'}).eq('statut','en_attente'),
-      db.from('commandes').select('*',{count:'exact'}).eq('statut','en_attente'),
-      db.from('produits').select('*',{count:'exact'}).eq('stock',0),
-      db.from('reservations').select('*',{count:'exact'}).eq('date_essai',today).eq('statut','confirme'),
+    const [r, c, s] = await Promise.all([
+      db.from('reservations').select('*').order('created_at',{ascending:false}),
+      db.from('commandes').select('*').order('created_at',{ascending:false}),
+      db.from('produits').select('*'),
     ]);
-    document.getElementById('stat-essais').textContent = res.count ?? '—';
-    document.getElementById('stat-commandes').textContent = cmd.count ?? '—';
-    document.getElementById('stat-rupture').textContent = rupt.count ?? '—';
-    document.getElementById('stat-today').textContent = todayRes.count ?? '—';
-    reservations = (await db.from('reservations').select('*').order('created_at',{ascending:false}).limit(8)).data;
-    commandes = (await db.from('commandes').select('*').order('created_at',{ascending:false}).limit(8)).data;
+    allRes = r.data || []; allCmd = c.data || []; allStock = s.data || [];
   }
+  const today2 = new Date().toISOString().split('T')[0];
 
-  const tbody = document.getElementById('table-res-body');
-  if(!reservations?.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">📅</div><p>Aucune réservation</p></div></td></tr>'; }
+  // Stats
+  const preparer  = allCmd.filter(c=>c.statut==='payee'||c.statut==='en_preparation');
+  const enRoute   = allCmd.filter(c=>c.statut==='expediee');
+  const todayConf = allRes.filter(r=>r.date_essai===today2&&r.statut==='confirme');
+  const ruptures  = allStock.filter(p=>p.stock===0);
+  document.getElementById('stat-a-preparer').textContent = preparer.length;
+  document.getElementById('stat-en-route').textContent   = enRoute.length;
+  document.getElementById('stat-today').textContent      = todayConf.length;
+  document.getElementById('stat-rupture').textContent    = ruptures.length;
+
+  // Table urgences (à préparer, plus ancien en premier)
+  const urgents = [...preparer].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)).slice(0,6);
+  const tuBody = document.getElementById('table-urgent');
+  if(!urgents.length){ tuBody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">✅</div><p>Aucune commande en attente</p></div></td></tr>'; }
   else {
-    tbody.innerHTML = reservations.map(r=>`
-      <tr>
-        <td>${r.client_nom||((r.client_prenom||'')+(r.client_nom||''))}</td>
-        <td>${r.modele}</td>
-        <td>${fmtDate(r.date_essai)}</td>
-        <td>${r.creneau}</td>
-        <td>${badge(r.statut)}</td>
-        <td><button class="btn-action">Modifier</button></td>
-      </tr>`).join('');
+    const ageTag = d => { const days=Math.floor((Date.now()-new Date(d))/86400000); return days>=2?`<span class="urgent-tag">${days}j</span>`:days>=1?`<span class="urgent-tag orange">hier</span>`:''; };
+    tuBody.innerHTML = urgents.map(c=>`<tr>
+      <td><b>${c.client_nom}</b></td>
+      <td style="color:var(--muted);font-size:12px">${c.articles||'—'}</td>
+      <td>${fmtPrice(c.total||0)}</td>
+      <td>${fmtDate(c.created_at)} ${ageTag(c.created_at)}</td>
+      <td>${badge(c.statut)}</td>
+      <td style="display:flex;gap:6px">
+        ${c.statut==='payee'?`<button class="btn-quick prep" onclick="quickStatus('cmd','${c.id}','en_preparation')">▶ Préparer</button>`:''}
+        <button class="btn-quick ship" onclick="quickStatus('cmd','${c.id}','expediee')">✈ Expédier</button>
+      </td>
+    </tr>`).join('');
   }
-  document.getElementById('res-count').textContent = reservations?.length ? `(${reservations.length})` : '';
+  document.getElementById('urgent-count').textContent = urgents.length ? `(${urgents.length})` : '';
 
+  // Table essais du jour
+  const todayRes = [...allRes.filter(r=>r.date_essai===today2)].sort((a,b)=>a.creneau.localeCompare(b.creneau));
+  const ttrBody = document.getElementById('table-today-res');
+  if(!todayRes.length){ ttrBody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">🏍</div><p>Aucun essai prévu aujourd\'hui</p></div></td></tr>'; }
+  else {
+    ttrBody.innerHTML = todayRes.map(r=>`<tr>
+      <td><b>${r.client_nom}</b></td>
+      <td style="color:var(--gold)">${r.client_tel||'—'}</td>
+      <td>${r.modele}</td>
+      <td><b>${r.creneau}</b></td>
+      <td>${badge(r.statut)}</td>
+      <td style="display:flex;gap:6px">
+        ${r.statut==='en_attente'?`<button class="btn-quick ok" onclick="quickStatus('res','${r.id}','confirme')">✓ Confirmer</button>`:''}
+        ${r.statut==='confirme'?`<button class="btn-quick done" onclick="quickStatus('res','${r.id}','effectue')">✔ Effectué</button>`:''}
+      </td>
+    </tr>`).join('');
+  }
+  document.getElementById('today-res-count').textContent = todayRes.length ? `(${todayRes.length})` : '';
+
+  // Table dernières ventes
   const tbody2 = document.getElementById('table-cmd-body');
-  if(!commandes?.length){ tbody2.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">🛒</div><p>Aucune commande</p></div></td></tr>'; }
+  const recentes = allCmd.slice(0,6);
+  if(!recentes.length){ tbody2.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">🛒</div><p>Aucune vente</p></div></td></tr>'; }
   else {
-    tbody2.innerHTML = commandes.map(c=>`
-      <tr>
-        <td>${c.client_nom||((c.client_prenom||'')+(c.client_nom||''))}</td>
-        <td>${fmtPrice(c.total||c.total_ttc||0)}</td>
-        <td>${badge(c.statut)}</td>
-        <td>${fmtDate(c.created_at)}</td>
-        <td><button class="btn-action">Modifier</button></td>
-      </tr>`).join('');
+    tbody2.innerHTML = recentes.map(c=>`<tr>
+      <td>${c.client_nom}</td>
+      <td style="color:var(--muted);font-size:12px">${c.articles||'—'}</td>
+      <td>${fmtPrice(c.total||0)}</td>
+      <td>${badge(c.statut)}</td>
+      <td>${fmtDate(c.created_at)}</td>
+    </tr>`).join('');
   }
-  document.getElementById('cmd-count').textContent = commandes?.length ? `(${commandes.length})` : '';
+  document.getElementById('cmd-count').textContent = recentes.length ? `(${recentes.length})` : '';
 }
 
 async function loadBadges(){
+  let res, cmd;
   if(isDemoMode){
-    const attRes = DEMO.reservations.filter(r=>r.statut==='en_attente').length;
-    const attCmd = DEMO.commandes.filter(c=>c.statut==='en_attente'||c.statut==='payee').length;
-    const br = document.getElementById('badge-reservations');
-    const bc = document.getElementById('badge-commandes');
-    if(attRes>0){ br.textContent=attRes; br.style.display=''; }
-    if(attCmd>0){ bc.textContent=attCmd; bc.style.display=''; }
+    res = DEMO.reservations;
+    cmd = DEMO.commandes;
+  } else {
+    const [r,c] = await Promise.all([
+      db.from('reservations').select('*'),
+      db.from('commandes').select('*'),
+    ]);
+    res = r.data||[]; cmd = c.data||[];
+  }
+  const today2 = new Date().toISOString().split('T')[0];
+  const attRes  = res.filter(r=>r.statut==='en_attente').length;
+  const prep    = cmd.filter(c=>c.statut==='payee'||c.statut==='en_preparation').length;
+  const exp     = cmd.filter(c=>c.statut==='expediee').length;
+  const todayJ  = res.filter(r=>r.date_essai===today2&&(r.statut==='confirme'||r.statut==='en_attente')).length;
+
+  const set = (id,n) => { const el=document.getElementById(id); if(el){ el.textContent=n; el.style.display=n>0?'':'none'; } };
+  set('badge-reservations', attRes);
+  set('badge-a-preparer',   prep);
+  set('badge-expediees',    exp);
+  set('badge-essais-jour',  todayJ);
+}
+
+// Action rapide depuis les tableaux du dashboard
+async function quickStatus(type, id, statut){
+  if(isDemoMode){
+    const arr = type==='cmd' ? DEMO.commandes : DEMO.reservations;
+    const item = arr.find(x=>String(x.id)===String(id));
+    if(item) item.statut = statut;
+    toast('Statut mis à jour (démo)');
+    loadDashboard(); loadBadges();
     return;
   }
-  const [res, cmd] = await Promise.all([
-    db.from('reservations').select('*',{count:'exact'}).eq('statut','en_attente'),
-    db.from('commandes').select('*',{count:'exact'}).eq('statut','en_attente'),
-  ]);
-  const br = document.getElementById('badge-reservations');
-  const bc = document.getElementById('badge-commandes');
-  if(res.count>0){ br.textContent=res.count; br.style.display=''; }
-  if(cmd.count>0){ bc.textContent=cmd.count; bc.style.display=''; }
+  const table = type==='cmd' ? 'commandes' : 'reservations';
+  const { error } = await db.from(table).update({statut}).eq('id',id);
+  if(error){ toast('Erreur','error'); } else { toast('Statut mis à jour'); loadDashboard(); loadBadges(); }
+}
+
+// Pages À préparer & Expédiées
+let allPrep = [], allExp = [];
+
+async function loadAPreparer(){
+  const data = isDemoMode ? DEMO.commandes : ((await db.from('commandes').select('*').order('created_at',{ascending:true})).data||[]);
+  allPrep = data.filter(c=>c.statut==='payee'||c.statut==='en_preparation');
+  renderAPreparer(allPrep);
+}
+function renderAPreparer(data){
+  const tbody = document.getElementById('table-prep');
+  if(!data.length){ tbody.innerHTML='<tr><td colspan="7"><div class="empty"><div class="ico">✅</div><p>Aucune commande à préparer</p></div></td></tr>'; return; }
+  const ageTag = d => { const days=Math.floor((Date.now()-new Date(d))/86400000); return days>=2?`<span class="urgent-tag">${days}j</span>`:days>=1?`<span class="urgent-tag orange">hier</span>`:'<span style="font-size:11px;color:var(--muted)">auj.</span>`; };
+  tbody.innerHTML = data.map(c=>`<tr>
+    <td><b>${c.client_nom}</b></td>
+    <td style="color:var(--gold)">${c.client_tel||'—'}</td>
+    <td style="color:var(--muted);font-size:12px">${c.articles||'—'}</td>
+    <td>${fmtPrice(c.total||0)}</td>
+    <td>${fmtDate(c.created_at)} ${ageTag(c.created_at)}</td>
+    <td>${badge(c.statut)}</td>
+    <td style="display:flex;gap:6px;flex-wrap:wrap">
+      ${c.statut==='payee'?`<button class="btn-quick prep" onclick="quickStatus('cmd','${c.id}','en_preparation');loadAPreparer();loadBadges()">▶ En préparation</button>`:''}
+      <button class="btn-quick ship" onclick="quickStatus('cmd','${c.id}','expediee');loadAPreparer();loadBadges()">✈ Expédier</button>
+    </td>
+  </tr>`).join('');
+}
+document.getElementById('search-prep').addEventListener('input', e=>{
+  const q=e.target.value.toLowerCase();
+  renderAPreparer(allPrep.filter(c=>(c.client_nom||'').toLowerCase().includes(q)||(c.articles||'').toLowerCase().includes(q)));
+});
+
+async function loadExpediees(){
+  const data = isDemoMode ? DEMO.commandes : ((await db.from('commandes').select('*').order('created_at',{ascending:false})).data||[]);
+  allExp = data.filter(c=>c.statut==='expediee');
+  renderExpediees(allExp);
+}
+function renderExpediees(data){
+  const tbody = document.getElementById('table-exp');
+  if(!data.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">📦</div><p>Aucun colis expédié</p></div></td></tr>'; return; }
+  tbody.innerHTML = data.map(c=>`<tr>
+    <td><b>${c.client_nom}</b></td>
+    <td style="color:var(--gold)">${c.client_tel||'—'}</td>
+    <td style="color:var(--muted);font-size:12px">${c.articles||'—'}</td>
+    <td>${fmtPrice(c.total||0)}</td>
+    <td>${fmtDate(c.created_at)}</td>
+    <td><button class="btn-quick done" onclick="quickStatus('cmd','${c.id}','livree');loadExpediees();loadBadges()">✔ Livrée</button></td>
+  </tr>`).join('');
+}
+document.getElementById('search-exp').addEventListener('input', e=>{
+  const q=e.target.value.toLowerCase();
+  renderExpediees(allExp.filter(c=>(c.client_nom||'').toLowerCase().includes(q)));
+});
+
+// Page Essais du jour
+async function loadEssaisJour(){
+  const today2 = new Date().toISOString().split('T')[0];
+  document.getElementById('essais-jour-date').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  const data = isDemoMode ? DEMO.reservations : ((await db.from('reservations').select('*').order('creneau')).data||[]);
+  const todayList = data.filter(r=>r.date_essai===today2).sort((a,b)=>a.creneau.localeCompare(b.creneau));
+  const waitList  = data.filter(r=>r.statut==='en_attente');
+
+  const tbody = document.getElementById('table-essais-jour');
+  if(!todayList.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">🏍</div><p>Aucun essai prévu aujourd\'hui</p></div></td></tr>'; }
+  else {
+    tbody.innerHTML = todayList.map(r=>`<tr>
+      <td><b>${r.creneau}</b></td>
+      <td>${r.client_nom}</td>
+      <td style="color:var(--gold)">${r.client_tel||'—'}</td>
+      <td>${r.modele}</td>
+      <td>${badge(r.statut)}</td>
+      <td style="display:flex;gap:6px">
+        ${r.statut==='en_attente'?`<button class="btn-quick ok" onclick="quickStatus('res','${r.id}','confirme');loadEssaisJour();loadBadges()">✓ Confirmer</button>`:''}
+        ${r.statut==='confirme'?`<button class="btn-quick done" onclick="quickStatus('res','${r.id}','effectue');loadEssaisJour();loadBadges()">✔ Effectué</button>`:''}
+      </td>
+    </tr>`).join('');
+  }
+
+  const tbody2 = document.getElementById('table-en-attente');
+  const w = waitList.filter(r=>r.date_essai!==today2);
+  document.getElementById('en-attente-count').textContent = w.length ? `(${w.length})` : '';
+  if(!w.length){ tbody2.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">✅</div><p>Aucune demande en attente</p></div></td></tr>'; }
+  else {
+    tbody2.innerHTML = w.map(r=>`<tr>
+      <td>${r.client_nom}</td>
+      <td style="color:var(--gold)">${r.client_tel||'—'}</td>
+      <td>${r.modele}</td>
+      <td>${fmtDate(r.date_essai)}</td>
+      <td style="display:flex;gap:6px">
+        <button class="btn-quick ok" onclick="quickStatus('res','${r.id}','confirme');loadEssaisJour();loadBadges()">✓ Confirmer</button>
+        <button class="btn-action danger" onclick="quickStatus('res','${r.id}','annule');loadEssaisJour();loadBadges()">✗ Refuser</button>
+      </td>
+    </tr>`).join('');
+  }
 }
 
 // ══════════════════════════════════════════════════════════
