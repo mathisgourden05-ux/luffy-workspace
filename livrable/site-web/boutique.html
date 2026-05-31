@@ -126,6 +126,11 @@
   </ul>
   <div style="display:flex;align-items:center;gap:18px">
     <a href="https://www.triumphmotorcycles.com/forms/test-ride" target="_blank" rel="noopener" class="btn"><span>Essai gratuit</span></a>
+    <button class="cart-btn" id="cartBtn" aria-label="Mon panier" style="position:relative;background:none;border:1px solid var(--line);padding:10px 16px;color:var(--ink);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;display:flex;align-items:center;gap:8px;transition:border-color .25s,color .25s">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span id="cartCount">0</span>
+      <span class="cart-badge" id="cartBadge" style="position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s">0</span>
+    </button>
     <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -147,12 +152,14 @@
         <div class="sidebar-section">
           <h4>Catégories</h4>
           <ul class="cat-list" id="catList">
-            <li><a href="#" data-cat="all" class="active">Tous les produits <span class="count">16</span></a></li>
-            <li><a href="#" data-cat="blouson">Blousons <span class="count">4</span></a></li>
-            <li><a href="#" data-cat="casque">Casques <span class="count">4</span></a></li>
-            <li><a href="#" data-cat="pantalon">Pantalons <span class="count">3</span></a></li>
-            <li><a href="#" data-cat="gants">Gants <span class="count">3</span></a></li>
-            <li><a href="#" data-cat="chaussures">Chaussures <span class="count">2</span></a></li>
+            <li><a href="#" data-cat="all" class="active">Tous les produits <span class="count" id="cnt-all">150</span></a></li>
+            <li><a href="#" data-cat="blouson">Blousons &amp; Vestes <span class="count" id="cnt-blouson">—</span></a></li>
+            <li><a href="#" data-cat="gants">Gants <span class="count" id="cnt-gants">—</span></a></li>
+            <li><a href="#" data-cat="tshirt">T-Shirts &amp; Polos <span class="count" id="cnt-tshirt">—</span></a></li>
+            <li><a href="#" data-cat="sweat">Sweats &amp; Hoodies <span class="count" id="cnt-sweat">—</span></a></li>
+            <li><a href="#" data-cat="accessoire">Accessoires <span class="count" id="cnt-accessoire">—</span></a></li>
+            <li><a href="#" data-cat="pantalon">Pantalons &amp; Jeans <span class="count" id="cnt-pantalon">—</span></a></li>
+            <li><a href="#" data-cat="chaussures">Bottes &amp; Chaussures <span class="count" id="cnt-chaussures">—</span></a></li>
           </ul>
         </div>
         <div class="sidebar-section">
@@ -175,167 +182,6 @@
           </select>
         </div>
         <div class="product-grid" id="productGrid">
-
-          <article class="product-card reveal" data-cat="blouson" data-price="389" data-new="1">
-            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Scrambler cuir noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Blouson</span>
-              <span class="product-name">Triumph Scrambler — Cuir</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
-              <div class="product-footer"><span class="product-price">389 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="casque" data-price="649" data-new="1">
-            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque Shoei NXR2 noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Casque Intégral</span>
-              <span class="product-name">Shoei NXR2 — Matt Black</span>
-              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">649 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="blouson" data-price="239">
-            <div class="product-img"><span class="product-badge promo">−20 %</span><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson Triumph Meridian textile gris" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Blouson Textile</span>
-              <span class="product-name">Triumph Meridian — Gris</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price"><s>299 €</s>239 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="gants" data-price="179">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=600&q=80" alt="Gants Alpinestars GP Plus R cuir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Gants</span>
-              <span class="product-name">Alpinestars GP Plus R — Cuir</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
-              <div class="product-footer"><span class="product-price">179 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="casque" data-price="879">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Arai RX-7V Evo blanc" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Casque Intégral</span>
-              <span class="product-name">Arai RX-7V Evo — Blanc</span>
-              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span></div>
-              <div class="product-footer"><span class="product-price">879 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="pantalon" data-price="249" data-new="1">
-            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven textile noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Pantalon</span>
-              <span class="product-name">Triumph Raven — Textile</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
-              <div class="product-footer"><span class="product-price">249 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="chaussures" data-price="219">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Forma Adventure marron" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Chaussures</span>
-              <span class="product-name">Forma Adventure — Marron</span>
-              <div class="product-sizes"><span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span></div>
-              <div class="product-footer"><span class="product-price">219 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="gants" data-price="109">
-            <div class="product-img"><span class="product-badge promo">−15 %</span><img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Café Racer cuir vintage" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Gants</span>
-              <span class="product-name">Triumph Café Racer — Vintage</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price"><s>129 €</s>109 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="blouson" data-price="459" data-new="1">
-            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Blouson Triumph Bonneville cuir marron" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Blouson</span>
-              <span class="product-name">Triumph Bonneville — Marron</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">459 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="casque" data-price="399">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1591375372226-1d65b3a1e6b5?w=600&q=80" alt="Casque Shark Skwal 3 graphite" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Casque Modulable</span>
-              <span class="product-name">Shark Skwal 3 — Graphite</span>
-              <div class="product-sizes"><span class="size-dot">XS</span><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">399 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="pantalon" data-price="189">
-            <div class="product-img"><span class="product-badge promo">−10 %</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Alpinestars Andes v3 noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Pantalon</span>
-              <span class="product-name">Alpinestars Andes v3 — Noir</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
-              <div class="product-footer"><span class="product-price"><s>209 €</s>189 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="chaussures" data-price="279">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Bottes Triumph Cadwell cuir noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Bottes</span>
-              <span class="product-name">Triumph Cadwell — Noir</span>
-              <div class="product-sizes"><span class="size-dot">41</span><span class="size-dot">42</span><span class="size-dot">43</span><span class="size-dot">44</span><span class="size-dot">45</span><span class="size-dot">46</span></div>
-              <div class="product-footer"><span class="product-price">279 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="blouson" data-price="319">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Blouson Rev'it Oregon textile kaki" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Blouson Textile</span>
-              <span class="product-name">Rev'it Oregon — Kaki</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span><span class="size-dot">XXL</span></div>
-              <div class="product-footer"><span class="product-price">319 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="casque" data-price="549">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1558618047-f8b54c15f5c5?w=600&q=80" alt="Casque Bell Eliminator café racer noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Casque Jet</span>
-              <span class="product-name">Bell Eliminator — Café Racer</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">549 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="gants" data-price="89">
-            <div class="product-img"><img src="https://images.unsplash.com/photo-1625591339971-4b6b37b00e3e?w=600&q=80" alt="Gants Triumph Stripe cuir été" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Gants Été</span>
-              <span class="product-name">Triumph Stripe — Été</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">89 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
-          <article class="product-card reveal" data-cat="pantalon" data-price="299" data-new="1">
-            <div class="product-img"><span class="product-badge new">Nouveau</span><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Pantalon Triumph Raven Cuir noir" loading="lazy"/></div>
-            <div class="product-body">
-              <span class="product-cat">Pantalon Cuir</span>
-              <span class="product-name">Triumph Raven Cuir — Noir</span>
-              <div class="product-sizes"><span class="size-dot">S</span><span class="size-dot">M</span><span class="size-dot">L</span><span class="size-dot">XL</span></div>
-              <div class="product-footer"><span class="product-price">299 €</span><button class="add-btn">+ Panier</button></div>
-            </div>
-          </article>
-
         </div>
       </div>
     </div>
@@ -356,6 +202,10 @@
   </div>
 </footer>
 
+<style>
+.img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0e0e1c,#1a1a2e);padding:16px;text-align:center}
+.img-ph span{font-family:var(--sub,sans-serif);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,168,83,.45);line-height:1.5}
+</style>
 <script>
 (function(){
   var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
@@ -364,6 +214,28 @@
   document.querySelectorAll('a.page-link').forEach(function(a){
     a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();navigate(h);});
   });
+
+  // ── PANIER (localStorage) ──────────────────────────────────────────────
+  function getCart(){try{return JSON.parse(localStorage.getItem('rs_cart')||'[]');}catch(e){return[];}}
+  function saveCart(c){localStorage.setItem('rs_cart',JSON.stringify(c));}
+  function cartCount(){return getCart().reduce(function(s,i){return s+i.qty;},0);}
+  function addToCart(prod){
+    var cart=getCart();var price=prod.prix_promo||prod.prix_original;
+    var key=prod.id+'_';var item=cart.find(function(i){return i.key===key;});
+    if(item){item.qty++;}else{cart.push({key:key,id:prod.id,name:prod.nom,price:price,image:prod.image,size:null,qty:1,url:prod.url});}
+    saveCart(cart);updateCartBadge();
+  }
+  function updateCartBadge(){
+    var cnt=cartCount();
+    var badge=document.getElementById('cartBadge');
+    var countEl=document.getElementById('cartCount');
+    if(badge){badge.textContent=cnt;var hasItems=cnt>0;badge.style.opacity=hasItems?'1':'0';badge.style.transform=hasItems?'scale(1)':'scale(0)';}
+    if(countEl)countEl.textContent=cnt;
+  }
+  updateCartBadge();
+
+  var cartBtn=document.getElementById('cartBtn');
+  if(cartBtn)cartBtn.addEventListener('click',function(){navigate('panier.html');});
 
   if(window.matchMedia('(pointer:fine)').matches){
     var dot=document.createElement('div');dot.className='cursor-dot';
@@ -374,59 +246,113 @@
     (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
   }
 
-  var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
-  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
-  if(links)links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.classList.contains('page-link'))return;links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+  var burger=document.getElementById('burger');var navLinks=document.getElementById('navLinks');
+  if(burger)burger.addEventListener('click',function(){var o=navLinks.classList.toggle('open');burger.classList.toggle('open',o);});
+  if(navLinks)navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.classList.contains('page-link'))return;navLinks.classList.remove('open');if(burger)burger.classList.remove('open');});});
 
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
-  // Category filter (sidebar + URL param)
-  var allCards=Array.from(document.querySelectorAll('.product-card'));
+  var CAT_MAP={blousons_vestes:'blouson',gants:'gants',bottes_chaussures:'chaussures',jeans_pantalons:'pantalon',sweats:'sweat',t_shirts_polos:'tshirt',accessoires:'accessoire'};
+  var CAT_LABEL={blouson:'Blouson / Veste',gants:'Gants',chaussures:'Bottes & Chaussures',pantalon:'Pantalon / Jean',sweat:'Sweat / Hoodie',tshirt:'T-Shirt / Polo',accessoire:'Accessoire'};
+
+  var currentCat='all';
+  var allCards=[];
   var countEl=document.getElementById('productCount');
-  function filterCat(cat){
-    var vis=0;
-    allCards.forEach(function(c){
-      var show=cat==='all'||c.getAttribute('data-cat')===cat;
-      c.classList.toggle('hidden',!show);
-      if(show)vis++;
-    });
-    countEl.textContent=vis+' produit'+(vis>1?'s':'');
-    document.querySelectorAll('#catList a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-cat')===cat);});
-  }
-  document.querySelectorAll('#catList a').forEach(function(a){
-    a.addEventListener('click',function(e){e.preventDefault();filterCat(a.getAttribute('data-cat'));});
-  });
-  var urlCat=new URLSearchParams(window.location.search).get('cat');
-  if(urlCat)filterCat(urlCat);
-
-  // Price range
-  var priceRange=document.getElementById('priceRange');
-  var priceVal=document.getElementById('priceVal');
-  if(priceRange){
-    priceRange.addEventListener('input',function(){
-      var max=+priceRange.value;
-      priceVal.textContent=max.toLocaleString('fr-FR');
-      allCards.forEach(function(c){
-        var p=+c.getAttribute('data-price');
-        if(!c.classList.contains('hidden-cat'))c.classList.toggle('hidden',p>max);
-      });
-    });
-  }
-
-  // Toast
   var toast=document.getElementById('toast');
   var toastMsg=document.getElementById('toastMsg');
   var toastTimer;
-  document.querySelectorAll('.add-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
+
+  function filterCat(cat){
+    currentCat=cat;
+    var vis=0;
+    allCards.forEach(function(c){var show=cat==='all'||c.getAttribute('data-cat')===cat;c.classList.toggle('hidden',!show);if(show)vis++;});
+    if(countEl)countEl.textContent=vis+' produit'+(vis>1?'s':'');
+    document.querySelectorAll('#catList a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-cat')===cat);});
+  }
+
+  function initFilters(){
+    document.querySelectorAll('#catList a').forEach(function(a){
+      a.addEventListener('click',function(e){e.preventDefault();filterCat(a.getAttribute('data-cat'));});
+    });
+    var urlCat=new URLSearchParams(window.location.search).get('cat');
+    if(urlCat)filterCat(urlCat);
+
+    var priceRange=document.getElementById('priceRange');
+    var priceVal=document.getElementById('priceVal');
+    if(priceRange){
+      priceRange.addEventListener('input',function(){
+        var max=+priceRange.value;
+        priceVal.textContent=max.toLocaleString('fr-FR');
+        allCards.forEach(function(c){if(currentCat!=='all'&&c.getAttribute('data-cat')!==currentCat)return;c.classList.toggle('hidden',+c.getAttribute('data-price')>max);});
+      });
+    }
+
+    document.addEventListener('click',function(e){
+      var btn=e.target.closest('.add-btn');if(!btn)return;
+      e.stopPropagation();
+      var card=btn.closest('.product-card');
+      var pid=card?parseInt(card.getAttribute('data-id')):null;
+      // Cherche le produit dans allCards et ajoute au panier
+      if(pid&&window._catalogue){
+        var prod=window._catalogue.find(function(p){return p.id===pid;});
+        if(prod){
+          // Redirige vers la page produit pour choisir une taille
+          navigate('produit.html?id='+pid);return;
+        }
+      }
       var name=btn.closest('.product-card').querySelector('.product-name');
       toastMsg.textContent=(name?name.textContent:'Produit')+' ajouté au panier';
-      toast.classList.add('show');
-      clearTimeout(toastTimer);
+      toast.classList.add('show');clearTimeout(toastTimer);
       toastTimer=setTimeout(function(){toast.classList.remove('show');},3000);
     });
-  });
+  }
+
+  function renderProducts(produits){
+    var grid=document.getElementById('productGrid');
+    var counts={};
+    produits.forEach(function(p){
+      var cat=CAT_MAP[p.categorie]||'accessoire';
+      counts[cat]=(counts[cat]||0)+1;
+      var prix=p.prix_promo||p.prix_original;
+      var badge=p.remise?'<span class="product-badge promo">'+Math.abs(p.remise)+' %</span>':'';
+      var imgHtml=p.image
+        ?'<img src="'+p.image+'" alt="'+p.nom+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="img-ph" style="display:none"><span>'+p.nom+'</span></div>'
+        :'<div class="img-ph"><span>'+p.nom+'</span></div>';
+      var priceHtml=p.prix_promo
+        ?'<s>'+p.prix_original.toFixed(0)+' €</s>'+p.prix_promo.toFixed(0)+' €'
+        :p.prix_original.toFixed(0)+' €';
+      var card=document.createElement('article');
+      card.className='product-card reveal';
+      card.setAttribute('data-cat',cat);
+      card.setAttribute('data-price',Math.round(prix));
+      card.style.cursor='pointer';
+      card.setAttribute('data-id',p.id);
+      card.addEventListener('click',function(e){
+        if(e.target.classList.contains('add-btn'))return;
+        navigate('produit.html?id='+p.id);
+      });
+      card.innerHTML='<div class="product-img">'+badge+imgHtml+'</div>'
+        +'<div class="product-body">'
+        +'<span class="product-cat">'+(CAT_LABEL[cat]||cat)+'</span>'
+        +'<span class="product-name">'+p.nom+'</span>'
+        +'<div class="product-footer"><span class="product-price">'+priceHtml+'</span><button class="add-btn">+ Panier</button></div>'
+        +'</div>';
+      grid.appendChild(card);
+      io.observe(card);
+    });
+    var cntAll=document.getElementById('cnt-all');
+    if(cntAll)cntAll.textContent=produits.length;
+    if(countEl)countEl.textContent=produits.length+' produits';
+    Object.keys(counts).forEach(function(cat){var el=document.getElementById('cnt-'+cat);if(el)el.textContent=counts[cat];});
+    allCards=Array.from(grid.querySelectorAll('.product-card'));
+    initFilters();
+  }
+
+  fetch('catalogue-roadspirit.json')
+    .then(function(r){return r.json();})
+    .then(function(data){window._catalogue=data.produits;renderProducts(data.produits);})
+    .catch(function(){document.getElementById('productGrid').innerHTML='<p style="color:#666;padding:40px;grid-column:1/-1">Catalogue indisponible — vérifier que le serveur local tourne.</p>';});
 })();
 </script>
 </body>

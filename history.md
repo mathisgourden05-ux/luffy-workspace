@@ -4,6 +4,27 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-31 · Audit + corrections fonctionnelles site Road Spirit
+
+- **Problèmes corrigés :**
+  - Boutons "+ Panier" page d'accueil : ajoutent maintenant vraiment au localStorage (étaient purement cosmétiques)
+  - Lien "Voir les casques" → renvoyait 0 résultat (catégorie inexistante) → redirige maintenant vers la page casques Triumph × Arai officielle
+  - Modal Stripe orphelin dans panier.html supprimé (CSS + HTML + JS)
+  - Formulaire contact services.html : vrai formulaire ajouté avec envoi Formspree ou fallback mailto pré-rempli ; option "Demande d'essai" retirée (déjà gérée par bouton Triumph)
+  - Anchor motos : hash `#tiger` ne correspondait pas à la clé `tiger-900` → corrigé dans Road Spirit.html et motos.html
+  - Stripe Payment Link câblé dans paiement.html via variable `STRIPE_LINK` — prêt à l'emploi dès qu'une URL Stripe est posée
+- **À faire par Mathis :**
+  - Formspree : formspree.io → créer compte → coller l'ID dans `FORMSPREE_ID` dans services.html
+  - Stripe : dashboard stripe.com → Payment Link → coller l'URL dans `STRIPE_LINK` dans paiement.html
+
+## 2026-05-31 · Complétion images produits + page paiement Road Spirit
+
+- **Demande :** corriger toutes les images manquantes sur le site (catalogue + pages), ajouter une page de paiement.
+- **Images :** 26 produits avec `image: null` dans `catalogue-roadspirit.json` → tous remplis avec des URLs réelles de `media.triumphmotorcycles.co.uk`. Sources : Triumph FR officiel (polos Lustleigh, casquettes, magnet, sacs). Produits discontinués (coques iPhone/Samsung, magnets x6) → image accessoire Triumph la plus proche.
+- **Page paiement :** `livrable/site-web/paiement.html` créée (35 Ko). Contenu : barre de progression 3 étapes, formulaire livraison complet, choix mode de livraison (Colissimo / Chronopost / retrait), paiement par carte (avec détection VISA/MC/AMEX + formatage auto) / PayPal / virement, résumé commande sticky depuis localStorage, calcul total dynamique, validation HTML5, overlay de confirmation avec vidage du panier. Design 100% cohérent avec le reste du site (noir, orange, mêmes typos).
+- **Panier :** bouton "Passer commande" redirige désormais vers `paiement.html` au lieu d'ouvrir la modale Stripe.
+- **À faire pour la prod :** remplacer la simulation de paiement (setTimeout) par un vrai appel Stripe Checkout / Payment Link.
+
 ## 2026-05-30 · À FAIRE — Refaire l'interface de l'appli interne avec Claude Design
 
 - **Rappel explicite de Mathis** : refaire l'UI de `interne/app.html` via Claude Design pour un rendu plus soigné, puis rebrancher le code Supabase dessus.

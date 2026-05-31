@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Produit — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#C9A84C;--chrome:#C2B280;--ink:#F5F1E8;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none}
+@media(pointer:coarse){*{cursor:auto}}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--orange);color:#fff}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:13px;color:var(--orange)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(10,10,10,.95);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+.brand{font-family:var(--head);font-size:32px;letter-spacing:.06em;color:var(--orange)}
+.brand span{color:var(--ink)}
+.nav-links{display:flex;gap:38px;list-style:none}
+.nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:15px;color:var(--ink);position:relative;padding:4px 0;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--orange)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:18px}
+.cart-btn{position:relative;background:none;border:1px solid var(--line);padding:10px 16px;color:var(--ink);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;display:flex;align-items:center;gap:8px;transition:border-color .25s,color .25s}
+.cart-btn:hover{border-color:var(--orange);color:var(--orange)}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s}
+.cart-badge.has-items{opacity:1;transform:scale(1)}
+.btn{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:15px;padding:16px 30px;border:1px solid var(--orange);color:#fff;overflow:hidden;cursor:pointer;background:transparent;z-index:0}
+.btn span{position:relative;z-index:2;transition:color .35s}
+.btn::after{content:"";position:absolute;inset:0;background:var(--orange);z-index:1;transform:translateX(0);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.btn:hover::after{transform:translateX(-101%)}
+.btn:hover span{color:var(--orange)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+.hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+/* BREADCRUMB */
+.breadcrumb{padding:106px 0 0;background:var(--bg)}
+.breadcrumb-inner{display:flex;align-items:center;gap:10px;font-family:var(--sub);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:20px 0}
+.breadcrumb-inner a{transition:color .2s}
+.breadcrumb-inner a:hover{color:var(--orange)}
+.breadcrumb-inner .sep{color:var(--line);opacity:.5}
+.breadcrumb-inner .current{color:var(--ink)}
+
+/* PRODUCT LAYOUT */
+.product-section{padding:0 0 100px}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+
+/* IMAGE COLUMN */
+.product-img-col{position:sticky;top:120px}
+.product-img-wrap{position:relative;background:var(--bg-2);border:1px solid var(--line);overflow:hidden;aspect-ratio:1/1}
+.product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.product-img-wrap:hover img{transform:scale(1.04)}
+.img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0e0e1c,#1a1a2e);padding:32px;text-align:center}
+.img-ph span{font-family:var(--sub);font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(212,168,83,.45);line-height:1.6}
+.promo-ribbon{position:absolute;top:16px;left:16px;z-index:2;font-family:var(--sub);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;padding:5px 12px;background:#fff;color:#0a0a0a}
+
+/* INFO COLUMN */
+.product-info-col{padding:8px 0}
+.product-info-col .eyebrow{display:block;margin-bottom:12px}
+.product-title{font-family:var(--head);font-size:clamp(38px,5vw,68px);line-height:.92;text-transform:uppercase;letter-spacing:.01em;margin-bottom:24px}
+.price-block{display:flex;align-items:baseline;gap:14px;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.price-now{font-family:var(--sub);font-weight:700;font-size:36px;color:var(--ink)}
+.price-was{font-family:var(--sub);font-weight:500;font-size:20px;color:var(--muted);text-decoration:line-through}
+.price-save{font-family:var(--sub);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:var(--orange);color:#fff;padding:3px 10px}
+
+/* SIZE SELECTOR */
+.selector-block{margin-bottom:28px}
+.selector-label{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.2em;font-size:12px;color:var(--chrome);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.selector-label span{color:var(--muted);font-weight:500;letter-spacing:.06em;text-transform:none;font-size:13px}
+.size-grid{display:flex;flex-wrap:wrap;gap:8px}
+.size-opt{font-family:var(--sub);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;border:1px solid var(--line);color:var(--muted);background:transparent;transition:all .2s}
+.size-opt:hover{border-color:var(--orange);color:var(--orange)}
+.size-opt.active{border-color:var(--orange);background:var(--orange);color:#fff}
+.size-opt.oos{opacity:.3;pointer-events:none;text-decoration:line-through}
+.size-guide{font-family:var(--sub);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:10px;display:inline-flex;align-items:center;gap:6px;transition:color .2s}
+.size-guide:hover{color:var(--orange)}
+
+/* COLOR */
+.color-grid{display:flex;gap:10px;flex-wrap:wrap}
+.color-opt{width:32px;height:32px;border-radius:50%;border:2px solid transparent;position:relative;transition:border-color .2s}
+.color-opt.active{border-color:var(--orange)}
+.color-opt::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--color)}
+
+/* CTAs */
+.cta-block{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.btn-cart-full{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:16px;padding:20px 32px;background:transparent;border:1px solid var(--orange);color:var(--ink);transition:background .3s,color .3s;position:relative;overflow:hidden}
+.btn-cart-full::before{content:"";position:absolute;inset:0;background:var(--orange);transform:translateX(-101%);transition:transform .4s cubic-bezier(.7,0,.2,1)}
+.btn-cart-full:hover::before{transform:translateX(0)}
+.btn-cart-full span,.btn-buy-full span{position:relative;z-index:1}
+.btn-cart-full svg{position:relative;z-index:1}
+.btn-buy-full{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:16px;padding:20px 32px;background:var(--orange);border:1px solid var(--orange);color:#fff;transition:background .3s}
+.btn-buy-full:hover{background:#B8933B}
+
+/* DESCRIPTION */
+.product-desc-block{padding-top:28px;border-top:1px solid var(--line);margin-bottom:28px}
+.product-desc-block h4{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.22em;font-size:12px;color:var(--chrome);margin-bottom:14px}
+.product-desc-block p{color:var(--muted);font-size:15px;line-height:1.75}
+.features-list{list-style:none;display:grid;gap:8px;margin-top:14px}
+.features-list li{font-family:var(--sub);font-size:14px;font-weight:600;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:10px}
+.features-list li::before{content:"";width:4px;height:4px;background:var(--orange);flex-shrink:0}
+
+/* EXTERNAL LINK */
+.external-link-row{padding-top:20px;border-top:1px solid var(--line)}
+.external-link-row a{font-family:var(--sub);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:8px;transition:color .25s}
+.external-link-row a:hover{color:var(--orange)}
+.external-link-row svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* CART SIDEBAR */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1100;opacity:0;pointer-events:none;transition:opacity .35s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-sidebar{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:92vw;background:var(--bg-2);border-left:1px solid var(--orange);z-index:1101;transform:translateX(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column}
+.cart-sidebar.open{transform:translateX(0)}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:28px 28px 20px;border-bottom:1px solid var(--line)}
+.cart-head h3{font-family:var(--head);font-size:32px;letter-spacing:.04em;text-transform:uppercase}
+.cart-close{background:none;border:1px solid var(--line);color:var(--ink);width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:border-color .2s,color .2s}
+.cart-close:hover{border-color:var(--orange);color:var(--orange)}
+.cart-body{flex:1;overflow-y:auto;padding:20px 28px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:12px;color:var(--muted);font-family:var(--sub);font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+.cart-item{display:grid;grid-template-columns:80px 1fr auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.cart-item-img{width:80px;height:80px;object-fit:cover;background:var(--bg-3)}
+.cart-item-img.ph{display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted)}
+.cart-item-info{}
+.cart-item-name{font-family:var(--sub);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;margin-bottom:4px}
+.cart-item-meta{font-size:12px;color:var(--muted)}
+.cart-item-price{font-family:var(--sub);font-weight:700;font-size:16px}
+.cart-item-remove{background:none;border:0;color:var(--muted);font-size:16px;margin-left:8px;transition:color .2s}
+.cart-item-remove:hover{color:var(--orange)}
+.cart-foot{padding:20px 28px 28px;border-top:1px solid var(--line)}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:16px;margin-bottom:18px}
+.cart-total-row .amount{font-size:24px;color:var(--ink)}
+.btn-checkout{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:15px;padding:18px;background:var(--orange);border:0;color:#fff;transition:background .3s;margin-bottom:12px}
+.btn-checkout:hover{background:#B8933B}
+.cart-continue{width:100%;font-family:var(--sub);font-weight:600;letter-spacing:.14em;font-size:13px;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);padding:12px;transition:border-color .2s,color .2s}
+.cart-continue:hover{border-color:var(--orange);color:var(--orange)}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;right:32px;z-index:9995;background:var(--bg-3);border:1px solid var(--orange);font-family:var(--sub);font-weight:600;letter-spacing:.08em;font-size:15px;color:var(--ink);padding:16px 24px;display:flex;align-items:center;gap:12px;transform:translateY(100px);opacity:0;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-ico{color:var(--orange);font-size:20px}
+
+/* CURSOR */
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+
+/* OVERLAY TRANSITION */
+.page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+.page-overlay.out{transform:scaleY(1);pointer-events:all}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:900px){.product-grid{grid-template-columns:1fr;gap:40px}.product-img-col{position:static}}
+@media(max-width:540px){
+  .wrap{padding:0 22px}.nav{padding:16px 22px}
+  .nav-links{position:fixed;inset:0 0 0 auto;width:78%;max-width:360px;background:rgba(8,8,8,.99);flex-direction:column;justify-content:center;gap:30px;padding:40px;transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);border-left:1px solid var(--orange)}
+  .nav-links.open{transform:translateX(0)}
+  .nav-links a{font-size:26px}
+  .hamburger{display:flex;z-index:1001}
+  .product-title{font-size:42px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigation principale">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="motos.html" class="page-link">Motos</a></li>
+    <li><a href="Road Spirit.html#equipements" class="page-link">Équipements</a></li>
+    <li><a href="boutique.html" class="page-link active">Boutique</a></li>
+    <li><a href="services.html" class="page-link">Services</a></li>
+    <li><a href="Road Spirit.html#contact" class="page-link">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" aria-label="Mon panier">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span>Panier</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <div class="wrap">
+    <div class="breadcrumb-inner">
+      <a href="boutique.html" class="page-link">Boutique</a>
+      <span class="sep">/</span>
+      <span id="breadCat" class="current">—</span>
+      <span class="sep">/</span>
+      <span id="breadName" class="current">—</span>
+    </div>
+  </div>
+</div>
+
+<section class="product-section">
+  <div class="wrap">
+    <div class="product-grid">
+
+      <!-- IMAGE -->
+      <div class="product-img-col reveal">
+        <div class="product-img-wrap" id="imgWrap">
+          <img id="productImg" alt="" loading="eager"
+            onerror="this.style.display='none';document.getElementById('productImgPh').style.display='flex'"/>
+          <div class="img-ph" id="productImgPh" style="display:none">
+            <span id="productImgPhText">Chargement…</span>
+          </div>
+          <div class="promo-ribbon" id="promoBadge" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="product-info-col">
+        <span class="eyebrow reveal" id="productCat"></span>
+        <h1 class="product-title reveal" id="productTitle">—</h1>
+
+        <div class="price-block reveal" id="priceBlock">
+          <span class="price-now" id="priceNow"></span>
+          <span class="price-was" id="priceWas" style="display:none"></span>
+          <span class="price-save" id="priceSave" style="display:none"></span>
+        </div>
+
+        <!-- COULEURS -->
+        <div class="selector-block reveal" id="colorBlock" style="display:none">
+          <div class="selector-label">Couleur <span id="colorSelected"></span></div>
+          <div class="color-grid" id="colorGrid"></div>
+        </div>
+
+        <!-- TAILLES -->
+        <div class="selector-block reveal" id="sizeBlock" style="display:none">
+          <div class="selector-label">Taille <span id="sizeSelected">— Choisir une taille</span></div>
+          <div class="size-grid" id="sizeGrid"></div>
+          <a href="#" class="size-guide" id="sizeGuideLink" style="display:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Guide des tailles
+          </a>
+        </div>
+
+        <!-- CTAs -->
+        <div class="cta-block reveal" id="ctaBlock">
+          <button class="btn-cart-full" id="btnAddCart">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span>Ajouter au panier</span>
+          </button>
+          <button class="btn-buy-full" id="btnBuyNow">
+            <span>Acheter maintenant →</span>
+          </button>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="product-desc-block reveal">
+          <h4>Description</h4>
+          <p id="productDesc"></p>
+          <ul class="features-list" id="featuresList"></ul>
+        </div>
+
+        <!-- LIEN OFFICIEL -->
+        <div class="external-link-row reveal">
+          <a id="officialLink" href="#" target="_blank" rel="noopener">
+            Voir sur roadspirit.fr
+            <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-head">
+    <h3>Panier</h3>
+    <button class="cart-close" id="cartClose">×</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty" id="cartEmpty">Votre panier est vide</div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span class="amount" id="cartTotalAmt">0 €</span>
+    </div>
+    <button class="btn-checkout" id="btnCheckout">Passer commande →</button>
+    <button class="cart-continue" id="cartContinue">Continuer mes achats</button>
+  </div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-ico">✓</span><span id="toastMsg">Produit ajouté</span></div>
+
+<footer style="background:#080808;border-top:1px solid var(--orange);padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <a href="Road Spirit.html" class="brand page-link" style="font-size:26px">ROAD <span>SPIRIT</span></a>
+    <div style="display:flex;gap:28px">
+      <a href="motos.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Motos</a>
+      <a href="services.html" class="page-link" style="font-family:var(--sub);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:var(--muted);transition:color .25s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='var(--muted)'">Services</a>
+    </div>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+/* ── CONFIG ─────────────────────────────────────────────────────────────── */
+var STRIPE_MODE = 'link'; // 'link' = Payment Link par produit | 'roadspirit' = redirection roadspirit.fr
+// Pour activer les Payment Links Stripe, ajoutez "stripe_link":"https://buy.stripe.com/xxx"
+// dans chaque produit du catalogue JSON, puis STRIPE_MODE = 'link'.
+
+/* ── CATÉGORIES ─────────────────────────────────────────────────────────── */
+var CAT_MAP={blousons_vestes:'blouson',gants:'gants',bottes_chaussures:'chaussures',jeans_pantalons:'pantalon',sweats:'sweat',t_shirts_polos:'tshirt',accessoires:'accessoire'};
+var CAT_LABEL={blouson:'Blouson / Veste',gants:'Gants',chaussures:'Bottes & Chaussures',pantalon:'Pantalon / Jean',sweat:'Sweat / Hoodie',tshirt:'T-Shirt / Polo',accessoire:'Accessoire'};
+
+var SIZES = {
+  blouson: ['XS','S','M','L','XL','2XL','3XL'],
+  gants:   ['XS','S','M','L','XL','2XL'],
+  chaussures: ['38','39','40','41','42','43','44','45','46'],
+  pantalon: ['XS','S','M','L','XL','2XL','3XL'],
+  sweat:   ['XS','S','M','L','XL','2XL','3XL'],
+  tshirt:  ['XS','S','M','L','XL','2XL','3XL'],
+  accessoire: []
+};
+
+var DESCS = {
+  blouson: function(nom){
+    var n=nom.toUpperCase();
+    if(n.indexOf('CUIR')>-1||n.indexOf('LEATHER')>-1) return {
+      text:"Blouson moto en cuir pleine fleur, finition premium. Protections CE homologuées dorsale et épaules, doublure confortable, fermetures YKK.",
+      feats:["Cuir pleine fleur résistant à l'abrasion","Protections D3O® épaules et coudes","Doublure amovible thermique","Certifié CE EN 17092"]
+    };
+    if(n.indexOf('MESH')>-1||n.indexOf('MAILLE')>-1||n.indexOf('AIR')>-1) return {
+      text:"Blouson en maille respirante pour les saisons chaudes. Panneaux aérés stratégiques, renforts Cordura® aux zones d'usure, protections CE intégrées.",
+      feats:["Mesh respirant haute performance","Protections homologuées CE","Poches zippées imperméables","Fermeture d'assemblage pantalon"]
+    };
+    if(n.indexOf('WAX')>-1||n.indexOf('CIRÉ')>-1||n.indexOf('COTON')>-1) return {
+      text:"Veste en coton ciré au style heritage intemporel. Traitement imperméabilisant naturel, coupe tailored, poches multiples fonctionnelles.",
+      feats:["Coton ciré imperméabilisant","Coupe heritage ajustée","Protections CE amovibles","Style ville & route"]
+    };
+    return {
+      text:"Blouson moto de la collection officielle Triumph. Conçu pour offrir le meilleur équilibre entre protection, confort et style sur route.",
+      feats:["Protection CE homologuée","Construction multi-couches","Poches intérieures sécurisées","Fermetures YKK de qualité"]
+    };
+  },
+  gants: function(nom){
+    var n=nom.toUpperCase();
+    if(n.indexOf('WATERPROOF')>-1||n.indexOf('IMPERMÉABLE')>-1||n.indexOf('STORM')>-1||n.indexOf('WINTER')>-1||n.indexOf('HIVERN')>-1) return {
+      text:"Gants imperméables avec isolation thermique PrimaLoft®. Membrane waterproof intégrée, manchettes longues, protections anti-impact CE.",
+      feats:["Membrane imperméable respirante","Isolation PrimaLoft® Black","Coques anti-impact TPU","Compatibles écran tactile"]
+    };
+    if(n.indexOf('MESH')>-1||n.indexOf('FLAG')>-1||n.indexOf('RAVEN')>-1||n.indexOf('PERFORATED')>-1||n.indexOf('PERFORÉ')>-1) return {
+      text:"Gants en mesh aéré pour les saisons chaudes. Zones ventilées stratégiques, coques moulées anti-impact, fermeture velcro réglable.",
+      feats:["Mesh respirant grande surface","Coques knuckle moulées","Panneaux élastiques flex","Doigt conducteur tactile"]
+    };
+    return {
+      text:"Gants moto en cuir de qualité avec protections intégrées. Coupe anatomique préformée, renforts en cuir aux zones d'usure, fermeture sécurisée.",
+      feats:["Cuir pleine fleur résistant","Coques TPU anti-impact","Coutures Pittards renforcées","Certifiés CE EN 13594"]
+    };
+  },
+  chaussures: function(nom){
+    var n=nom.toUpperCase();
+    if(n.indexOf('BOTTE')>-1||n.indexOf('BOOT')>-1) return {
+      text:"Bottes moto haute performance. Tige montante pour protection des chevilles, semelle antidérapante, fermeture sécurisée. Polyvalent route et ville.",
+      feats:["Tige haute protection cheville","Semelle antidérapante SRC","Fermeture zip + velcro","Protections CE intégrées"]
+    };
+    return {
+      text:"Chaussures moto au design urbain. Protection des malléoles intégrée, semelle résistante aux huiles, tige en cuir premium.",
+      feats:["Cuir résistant abrasion","Protection malléoles CE","Semelle antiglisse et anti-huile","Style ville & moto"]
+    };
+  },
+  pantalon: function(nom){
+    var n=nom.toUpperCase();
+    if(n.indexOf('PLUIE')>-1||n.indexOf('RAIN')>-1) return {
+      text:"Surpantalon imperméable à enfiler rapidement par mauvais temps. Traitement DWR, coupes reflective, rangement compact en sacoche intégrée.",
+      feats:["Imperméabilité 10 000mm","Traitement DWR fluorofree","Coutures soudées étanches","Bandes réfléchissantes"]
+    };
+    return {
+      text:"Jean/pantalon moto alliant style et protection. Renforts Kevlar® aux zones critiques, intégration protections genoux et hanches CE.",
+      feats:["Renforts Kevlar® breechzone","Poches protections CE niveau 1","Coupe slim ajustée","Compatible salopette"]
+    };
+  },
+  sweat: function(nom){
+    return {
+      text:"Sweatshirt Triumph de la collection casual officielle. Broderies ou impressions de haute qualité, coton premium garanti no-shrink.",
+      feats:["Coton 280gsm no-shrink","Broderies & impressions durables","Coupe relaxed unisexe","Lavage machine 40°C"]
+    };
+  },
+  tshirt: function(nom){
+    return {
+      text:"T-shirt Triumph de la collection officielle. 100% coton ring-spun qualité supérieure, coupe classique ou slim selon le modèle.",
+      feats:["Coton 100% ring-spun 180gsm","Col rond renforcé","Impression résistante aux lavages","Coupe relaxed ou slim"]
+    };
+  },
+  accessoire: function(nom){
+    return {
+      text:"Accessoire de la collection officielle Triumph. Qualité premium, matériaux soigneusement sélectionnés.",
+      feats:["Collection officielle Triumph","Qualité premium garantie"]
+    };
+  }
+};
+
+/* ── COULEURS depuis le nom ─────────────────────────────────────────────── */
+function detectColors(nom){
+  var n=nom.toUpperCase();
+  var detected=[];
+  var colorMap=[
+    {kw:'NOIR',label:'Noir',hex:'#1a1a1a'},
+    {kw:'NOIRS',label:'Noir',hex:'#1a1a1a'},
+    {kw:'NOIRE',label:'Noir',hex:'#1a1a1a'},
+    {kw:'BLANC',label:'Blanc',hex:'#f5f1e8'},
+    {kw:'BLANCHE',label:'Blanc',hex:'#f5f1e8'},
+    {kw:'GRIS',label:'Gris',hex:'#888'},
+    {kw:'GRISE',label:'Gris',hex:'#888'},
+    {kw:'BLEU',label:'Bleu',hex:'#2c4a8c'},
+    {kw:'BLEUE',label:'Bleu',hex:'#2c4a8c'},
+    {kw:'MARINE',label:'Bleu Marine',hex:'#1a2d5a'},
+    {kw:'VERT',label:'Vert',hex:'#3a6b3a'},
+    {kw:'KHAKI',label:'Kaki',hex:'#8b7355'},
+    {kw:'KHAKI',label:'Kaki',hex:'#8b7355'},
+    {kw:'MARRON',label:'Marron',hex:'#6b3a2a'},
+    {kw:'ROUGE',label:'Rouge',hex:'#8b1a1a'},
+    {kw:'JAUNE',label:'Jaune',hex:'#d4a83a'},
+    {kw:'CAMO',label:'Camouflage',hex:'#4a5a3a'},
+    {kw:'ORANGE',label:'Orange',hex:'#c9682c'},
+  ];
+  colorMap.forEach(function(c){
+    if(n.indexOf(c.kw)>-1){
+      var exists=detected.some(function(d){return d.label===c.label;});
+      if(!exists) detected.push(c);
+    }
+  });
+  return detected;
+}
+
+/* ── PANIER (localStorage) ──────────────────────────────────────────────── */
+function getCart(){
+  try{return JSON.parse(localStorage.getItem('rs_cart')||'[]');}catch(e){return[];}
+}
+function saveCart(c){localStorage.setItem('rs_cart',JSON.stringify(c));}
+function cartCount(){return getCart().reduce(function(s,i){return s+i.qty;},0);}
+function cartTotal(){return getCart().reduce(function(s,i){return s+i.price*i.qty;},0);}
+
+function updateCartUI(){
+  var cnt=cartCount();
+  var badge=document.getElementById('cartBadge');
+  if(badge){badge.textContent=cnt;badge.classList.toggle('has-items',cnt>0);}
+  renderCartSidebar();
+}
+
+function addToCart(prod,size){
+  var cart=getCart();
+  var key=prod.id+'_'+(size||'');
+  var item=cart.find(function(i){return i.key===key;});
+  var price=prod.prix_promo||prod.prix_original;
+  if(item){item.qty++;}
+  else{cart.push({key:key,id:prod.id,name:prod.nom,price:price,image:prod.image,size:size,qty:1,url:prod.url});}
+  saveCart(cart);
+  updateCartUI();
+}
+
+function removeFromCart(key){
+  var cart=getCart().filter(function(i){return i.key!==key;});
+  saveCart(cart);
+  updateCartUI();
+}
+
+function renderCartSidebar(){
+  var cart=getCart();
+  var body=document.getElementById('cartBody');
+  var foot=document.getElementById('cartFoot');
+  var empty=document.getElementById('cartEmpty');
+  var total=document.getElementById('cartTotalAmt');
+  if(!body)return;
+  if(cart.length===0){
+    if(empty)empty.style.display='flex';
+    if(foot)foot.style.display='none';
+    var items=body.querySelectorAll('.cart-item');
+    items.forEach(function(el){el.remove();});
+    return;
+  }
+  if(empty)empty.style.display='none';
+  if(foot){foot.style.display='block';}
+  var existing=body.querySelectorAll('.cart-item');
+  existing.forEach(function(el){el.remove();});
+  cart.forEach(function(item){
+    var div=document.createElement('div');div.className='cart-item';
+    var imgHtml=item.image
+      ?'<img class="cart-item-img" src="'+item.image+'" alt="" onerror="this.outerHTML=\'<div class=\\\"cart-item-img ph\\\">—</div>\'">'
+      :'<div class="cart-item-img ph">—</div>';
+    div.innerHTML=imgHtml
+      +'<div class="cart-item-info">'
+      +'<div class="cart-item-name">'+item.name+'</div>'
+      +'<div class="cart-item-meta">'+(item.size?'Taille '+item.size+' · ':'')+item.qty+' × '+item.price.toFixed(0)+' €</div>'
+      +'</div>'
+      +'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">'
+      +'<span class="cart-item-price">'+(item.price*item.qty).toFixed(0)+' €</span>'
+      +'<button class="cart-item-remove" data-key="'+item.key+'">✕</button>'
+      +'</div>';
+    body.appendChild(div);
+  });
+  if(total)total.textContent=cartTotal().toFixed(2)+' €';
+  body.querySelectorAll('.cart-item-remove').forEach(function(btn){
+    btn.addEventListener('click',function(){removeFromCart(btn.getAttribute('data-key'));});
+  });
+}
+
+/* ── CART SIDEBAR OPEN/CLOSE ────────────────────────────────────────────── */
+function openCart(){
+  document.getElementById('cartSidebar').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeCart(){
+  document.getElementById('cartSidebar').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ── TOAST ──────────────────────────────────────────────────────────────── */
+var toastTimer;
+function showToast(msg){
+  var t=document.getElementById('toast');
+  var m=document.getElementById('toastMsg');
+  if(m)m.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},3000);
+}
+
+/* ── PAGE PRODUCT ───────────────────────────────────────────────────────── */
+var currentProduct=null;
+var selectedSize=null;
+
+function renderProduct(p){
+  currentProduct=p;
+  var cat=CAT_MAP[p.categorie]||'accessoire';
+  document.title=p.nom+' — Road Spirit · Toulon';
+
+  // breadcrumb
+  var bc=document.getElementById('breadCat');
+  var bn=document.getElementById('breadName');
+  if(bc)bc.textContent=CAT_LABEL[cat]||cat;
+  if(bn)bn.textContent=p.nom.length>32?p.nom.substring(0,32)+'…':p.nom;
+
+  // cat label
+  var catEl=document.getElementById('productCat');
+  if(catEl)catEl.textContent='/ '+CAT_LABEL[cat];
+
+  // title
+  var titleEl=document.getElementById('productTitle');
+  if(titleEl)titleEl.textContent=p.nom;
+
+  // image
+  var img=document.getElementById('productImg');
+  var ph=document.getElementById('productImgPh');
+  var phTxt=document.getElementById('productImgPhText');
+  if(img){
+    if(p.image){
+      img.style.display='';   // annule tout onerror précédent déclenché sur src=""
+      img.src=p.image;
+      img.alt=p.nom;
+      if(ph)ph.style.display='none';
+    }else{
+      img.style.display='none';
+      if(ph)ph.style.display='flex';
+      if(phTxt)phTxt.textContent=p.nom;
+    }
+  }
+
+  // promo badge
+  var badge=document.getElementById('promoBadge');
+  if(badge&&p.remise){badge.textContent=Math.abs(p.remise)+' %';badge.style.display='block';}
+
+  // price
+  var pNow=document.getElementById('priceNow');
+  var pWas=document.getElementById('priceWas');
+  var pSave=document.getElementById('priceSave');
+  if(p.prix_promo){
+    if(pNow)pNow.textContent=p.prix_promo.toFixed(2)+' €';
+    if(pWas){pWas.textContent=p.prix_original.toFixed(2)+' €';pWas.style.display='inline';}
+    if(pSave&&p.remise){pSave.textContent='−'+Math.abs(p.remise)+' %';pSave.style.display='inline';}
+  }else{
+    if(pNow)pNow.textContent=p.prix_original.toFixed(2)+' €';
+  }
+
+  // couleurs
+  var colors=detectColors(p.nom);
+  var colorBlock=document.getElementById('colorBlock');
+  var colorGrid=document.getElementById('colorGrid');
+  var colorSel=document.getElementById('colorSelected');
+  if(colors.length>0&&colorBlock&&colorGrid){
+    colorBlock.style.display='block';
+    colors.forEach(function(c,i){
+      var btn=document.createElement('button');
+      btn.className='color-opt'+(i===0?' active':'');
+      btn.style.setProperty('--color',c.hex);
+      btn.title=c.label;
+      btn.setAttribute('aria-label',c.label);
+      if(colorSel&&i===0)colorSel.textContent=c.label;
+      btn.addEventListener('click',function(){
+        colorGrid.querySelectorAll('.color-opt').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        if(colorSel)colorSel.textContent=c.label;
+      });
+      colorGrid.appendChild(btn);
+    });
+  }
+
+  // tailles
+  var sizes=SIZES[cat]||[];
+  var sizeBlock=document.getElementById('sizeBlock');
+  var sizeGrid=document.getElementById('sizeGrid');
+  var sizeSel=document.getElementById('sizeSelected');
+  if(sizes.length>0&&sizeBlock&&sizeGrid){
+    sizeBlock.style.display='block';
+    sizes.forEach(function(s){
+      var btn=document.createElement('button');
+      btn.className='size-opt';btn.textContent=s;
+      btn.addEventListener('click',function(){
+        sizeGrid.querySelectorAll('.size-opt').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        selectedSize=s;
+        if(sizeSel)sizeSel.textContent=s;
+      });
+      sizeGrid.appendChild(btn);
+    });
+  }
+
+  // description
+  var descFn=DESCS[cat]||DESCS.accessoire;
+  var descData=descFn(p.nom);
+  var descEl=document.getElementById('productDesc');
+  var featEl=document.getElementById('featuresList');
+  if(descEl)descEl.textContent=descData.text;
+  if(featEl&&descData.feats){
+    descData.feats.forEach(function(f){
+      var li=document.createElement('li');li.textContent=f;featEl.appendChild(li);
+    });
+  }
+
+  // lien officiel
+  var offLink=document.getElementById('officialLink');
+  if(offLink&&p.url)offLink.href=p.url;
+
+  // CTA add to cart
+  var btnCart=document.getElementById('btnAddCart');
+  if(btnCart){
+    btnCart.addEventListener('click',function(){
+      var sizes=SIZES[cat]||[];
+      if(sizes.length>0&&!selectedSize){showToast('Choisissez une taille');return;}
+      addToCart(p,selectedSize);
+      showToast(p.nom+' ajouté au panier');
+      openCart();
+    });
+  }
+
+  // CTA buy now
+  var btnBuy=document.getElementById('btnBuyNow');
+  if(btnBuy){
+    btnBuy.addEventListener('click',function(){
+      var sizes=SIZES[cat]||[];
+      if(sizes.length>0&&!selectedSize){showToast('Choisissez une taille');return;}
+      // ── STRIPE PAYMENT LINK ──────────────────────────────────────────
+      // Pour activer : ajoutez "stripe_link":"https://buy.stripe.com/xxx"
+      // dans le produit dans catalogue-roadspirit.json
+      if(p.stripe_link){
+        var sz=selectedSize?'?prefilled_quantity=1&client_reference_id='+p.id+'_'+selectedSize:'';
+        window.open(p.stripe_link+sz,'_blank');
+      }else{
+        // Fallback : ajoute au panier et ouvre le panier
+        addToCart(p,selectedSize);
+        window.location.href='panier.html';
+      }
+    });
+  }
+
+  // reveal elements
+  document.querySelectorAll('.reveal').forEach(function(el,i){
+    setTimeout(function(){el.classList.add('in');},80+i*60);
+  });
+}
+
+/* ── INIT ───────────────────────────────────────────────────────────────── */
+(function init(){
+  // cursor
+  if(window.matchMedia('(pointer:fine)').matches){
+    var dot=document.createElement('div');dot.className='cursor-dot';
+    var ring=document.createElement('div');ring.className='cursor-ring';
+    document.body.appendChild(dot);document.body.appendChild(ring);
+    var mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+    (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
+  }
+
+  // page overlay transition
+  var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+  window.navigate=function(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);};
+  document.querySelectorAll('a.page-link').forEach(function(a){
+    a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();window.navigate(h);});
+  });
+
+  // hamburger
+  var burger=document.getElementById('burger');var navLinks=document.getElementById('navLinks');
+  if(burger)burger.addEventListener('click',function(){navLinks.classList.toggle('open');});
+
+  // cart
+  var cartBtn=document.getElementById('cartBtn');
+  var cartClose=document.getElementById('cartClose');
+  var cartOverlay=document.getElementById('cartOverlay');
+  var cartContinue=document.getElementById('cartContinue');
+  if(cartBtn)cartBtn.addEventListener('click',openCart);
+  if(cartClose)cartClose.addEventListener('click',closeCart);
+  if(cartOverlay)cartOverlay.addEventListener('click',closeCart);
+  if(cartContinue)cartContinue.addEventListener('click',closeCart);
+
+  var btnCheckout=document.getElementById('btnCheckout');
+  if(btnCheckout)btnCheckout.addEventListener('click',function(){window.navigate('panier.html');});
+
+  updateCartUI();
+
+  // load product from URL param
+  var params=new URLSearchParams(window.location.search);
+  var pid=parseInt(params.get('id'));
+  if(!pid){window.location.href='boutique.html';return;}
+
+  fetch('catalogue-roadspirit.json')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var prod=data.produits.find(function(p){return p.id===pid;});
+      if(!prod){window.location.href='boutique.html';return;}
+      renderProduct(prod);
+    })
+    .catch(function(){
+      document.getElementById('productTitle').textContent='Produit introuvable';
+    });
+})();
+
+})();
+</script>
+</body>
+</html>

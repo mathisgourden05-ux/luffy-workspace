@@ -234,21 +234,71 @@
   </div>
 </section>
 
-<!-- CONTACT BAR -->
-<section class="contact-bar" id="contact">
+<!-- CONTACT -->
+<section id="contact" style="padding:100px 0;background:var(--bg-2)">
   <div class="wrap">
-    <div class="contact-grid">
-      <div class="contact-item reveal">
-        <span class="ico">📍</span>
-        <div><h4>Adresse</h4><p>142 avenue de la Mer<br>83190 Ollioules, France</p></div>
+    <div class="form-grid">
+      <div class="form-info reveal">
+        <span class="eyebrow">/ Contactez-nous</span>
+        <h2>On vous<br>répond.</h2>
+        <p>Questions sur un modèle, un équipement, un service — écrivez-nous, on répond dans la journée.</p>
+        <div class="detail">
+          <span class="ico">☎</span>
+          <div><b>Téléphone</b><span><a href="tel:+33494201002" style="color:var(--muted)">04 94 20 10 02</a></span></div>
+        </div>
+        <div class="detail">
+          <span class="ico">✉</span>
+          <div><b>Email</b><span><a href="mailto:contact@roadspirit.fr" style="color:var(--orange)">contact@roadspirit.fr</a></span></div>
+        </div>
+        <div class="detail">
+          <span class="ico">📍</span>
+          <div><b>Adresse</b><span style="color:var(--muted)">Espace Mermoz, 212 chemin des Delphiniums<br>83190 Ollioules</span></div>
+        </div>
       </div>
-      <div class="contact-item reveal">
-        <span class="ico">☎</span>
-        <div><h4>Téléphone</h4><a href="tel:+33494000000">04 94 20 10 02</a></div>
-      </div>
-      <div class="contact-item reveal">
-        <span class="ico">✉</span>
-        <div><h4>Email</h4><a href="mailto:contact@roadspirit.fr">contact@roadspirit.fr</a></div>
+
+      <div class="reveal">
+        <!-- FORMSPREE : créez un compte gratuit sur formspree.io, récupérez votre form ID -->
+        <!-- et remplacez "VOTRE_FORM_ID" ci-dessous. Ex: xpznkgvq                          -->
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label>Prénom *</label>
+              <input type="text" name="prenom" placeholder="Jean" required/>
+            </div>
+            <div class="field">
+              <label>Nom *</label>
+              <input type="text" name="nom" placeholder="Dupont" required/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Email *</label>
+            <input type="email" name="email" placeholder="jean@example.com" required/>
+          </div>
+          <div class="field">
+            <label>Téléphone</label>
+            <input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"/>
+          </div>
+          <div class="field">
+            <label>Sujet *</label>
+            <select name="sujet" required>
+              <option value="">— Choisir un sujet</option>
+              <option>Demande d'information motos</option>
+              <option>Devis atelier / révision</option>
+              <option>Question équipement</option>
+              <option>Commande / livraison</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Message *</label>
+            <textarea name="message" placeholder="Votre message…" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><span id="submitLabel">Envoyer le message</span></button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <p style="font-family:var(--head);font-size:32px;letter-spacing:.04em;text-transform:uppercase;color:var(--orange);margin-bottom:12px">Message envoyé !</p>
+          <p style="color:var(--muted)">On vous répond dans les 24h. À bientôt chez Road Spirit.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -301,19 +351,61 @@
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
   // Form
-  var form=document.getElementById('essaiForm');
-  var success=document.getElementById('formSuccess');
-  if(form){
-    form.addEventListener('submit',function(e){
+  // ── FORMULAIRE CONTACT ────────────────────────────────────────────────────
+  // Remplacez VOTRE_FORM_ID par l'ID Formspree (formspree.io → New Form → copier l'ID)
+  // Ex : var FORMSPREE_ID = 'xpznkgvq';  → action = https://formspree.io/f/xpznkgvq
+  var FORMSPREE_ID = '';  // <-- À REMPLIR
+
+  var cForm = document.getElementById('contactForm');
+  var cSuccess = document.getElementById('formSuccess');
+  var cLabel = document.getElementById('submitLabel');
+
+  if(cForm){
+    cForm.addEventListener('submit', function(e){
       e.preventDefault();
-      var valid=true;
-      form.querySelectorAll('[required]').forEach(function(f){
-        if(!f.value.trim()){f.style.borderColor='var(--orange)';valid=false;}
-        else{f.style.borderColor='';}
+      var valid = true;
+      cForm.querySelectorAll('[required]').forEach(function(f){
+        var ok = f.value.trim().length > 0;
+        f.style.borderColor = ok ? '' : '#f87171';
+        if(!ok) valid = false;
       });
-      if(!valid)return;
-      form.style.display='none';
-      success.classList.add('show');
+      if(!valid) return;
+
+      if(FORMSPREE_ID){
+        // Envoi réel via Formspree
+        cLabel.textContent = 'Envoi en cours…';
+        cForm.querySelectorAll('input,select,textarea,button').forEach(function(el){ el.disabled = true; });
+        var data = new FormData(cForm);
+        fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+          method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if(res.ok || res.ok === undefined){
+            cForm.style.display = 'none';
+            cSuccess.classList.add('show');
+          } else {
+            cLabel.textContent = 'Erreur — réessayez';
+            cForm.querySelectorAll('input,select,textarea,button').forEach(function(el){ el.disabled = false; });
+          }
+        })
+        .catch(function(){
+          // Fallback mailto si Formspree est inaccessible
+          var body = 'Nom: ' + (cForm.nom ? cForm.nom.value : '') + '\nEmail: ' + (cForm.email ? cForm.email.value : '') + '\nMessage: ' + (cForm.message ? cForm.message.value : '');
+          window.location.href = 'mailto:contact@roadspirit.fr?subject=' + encodeURIComponent('Contact Road Spirit') + '&body=' + encodeURIComponent(body);
+        });
+      } else {
+        // Pas encore de Formspree configuré → ouvre l'email client
+        var prenom = cForm.prenom ? cForm.prenom.value : '';
+        var nom = cForm.nom ? cForm.nom.value : '';
+        var email = cForm.email ? cForm.email.value : '';
+        var sujet = cForm.sujet ? cForm.sujet.value : '';
+        var msg = cForm.message ? cForm.message.value : '';
+        var body = 'De : ' + prenom + ' ' + nom + ' (' + email + ')\nSujet : ' + sujet + '\n\n' + msg;
+        window.location.href = 'mailto:contact@roadspirit.fr?subject=' + encodeURIComponent('[Road Spirit] ' + sujet) + '&body=' + encodeURIComponent(body);
+        cForm.style.display = 'none';
+        cSuccess.classList.add('show');
+      }
     });
   }
 })();

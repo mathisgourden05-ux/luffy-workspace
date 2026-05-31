@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Panier — Road Spirit · Toulon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0a0a0a;--bg-2:#0f0f0f;--bg-3:#111111;--orange:#C9A84C;--chrome:#C2B280;--ink:#F5F1E8;--muted:#999;--line:rgba(255,255,255,.08);--head:'Bebas Neue',Impact,sans-serif;--sub:'Barlow Condensed',sans-serif;--body:'DM Sans',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none}
+@media(pointer:coarse){*{cursor:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--orange);color:#fff}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.28em;font-size:13px;color:var(--orange)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 40px;background:rgba(10,10,10,.95);border-bottom:1px solid var(--orange);backdrop-filter:blur(8px)}
+.brand{font-family:var(--head);font-size:32px;letter-spacing:.06em;color:var(--orange)}
+.brand span{color:var(--ink)}
+.nav-links{display:flex;gap:38px;list-style:none}
+.nav-links a{font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.18em;font-size:15px;color:var(--ink);position:relative;padding:4px 0;transition:color .25s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--orange);transition:width .3s}
+.nav-links a:hover{color:var(--orange)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:18px}
+.cart-btn{position:relative;background:none;border:1px solid var(--orange);padding:10px 16px;color:var(--orange);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;display:flex;align-items:center;gap:8px}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s}
+.cart-badge.has-items{opacity:1;transform:scale(1)}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:6px}
+.hamburger span{width:26px;height:2px;background:var(--ink);transition:.3s}
+
+/* PAGE HERO */
+.page-hero{padding:140px 0 60px;background:var(--bg-2);position:relative;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06),transparent 60%)}
+.page-hero-bg-text{position:absolute;top:50%;right:-20px;transform:translateY(-50%);font-family:var(--head);font-size:clamp(100px,16vw,200px);color:rgba(255,255,255,.025);pointer-events:none;line-height:1}
+.page-hero h1{font-family:var(--head);font-size:clamp(48px,7vw,96px);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin:14px 0 16px}
+.page-hero p{color:var(--muted);font-size:16px}
+
+/* CART LAYOUT */
+.cart-section{padding:60px 0 120px}
+.cart-layout{display:grid;grid-template-columns:1fr 360px;gap:56px;align-items:start}
+
+/* CART ITEMS */
+.cart-items-header{display:grid;grid-template-columns:80px 1fr auto auto;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--line);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:var(--muted);align-items:center}
+.cart-row{display:grid;grid-template-columns:80px 1fr auto auto;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);align-items:center}
+.cart-img{width:80px;height:80px;object-fit:cover;background:var(--bg-3)}
+.cart-img-ph{width:80px;height:80px;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)}
+.cart-item-name{font-family:var(--sub);font-weight:700;font-size:15px;letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.cart-item-meta{font-size:13px;color:var(--muted);margin-top:4px}
+.qty-ctrl{display:flex;align-items:center;gap:0}
+.qty-btn{width:32px;height:32px;background:var(--bg-3);border:1px solid var(--line);color:var(--ink);font-size:16px;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s}
+.qty-btn:hover{border-color:var(--orange);color:var(--orange)}
+.qty-val{width:40px;height:32px;background:var(--bg-2);border:1px solid var(--line);border-left:0;border-right:0;text-align:center;font-family:var(--sub);font-weight:700;font-size:15px;color:var(--ink)}
+.cart-line-price{font-family:var(--sub);font-weight:700;font-size:17px;text-align:right;min-width:80px}
+.cart-remove{background:none;border:0;color:var(--muted);font-size:16px;padding:4px 8px;transition:color .2s}
+.cart-remove:hover{color:var(--orange)}
+.cart-empty-state{text-align:center;padding:80px 40px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.cart-empty-state h3{font-family:var(--head);font-size:48px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cart-empty-state p{color:var(--muted);font-size:15px}
+.back-to-shop{display:inline-flex;align-items:center;gap:10px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:14px;padding:14px 28px;border:1px solid var(--orange);color:var(--ink);transition:background .3s,color .3s}
+.back-to-shop:hover{background:var(--orange)}
+
+/* ORDER SUMMARY */
+.summary-box{background:var(--bg-2);border:1px solid var(--line);padding:32px;position:sticky;top:120px}
+.summary-box h3{font-family:var(--head);font-size:28px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.summary-row{display:flex;justify-content:space-between;align-items:center;font-family:var(--sub);font-weight:600;font-size:14px;letter-spacing:.08em;margin-bottom:12px;color:var(--muted)}
+.summary-row.total{font-size:20px;color:var(--ink);font-weight:700;margin-top:16px;padding-top:16px;border-top:1px solid var(--line);margin-bottom:0}
+.summary-row.total .val{font-size:26px}
+.promo-input{display:flex;gap:0;margin:20px 0}
+.promo-input input{flex:1;background:var(--bg-3);border:1px solid var(--line);padding:12px 16px;color:var(--ink);font-family:var(--sub);font-size:14px;letter-spacing:.06em;outline:0}
+.promo-input input::placeholder{color:var(--muted)}
+.promo-input button{background:var(--bg-3);border:1px solid var(--line);border-left:0;padding:12px 16px;color:var(--muted);font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:12px;transition:color .2s,border-color .2s}
+.promo-input button:hover{color:var(--orange);border-color:var(--orange)}
+.btn-checkout-main{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:16px;padding:20px;background:var(--orange);border:0;color:#fff;transition:background .3s;margin-top:20px}
+.btn-checkout-main:hover{background:#B8933B}
+.secure-note{font-family:var(--sub);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.secure-note svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+
+/* CURSOR */
+.cursor-dot{position:fixed;width:8px;height:8px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9990;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.86,0,.07,1);pointer-events:none}
+.page-overlay.out{transform:scaleY(1);pointer-events:all}
+
+
+@media(max-width:900px){.cart-layout{grid-template-columns:1fr}.summary-box{position:static}}
+@media(max-width:600px){.wrap{padding:0 22px}.nav{padding:16px 22px}.cart-items-header{display:none}.cart-row{grid-template-columns:64px 1fr;grid-template-rows:auto auto}.cart-img,.cart-img-ph{width:64px;height:64px}.cart-line-price{grid-column:2;text-align:left}.cart-remove{grid-column:2}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="Road Spirit.html" class="brand page-link">ROAD <span>SPIRIT</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="motos.html" class="page-link">Motos</a></li>
+    <li><a href="Road Spirit.html#equipements" class="page-link">Équipements</a></li>
+    <li><a href="boutique.html" class="page-link">Boutique</a></li>
+    <li><a href="services.html" class="page-link">Services</a></li>
+    <li><a href="Road Spirit.html#contact" class="page-link">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span id="cartCount">0</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="hamburger" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg-text">PANIER</div>
+  <div class="wrap">
+    <p class="eyebrow">/ Mon panier</p>
+    <h1>Votre sélection</h1>
+    <p id="cartSubtitle">Vérifiez votre commande avant de passer au paiement.</p>
+  </div>
+</section>
+
+<section class="cart-section">
+  <div class="wrap">
+
+    <div id="emptyState" class="cart-empty-state" style="display:none">
+      <h3>Panier vide</h3>
+      <p>Vous n'avez pas encore ajouté d'articles à votre panier.</p>
+      <a href="boutique.html" class="back-to-shop page-link">← Retour à la boutique</a>
+    </div>
+
+    <div class="cart-layout" id="cartLayout">
+      <div>
+        <div class="cart-items-header">
+          <span></span>
+          <span>Article</span>
+          <span>Quantité</span>
+          <span style="text-align:right">Total</span>
+        </div>
+        <div id="cartItemsContainer"></div>
+        <div style="margin-top:24px">
+          <a href="boutique.html" class="back-to-shop page-link">← Continuer mes achats</a>
+        </div>
+      </div>
+
+      <!-- RÉSUMÉ -->
+      <div class="summary-box">
+        <h3>Résumé</h3>
+        <div class="summary-row"><span>Sous-total</span><span id="subtotal" class="val">—</span></div>
+        <div class="summary-row"><span>Livraison</span><span>Calculée au checkout</span></div>
+        <div class="promo-input">
+          <input type="text" id="promoInput" placeholder="Code promo"/>
+          <button id="promoBtn">OK</button>
+        </div>
+        <div class="summary-row total"><span>Total</span><span id="totalAmt" class="val">—</span></div>
+        <button class="btn-checkout-main" id="btnCheckout">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Passer commande
+        </button>
+        <p class="secure-note">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Paiement 100% sécurisé · Stripe
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<footer style="background:#080808;border-top:1px solid var(--orange);padding:40px 0">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <a href="Road Spirit.html" class="brand page-link" style="font-size:26px">ROAD <span>SPIRIT</span></a>
+    <span style="font-family:var(--sub);font-size:12px;color:var(--muted);letter-spacing:.1em">© 2024 Road Spirit · Toulon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+// ── CART ──────────────────────────────────────────────────────────────────
+function getCart(){try{return JSON.parse(localStorage.getItem('rs_cart')||'[]');}catch(e){return[];}}
+function saveCart(c){localStorage.setItem('rs_cart',JSON.stringify(c));}
+function cartCount(){return getCart().reduce(function(s,i){return s+i.qty;},0);}
+function cartTotal(){return getCart().reduce(function(s,i){return s+i.price*i.qty;},0);}
+
+function updateCount(){
+  var cnt=cartCount();
+  var badge=document.getElementById('cartBadge');
+  var countEl=document.getElementById('cartCount');
+  if(badge){badge.textContent=cnt;badge.classList.toggle('has-items',cnt>0);}
+  if(countEl)countEl.textContent=cnt;
+}
+
+function removeItem(key){
+  saveCart(getCart().filter(function(i){return i.key!==key;}));
+  renderCart();
+}
+
+function changeQty(key,delta){
+  var cart=getCart();
+  var item=cart.find(function(i){return i.key===key;});
+  if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0)cart=cart.filter(function(i){return i.key!==key;});
+  saveCart(cart);
+  renderCart();
+}
+
+function renderCart(){
+  var cart=getCart();
+  var container=document.getElementById('cartItemsContainer');
+  var layout=document.getElementById('cartLayout');
+  var empty=document.getElementById('emptyState');
+  var sub=document.getElementById('subtotal');
+  var tot=document.getElementById('totalAmt');
+  var subtitle=document.getElementById('cartSubtitle');
+
+  updateCount();
+
+  if(cart.length===0){
+    if(layout)layout.style.display='none';
+    if(empty)empty.style.display='flex';
+    if(subtitle)subtitle.textContent='Votre panier est vide.';
+    return;
+  }
+  if(layout)layout.style.display='grid';
+  if(empty)empty.style.display='none';
+  if(subtitle)subtitle.textContent=cartCount()+' article'+(cartCount()>1?'s':'')+' dans votre panier.';
+
+  container.innerHTML='';
+  cart.forEach(function(item){
+    var row=document.createElement('div');row.className='cart-row';
+    var imgHtml=item.image
+      ?'<img class="cart-img" src="'+item.image+'" alt="" onerror="this.outerHTML=\'<div class=\\\"cart-img-ph\\\">—</div>\'">'
+      :'<div class="cart-img-ph">—</div>';
+    row.innerHTML=imgHtml
+      +'<div>'
+        +'<div class="cart-item-name">'+item.name+'</div>'
+        +'<div class="cart-item-meta">'+(item.size?'Taille : '+item.size+' · ':'')+item.price.toFixed(2)+' € / unité</div>'
+        +'<a href="produit.html?id='+item.id+'" style="font-family:var(--sub);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s" onmouseover="this.style.color=\'var(--orange)\'" onmouseout="this.style.color=\'var(--muted)\'">Voir le produit →</a>'
+      +'</div>'
+      +'<div class="qty-ctrl">'
+        +'<button class="qty-btn" data-key="'+item.key+'" data-delta="-1">−</button>'
+        +'<div class="qty-val">'+item.qty+'</div>'
+        +'<button class="qty-btn" data-key="'+item.key+'" data-delta="1">+</button>'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:12px">'
+        +'<span class="cart-line-price">'+(item.price*item.qty).toFixed(2)+' €</span>'
+        +'<button class="cart-remove" data-key="'+item.key+'">✕</button>'
+      +'</div>';
+    container.appendChild(row);
+  });
+
+  container.querySelectorAll('.qty-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){changeQty(btn.getAttribute('data-key'),+btn.getAttribute('data-delta'));});
+  });
+  container.querySelectorAll('.cart-remove').forEach(function(btn){
+    btn.addEventListener('click',function(){removeItem(btn.getAttribute('data-key'));});
+  });
+
+  var total=cartTotal();
+  if(sub)sub.textContent=total.toFixed(2)+' €';
+  if(tot)tot.textContent=total.toFixed(2)+' €';
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+var overlay=document.createElement('div');overlay.className='page-overlay';document.body.appendChild(overlay);
+window.navigate=function(url){overlay.classList.add('out');setTimeout(function(){window.location.href=url;},560);};
+document.querySelectorAll('a.page-link').forEach(function(a){
+  a.addEventListener('click',function(e){var h=a.getAttribute('href');if(!h||h.startsWith('#'))return;e.preventDefault();window.navigate(h);});
+});
+
+if(window.matchMedia('(pointer:fine)').matches){
+  var dot=document.createElement('div');dot.className='cursor-dot';
+  var ring=document.createElement('div');ring.className='cursor-ring';
+  document.body.appendChild(dot);document.body.appendChild(ring);
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  (function lerp(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerp);})();
+}
+
+var burger=document.getElementById('burger');var navLinks=document.getElementById('navLinks');
+if(burger)burger.addEventListener('click',function(){navLinks.classList.toggle('open');});
+
+document.getElementById('btnCheckout').addEventListener('click',function(){
+  if(getCart().length===0)return;
+  window.navigate('paiement.html');
+});
+document.getElementById('cartBtn').addEventListener('click',function(){window.navigate('boutique.html');});
+
+renderCart();
+
+})();
+</script>
+</body>
+</html>
