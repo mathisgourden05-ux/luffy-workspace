@@ -4,6 +4,32 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-05-31 · À FAIRE EN PRIORITÉ — Connexion boutique ↔ Supabase
+
+- **Problème identifié :** la boutique charge depuis `catalogue-data.js` (statique), l'app gère les produits dans Supabase → les deux ne sont pas connectés. Road Spirit ne peut pas gérer son catalogue sans toucher au code.
+- **Ce qu'il faut faire :**
+  1. Créer la table `produits` dans Supabase (Mathis doit le faire côté dashboard)
+  2. Importer les 150 produits du JSON dans Supabase
+  3. Modifier `boutique.html` et `produit.html` pour charger depuis Supabase
+  4. Garder `catalogue-data.js` en fallback si Supabase indisponible
+- **Estimation Claude :** ~30 min de code. Bloquant : Mathis doit créer les tables Supabase d'abord.
+
+## 2026-05-31 · App interne — vue vendeur enrichie + fix syntaxe JS
+
+- **Ajouts :** sidebar réorganisée (Commandes / Essais / Catalogue), pages "À préparer", "Expédiées", "Essais du jour", actions rapides inline, démo auto sur file:// et localhost.
+- **Bug corrigé :** backtick mal placée ligne 942 bloquait 100% du JS (boutons muets).
+- **OUVRIR.html** créé à la racine du workspace pour accès rapide site + app.
+
+## 2026-05-31 · Refonte qualité site Road Spirit v4
+
+- **shared.css/js** créés : palette unifiée (#D4A853), nav partagée, SEO sur toutes les pages, favicon SVG.
+- **Hero :** Speed Triple remplace le globe particules (GSAP float + parallax).
+- **Équipements :** fond transparent via Cloudinary `e_background_removal`, effet flottant CSS.
+- **Boutique :** catalogue embarqué dans `catalogue-data.js` (fonctionne sans serveur).
+- **Devis Road Spirit 2026-001** : 6 600 € HT créé (HTML + docx).
+
+---
+
 ## 2026-05-31 · Animation équipement Road Spirit + clé Gemini (Nano Banana)
 
 - **Demande :** faire « tourner » le blouson et les gants sur la home en 3D (rendu pro), pour proposer le site à l'entreprise.
