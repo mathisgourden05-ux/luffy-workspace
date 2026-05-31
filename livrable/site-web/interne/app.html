@@ -698,6 +698,13 @@ function exportCSV(data, filename){
 //  AUTH
 // ══════════════════════════════════════════════════════════
 async function checkAuth(){
+  // En local (file://) → démo automatique sans login
+  if(window.location.protocol === 'file:' || !db){
+    isDemoMode = true;
+    currentProfile = DEMO.profile;
+    showApp();
+    return;
+  }
   const { data: { session } } = await db.auth.getSession();
   if(session){
     currentUser = session.user;
