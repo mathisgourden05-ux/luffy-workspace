@@ -189,6 +189,9 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
     </div>
     <button class="btn-login" id="btn-login">Se connecter</button>
     <p class="login-error" id="login-error">Email ou mot de passe incorrect.</p>
+    <div style="margin-top:28px;border-top:1px solid rgba(255,255,255,.07);padding-top:20px;text-align:center">
+      <button id="btn-demo" style="background:none;border:none;font-family:var(--sub);font-weight:600;text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:rgba(201,168,76,.5);cursor:pointer;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(201,168,76,.5)'">Visualiser en mode démo →</button>
+    </div>
   </div>
 </div>
 
@@ -501,8 +504,41 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 const SUPABASE_URL  = 'https://ywpduxvpbqkyjjatluts.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_GOsQwlFx9OpZLHV6REJT6Q_CZD_nxrf';
 
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_ANON);
+let db = null;
+try {
+  const { createClient } = supabase;
+  db = createClient(SUPABASE_URL, SUPABASE_ANON);
+} catch(e) { console.warn('Supabase indisponible, mode démo actif'); }
+
+// ── DONNÉES DÉMO ─────────────────────────────
+const DEMO = {
+  profile: { prenom:'Mathis', nom:'Gourden', role:'admin' },
+  reservations: [
+    { id:1, client_nom:'Thomas Leclerc', client_email:'thomas@email.fr', client_tel:'06 12 34 56 78', modele:'Tiger 900 Rally Pro', date_essai:'2026-06-05', creneau:'10h00', statut:'en_attente', created_at:'2026-05-31' },
+    { id:2, client_nom:'Julie Martin',   client_email:'julie.m@gmail.com', client_tel:'06 98 76 54 32', modele:'Speed Triple RR',     date_essai:'2026-06-06', creneau:'14h00', statut:'confirme',   created_at:'2026-05-30' },
+    { id:3, client_nom:'Pierre Dubois',  client_email:'pdubois@pro.fr',    client_tel:'07 11 22 33 44', modele:'Bonneville T120',     date_essai:'2026-06-04', creneau:'11h00', statut:'effectue',   created_at:'2026-05-28' },
+    { id:4, client_nom:'Sophie Bernard', client_email:'s.bernard@free.fr', client_tel:'06 55 44 33 22', modele:'Thruxton RS',        date_essai:'2026-06-07', creneau:'09h30', statut:'annule',     created_at:'2026-05-29' },
+  ],
+  commandes: [
+    { id:1, client_nom:'Lucas Petit',   total:378,  statut:'en_preparation', created_at:'2026-05-31', articles:'Blouson Braddan Air Race' },
+    { id:2, client_nom:'Emma Leroy',    total:112,  statut:'payee',          created_at:'2026-05-30', articles:'Gants Triple Sports' },
+    { id:3, client_nom:'Antoine Vidal', total:875,  statut:'expediee',       created_at:'2026-05-29', articles:'Blouson Vance + Gants' },
+    { id:4, client_nom:'Clara Morin',   total:244,  statut:'livree',         created_at:'2026-05-27', articles:'Blouson Triple Mesh' },
+  ],
+  stock: [
+    { id:1, nom:'Blouson Braddan Air Race Racing', categorie:'Blouson Cuir',  prix:540,  stock:3,  reference:'98456843' },
+    { id:2, nom:'Blouson Vance',                   categorie:'Blouson Cuir',  prix:500,  stock:0,  reference:'MLHS20110' },
+    { id:3, nom:'Gants Triple Sports',             categorie:'Gants',         prix:199,  stock:8,  reference:'MGVS26314' },
+    { id:4, nom:'Jean Pure Riding',                categorie:'Pantalon',      prix:225,  stock:5,  reference:'JR-001' },
+    { id:5, nom:'MX Tech 7 × Alpinestars',         categorie:'Chaussures',    prix:435,  stock:2,  reference:'MBTS22901' },
+    { id:6, nom:'Blouson Triple Mesh',             categorie:'Blouson Textile',prix:349, stock:0,  reference:'MTPS20533' },
+  ],
+  staff: [
+    { id:1, prenom:'Mathis',  nom:'Gourden',  email:'mathis@roadspirit.fr',    role:'admin',   actif:true },
+    { id:2, prenom:'Camille', nom:'Arnaud',   email:'camille@roadspirit.fr',   role:'vendeur', actif:true },
+    { id:3, prenom:'Romain',  nom:'Chassagne',email:'romain@roadspirit.fr',    role:'atelier', actif:true },
+  ]
+};
 
 // ══════════════════════════════════════════════════════════
 //  STATE
@@ -597,12 +633,26 @@ async function showApp(){
   loadBadges();
 }
 
+let isDemoMode = false;
+
+document.getElementById('btn-demo').addEventListener('click', ()=>{
+  isDemoMode = true;
+  currentProfile = DEMO.profile;
+  document.getElementById('screen-login').style.display = 'none';
+  document.getElementById('screen-app').style.display = 'grid';
+  document.getElementById('user-name').textContent = `${DEMO.profile.prenom} ${DEMO.profile.nom}`;
+  document.getElementById('user-role').textContent = 'Administrateur';
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  loadDashboard(); loadBadges();
+});
+
 document.getElementById('btn-login').addEventListener('click', async()=>{
   const email = document.getElementById('email').value.trim();
   const pass  = document.getElementById('password').value;
   const err   = document.getElementById('login-error');
   err.classList.remove('show');
   if(!email||!pass){ err.textContent='Remplissez tous les champs.'; err.classList.add('show'); return; }
+  if(!db){ err.textContent='Connexion Supabase indisponible. Utilisez le mode démo.'; err.classList.add('show'); return; }
   const { error } = await db.auth.signInWithPassword({ email, password: pass });
   if(error){ err.textContent='Email ou mot de passe incorrect.'; err.classList.add('show'); }
   else { currentUser=(await db.auth.getUser()).data.user; await loadProfile(); showApp(); }
@@ -611,8 +661,8 @@ document.getElementById('btn-login').addEventListener('click', async()=>{
 document.getElementById('password').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btn-login').click(); });
 
 document.getElementById('btn-logout').addEventListener('click', async()=>{
-  await db.auth.signOut();
-  currentUser=null; currentProfile=null;
+  if(db && !isDemoMode) await db.auth.signOut();
+  isDemoMode = false; currentUser = null; currentProfile = null;
   showLogin();
 });
 
@@ -637,53 +687,76 @@ document.querySelectorAll('.nav-item').forEach(item=>{
 //  DASHBOARD
 // ══════════════════════════════════════════════════════════
 async function loadDashboard(){
-  const today = new Date().toISOString().split('T')[0];
-  const [res, cmd, rupt, todayRes] = await Promise.all([
-    db.from('reservations').select('*',{count:'exact'}).eq('statut','en_attente'),
-    db.from('commandes').select('*',{count:'exact'}).eq('statut','en_attente'),
-    db.from('produits').select('*',{count:'exact'}).eq('stock',0),
-    db.from('reservations').select('*',{count:'exact'}).eq('date_essai',today).eq('statut','confirme'),
-  ]);
-  document.getElementById('stat-essais').textContent = res.count ?? '—';
-  document.getElementById('stat-commandes').textContent = cmd.count ?? '—';
-  document.getElementById('stat-rupture').textContent = rupt.count ?? '—';
-  document.getElementById('stat-today').textContent = todayRes.count ?? '—';
+  let reservations, commandes;
 
-  // Dernières réservations
-  const { data: reservations } = await db.from('reservations').select('*').order('created_at',{ascending:false}).limit(8);
+  if(isDemoMode){
+    const attRes = DEMO.reservations.filter(r=>r.statut==='en_attente').length;
+    const attCmd = DEMO.commandes.filter(c=>c.statut==='en_attente'||c.statut==='payee').length;
+    const rupture = DEMO.stock.filter(s=>s.stock===0).length;
+    const today = new Date().toISOString().split('T')[0];
+    const todayRes = DEMO.reservations.filter(r=>r.date_essai===today&&r.statut==='confirme').length;
+    document.getElementById('stat-essais').textContent = attRes;
+    document.getElementById('stat-commandes').textContent = attCmd;
+    document.getElementById('stat-rupture').textContent = rupture;
+    document.getElementById('stat-today').textContent = todayRes;
+    reservations = DEMO.reservations;
+    commandes = DEMO.commandes;
+  } else {
+    const today = new Date().toISOString().split('T')[0];
+    const [res, cmd, rupt, todayRes] = await Promise.all([
+      db.from('reservations').select('*',{count:'exact'}).eq('statut','en_attente'),
+      db.from('commandes').select('*',{count:'exact'}).eq('statut','en_attente'),
+      db.from('produits').select('*',{count:'exact'}).eq('stock',0),
+      db.from('reservations').select('*',{count:'exact'}).eq('date_essai',today).eq('statut','confirme'),
+    ]);
+    document.getElementById('stat-essais').textContent = res.count ?? '—';
+    document.getElementById('stat-commandes').textContent = cmd.count ?? '—';
+    document.getElementById('stat-rupture').textContent = rupt.count ?? '—';
+    document.getElementById('stat-today').textContent = todayRes.count ?? '—';
+    reservations = (await db.from('reservations').select('*').order('created_at',{ascending:false}).limit(8)).data;
+    commandes = (await db.from('commandes').select('*').order('created_at',{ascending:false}).limit(8)).data;
+  }
+
   const tbody = document.getElementById('table-res-body');
-  if(!reservations||!reservations.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">📅</div><p>Aucune réservation</p></div></td></tr>'; }
+  if(!reservations?.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty"><div class="ico">📅</div><p>Aucune réservation</p></div></td></tr>'; }
   else {
     tbody.innerHTML = reservations.map(r=>`
       <tr>
-        <td>${r.client_prenom} ${r.client_nom}</td>
+        <td>${r.client_nom||((r.client_prenom||'')+(r.client_nom||''))}</td>
         <td>${r.modele}</td>
         <td>${fmtDate(r.date_essai)}</td>
         <td>${r.creneau}</td>
         <td>${badge(r.statut)}</td>
-        <td><button class="btn-action" onclick="openModalRes('${r.id}','${r.statut}')">Modifier</button></td>
+        <td><button class="btn-action">Modifier</button></td>
       </tr>`).join('');
   }
   document.getElementById('res-count').textContent = reservations?.length ? `(${reservations.length})` : '';
 
-  // Dernières commandes
-  const { data: commandes } = await db.from('commandes').select('*').order('created_at',{ascending:false}).limit(8);
   const tbody2 = document.getElementById('table-cmd-body');
-  if(!commandes||!commandes.length){ tbody2.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">🛒</div><p>Aucune commande</p></div></td></tr>'; }
+  if(!commandes?.length){ tbody2.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">🛒</div><p>Aucune commande</p></div></td></tr>'; }
   else {
     tbody2.innerHTML = commandes.map(c=>`
       <tr>
-        <td>${c.client_prenom} ${c.client_nom}</td>
-        <td>${fmtPrice(c.total_ttc)}</td>
+        <td>${c.client_nom||((c.client_prenom||'')+(c.client_nom||''))}</td>
+        <td>${fmtPrice(c.total||c.total_ttc||0)}</td>
         <td>${badge(c.statut)}</td>
         <td>${fmtDate(c.created_at)}</td>
-        <td><button class="btn-action" onclick="openModalCmd('${c.id}','${c.statut}')">Modifier</button></td>
+        <td><button class="btn-action">Modifier</button></td>
       </tr>`).join('');
   }
   document.getElementById('cmd-count').textContent = commandes?.length ? `(${commandes.length})` : '';
 }
 
 async function loadBadges(){
+  if(isDemoMode){
+    const attRes = DEMO.reservations.filter(r=>r.statut==='en_attente').length;
+    const attCmd = DEMO.commandes.filter(c=>c.statut==='en_attente'||c.statut==='payee').length;
+    const br = document.getElementById('badge-reservations');
+    const bc = document.getElementById('badge-commandes');
+    if(attRes>0){ br.textContent=attRes; br.style.display=''; }
+    if(attCmd>0){ bc.textContent=attCmd; bc.style.display=''; }
+    return;
+  }
   const [res, cmd] = await Promise.all([
     db.from('reservations').select('*',{count:'exact'}).eq('statut','en_attente'),
     db.from('commandes').select('*',{count:'exact'}).eq('statut','en_attente'),
@@ -700,6 +773,7 @@ async function loadBadges(){
 let allReservations = [];
 
 async function loadReservations(){
+  if(isDemoMode){ allReservations = DEMO.reservations; renderReservations(allReservations); return; }
   const { data } = await db.from('reservations').select('*').order('date_essai',{ascending:false});
   allReservations = data || [];
   renderReservations(allReservations);
@@ -710,16 +784,16 @@ function renderReservations(data){
   if(!data.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty"><div class="ico">📅</div><p>Aucune réservation</p></div></td></tr>'; return; }
   tbody.innerHTML = data.map(r=>`
     <tr>
-      <td>${r.client_prenom} ${r.client_nom}</td>
-      <td><a href="mailto:${r.client_email}" style="color:var(--gold)">${r.client_email}</a></td>
-      <td>${r.client_tel}</td>
+      <td>${r.client_nom||((r.client_prenom||'')+' '+(r.client_nom||''))}</td>
+      <td><a href="mailto:${r.client_email}" style="color:var(--gold)">${r.client_email||'—'}</a></td>
+      <td>${r.client_tel||'—'}</td>
       <td>${r.modele}</td>
       <td>${fmtDate(r.date_essai)}</td>
       <td>${r.creneau}</td>
       <td>${badge(r.statut)}</td>
       <td style="display:flex;gap:6px">
-        <button class="btn-action" onclick="openModalRes('${r.id}','${r.statut}')">Statut</button>
-        <button class="btn-action danger" onclick="deleteRes('${r.id}')">Suppr.</button>
+        <button class="btn-action">Statut</button>
+        <button class="btn-action danger">Suppr.</button>
       </td>
     </tr>`).join('');
 }
@@ -762,6 +836,7 @@ document.getElementById('btn-export-res').addEventListener('click', async()=>{
 let allCommandes = [];
 
 async function loadCommandes(){
+  if(isDemoMode){ allCommandes = DEMO.commandes; renderCommandes(allCommandes); return; }
   const { data } = await db.from('commandes').select('*').order('created_at',{ascending:false});
   allCommandes = data || [];
   renderCommandes(allCommandes);
@@ -808,6 +883,7 @@ document.getElementById('btn-export-cmd').addEventListener('click', ()=>{ export
 let allProduits = [];
 
 async function loadStock(){
+  if(isDemoMode){ allProduits = DEMO.stock; renderStock(allProduits); return; }
   const { data } = await db.from('produits').select('*').order('nom');
   allProduits = data || [];
   renderStock(allProduits);
@@ -943,6 +1019,11 @@ document.getElementById('btn-process-csv').addEventListener('click', async()=>{
 // ══════════════════════════════════════════════════════════
 async function loadStaff(){
   if(currentProfile?.role !== 'admin'){ document.getElementById('table-staff').innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">🔒</div><p>Accès réservé aux administrateurs</p></div></td></tr>'; return; }
+  if(isDemoMode){
+    const tbody = document.getElementById('table-staff');
+    tbody.innerHTML = DEMO.staff.map(m=>`<tr><td>${m.prenom}</td><td>${m.nom}</td><td><a href="mailto:${m.email}" style="color:var(--gold)">${m.email}</a></td><td>${badge(m.role==='admin'?'confirme':m.role==='vendeur'?'en_attente':'blue')}<span style="font-size:12px;color:var(--muted)">${m.role}</span></td><td><span class="badge ${m.actif?'green':'red'}">${m.actif?'Actif':'Inactif'}</span></td></tr>`).join('');
+    return;
+  }
   const { data } = await db.from('profiles').select('*').order('nom');
   const tbody = document.getElementById('table-staff');
   if(!data||!data.length){ tbody.innerHTML='<tr><td colspan="5"><div class="empty"><div class="ico">👥</div><p>Aucun membre</p></div></td></tr>'; return; }
