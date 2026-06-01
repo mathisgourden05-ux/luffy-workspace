@@ -1204,6 +1204,7 @@ document.getElementById('btn-save-res-statut').addEventListener('click', async()
 });
 
 async function deleteRes(id){
+  if(isDemoMode){ toast('Action indisponible en démo'); return; }
   if(!confirm('Supprimer cette réservation ?')) return;
   const { error } = await db.from('reservations').delete().eq('id',id);
   if(error){ toast('Erreur suppression','error'); } else { toast('Réservation supprimée'); loadReservations(); }
@@ -1347,12 +1348,11 @@ async function uploadProductImage(file){
 /* ── CATÉGORIES ─────────────────────────────────── */
 const CATS_LABELS={blousons_vestes:'Blousons & Vestes',gants:'Gants',t_shirts_polos:'T-Shirts & Polos',sweats:'Sweats & Hoodies',accessoires:'Accessoires',jeans_pantalons:'Pantalons & Jeans',bottes_chaussures:'Bottes & Chaussures'};
 function catLabel(v){ return CATS_LABELS[v] || (v ? v.charAt(0).toUpperCase()+v.slice(1).replace(/_/g,' ') : v); }
-function extraCats(){ try{ return JSON.parse(localStorage.getItem('RS_EXTRA_CATS')||'[]'); }catch(e){ return []; } }
-function saveExtraCats(a){ try{ localStorage.setItem('RS_EXTRA_CATS', JSON.stringify(a)); }catch(e){} }
+let sessionCats = []; // catégories vides créées dans cette session (non persistées)
 function allCategories(){
   const set=new Set(Object.keys(CATS_LABELS));
   (allProduits||[]).forEach(p=>{ if(p.categorie) set.add(p.categorie); });
-  extraCats().forEach(c=> set.add(c));
+  sessionCats.forEach(c=> set.add(c));
   return Array.from(set).sort((a,b)=> catLabel(a).localeCompare(catLabel(b)));
 }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
@@ -1441,15 +1441,15 @@ on('btn-cat-add','click', ()=>{
   const inp=document.getElementById('cat-new-name'); const name=inp.value.trim();
   if(!name){ toast('Entrez un nom','error'); return; }
   if(allCategories().indexOf(name)>-1){ toast('Cette catégorie existe déjà','error'); return; }
-  const ex=extraCats(); ex.push(name); saveExtraCats(ex); inp.value='';
-  toast('Catégorie ajoutée'); renderCatManager();
+  sessionCats.push(name); inp.value='';
+  toast('Catégorie ajoutée (visible cette session — elle sera permanente dès qu\'un produit y sera associé)'); renderCatManager();
 });
 async function deleteCategory(cat, n){
   const msg = n>0
     ? `Supprimer la catégorie « ${catLabel(cat)} » ET ses ${n} produit(s) ?`
     : `Supprimer la catégorie « ${catLabel(cat)} » ?`;
   if(!confirm(msg)) return;
-  saveExtraCats(extraCats().filter(c=> c!==cat));
+  sessionCats = sessionCats.filter(c=> c!==cat);
   if(n>0 && db && !isDemoMode){
     const { error } = await db.from('produits').delete().eq('categorie', cat);
     if(error){ toast('Erreur : '+error.message,'error'); return; }
@@ -1460,6 +1460,7 @@ async function deleteCategory(cat, n){
 }
 
 document.getElementById('btn-save-produit').addEventListener('click', async()=>{
+  if(isDemoMode){ toast('Action indisponible en démo'); return; }
   const id = document.getElementById('modal-produit-id').value;
   const prixVente = parseFloat(document.getElementById('produit-prix').value);
   const prixBarre = parseFloat(document.getElementById('produit-prix-original').value);
@@ -1485,6 +1486,7 @@ document.getElementById('btn-save-produit').addEventListener('click', async()=>{
 });
 
 async function deleteProduit(id){
+  if(isDemoMode){ toast('Action indisponible en démo'); return; }
   if(!confirm('Supprimer ce produit du catalogue en ligne ?')) return;
   const { error } = await db.from('produits').delete().eq('id',id);
   if(error){ toast('Erreur','error'); } else { toast('Produit supprimé'); loadStock(); }
@@ -1513,6 +1515,7 @@ document.getElementById('csv-input').addEventListener('change', e=>{
 });
 
 document.getElementById('btn-process-csv').addEventListener('click', async()=>{
+  if(isDemoMode){ toast('Action indisponible en démo'); return; }
   if(!csvData) return;
   let ok=0, err=0;
   for(const row of csvData){
@@ -1558,6 +1561,7 @@ async function loadStaff(){
 }
 
 async function toggleRole(id, currentRole){
+  if(isDemoMode){ toast('Action indisponible en démo'); return; }
   const newRole = currentRole==='admin'?'staff':'admin';
   if(!confirm(`Passer ce membre en ${newRole} ?`)) return;
   const { error } = await db.from('profiles').update({role:newRole}).eq('id',id);

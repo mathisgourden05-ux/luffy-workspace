@@ -6,6 +6,7 @@
 <title>Paiement — Road Spirit · Toulon</title>
 <meta name="description" content="Finalisez votre commande Road Spirit — paiement sécurisé par carte, PayPal ou virement. Livraison Colissimo ou retrait en boutique à Ollioules."/>
 <meta property="og:title" content="Paiement sécurisé — Road Spirit · Toulon"/>
+    <meta property="og:image" content="https://media.triumphmotorcycles.co.uk/image/upload/f_auto,q_auto,w_1200/v1/Tiger900/Tiger900_2024_Static_01.jpg"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="theme-color" content="#D4A853"/>
@@ -302,7 +303,7 @@
 
             <div class="card-fields show" id="cardFields">
               <div class="form-group">
-                <label class="form-label">Numéro de carte *</label>
+                <label class="form-label" for="cardNum">Numéro de carte *</label>
                 <div class="card-num-wrap">
                   <input class="form-input" type="text" id="cardNum" placeholder="0000  0000  0000  0000" maxlength="22" inputmode="numeric" autocomplete="cc-number"/>
                   <span class="card-num-brand" id="cardBrand"></span>
@@ -310,17 +311,17 @@
               </div>
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">Date d'expiration *</label>
+                  <label class="form-label" for="cardExp">Date d'expiration *</label>
                   <input class="form-input" type="text" id="cardExp" placeholder="MM / AA" maxlength="7" inputmode="numeric" autocomplete="cc-exp"/>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">CVV *</label>
+                  <label class="form-label" for="cardCvv">CVV *</label>
                   <input class="form-input" type="text" id="cardCvv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc"/>
                   <span class="form-hint">3 chiffres au dos de votre carte (4 pour Amex)</span>
                 </div>
               </div>
               <div class="form-group">
-                <label class="form-label">Nom du titulaire *</label>
+                <label class="form-label" for="cardName">Nom du titulaire *</label>
                 <input class="form-input" type="text" id="cardName" placeholder="JEAN DUPONT" autocomplete="cc-name"/>
               </div>
             </div>

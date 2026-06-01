@@ -25,11 +25,17 @@ create policy "profiles lecture connectes"
 -- Pas de policy INSERT/UPDATE côté client : le rôle se gère via le trigger
 -- ci-dessous et le dashboard Supabase. (Empêche un vendeur de se faire admin.)
 
+-- S'assurer que les defaults sont bien en place même si la table pré-existait
+alter table public.profiles alter column prenom set default '';
+alter table public.profiles alter column nom    set default '';
+alter table public.profiles alter column role   set default 'staff';
+
 -- Création automatique d'un profil à chaque inscription
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
-  insert into public.profiles (id) values (new.id) on conflict (id) do nothing;
+  insert into public.profiles (id, prenom, nom, role)
+  values (new.id, '', '', 'staff') on conflict (id) do nothing;
   return new;
 end $$;
 drop trigger if exists on_auth_user_created on auth.users;
@@ -37,8 +43,8 @@ create trigger on_auth_user_created
   after insert on auth.users for each row execute function public.handle_new_user();
 
 -- Crée le profil des comptes DÉJÀ existants (sinon ils n'en ont pas)
-insert into public.profiles (id)
-select id from auth.users on conflict (id) do nothing;
+insert into public.profiles (id, prenom, nom, role)
+select id, '', '', 'staff' from auth.users on conflict (id) do nothing;
 
 -- 2) Catalogue : lecture publique, écriture connectés, SUPPRESSION admin
 drop policy if exists "produits ecriture connectes" on public.produits;
@@ -65,6 +71,21 @@ begin
       execute format('create policy "%s connectes" on public.%I for all to authenticated using (true) with check (true)', t, t);
     end if;
   end loop;
+end $$;
+
+-- 4) Colonne disponible : générée depuis le stock (C4) ---------------
+--    Un produit à stock=0 ne doit jamais rester "disponible=true".
+--    On remplace la colonne statique par une colonne calculée automatiquement.
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema='public' and table_name='produits' and column_name='disponible'
+      and is_generated='NEVER'
+  ) then
+    alter table public.produits drop column disponible;
+    alter table public.produits add column disponible boolean generated always as (stock > 0) stored;
+  end if;
 end $$;
 
 -- ✅ Terminé.

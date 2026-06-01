@@ -336,7 +336,7 @@ window._rs_catalogue = {
       "remise": -30,
       "categorie": "bottes_chaussures",
       "url": "https://roadspirit.fr/produit/bottes-mx-tech-7-triumph-x-alpinestars/",
-      "image": "https://roadspirit.fr/wp-content/uploads/2026/01/MBTS-22901-1.avif"
+      "image": "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1701352225/t6bpijtcoav05r9hgpe3"
     },
     {
       "id": 31,
@@ -347,7 +347,7 @@ window._rs_catalogue = {
       "remise": -30,
       "categorie": "bottes_chaussures",
       "url": "https://roadspirit.fr/produit/bottes-tech-7-enduro/",
-      "image": "https://roadspirit.fr/wp-content/uploads/2026/01/MBTS-22901-1.avif"
+      "image": "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1701351704/nlf3y6w74tx0cylvzcsx"
     },
     {
       "id": 32,
@@ -1381,7 +1381,7 @@ window._rs_catalogue = {
       "remise": -11,
       "categorie": "t_shirts_polos",
       "url": "https://roadspirit.fr/produit/t-shirt-gwynned-blanc/",
-      "image": "https://media.triumphmotorcycles.co.uk/image/upload/t_triumph_thumbnail/c_limit,w_3840/f_auto/q_auto:eco/v1690807958/mtss2320_marie_tee_gallery_ss23_1-24995"
+      "image": "https://media.triumphmotorcycles.co.uk/image/upload/t_/c_limit,w_3840/f_auto/q_auto:eco/v1690807772/CLO_SS20_MTSS20050_GWYNEED%20TEE-12429"
     },
     {
       "id": 126,
@@ -1659,4 +1659,5 @@ window._rs_catalogue = {
       "image": "https://roadspirit.fr/wp-content/uploads/2023/10/detailss_800x.png"
     }
   ]
-};
+}
+;
