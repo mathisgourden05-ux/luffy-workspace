@@ -631,8 +631,15 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
     </div>
     <div class="field"><label>Nom du produit *</label><input type="text" id="produit-nom" placeholder="ex: Speed Triple RR"/></div>
     <div class="field"><label>Description</label><textarea id="produit-description" rows="3" placeholder="Description courte..."></textarea></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px">
-      <div class="field"><label>Prix TTC (€) *</label><input type="number" id="produit-prix" placeholder="0.00" step="0.01"/></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
+      <div class="field"><label>Prix de vente TTC (€) *</label><input type="number" id="produit-prix" placeholder="0.00" step="0.01"/></div>
+      <div class="field">
+        <label>Prix barré (€) — promo</label>
+        <input type="number" id="produit-prix-original" placeholder="vide si pas de promo" step="0.01"/>
+        <span id="promo-hint" style="font-size:11px;font-weight:700;color:var(--gold);margin-top:5px;display:none"></span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 16px">
       <div class="field"><label>Stock *</label><input type="number" id="produit-stock" placeholder="0" min="0"/></div>
       <div class="field"><label>Réf. G8</label><input type="text" id="produit-ref" placeholder="REF-001"/></div>
     </div>
@@ -1370,13 +1377,27 @@ function getFormCategory(){
   return sel.value==='__new__' ? document.getElementById('produit-cat-new').value.trim() : sel.value;
 }
 
+// Indice promo en direct
+function updatePromoHint(){
+  const v = parseFloat(document.getElementById('produit-prix').value);
+  const o = parseFloat(document.getElementById('produit-prix-original').value);
+  const hint = document.getElementById('promo-hint');
+  if(!isNaN(v) && !isNaN(o) && o > v){
+    hint.textContent = '🏷️ Promo −' + Math.round((1 - v/o)*100) + '% affichée sur le site';
+    hint.style.display = 'block';
+  } else { hint.style.display = 'none'; }
+}
+on('produit-prix','input',updatePromoHint);
+on('produit-prix-original','input',updatePromoHint);
+
 document.getElementById('btn-new-produit').addEventListener('click', ()=>{
   document.getElementById('modal-produit-title').textContent = 'Nouveau produit';
   document.getElementById('modal-produit-id').value='';
-  ['nom','description','prix','stock','ref'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
+  ['nom','description','prix','prix-original','stock','ref'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
   document.getElementById('produit-type').value='equipement';
   populateCatSelect('');
   setProductImage('');
+  updatePromoHint();
   openModal('modal-produit');
 });
 
@@ -1390,9 +1411,12 @@ function editProduit(idOrObj){
   populateCatSelect(p.categorie||'');
   document.getElementById('produit-description').value=p.description||'';
   document.getElementById('produit-prix').value=p.prix||'';
+  // prix barré : seulement s'il s'agit d'une vraie promo (barré > vente)
+  document.getElementById('produit-prix-original').value=(p.prix_original && Number(p.prix_original)>Number(p.prix)) ? p.prix_original : '';
   document.getElementById('produit-stock').value=p.stock??'';
   document.getElementById('produit-ref').value=p.ref_g8||'';
   setProductImage(p.image_url||'');
+  updatePromoHint();
   openModal('modal-produit');
 }
 
@@ -1437,12 +1461,17 @@ async function deleteCategory(cat, n){
 
 document.getElementById('btn-save-produit').addEventListener('click', async()=>{
   const id = document.getElementById('modal-produit-id').value;
+  const prixVente = parseFloat(document.getElementById('produit-prix').value);
+  const prixBarre = parseFloat(document.getElementById('produit-prix-original').value);
+  const enPromo = !isNaN(prixBarre) && prixBarre > prixVente;
   const payload = {
     nom: document.getElementById('produit-nom').value.trim(),
     type: document.getElementById('produit-type').value,
     categorie: getFormCategory(),
     description: document.getElementById('produit-description').value.trim(),
-    prix: parseFloat(document.getElementById('produit-prix').value),
+    prix: prixVente,
+    prix_original: enPromo ? prixBarre : null,
+    remise: enPromo ? Math.round((prixVente/prixBarre - 1)*100) : 0,
     stock: parseInt(document.getElementById('produit-stock').value),
     ref_g8: document.getElementById('produit-ref').value.trim()||null,
     image_url: document.getElementById('produit-image').value.trim()||null,
