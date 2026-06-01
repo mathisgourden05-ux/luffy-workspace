@@ -115,7 +115,7 @@
   </ul>
   <div style="display:flex;align-items:center;gap:18px">
     <a href="#essai" class="btn"><span>Essai gratuit</span></a>
-    <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -317,8 +317,8 @@
   }
 
   var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
-  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
-  if(links)links.querySelectorAll('a:not(.page-link)').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',String(o));});
+  if(links)links.querySelectorAll('a:not(.page-link)').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger){burger.classList.remove('open');burger.setAttribute('aria-expanded','false');}});});
 
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});

@@ -25,12 +25,11 @@
 <link rel="stylesheet" href="shared.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 <style>
 /* Variables spécifiques homepage (overrides shared.css) */
 :root{--bg:#06060E;--bg2:#0A0A14;--bg3:#0D0D1A;--surface:#121220;}
-html{scroll-behavior:auto}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+@keyframes moto-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 html,body{overflow-x:hidden;max-width:100%}
 body{color:var(--cream)}
 /* Curseur custom homepage : masque le curseur natif */
@@ -766,15 +765,7 @@ footer{background:var(--bg);border-top:1px solid var(--gold-line);padding:80px 0
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── LENIS ──────────────────────────────────────── */
 const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-let lenis;
-if (!reduced) {
-  lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add(t => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
 
 /* ── CANVAS 2D — constellation légère ────────── */
 function initCanvas() {
@@ -903,7 +894,7 @@ function initCanvas() {
       setTimeout(() => {
         gsap.to(loader, {
           yPercent: -100, duration: 0.9, ease: 'power4.inOut',
-          onComplete() { loader.style.display = 'none'; initCanvas(); heroIn(); }
+          onComplete() { loader.style.display = 'none'; heroIn(); }
         });
       }, 300);
     }
@@ -950,14 +941,6 @@ function heroParallax() {
   hero.addEventListener('mouseleave', () => { xTo(0); rTo(0); sTo(0); });
 }
 
-/* ── VANILLA TILT ───────────────────────────────── */
-if (window.matchMedia('(pointer:fine)').matches && typeof VanillaTilt !== 'undefined') {
-  VanillaTilt.init(document.querySelectorAll('.mc'), {
-    max: 7, speed: 600, glare: true, 'max-glare': 0.15,
-    scale: 1.01, perspective: 1100,
-    easing: 'cubic-bezier(.03,.98,.52,.99)'
-  });
-}
 
 /* ── CURSOR — SPOTLIGHT ─────────────────────────── */
 if (window.matchMedia('(pointer:fine)').matches) {
@@ -1003,8 +986,8 @@ ScrollTrigger.create({ start: 80, onEnter: () => nav.classList.add('s'), onLeave
 ScrollTrigger.create({ start: 0, end: 'max', onUpdate: s => document.getElementById('prog').style.width = (s.progress * 100) + '%' });
 
 /* ── PARALLAX ───────────────────────────────────── */
-/* Moto : float lent + parallax au scroll */
-gsap.to('.h-moto', { y: -20, repeat: -1, yoyo: true, duration: 5, ease: 'sine.inOut', delay: 1.8 });
+/* Moto : float CSS (compositor thread) + parallax au scroll */
+if (!reduced) document.querySelector('.h-moto')?.style.setProperty('animation','moto-float 4.5s ease-in-out infinite','');
 gsap.to('.h-moto', { backgroundPositionY: '68%', ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
 gsap.to('#sp-bg', { yPercent: 16, ease: 'none', scrollTrigger: { trigger: '.spotlight', start: 'top bottom', end: 'bottom top', scrub: true } });
@@ -1114,13 +1097,12 @@ hbg.addEventListener('click', () => {
   const o = nl.classList.toggle('open');
   hbg.classList.toggle('o', o); hbg.setAttribute('aria-expanded', o);
   document.body.classList.toggle('menu-open', o);
-  if (lenis) o ? lenis.stop() : lenis.start();
 });
-nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nl.classList.remove('open'); hbg.classList.remove('o'); document.body.classList.remove('menu-open'); if (lenis) lenis.start(); }));
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nl.classList.remove('open'); hbg.classList.remove('o'); document.body.classList.remove('menu-open'); }));
 
 /* ── PAGE TRANSITIONS ───────────────────────────── */
 const pov = document.getElementById('pov');
-function navigate(url) { if (lenis) lenis.stop(); pov.classList.add('out'); setTimeout(() => window.location.href = url, 640); }
+function navigate(url) { pov.classList.add('out'); setTimeout(() => window.location.href = url, 640); }
 window.navigate = navigate;
 document.querySelectorAll('a.pl').forEach(a => {
   a.addEventListener('click', e => { const h = a.getAttribute('href'); if (!h || h.startsWith('#')) return; e.preventDefault(); navigate(h); });
@@ -1130,7 +1112,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     const id = a.getAttribute('href'); if (id.length < 2) return;
     e.preventDefault();
     const el = document.querySelector(id); if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset: -80 }); else el.scrollIntoView({ behavior: 'smooth' });
+    el.scrollIntoView({ behavior: 'smooth' });
   });
 });
 </script>

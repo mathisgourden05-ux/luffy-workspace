@@ -109,7 +109,7 @@
       <span id="cartCount">0</span>
       <span class="cart-badge" id="cartBadge" style="position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(0);transition:opacity .2s,transform .2s">0</span>
     </button>
-    <button class="hamburger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -238,8 +238,8 @@
   }
 
   var burger=document.getElementById('burger');var navLinks=document.getElementById('navLinks');
-  if(burger)burger.addEventListener('click',function(){var o=navLinks.classList.toggle('open');burger.classList.toggle('open',o);});
-  if(navLinks)navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.classList.contains('page-link'))return;navLinks.classList.remove('open');if(burger)burger.classList.remove('open');});});
+  if(burger)burger.addEventListener('click',function(){var o=navLinks.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',String(o));});
+  if(navLinks)navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){if(a.classList.contains('page-link'))return;navLinks.classList.remove('open');if(burger){burger.classList.remove('open');burger.setAttribute('aria-expanded','false');}});});
 
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});

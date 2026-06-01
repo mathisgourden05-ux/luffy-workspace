@@ -104,7 +104,7 @@
   </ul>
   <div style="display:flex;align-items:center;gap:18px">
     <a href="https://www.triumphmotorcycles.com/forms/test-ride" target="_blank" rel="noopener" class="btn"><span>Essai gratuit</span></a>
-    <button class="hamburger" id="burger" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -283,8 +283,8 @@ var MOTOS = {
 
   // Hamburger
   var burger=document.getElementById('burger');var links=document.getElementById('navLinks');
-  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);});
-  if(links)links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger)burger.classList.remove('open');});});
+  if(burger)burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',String(o));});
+  if(links)links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');if(burger){burger.classList.remove('open');burger.setAttribute('aria-expanded','false');}});});
 
   // Filter
   document.querySelectorAll('.filter-btn').forEach(function(btn){
