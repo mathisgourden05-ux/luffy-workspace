@@ -693,20 +693,31 @@ function renderProduct(p){
   var pid=params.get('id');
   if(!pid){window.location.href='boutique.html';return;}
 
-  function loadAndRender(produits){
-    var prod=produits.find(function(p){return String(p.id)===String(pid);});
-    if(!prod){window.location.href='boutique.html';return;}
-    renderProduct(prod);
+  function revealAll(){
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
   }
-  if(typeof window.rsLoadCatalogue==='function'){
-    window.rsLoadCatalogue().then(function(res){
-      if(!res.produits.length){document.getElementById('productTitle').textContent='Produit introuvable';return;}
-      loadAndRender(res.produits);
-    });
+  function showNotFound(){
+    var t=document.getElementById('productTitle');
+    if(t)t.textContent='Produit introuvable';
+    var d=document.getElementById('productDesc');
+    if(d)d.textContent="Cet article n'est plus disponible. Retournez à la boutique pour voir le reste du catalogue.";
+    revealAll();
+  }
+  function show(prod){
+    if(!prod){ showNotFound(); return; }
+    try{ renderProduct(prod); }
+    catch(e){ console.error('renderProduct',e); revealAll(); }
+  }
+
+  if(typeof window.rsLoadProduct==='function'){
+    window.rsLoadProduct(pid).then(show);
   } else if(window._rs_catalogue){
-    loadAndRender(window._rs_catalogue.produits);
+    show((window._rs_catalogue.produits||[]).find(function(p){return String(p.id)===String(pid);}));
+  } else {
+    showNotFound();
   }
 })();
+})(); /* fermeture de l'IIFE externe ouverte en haut du script (manquait → page blanche) */
 </script>
 </body>
 </html>

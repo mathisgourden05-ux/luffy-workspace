@@ -9,6 +9,7 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 1. **Mathis : créer un compte vendeur** dans Supabase (Authentication → Users → Add user, cocher Auto Confirm) → identifiants pour se connecter à l'app interne (requis pour ajouter produits + uploader photos).
 2. **Tester le flux complet** une fois le site en ligne : app interne → Nouveau produit + photo glissée → vérifier qu'il apparaît sur la boutique.
 3. **Vérifier visuellement le nouveau hero** (cadrage image Bonneville) ; ajuster `background-position` de `.h-moto` si besoin.
+4. **Paiement réel (Stripe) + décrément atomique du stock** à faire ENSEMBLE : au paiement confirmé, fonction Supabase qui décrémente `stock` seulement si `stock >= qté` (anti-survente cas 1 = 2 acheteurs en ligne sur le même dernier article). Le paiement est actuellement simulé → ne pas coder le décrément avant le vrai paiement. Cas 2 (vente en ligne + magasin) non couvert par ça : nécessite la connexion live G8.
 
 ### Schéma Supabase réel (constaté le 2026-06-01, à ne pas oublier)
 - La table `produits` **préexistait** (pas créée par mon `create table`). Colonnes ajoutées via `alter table add column if not exists`.
@@ -17,6 +18,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - ✅ Setup SQL exécuté + 150 produits importés (stock=10 chacun).
 
 ---
+
+## 2026-06-01 · Recherche logiciel G8 + stratégie de vente du site (repreneur)
+
+- **Contexte révélé par Mathis :** il fait son **stage dans la concession Road Spirit** ; l'actuel patron est un **pote**. Les proprios **vont vendre** la concession → Mathis vise le **prochain repreneur** (pas le patron actuel) pour lui proposer son site.
+- **Recherche web G8 (logiciel de gestion de la concession) :** G8 = éditeur **Orisha (ex-Futurosoft)**, DMS leader auto/moto France (2000+ clients, 30 ans, caisse certifiée, CRM + stock intégrés, 200-300 interfaces fournisseurs). **A déjà son e-commerce natif `ShopG8`** (synchro stock temps réel) + partenaire EveryParts. Brancher le site de Mathis sur le stock G8 : réaliste via **export CSV** (déjà à moitié codé : bouton « Import CSV G8 », format `ref_g8,nom,type,categorie,prix,stock`) ; API Orisha existe mais verrouillée par contrat ; sinon ShopG8 = leur boutique, pas celle de Mathis.
+- **Conseil stratégique donné :** viser le repreneur (page blanche, veut moderniser) ; jouer l'atout « insider + intro chaude via le patron sortant » ; avoir démo + prix prêts AVANT l'arrivée du repreneur (outils choisis dans les 1res semaines) ; pitcher le **résultat** (site premium clé en main, moins cher, maintenu par lui), jamais la technique ; angle face à ShopG8 = design + prix + maintenance.
+- **À clarifier (posé à Mathis) :** date prévue de la vente + repreneur déjà connu ou non (→ pitch ciblé vs générique).
 
 ## 2026-06-01 · Boutique ↔ Supabase + upload photo vendeur + fond uniforme
 
