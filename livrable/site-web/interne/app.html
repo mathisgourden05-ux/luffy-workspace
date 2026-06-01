@@ -119,6 +119,8 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 .btn-primary{padding:10px 22px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;background:var(--gold);color:#000;border:none;transition:background .2s,transform .15s}
 .btn-primary:hover{background:#B8933B}
 .btn-primary:active{transform:scale(0.97)}
+.btn-secondary{padding:10px 22px;font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:13px;background:transparent;border:1px solid var(--gold-dim);color:var(--gold);cursor:pointer;transition:background .2s,border-color .2s}
+.btn-secondary:hover{background:var(--gold-soft);border-color:var(--gold)}
 
 /* FORM MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
@@ -197,13 +199,38 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 .stat-card .value.blue{color:var(--blue)}
 
 /* RESPONSIVE */
+/* Barre du haut mobile (cachée sur ordi par défaut) */
+.app-topbar{
+  display:none;position:sticky;top:0;z-index:60;
+  align-items:center;gap:14px;height:56px;padding:0 16px;
+  background:var(--bg-2);border-bottom:1px solid var(--line);
+}
+.app-topbar .burger{
+  background:none;border:none;cursor:pointer;padding:6px;display:grid;gap:5px;
+}
+.app-topbar .burger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.app-topbar .tb-logo{font-family:var(--head);font-size:20px;letter-spacing:.06em;color:var(--gold)}
+.app-topbar .tb-logo span{color:var(--ink)}
+.drawer-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;
+  opacity:0;visibility:hidden;transition:opacity .28s,visibility .28s;
+}
+.drawer-backdrop.show{opacity:1;visibility:visible}
+
 @media(max-width:900px){
   #screen-app{grid-template-columns:200px 1fr}
   .stats-row{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:700px){
-  #screen-app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .sidebar{display:none}
+  #screen-app{grid-template-columns:1fr;grid-template-rows:1fr}
+  /* La sidebar devient un menu tiroir coulissant (au lieu de disparaître) */
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;width:272px;max-width:84vw;
+    transform:translateX(-100%);transition:transform .28s ease;
+    z-index:80;box-shadow:0 0 40px rgba(0,0,0,.5);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .app-topbar{display:flex}
   .main-header{padding:20px 18px 0}
   .main-body{padding:20px 18px 40px}
   .stats-row{grid-template-columns:1fr 1fr}
@@ -314,6 +341,13 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
 
   <!-- MAIN -->
   <main class="main">
+
+    <!-- Barre du haut (mobile uniquement) -->
+    <div class="app-topbar">
+      <button class="burger" id="btn-menu" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="tb-logo">ROAD <span>SPIRIT</span></div>
+    </div>
+    <div class="drawer-backdrop" id="drawer-backdrop"></div>
 
     <!-- ─── DASHBOARD ─────────────────────── -->
     <div class="page active" id="page-dashboard">
@@ -489,7 +523,8 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
     <div class="page" id="page-stock">
       <div class="main-header">
         <div><h1>Stock & Produits</h1><p class="sub">Gestion du catalogue</p></div>
-        <div style="display:flex;gap:12px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn-secondary" id="btn-cats">Catégories</button>
           <button class="btn-primary" id="btn-import-csv">Importer CSV G8</button>
           <button class="btn-primary" id="btn-new-produit">+ Nouveau produit</button>
         </div>
@@ -590,7 +625,8 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
       </div>
       <div class="field">
         <label>Catégorie *</label>
-        <input type="text" id="produit-categorie" placeholder="ex: Roadster, Casque..."/>
+        <select id="produit-cat-select"></select>
+        <input type="text" id="produit-cat-new" placeholder="Nom de la nouvelle catégorie" style="display:none;margin-top:8px"/>
       </div>
     </div>
     <div class="field"><label>Nom du produit *</label><input type="text" id="produit-nom" placeholder="ex: Speed Triple RR"/></div>
@@ -622,6 +658,24 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal('modal-produit')">Annuler</button>
       <button class="btn-primary" id="btn-save-produit">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="modal-cats">
+  <div class="modal">
+    <h2>Catégories</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Ajoutez une catégorie, ou supprimez-en une (les produits de cette catégorie seront supprimés).</p>
+    <div class="field" style="display:flex;gap:10px;align-items:flex-end">
+      <div style="flex:1">
+        <label>Nouvelle catégorie</label>
+        <input type="text" id="cat-new-name" placeholder="ex: Casques"/>
+      </div>
+      <button class="btn-primary" id="btn-cat-add" style="white-space:nowrap">Ajouter</button>
+    </div>
+    <div id="cat-list" style="margin-top:8px;display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto"></div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modal-cats')">Fermer</button>
     </div>
   </div>
 </div>
@@ -847,8 +901,27 @@ document.querySelectorAll('.nav-item').forEach(item=>{
     if(page==='a-preparer')    loadAPreparer();
     if(page==='expediees')     loadExpediees();
     if(page==='essais-jour')   loadEssaisJour();
+    closeDrawer(); // referme le menu mobile après navigation
   });
 });
+
+// ── MENU TIROIR MOBILE ────────────────────────────────────
+function openDrawer(){
+  document.querySelector('.sidebar').classList.add('open');
+  document.getElementById('drawer-backdrop').classList.add('show');
+}
+function closeDrawer(){
+  const sb=document.querySelector('.sidebar');
+  if(sb)sb.classList.remove('open');
+  const bd=document.getElementById('drawer-backdrop');
+  if(bd)bd.classList.remove('show');
+}
+(function(){
+  const btn=document.getElementById('btn-menu');
+  const bd=document.getElementById('drawer-backdrop');
+  if(btn)btn.addEventListener('click', openDrawer);
+  if(bd)bd.addEventListener('click', closeDrawer);
+})();
 
 // ══════════════════════════════════════════════════════════
 //  DASHBOARD
@@ -1087,16 +1160,16 @@ function renderReservations(data){
   if(!data.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty"><div class="ico">📅</div><p>Aucune réservation</p></div></td></tr>'; return; }
   tbody.innerHTML = data.map(r=>`
     <tr>
-      <td>${r.client_nom||((r.client_prenom||'')+' '+(r.client_nom||''))}</td>
-      <td><a href="mailto:${r.client_email}" style="color:var(--gold)">${r.client_email||'—'}</a></td>
-      <td>${r.client_tel||'—'}</td>
-      <td>${r.modele}</td>
+      <td>${esc(r.client_nom||((r.client_prenom||'')+' '+(r.client_nom||'')))}</td>
+      <td><a href="mailto:${esc(r.client_email)}" style="color:var(--gold)">${esc(r.client_email||'—')}</a></td>
+      <td>${esc(r.client_tel||'—')}</td>
+      <td>${esc(r.modele)}</td>
       <td>${fmtDate(r.date_essai)}</td>
-      <td>${r.creneau}</td>
+      <td>${esc(r.creneau)}</td>
       <td>${badge(r.statut)}</td>
       <td style="display:flex;gap:6px">
-        <button class="btn-action">Statut</button>
-        <button class="btn-action danger">Suppr.</button>
+        <button class="btn-action" onclick="openModalRes('${esc(r.id)}','${esc(r.statut)}')">Statut</button>
+        <button class="btn-action danger" onclick="deleteRes('${esc(r.id)}')">Suppr.</button>
       </td>
     </tr>`).join('');
 }
@@ -1195,20 +1268,23 @@ async function loadStock(){
 function renderStock(data){
   const tbody = document.getElementById('table-stock');
   if(!data.length){ tbody.innerHTML='<tr><td colspan="8"><div class="empty"><div class="ico">📦</div><p>Aucun produit</p></div></td></tr>'; return; }
-  tbody.innerHTML = data.map(p=>`
+  tbody.innerHTML = data.map(p=>{
+    const dispo = (p.disponible!=null) ? p.disponible : (Number(p.stock)>0);
+    return `
     <tr>
-      <td style="color:var(--muted);font-family:var(--sub);font-size:12px">${p.ref_g8||'—'}</td>
-      <td>${p.nom}</td>
-      <td><span class="badge ${p.type==='moto'?'gold':'muted'}">${p.type}</span></td>
-      <td>${p.categorie}</td>
+      <td style="color:var(--muted);font-family:var(--sub);font-size:12px">${esc(p.ref_g8||'—')}</td>
+      <td>${esc(p.nom)}</td>
+      <td><span class="badge ${p.type==='moto'?'gold':'muted'}">${esc(p.type||'—')}</span></td>
+      <td>${esc(p.categorie)}</td>
       <td>${fmtPrice(p.prix)}</td>
-      <td style="font-family:var(--sub);font-weight:700;font-size:16px;color:${p.stock===0?'var(--red)':p.stock<=3?'orange':'var(--ink)'}">${p.stock}</td>
-      <td>${p.disponible?'<span class="badge green">Dispo</span>':'<span class="badge red">Rupture</span>'}</td>
+      <td style="font-family:var(--sub);font-weight:700;font-size:16px;color:${Number(p.stock)===0?'var(--red)':Number(p.stock)<=3?'orange':'var(--ink)'}">${esc(p.stock)}</td>
+      <td>${dispo?'<span class="badge green">Dispo</span>':'<span class="badge red">Rupture</span>'}</td>
       <td style="display:flex;gap:6px">
-        <button class="btn-action" onclick="editProduit(${JSON.stringify(p).replace(/"/g,'&quot;')})">Modifier</button>
-        <button class="btn-action danger" onclick="deleteProduit('${p.id}')">Suppr.</button>
+        <button class="btn-action" onclick="editProduit('${esc(p.id)}')">Modifier</button>
+        <button class="btn-action danger" onclick="deleteProduit('${esc(p.id)}')">Suppr.</button>
       </td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 ['search-stock','filter-stock-type','filter-stock-dispo'].forEach(id=>{
@@ -1261,21 +1337,57 @@ async function uploadProductImage(file){
   dz.addEventListener('drop', e=>{ const f=e.dataTransfer.files[0]; if(f) uploadProductImage(f); });
 })();
 
+/* ── CATÉGORIES ─────────────────────────────────── */
+const CATS_LABELS={blousons_vestes:'Blousons & Vestes',gants:'Gants',t_shirts_polos:'T-Shirts & Polos',sweats:'Sweats & Hoodies',accessoires:'Accessoires',jeans_pantalons:'Pantalons & Jeans',bottes_chaussures:'Bottes & Chaussures'};
+function catLabel(v){ return CATS_LABELS[v] || (v ? v.charAt(0).toUpperCase()+v.slice(1).replace(/_/g,' ') : v); }
+function extraCats(){ try{ return JSON.parse(localStorage.getItem('RS_EXTRA_CATS')||'[]'); }catch(e){ return []; } }
+function saveExtraCats(a){ try{ localStorage.setItem('RS_EXTRA_CATS', JSON.stringify(a)); }catch(e){} }
+function allCategories(){
+  const set=new Set(Object.keys(CATS_LABELS));
+  (allProduits||[]).forEach(p=>{ if(p.categorie) set.add(p.categorie); });
+  extraCats().forEach(c=> set.add(c));
+  return Array.from(set).sort((a,b)=> catLabel(a).localeCompare(catLabel(b)));
+}
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function populateCatSelect(selected){
+  const sel=document.getElementById('produit-cat-select');
+  const cats=allCategories();
+  if(selected && cats.indexOf(selected)===-1) cats.push(selected);
+  sel.innerHTML = cats.map(c=>`<option value="${esc(c)}">${esc(catLabel(c))}</option>`).join('')
+    + '<option value="__new__">➕ Nouvelle catégorie…</option>';
+  const newInput=document.getElementById('produit-cat-new');
+  newInput.value=''; newInput.style.display='none';
+  sel.value = selected || cats[0] || '__new__';
+  if(sel.value==='__new__') newInput.style.display='block';
+}
+document.getElementById('produit-cat-select').addEventListener('change', function(){
+  const ni=document.getElementById('produit-cat-new');
+  ni.style.display = this.value==='__new__' ? 'block' : 'none';
+  if(this.value==='__new__') ni.focus();
+});
+function getFormCategory(){
+  const sel=document.getElementById('produit-cat-select');
+  return sel.value==='__new__' ? document.getElementById('produit-cat-new').value.trim() : sel.value;
+}
+
 document.getElementById('btn-new-produit').addEventListener('click', ()=>{
   document.getElementById('modal-produit-title').textContent = 'Nouveau produit';
   document.getElementById('modal-produit-id').value='';
-  ['nom','categorie','description','prix','stock','ref'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
+  ['nom','description','prix','stock','ref'].forEach(f=>{ const el=document.getElementById('produit-'+f); if(el)el.value=''; });
   document.getElementById('produit-type').value='equipement';
+  populateCatSelect('');
   setProductImage('');
   openModal('modal-produit');
 });
 
-function editProduit(p){
+function editProduit(idOrObj){
+  const p = (typeof idOrObj==='object') ? idOrObj : (allProduits||[]).find(x=>String(x.id)===String(idOrObj));
+  if(!p){ toast('Produit introuvable','error'); return; }
   document.getElementById('modal-produit-title').textContent='Modifier le produit';
   document.getElementById('modal-produit-id').value=p.id;
   document.getElementById('produit-nom').value=p.nom||'';
   document.getElementById('produit-type').value=p.type||'equipement';
-  document.getElementById('produit-categorie').value=p.categorie||'';
+  populateCatSelect(p.categorie||'');
   document.getElementById('produit-description').value=p.description||'';
   document.getElementById('produit-prix').value=p.prix||'';
   document.getElementById('produit-stock').value=p.stock??'';
@@ -1284,12 +1396,51 @@ function editProduit(p){
   openModal('modal-produit');
 }
 
+/* ── GESTION DES CATÉGORIES (ajout / suppression) ── */
+function renderCatManager(){
+  const box=document.getElementById('cat-list');
+  const counts={};
+  (allProduits||[]).forEach(p=>{ if(p.categorie) counts[p.categorie]=(counts[p.categorie]||0)+1; });
+  const cats=allCategories();
+  box.innerHTML = cats.length ? cats.map(c=>{
+    const n=counts[c]||0;
+    return `<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line)">
+      <span>${esc(catLabel(c))} <span style="color:var(--muted);font-size:12px">(${n})</span></span>
+      <button class="btn-action danger" data-cat="${esc(c)}">Supprimer</button></div>`;
+  }).join('') : '<p style="color:var(--muted)">Aucune catégorie.</p>';
+  box.querySelectorAll('button[data-cat]').forEach(b=>{
+    b.addEventListener('click', ()=> deleteCategory(b.getAttribute('data-cat'), counts[b.getAttribute('data-cat')]||0));
+  });
+}
+on('btn-cats','click', ()=>{ renderCatManager(); openModal('modal-cats'); });
+on('btn-cat-add','click', ()=>{
+  const inp=document.getElementById('cat-new-name'); const name=inp.value.trim();
+  if(!name){ toast('Entrez un nom','error'); return; }
+  if(allCategories().indexOf(name)>-1){ toast('Cette catégorie existe déjà','error'); return; }
+  const ex=extraCats(); ex.push(name); saveExtraCats(ex); inp.value='';
+  toast('Catégorie ajoutée'); renderCatManager();
+});
+async function deleteCategory(cat, n){
+  const msg = n>0
+    ? `Supprimer la catégorie « ${catLabel(cat)} » ET ses ${n} produit(s) ?`
+    : `Supprimer la catégorie « ${catLabel(cat)} » ?`;
+  if(!confirm(msg)) return;
+  saveExtraCats(extraCats().filter(c=> c!==cat));
+  if(n>0 && db && !isDemoMode){
+    const { error } = await db.from('produits').delete().eq('categorie', cat);
+    if(error){ toast('Erreur : '+error.message,'error'); return; }
+  }
+  toast('Catégorie supprimée');
+  if(typeof loadStock==='function') await loadStock();
+  renderCatManager();
+}
+
 document.getElementById('btn-save-produit').addEventListener('click', async()=>{
   const id = document.getElementById('modal-produit-id').value;
   const payload = {
     nom: document.getElementById('produit-nom').value.trim(),
     type: document.getElementById('produit-type').value,
-    categorie: document.getElementById('produit-categorie').value.trim(),
+    categorie: getFormCategory(),
     description: document.getElementById('produit-description').value.trim(),
     prix: parseFloat(document.getElementById('produit-prix').value),
     stock: parseInt(document.getElementById('produit-stock').value),

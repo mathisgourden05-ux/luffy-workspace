@@ -6,6 +6,9 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ## À FAIRE — Prochaine session (priorités)
 
+0. **Mathis : exécuter `interne/SUPABASE-SECURITE.sql`** (CRITIQUE, RGPD) — active la RLS sur commandes/réservations/profils (sinon données clients lisibles par tous), crée la table `profiles` + trigger, réserve la suppression catalogue aux admins. Puis se donner le rôle admin (requête en bas du fichier).
+0b. **Mathis : exécuter `interne/SUPABASE-FIX-IMAGES.sql`** sur la base existante → met les vraies photos (79 produits) sans réimporter.
+0c. **7 images restantes** à récupérer après reset WebFetch (21:20) : bottes-tech-7-enduro, gants-peak, t-shirt-melrose-noir, t-shirt-gwynned-blanc, t-shirt-maria-speedmaster, beck-2-wax-cotton-veste-noir, veste-ciree-triumph-beck.
 1. **Mathis : créer un compte vendeur** dans Supabase (Authentication → Users → Add user, cocher Auto Confirm) → identifiants pour se connecter à l'app interne (requis pour ajouter produits + uploader photos).
 2. **Tester le flux complet** une fois le site en ligne : app interne → Nouveau produit + photo glissée → vérifier qu'il apparaît sur la boutique.
 3. **Vérifier visuellement le nouveau hero** (cadrage image Bonneville) ; ajuster `background-position` de `.h-moto` si besoin.
@@ -18,6 +21,15 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - ✅ Setup SQL exécuté + 150 produits importés (stock=10 chacun).
 
 ---
+
+## 2026-06-01 · Audit multi-agents + correction des images + catégories dynamiques
+
+- **Audit complet (workflow 7 agents)** du site + app → rapport `livrable/site-web/AUDIT-2026-06-01.md` (54 findings). Critiques : RLS absente sur commandes/réservations/profils (fuite RGPD), paiement.html plantait (`successOverlay` inexistant), boutons Réservations sans onclick, catégories figées en dur, 86/150 images dupliquées.
+- **Images réparées :** WebFetch sur les pages produit roadspirit.fr → vraies photos récupérées pour **79/86** produits à image partagée. Images uniques 97 → 147/150. Appliqué à `catalogue-roadspirit.json` + `catalogue-data.js` (régénéré, source unique) + `interne/SUPABASE-FIX-IMAGES.sql` (UPDATE par slug) + import SQL régénéré. **7 restantes** (WebFetch session limit, reset 21:20) listées dans le À FAIRE.
+- **Catégories dynamiques (boutique)** : filtres colonne + select mobile construits depuis les catégories réelles des produits (`buildCategoryFilters`), fini le `CAT_MAP` figé → les catégories créées dans l'app remontent sur le site. + échappement HTML (anti-XSS) sur noms/images.
+- **Bugs critiques corrigés en code :** C6 paiement.html (plantage au chargement), C7 boutons Réservations câblés (openModalRes/deleteRes), E4 bouton Modifier (par id au lieu de sérialiser l'objet → cassait sur apostrophe), `esc()` complété + appliqué (stock + réservations), E6 fallback `disponible` en démo.
+- **Livré à exécuter par Mathis :** `interne/SUPABASE-SECURITE.sql` (RLS + table profiles + trigger + delete admin) — voir À FAIRE point 0.
+- **Reste de l'audit (non bloquant)** documenté dans le rapport : adresse incohérente services.html, paiement Stripe réel, accessibilité/SEO, parsing CSV G8, etc.
 
 ## 2026-06-01 · Recherche logiciel G8 + stratégie de vente du site (repreneur)
 

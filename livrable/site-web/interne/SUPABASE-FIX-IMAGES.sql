@@ -1,0 +1,87 @@
+-- ════════════════════════════════════════════════════════════════
+--  ROAD SPIRIT — Correction des images (79 produits)
+--  À coller dans Supabase SQL Editor sur ta base EXISTANTE, puis Run.
+--  Met juste à jour les photos, ne touche à rien d'autre.
+-- ════════════════════════════════════════════════════════════════
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MBAS17384-B.jpg' where slug='bandanas-x2';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/0506-500x374.png' where slug='casquette-elis-jaune-bleu';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/6984256985.png' where slug='blackawton-sweatshirt-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/sweatshirt-carrick-noir-homme-triumph-500x461.jpg' where slug='sweatshirt-carrick-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2025/11/mlls21105_Braddan-S-LDS.avif' where slug='blouson-braddan-sport-femme';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/FRF.png' where slug='blouson-triumph-femme';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/womens_down_jacket_mfns21411_gallery_ss21_3.png' where slug='blouson-down';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/blouson-triumph-forden-1.jpg' where slug='blouson-forden';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/blouson-waldron-mesh-mths19116.jpg' where slug='blouson-waldron';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/down-gilet-ladies.png' where slug='gilet-down';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/95123-1.png' where slug='blouson-en-maille-cranbourne-gris';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2025/11/CLO_2024_VENTURE-R.avif' where slug='blouson-venture-r-enduro';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/4562.png' where slug='veste-down-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/fosse-jacket-by-triumph-1000x1000-1.jpg' where slug='veste-fosse';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2026/01/MBTS-22901-1.avif' where slug='bottes-mx-tech-7-triumph-x-alpinestars';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/mjws14240-lds-leather-bracelet-543-500x500.jpg' where slug='bracelet-biker-cuir-femme';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/6X5C.png' where slug='gants-cuir-brookes';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/mgva22005-jansson-gloves-1_800x.jpg' where slug='gants-jansson';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/42.png' where slug='gants-triple-perforated';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/98523-1.png' where slug='braddan-sport-jacket';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/s63s.png' where slug='veste-braddan-lds';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/TriumphLeatheriPhone6_HolderBrownMLUA15201-500x500.jpg' where slug='coque-iphone-6-cuir-marron';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/TriumphLeatherGalaxyS5HolderBrownMLUA15210_540x.jpg' where slug='coque-samsung-galaxy-s5';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/1516211075-25978400.jpg' where slug='magnet-x6';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/6439.jpg' where slug='pins-badge-triumph-triangle';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/s-l1600-11.jpg' where slug='triumph-boucle-bonneville';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/F3.png' where slug='gans-harpton';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/V.png' where slug='gants-harleston';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/gants-moto-triumph-pitsford-noir-mgvs21320.jpg' where slug='gants-pitsford';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/gantsrecklessmgvs2205-441_800x.png' where slug='gants-reckless';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/987456-1-500x338.png' where slug='gants-cali-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/FG.png' where slug='gants-higham';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/S6.png' where slug='gants-steward';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/159.png' where slug='gants-cuir-banner-marron';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/7-1.png' where slug='gants-rutland';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/1456-1.png' where slug='gants-cuir-banner-noirs';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/gants-raven-500x500.jpg' where slug='gants-raven-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/mesh-flag.jpg' where slug='gants-flag-mesh';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/gants-mono-flag-gloves-mgvs17304-500x500.jpg' where slug='gants-mono-flag';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/6D6.png' where slug='gants-lothian';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MGVS20120_gallery_ss20_1_800x.png' where slug='gants-newton';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/mgvs16503-B.jpg' where slug='gants-restore';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/65F2.png' where slug='gants-raven-maille';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/29-500x423.png' where slug='gants-sulby';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MGVA12022-B.jpg' where slug='gants-storm';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/9-1.png' where slug='tour-de-cou-grip';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTUS20316_gallery_ss20_1_800x.png' where slug='tour-de-cou-refill';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTUS20316_800x.jpg' where slug='tour-de-cou-refill-thermal';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTUS20303_800x.jpg' where slug='tour-de-cou-touring';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTUS20305_800x.jpg' where slug='tour-de-cou-tread';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/digby-full-zip-hoody-jet-black-msws21015-2-500x500.jpg' where slug='hoody-digby-full-zip-gris-chine';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/t-shirt-femme-stoll-slv-blancnoir-mtls22102-500x500.jpg' where slug='sweat-stoll';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/coque-tablette-numerique-500x500.jpg' where slug='housse-tablette';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/triumph-genuine-merchandise-35l-drybag-1000x1000-1.jpg' where slug='sac-etanche-35l';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/s-l1600_3-transformed-500x667.png' where slug='jean-casual-denim';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/22.png' where slug='jeans-connector';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/B.png' where slug='maillot-airflow-intrepid';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/13-500x506.png' where slug='t-shirt-saltern';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/6SS66X.png' where slug='maillot-leader';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/cartmel-t-shirt-black-mtss20036.jpg' where slug='t-shirt-cartmel-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/05203.png' where slug='t-shirt-earling-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/Capture-2-500x497.png' where slug='maillot-tiger-1200';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/mtss20052_800x.jpg' where slug='t-shirt-luss-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTSS22017_800x.jpg' where slug='t-shirt-reckless-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/987423.png' where slug='protection-de-sac-a-dos-jaune';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/sacoche-t18-kube-1-medium.jpg' where slug='sacoche-t18-kube';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/lewin-hoodies-1.jpg' where slug='sweat-a-capuche-lloyd';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/sweatshirt-blackawton-grey-homme-triumph-500x500.jpg' where slug='sweat-blackawton-gris';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/sweat-shirt-a-glissiere-a-manches-longues-triumph-triumph-wascrambler-noir-jaune.jpg' where slug='sweat-a-zip-wade-scrambler';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/STOLLLDS_800x-1.png' where slug='sweat-stoll-noir';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/harker.jpg' where slug='sweat-harker';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/5FF5.png' where slug='veste-fleece';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/s-l1600-9.jpg' where slug='t-shirt-alonso-triumph-blanc';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/melrose-ladies-t-shirt-white-mtss20056.jpg' where slug='t-shirt-melrose-blanc';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/t-shirt-triumph-brenton-bobber-tee-mtss18803-bleu.jpg' where slug='t-shirt-brenton-bobber-bleu';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/MTSS17109-B.jpg' where slug='t-shirt-saber';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/98453.png' where slug='t-shirt-a-poche-ace-cafe-blanc';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/985423.png' where slug='t-shirt-burnham-logo-blanc';
+update public.produits set image_url='https://roadspirit.fr/wp-content/uploads/2023/10/963-500x512.png' where slug='t-shirt-a-poche-ace-cafe-noir';
+
+-- jean mal catégorisé
+update public.produits set categorie='jeans_pantalons' where slug='jeans-connector' and categorie='accessoires';

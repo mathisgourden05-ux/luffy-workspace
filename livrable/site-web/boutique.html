@@ -44,6 +44,13 @@
   .products-count{font-family:var(--sub);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--muted)}
   .sort-select{font-family:var(--sub);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;background:var(--bg-3);color:var(--ink);border:1px solid var(--line);padding:8px 14px;cursor:pointer;outline:0}
   .sort-select option{background:var(--bg-3)}
+  .shop-filterbar{display:flex;gap:12px;margin-bottom:18px}
+  .shop-search{flex:1;min-width:0;font-family:var(--sub);font-size:14px;background:var(--bg-3);color:var(--ink);border:1px solid var(--line);padding:12px 16px;outline:0;transition:border-color .2s}
+  .shop-search:focus{border-color:var(--orange)}
+  .shop-search::placeholder{color:var(--muted)}
+  .shop-catselect{display:none;font-family:var(--sub);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px;background:var(--bg-3);color:var(--ink);border:1px solid var(--line);padding:0 14px;cursor:pointer;outline:0}
+  .shop-catselect option{background:var(--bg-3)}
+  @media(max-width:900px){.shop-catselect{display:block}}
   .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .product-card{background:var(--bg-2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;transition:transform .32s,box-shadow .32s,border-color .32s;display:flex;flex-direction:column}
   .product-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .32s}
@@ -69,7 +76,18 @@
   .add-btn:hover{background:#B8933B;transform:scale(1.03)}
 
   @media(max-width:900px){.shop-layout{grid-template-columns:1fr}.sidebar{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:540px){.product-grid{grid-template-columns:1fr}}
+  @media(max-width:540px){
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .product-img{height:155px}
+    .product-img img{padding:12px}
+    .product-body{padding:12px 12px 14px;gap:5px}
+    .product-cat{font-size:10px;letter-spacing:.14em}
+    .product-name{font-size:13px;line-height:1.2}
+    .product-price{font-size:15px}
+    .product-price s{font-size:11px;margin-right:3px}
+    .product-footer{flex-direction:column;align-items:stretch;gap:9px}
+    .add-btn{width:100%;text-align:center;padding:9px}
+  }
 </style>
 </head>
 <body>
@@ -131,6 +149,19 @@
       </aside>
 
       <div>
+        <div class="shop-filterbar reveal">
+          <input type="search" id="searchInput" class="shop-search" placeholder="Rechercher un article (blouson, gants…)" aria-label="Rechercher"/>
+          <select id="mCat" class="shop-catselect" aria-label="Catégorie">
+            <option value="all">Toutes catégories</option>
+            <option value="blouson">Blousons &amp; Vestes</option>
+            <option value="gants">Gants</option>
+            <option value="tshirt">T-Shirts &amp; Polos</option>
+            <option value="sweat">Sweats &amp; Hoodies</option>
+            <option value="accessoire">Accessoires</option>
+            <option value="pantalon">Pantalons &amp; Jeans</option>
+            <option value="chaussures">Bottes &amp; Chaussures</option>
+          </select>
+        </div>
         <div class="products-header reveal">
           <span class="products-count" id="productCount">16 produits</span>
           <select class="sort-select" id="sortSelect" aria-label="Trier par">
@@ -212,8 +243,11 @@
   var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
-  var CAT_MAP={blousons_vestes:'blouson',gants:'gants',bottes_chaussures:'chaussures',jeans_pantalons:'pantalon',sweats:'sweat',t_shirts_polos:'tshirt',accessoires:'accessoire'};
-  var CAT_LABEL={blouson:'Blouson / Veste',gants:'Gants',chaussures:'Bottes & Chaussures',pantalon:'Pantalon / Jean',sweat:'Sweat / Hoodie',tshirt:'T-Shirt / Polo',accessoire:'Accessoire'};
+  // Libellés connus (clé = valeur réelle de la colonne categorie). Toute AUTRE catégorie
+  // créée par le vendeur est gérée dynamiquement (libellé auto-généré).
+  var CAT_LABELS={blousons_vestes:'Blousons & Vestes',gants:'Gants',bottes_chaussures:'Bottes & Chaussures',jeans_pantalons:'Pantalons & Jeans',sweats:'Sweats & Hoodies',t_shirts_polos:'T-Shirts & Polos',accessoires:'Accessoires'};
+  function catLabelOf(c){return CAT_LABELS[c]||(c?c.charAt(0).toUpperCase()+c.slice(1).replace(/_/g,' '):'Autre');}
+  function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
   var currentCat='all';
   var allCards=[];
@@ -222,18 +256,31 @@
   var toastMsg=document.getElementById('toastMsg');
   var toastTimer;
 
-  function filterCat(cat){
-    currentCat=cat;
+  var currentQuery='', currentMax=Infinity;
+
+  function applyFilters(){
     var vis=0;
-    allCards.forEach(function(c){var show=cat==='all'||c.getAttribute('data-cat')===cat;c.classList.toggle('hidden',!show);if(show)vis++;});
+    allCards.forEach(function(c){
+      var okCat=currentCat==='all'||c.getAttribute('data-cat')===currentCat;
+      var okQ=!currentQuery||(c.getAttribute('data-name')||'').indexOf(currentQuery)>-1;
+      var okPrice=(+c.getAttribute('data-price'))<=currentMax;
+      var show=okCat&&okQ&&okPrice;
+      c.classList.toggle('hidden',!show);
+      if(show)vis++;
+    });
     if(countEl)countEl.textContent=vis+' produit'+(vis>1?'s':'');
-    document.querySelectorAll('#catList a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-cat')===cat);});
+    document.querySelectorAll('#catList a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-cat')===currentCat);});
+    var sel=document.getElementById('mCat'); if(sel&&sel.value!==currentCat)sel.value=currentCat;
   }
 
+  function filterCat(cat){ currentCat=cat; applyFilters(); }
+
   function initFilters(){
-    document.querySelectorAll('#catList a').forEach(function(a){
-      a.addEventListener('click',function(e){e.preventDefault();filterCat(a.getAttribute('data-cat'));});
-    });
+    var mCat=document.getElementById('mCat');
+    if(mCat)mCat.addEventListener('change',function(){filterCat(mCat.value);});
+    var search=document.getElementById('searchInput');
+    if(search)search.addEventListener('input',function(){currentQuery=search.value.toLowerCase().trim();applyFilters();});
+
     var urlCat=new URLSearchParams(window.location.search).get('cat');
     if(urlCat)filterCat(urlCat);
 
@@ -241,9 +288,9 @@
     var priceVal=document.getElementById('priceVal');
     if(priceRange){
       priceRange.addEventListener('input',function(){
-        var max=+priceRange.value;
-        priceVal.textContent=max.toLocaleString('fr-FR');
-        allCards.forEach(function(c){if(currentCat!=='all'&&c.getAttribute('data-cat')!==currentCat)return;c.classList.toggle('hidden',+c.getAttribute('data-price')>max);});
+        currentMax=+priceRange.value;
+        if(priceVal)priceVal.textContent=currentMax.toLocaleString('fr-FR');
+        applyFilters();
       });
     }
 
@@ -267,43 +314,63 @@
     });
   }
 
+  // Construit les filtres (colonne + menu mobile) à partir des catégories réellement présentes
+  function buildCategoryFilters(counts){
+    var cats=Object.keys(counts).sort(function(a,b){return catLabelOf(a).localeCompare(catLabelOf(b));});
+    var total=Object.keys(counts).reduce(function(s,c){return s+counts[c];},0);
+    var list=document.getElementById('catList');
+    if(list){
+      list.innerHTML='<li><a href="#" data-cat="all" class="active">Tous les produits <span class="count">'+total+'</span></a></li>'
+        +cats.map(function(c){return '<li><a href="#" data-cat="'+escHtml(c)+'">'+escHtml(catLabelOf(c))+' <span class="count">'+counts[c]+'</span></a></li>';}).join('');
+    }
+    var sel=document.getElementById('mCat');
+    if(sel){
+      sel.innerHTML='<option value="all">Toutes catégories</option>'
+        +cats.map(function(c){return '<option value="'+escHtml(c)+'">'+escHtml(catLabelOf(c))+'</option>';}).join('');
+    }
+    document.querySelectorAll('#catList a').forEach(function(a){
+      a.addEventListener('click',function(e){e.preventDefault();filterCat(a.getAttribute('data-cat'));});
+    });
+  }
+
   function renderProducts(produits){
     var grid=document.getElementById('productGrid');
     var counts={};
     produits.forEach(function(p){
-      var cat=CAT_MAP[p.categorie]||'accessoire';
+      var cat=p.categorie||'autre';
       counts[cat]=(counts[cat]||0)+1;
       var prix=p.prix_promo||p.prix_original;
+      var nom=escHtml(p.nom);
+      var img=escHtml(p.image);
       var badge=p.remise?'<span class="product-badge promo">'+Math.abs(p.remise)+' %</span>':'';
       var imgHtml=p.image
-        ?'<img src="'+p.image+'" alt="'+p.nom+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="img-ph" style="display:none"><span>'+p.nom+'</span></div>'
-        :'<div class="img-ph"><span>'+p.nom+'</span></div>';
+        ?'<img src="'+img+'" alt="'+nom+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="img-ph" style="display:none"><span>'+nom+'</span></div>'
+        :'<div class="img-ph"><span>'+nom+'</span></div>';
       var priceHtml=p.prix_promo
         ?'<s>'+p.prix_original.toFixed(0)+' €</s>'+p.prix_promo.toFixed(0)+' €'
         :p.prix_original.toFixed(0)+' €';
       var card=document.createElement('article');
       card.className='product-card reveal';
       card.setAttribute('data-cat',cat);
+      card.setAttribute('data-name',(p.nom||'').toLowerCase());
       card.setAttribute('data-price',Math.round(prix));
       card.style.cursor='pointer';
       card.setAttribute('data-id',p.id);
       card.addEventListener('click',function(e){
         if(e.target.classList.contains('add-btn'))return;
-        navigate('produit.html?id='+p.id);
+        navigate('produit.html?id='+encodeURIComponent(p.id));
       });
       card.innerHTML='<div class="product-img">'+badge+imgHtml+'</div>'
         +'<div class="product-body">'
-        +'<span class="product-cat">'+(CAT_LABEL[cat]||cat)+'</span>'
-        +'<span class="product-name">'+p.nom+'</span>'
+        +'<span class="product-cat">'+escHtml(catLabelOf(cat))+'</span>'
+        +'<span class="product-name">'+nom+'</span>'
         +'<div class="product-footer"><span class="product-price">'+priceHtml+'</span><button class="add-btn">+ Panier</button></div>'
         +'</div>';
       grid.appendChild(card);
       io.observe(card);
     });
-    var cntAll=document.getElementById('cnt-all');
-    if(cntAll)cntAll.textContent=produits.length;
     if(countEl)countEl.textContent=produits.length+' produits';
-    Object.keys(counts).forEach(function(cat){var el=document.getElementById('cnt-'+cat);if(el)el.textContent=counts[cat];});
+    buildCategoryFilters(counts);
     allCards=Array.from(grid.querySelectorAll('.product-card'));
     initFilters();
   }

@@ -633,8 +633,8 @@ if(window.matchMedia('(pointer:fine)').matches){
 // ── INIT ─────────────────────────────────────────────────────────────────────
 renderSummary();
 
-// Redirect if cart empty
-if(getCart().length===0 && !document.getElementById('successOverlay').classList.contains('show')){
+// Redirect if cart empty (l'overlay de succès n'existe plus : le succès passe par confirmation.html)
+if(getCart().length===0){
   setTimeout(function(){window.navigate('boutique.html');},100);
 }
 
