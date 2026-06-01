@@ -268,7 +268,7 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
 .eq-feats li::before{content:"";width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
 
 /* ── BOUTIQUE ───────────────────────────────── */
-.boutique{background:linear-gradient(to bottom,#0D0D1A 0px,#f5f3ef 110px,#f5f3ef calc(100% - 110px),#0D0D1A 100%)}
+.boutique{background:#f5f3ef}
 .boutique .sec-head h2,.boutique .stitle{color:#1a1714}
 .boutique .eyebrow{color:#8a8278}
 .boutique .arrow-link{color:#1a1714}
@@ -312,9 +312,31 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
 .add-btn:hover{background:var(--gold2)}
 .add-btn:active{transform:scale(.96)}
 
+/* ── TRANSITIONS ORGANIQUES ENTRE SECTIONS ─── */
+/* Dôme CSS = forme elliptique qui mordille la section précédente */
+.motos-s,.equip,.boutique,.services{position:relative}
+
+/* Chaque section projette un dôme de SA couleur vers le haut */
+.motos-s::before,.equip::before,.boutique::before,.services::before{
+  content:"";position:absolute;top:-65px;left:-5%;width:110%;height:130px;z-index:0;pointer-events:none;
+}
+.motos-s::before{background:var(--bg2);border-radius:40% 60% 0 0/80% 120% 0 0}
+.equip::before  {background:var(--bg3);border-radius:60% 40% 0 0/120% 80% 0 0}
+.boutique::before{background:#f5f3ef;border-radius:45% 55% 0 0/90% 110% 0 0}
+.services::before{background:var(--bg3);border-radius:55% 45% 0 0/110% 90% 0 0}
+
+/* Dôme bas de .services vers .story (story a overflow:hidden → on met le dôme ici) */
+.services::after{
+  content:"";position:absolute;bottom:-65px;left:-5%;width:110%;height:130px;
+  background:var(--bg);border-radius:0 0 50% 50%/0 0 100% 100%;z-index:0;pointer-events:none;
+}
+
+/* Le contenu reste au-dessus des dômes */
+.motos-s>.wrap,.equip>.wrap,.boutique>.wrap,.services>.wrap{position:relative;z-index:1}
+
 /* ── SERVICES ───────────────────────────────── */
 .services{background:var(--bg3)}
-.diag-top{clip-path:polygon(0 60px,100% 0,100% 100%,0 100%);margin-top:-60px;padding-top:140px}
+.diag-top{clip-path:none;margin-top:0;padding-top:140px}
 .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:25px;overflow:hidden}
 .svc{padding:52px 44px;border-right:1px solid var(--line);position:relative;transition:background .35s;overflow:hidden}
 .svc:last-child{border-right:0}
