@@ -12,7 +12,8 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - **Glow or** sur tous les gros titres (homepage, pages secondaires, app).
 - **Hero Bonneville T100** : remplace Unsplash/Speed Triple, image officielle Triumph CDN MY26.
 - **Responsive** : filtre prix boutique visible sur mobile, `--muted` → #9A98A4 (WCAG AA).
-- **Reste pour Mathis** : exécuter SUPABASE-IMPORT-PRODUITS.sql, Formspree ID, Stripe URL, rôle admin.
+- **Reste pour Mathis** : exécuter SUPABASE-IMPORT-PRODUITS.sql, Stripe URL, rôle admin.
+- **À faire à la livraison client** : changer l'email Formspree (formspree.io → formulaire Road Spirit → Settings → mettre l'email du client à la place du tien).
 
 ## À FAIRE — Prochaine session (priorités)
 
