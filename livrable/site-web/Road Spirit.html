@@ -312,27 +312,27 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
 .add-btn:hover{background:var(--gold2)}
 .add-btn:active{transform:scale(.96)}
 
-/* ── TRANSITIONS ORGANIQUES ENTRE SECTIONS ─── */
-/* Dôme CSS = forme elliptique qui mordille la section précédente */
-.motos-s,.equip,.boutique,.services{position:relative}
-
-/* Chaque section projette un dôme de SA couleur vers le haut */
-.motos-s::before,.equip::before,.boutique::before,.services::before{
-  content:"";position:absolute;top:-65px;left:-5%;width:110%;height:130px;z-index:0;pointer-events:none;
+/* ── VAGUES ORGANIQUES ENTRE SECTIONS ─── */
+/* Vague SVG au bas de chaque section, couleur = section suivante */
+.motos-s,.spotlight,.equip,.boutique,.services,.story{position:relative}
+.motos-s::after,.spotlight::after,.equip::after,.boutique::after,.services::after,.story::after{
+  content:"";position:absolute;bottom:-1px;left:0;width:100%;pointer-events:none;z-index:2;
+  background-size:100% 100%;background-repeat:no-repeat;
 }
-.motos-s::before{background:var(--bg2);border-radius:40% 60% 0 0/80% 120% 0 0}
-.equip::before  {background:var(--bg3);border-radius:60% 40% 0 0/120% 80% 0 0}
-.boutique::before{background:#f5f3ef;border-radius:45% 55% 0 0/90% 110% 0 0}
-.services::before{background:var(--bg3);border-radius:55% 45% 0 0/110% 90% 0 0}
-
-/* Dôme bas de .services vers .story (story a overflow:hidden → on met le dôme ici) */
-.services::after{
-  content:"";position:absolute;bottom:-65px;left:-5%;width:110%;height:130px;
-  background:var(--bg);border-radius:0 0 50% 50%/0 0 100% 100%;z-index:0;pointer-events:none;
-}
-
-/* Le contenu reste au-dessus des dômes */
-.motos-s>.wrap,.equip>.wrap,.boutique>.wrap,.services>.wrap{position:relative;z-index:1}
+/* Motos → Spotlight (dark) */
+.motos-s::after{height:100px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%2306060E' d='M0,60 C200,10 500,100 800,40 C1050,0 1300,80 1440,30 L1440,100 L0,100 Z'/%3E%3C/svg%3E")}
+/* Spotlight → Equip (#0D0D1A) */
+.spotlight::after{height:90px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'%3E%3Cpath fill='%230D0D1A' d='M0,45 C180,90 360,10 540,50 C720,90 900,10 1080,50 C1260,90 1400,20 1440,55 L1440,90 L0,90 Z'/%3E%3C/svg%3E")}
+/* Equip → Boutique (#f5f3ef) — transition la plus visible */
+.equip::after{height:120px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%23f5f3ef' d='M0,60 C300,120 600,10 900,70 C1100,110 1300,20 1440,65 L1440,120 L0,120 Z'/%3E%3C/svg%3E")}
+/* Boutique → Services (#0D0D1A) — transition la plus visible */
+.boutique::after{height:120px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath fill='%230D0D1A' d='M0,80 C200,20 500,110 800,50 C1000,10 1250,100 1440,45 L1440,120 L0,120 Z'/%3E%3C/svg%3E")}
+/* Services → Story (#06060E) */
+.services::after{height:100px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%2306060E' d='M0,30 C180,90 400,5 720,55 C960,95 1200,15 1440,60 L1440,100 L0,100 Z'/%3E%3C/svg%3E")}
+/* Story → Footer (#080808) */
+.story::after{height:80px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='%23080808' d='M0,40 C360,80 720,0 1080,50 C1260,70 1380,20 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E")}
+/* Contenu au-dessus des vagues */
+.motos-s>.wrap,.equip>.wrap,.boutique>.wrap,.services>.wrap,.story>.wrap{position:relative;z-index:1}
 
 /* ── SERVICES ───────────────────────────────── */
 .services{background:var(--bg3)}
