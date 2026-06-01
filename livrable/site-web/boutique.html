@@ -78,7 +78,7 @@
   .add-btn{font-family:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:12px;padding:10px 14px;background:var(--orange);color:#fff;border:0;border-radius:10px;cursor:pointer;transition:background .25s,transform .2s;white-space:nowrap}
   .add-btn:hover{background:#B8933B;transform:scale(1.03)}
 
-  @media(max-width:900px){.shop-layout{grid-template-columns:1fr}.sidebar{display:none}.product-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.shop-layout{grid-template-columns:1fr;gap:24px}.sidebar{display:block}.sidebar .sidebar-section:first-child{display:none}.sidebar-section h4{font-size:11px;margin-bottom:8px}.price-range{display:flex;flex-direction:row;align-items:center;gap:14px}.price-range input[type=range]{flex:1}.product-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:540px){
     .product-grid{grid-template-columns:repeat(2,1fr);gap:12px}
     .product-img{height:155px}

@@ -4,6 +4,16 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-01 · Session design + audit — corrections majeures
+
+- **Audit Road Spirit** : 7 critiques (C1-C7) + 8 élevés résolus. SQL sécurité exécuté par Mathis.
+- **Performance homepage** : Lenis, VanillaTilt et canvas supprimés → gains CPU significatifs.
+- **Design organique** : vagues SVG entre sections, border-radius partout, curseur natif.
+- **Glow or** sur tous les gros titres (homepage, pages secondaires, app).
+- **Hero Bonneville T100** : remplace Unsplash/Speed Triple, image officielle Triumph CDN MY26.
+- **Responsive** : filtre prix boutique visible sur mobile, `--muted` → #9A98A4 (WCAG AA).
+- **Reste pour Mathis** : exécuter SUPABASE-IMPORT-PRODUITS.sql, Formspree ID, Stripe URL, rôle admin.
+
 ## À FAIRE — Prochaine session (priorités)
 
 0. **Mathis : exécuter `interne/SUPABASE-SECURITE.sql`** (CRITIQUE, RGPD) — active la RLS sur commandes/réservations/profils (sinon données clients lisibles par tous), crée la table `profiles` + trigger, réserve la suppression catalogue aux admins. Puis se donner le rôle admin (requête en bas du fichier).
