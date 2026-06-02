@@ -4,6 +4,40 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-02 · Gestion d'équipe (3 rôles) — construit, à déployer demain (Mac)
+
+- **Demande Mathis :** que le patron (futur repreneur) gère ses employés depuis l'app, sans toucher Supabase, et que ça fasse pro. 3 rôles : **admin** (tous accès), **vendeur**, **atelier** (accès Vendeur/Atelier à détailler plus tard ; pour l'instant seul admin a tout).
+- **Construit (non encore déployé) :**
+  - `interne/SUPABASE-EQUIPE.sql` — migre rôles staff→3 rôles (CHECK `admin/vendeur/atelier`), ajoute colonnes `email`+`actif` sur profiles, trigger qui remplit email+rôle depuis metadata, **`is_admin()`** (SECURITY DEFINER, non récursif), RPC **`admin_set_role`** + **`admin_set_active`** (admin only), Mathis=admin.
+  - `supabase/functions/create-employee/index.ts` — **Edge Function** : crée le compte employé avec la clé service_role (jamais côté navigateur), après avoir vérifié que l'appelant est admin. Répond toujours en 200 `{ok}`/`{error}`. Clés auto-fournies par Supabase (rien à configurer).
+  - `interne/app.html` — page **Équipe** câblée : liste (nom/email/rôle badge/statut), **+ Ajouter un employé** (modale → `db.functions.invoke('create-employee')`), bouton **Rôle** (modale → `admin_set_role`), **Désactiver/Réactiver** (`admin_set_active`). Helpers `roleLabel`/`roleBadge`. Affichage du rôle connecté corrigé (plus de « Staff » figé).
+  - `interne/GUIDE-EQUIPE.md` — pas-à-pas déploiement.
+- **À FAIRE DEMAIN (Mac) :** 1) exécuter `SUPABASE-EQUIPE.sql` (SQL Editor). 2) déployer la fonction (`supabase functions deploy create-employee`, ou via dashboard Edge Functions). 3) tester dans l'app : Équipe → Ajouter un employé. **Tant que la fonction n'est pas déployée, le bouton « Ajouter » renverra une erreur (normal).** Le changement de rôle/désactivation marche dès le SQL passé.
+- **Note :** crée le compte avec un mot de passe temporaire (pas d'email/SMTP requis) → simple pour la démo. Invitation par email = amélioration possible plus tard.
+
+## 2026-06-02 · Correctifs visuels accueil + effets (post-mise en ligne)
+
+- **Bug « couleurs catastrophe » → VRAIE CAUSE = extension Dark Reader de Mathis** (mode sombre navigateur). Elle repeint tout en normal, est coupée en privé → « parfait en privé, cassé en normal ». Le site est en fait correct pour les visiteurs. **Leçon notée dans `context.md` : bug couleur/rendu signalé par Mathis → tester en navigation privée AVANT de toucher au code.** (J'avais d'abord diagnostiqué à tort des « liens visités » et ajouté un fix `:visited` dans `shared.css` — inoffensif, bonne pratique, laissé en place, mais ce n'était pas la cause.)
+- **Effet qui scintille tout autour de l'accueil** = le `.grain` (bruit animé plein écran, `steps(3)` toutes les .4s), présent uniquement sur `index.html`. Remplacé par une **lumière d'ambiance** : 2 halos dorés flous (`.grain::before/::after`, `mix-blend-mode:screen`) qui dérivent lentement (24s/30s). Lent + doux = premium, fini le clignotement.
+- **Glow titre « est à vous »** : halo doré qui pulse (`@keyframes heroGlow` 3.4s) — halo resserré pour épouser **chaque lettre** (au lieu d'une bande rectangulaire causée par le `overflow:hidden` du reveal qui rognait un gros halo). Coupe retirée après le reveal via `.set('.hero h1 .ln',{overflow:'visible'},1.7)` dans la timeline GSAP. Accent du « à » qui dépassait/poppait → corrigé en démarrant le reveal plus bas (`.ln-i` translateY 110%→**135%**) + marge haute sur la 2e ligne (`.ln+.ln{padding-top:.3em;margin-top:-.3em}`).
+- **Tous les effets respectent `prefers-reduced-motion`.** Validé par Mathis (« parfait »). **Reste : redéployer** (Netlify → onglet Deploys → glisser `site-web` → `Ctrl+Maj+R`) pour pousser couleurs+lumière+glow en ligne. Pas encore commité sur GitHub.
+
+## 2026-06-02 · Site Road Spirit MIS EN LIGNE (Netlify)
+
+- **Mise en ligne réussie** via **Netlify Drop** (glisser-déposer du dossier `livrable/site-web`). URL provisoire : **https://sweet-dolphin-a1414f.netlify.app** (nom aléatoire à renommer via Site configuration → Change site name, ex. `road-spirit`).
+- **Vérifié par moi (curl)** : home 200 (titre OK, 74 Ko), `shared.css` / `catalogue-data.js` / `catalogue-supabase.js` / `boutique.html` / `produit.html` / `interne/app.html` → tous 200. Site complet et fonctionnel, HTTPS gratuit. App interne accessible à `/interne/app.html` (protégée par login Supabase).
+- **Choix Netlify vs Vercel** : Netlify retenu (site 100% statique + débutant → Netlify Drop imbattable ; Vercel plus orienté frameworks).
+- **À nettoyer (optionnel, non bloquant)** : les fichiers `interne/*.sql` sont servis publiquement (pas de secret dedans, clé déjà publique, mais négligé) → exclure via un `netlify.toml` ou en ne déployant pas le dossier interne plus tard.
+- **Reste** : renommer l'URL Netlify, (plus tard) nom de domaine perso, paiement Stripe réel. Fichier `SUPABASE-FIX-PROFILES.sql` + ces notes pas encore poussés sur GitHub.
+
+## 2026-06-02 · Vérif sécurité Supabase avant mise en ligne
+
+- **Contexte :** Mathis demande s'il peut mettre le site en ligne sans nom de domaine (oui — Netlify/Vercel/GitHub Pages donnent une URL gratuite en HTTPS) et affirme avoir exécuté le SQL sécurité. Demande de vérifier.
+- **Test API anonyme** (clé publishable, comme un visiteur) sur `/rest/v1/` : `produits` → 200 + données (normal, catalogue public) ; `commandes` → `[]` ; `reservations` → `[]` → **RLS bien active, fuite RGPD fermée**. `profiles` → **HTTP 500 `42P17` infinite recursion detected in policy**.
+- **Diagnostic :** la policy `profiles` du fichier actuel est saine (`using(true)`), le diff du pull ne la touche pas → la récursion vient d'une **ancienne policy auto-référente laissée dans la base** lors d'une exécution antérieure. Impact réel : `app.html:832` lit `profiles` au login → 500 → rôle vu comme « Staff », section admin masquée, et `produits delete admin` (qui relit profiles) cassé. Boutique publique non affectée.
+- **Livré + exécuté par Mathis le 2026-06-02 :** `interne/SUPABASE-FIX-PROFILES.sql` — boucle sur `pg_policies` pour drop **toutes** les policies de `profiles` (attrape la fautive quel que soit son nom), réactive la RLS, recrée une seule lecture `to authenticated using(true)`. **Re-test après exécution : `profiles` passe de 500 → `200 + []`. Résolu.**
+- **Note :** paiement toujours simulé (pas de Stripe réel) → OK pour démo, pas pour vente réelle.
+
 ## 2026-06-01 · Session design + audit — corrections majeures
 
 - **Audit Road Spirit** : 7 critiques (C1-C7) + 8 élevés résolus. SQL sécurité exécuté par Mathis.
@@ -17,7 +51,7 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ## À FAIRE — Prochaine session (priorités)
 
-0. **Mathis : exécuter `interne/SUPABASE-SECURITE.sql`** (CRITIQUE, RGPD) — active la RLS sur commandes/réservations/profils (sinon données clients lisibles par tous), crée la table `profiles` + trigger, réserve la suppression catalogue aux admins. Puis se donner le rôle admin (requête en bas du fichier).
+0. ✅ FAIT + vérifié le 2026-06-02 — `SUPABASE-SECURITE.sql` exécuté (RLS OK : `commandes`/`reservations` → `[]` en anonyme, RGPD fermé) ET `SUPABASE-FIX-PROFILES.sql` exécuté → `profiles` ne renvoie plus 500, passe à `200 + []`. Récursion résolue, rôle admin de nouveau reconnu. **Rôle admin attribué le 2026-06-02** (upsert sur profiles avec son UID d70e86f5… → `role=admin` confirmé). Base 100% saine : RGPD OK + profiles OK + Mathis admin.
 0b. **Mathis : exécuter `interne/SUPABASE-FIX-IMAGES.sql`** sur la base existante → met les vraies photos (79 produits) sans réimporter.
 0c. **7 images restantes** à récupérer après reset WebFetch (21:20) : bottes-tech-7-enduro, gants-peak, t-shirt-melrose-noir, t-shirt-gwynned-blanc, t-shirt-maria-speedmaster, beck-2-wax-cotton-veste-noir, veste-ciree-triumph-beck.
 1. **Mathis : créer un compte vendeur** dans Supabase (Authentication → Users → Add user, cocher Auto Confirm) → identifiants pour se connecter à l'app interne (requis pour ajouter produits + uploader photos).

@@ -106,8 +106,13 @@ body{color:var(--cream)}
 
 
 /* GRAIN + PROGRESS */
-.grain{position:fixed;inset:0;z-index:9995;pointer-events:none;opacity:.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .4s steps(3) infinite}
-@keyframes gr{0%,100%{transform:translate(0,0)}33%{transform:translate(-2%,-2%)}66%{transform:translate(2%,-4%)}}
+/* Lumière d'ambiance : deux halos dorés flous qui dérivent lentement (remplace l'ancien grain) */
+.grain{position:fixed;inset:0;z-index:900;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.grain::before,.grain::after{content:"";position:absolute;width:65vmax;height:65vmax;border-radius:50%;filter:blur(60px);will-change:transform}
+.grain::before{top:-25%;left:-15%;background:radial-gradient(circle,rgba(212,168,83,.12),transparent 62%);animation:amb1 24s ease-in-out infinite}
+.grain::after{bottom:-30%;right:-15%;background:radial-gradient(circle,rgba(212,168,83,.08),transparent 62%);animation:amb2 30s ease-in-out infinite}
+@keyframes amb1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(22vw,16vh) scale(1.25)}}
+@keyframes amb2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-20vw,-14vh) scale(1.2)}}
 #prog{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--gold3),var(--gold));z-index:9990;width:0;pointer-events:none;box-shadow:0 0 6px var(--gold)}
 
 /* UTILS homepage-specific */
@@ -155,8 +160,11 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
 .h-label-line{width:32px;height:1px;background:var(--gold)}
 .hero h1{font-family:var(--head);font-weight:400;line-height:.83;font-size:clamp(84px,15.5vw,228px);letter-spacing:.01em;text-transform:uppercase;text-shadow:0 12px 60px rgba(0,0,0,.55)}
 .hero h1 .ln{display:block;overflow:hidden}
-.hero h1 .ln-i{display:block;transform:translateY(110%)}
-.hero h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 48px rgba(212,168,83,.45),0 0 14px rgba(212,168,83,.3)}
+/* marge haute pour la 2e ligne : l'accent du « à » dépasse → on lui laisse la place dans le cadre (monte en douceur, pas de pop). margin négatif = aucun décalage visuel */
+.hero h1 .ln + .ln{padding-top:.3em;margin-top:-.3em}
+.hero h1 .ln-i{display:block;transform:translateY(135%)}
+.hero h1 em{font-style:normal;color:var(--gold);text-shadow:0 0 6px rgba(212,168,83,.5),0 0 14px rgba(212,168,83,.32);animation:heroGlow 3.4s ease-in-out infinite}
+@keyframes heroGlow{0%,100%{text-shadow:0 0 6px rgba(212,168,83,.45),0 0 14px rgba(212,168,83,.28)}50%{text-shadow:0 0 11px rgba(212,168,83,.8),0 0 20px rgba(212,168,83,.5),0 0 3px rgba(255,236,184,.65)}}
 .h-sub{font-family:var(--sub);font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(212,168,83,.8);font-size:clamp(13px,1.2vw,17px);margin-top:18px;opacity:0}
 .h-cta{display:flex;gap:14px;margin-top:44px;flex-wrap:wrap;opacity:0;transform:translateY(16px)}
 .h-scroll{position:absolute;right:52px;bottom:52px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0}
@@ -252,7 +260,7 @@ h2.stitle{font-family:var(--head);font-weight:400;font-size:clamp(52px,8vw,116px
   50%  {transform:translateX( 16px) scaleX(.92);opacity:.5}
   100% {transform:translateX(-16px) scaleX(.92);opacity:.75}
 }
-@media (prefers-reduced-motion:reduce){.eq-photo-i,.eq-vis::after{animation:none}}
+@media (prefers-reduced-motion:reduce){.eq-photo-i,.eq-vis::after,.hero h1 em,.grain::before,.grain::after{animation:none}}
 /* corner brackets */
 .eq-corner{position:absolute;z-index:3;width:16px;height:16px;border-color:var(--gold);border-style:solid;border-width:0;transition:width .4s var(--ease),height .4s var(--ease)}
 .eq-vis:hover .eq-corner{width:24px;height:24px}
@@ -944,7 +952,9 @@ function heroIn() {
     .to('#h-sub',   { opacity: 1,          duration: 0.8, ease: 'power2.out' }, 0.85)
     .to('#h-cta',   { opacity: 1, y: 0,    duration: 0.8, ease: 'power3.out' }, 1.0)
     .to('#h-chips', { opacity: 1,          duration: 0.7, ease: 'power2.out' }, 1.15)
-    .to('#h-scroll',{ opacity: 1,          duration: 0.5 }, 1.4);
+    .to('#h-scroll',{ opacity: 1,          duration: 0.5 }, 1.4)
+    /* fin du reveal : on enlève la coupe pour que le glow épouse chaque lettre (plus de bande rectangulaire) */
+    .set('.hero h1 .ln', { overflow: 'visible' }, 1.7);
 }
 
 /* Profondeur 3D : la moto réagit à la souris + léger flottement continu */

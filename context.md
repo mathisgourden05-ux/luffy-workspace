@@ -53,8 +53,9 @@ Ce que Luffy sait de Mathis et qui reste vrai dans le temps. Mis à jour au fil 
 
 - **GitHub :** pseudo `mathisgourden05-ux` (nom d'affichage « Akalix »). Workspace versionné et poussé sur https://github.com/mathisgourden05-ux/luffy-workspace (dépôt privé, branche `main`). `gh` CLI pas installé.
 - **Multi-machines :** travaille sur PC + Mac → sync via GitHub. `.env` n'est jamais versionné (à recréer à la main sur chaque machine via `.env.example`).
+- **⚠️ Navigateur — extension Dark Reader (mode sombre) active.** Elle repeint les couleurs des sites en navigation NORMALE, mais est coupée en navigation privée. → **Si Mathis signale un bug de couleurs / de rendu sur un site : faire d'abord ouvrir en navigation privée. Si c'est parfait en privé mais cassé en normal = c'est l'extension, PAS le code.** (S'est produit le 2026-06-02 sur le site Road Spirit : 45 min perdues à corriger un faux bug « liens visités » avant d'identifier Dark Reader.)
 - *(à compléter au fil des échanges : budget, nom définitif de l'assistant, réseau choisi pour le contenu…)*
 
 ---
 
-*Dernière mise à jour : 2026-05-30*
+*Dernière mise à jour : 2026-06-02*

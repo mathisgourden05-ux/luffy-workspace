@@ -199,6 +199,13 @@ a { color: inherit; text-decoration: none; }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
+/* ── Fix : liens déjà visités → garder les couleurs du site
+   (sinon le navigateur les repasse en bleu/violet par défaut) ── */
+a:visited { color: inherit; }
+.brand:visited { color: var(--gold); }
+.nav-links a:visited { color: rgba(242,238,232,.55); }
+.nav-links a.active:visited { color: var(--ink); }
+
 /* Hamburger */
 .hamburger {
   display: none;
