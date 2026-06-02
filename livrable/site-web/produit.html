@@ -224,13 +224,6 @@
           <ul class="features-list" id="featuresList"></ul>
         </div>
 
-        <!-- LIEN OFFICIEL -->
-        <div class="external-link-row reveal">
-          <a id="officialLink" href="#" target="_blank" rel="noopener">
-            Voir sur roadspirit.fr
-            <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </a>
-        </div>
       </div>
 
     </div>
@@ -610,8 +603,6 @@ function renderProduct(p){
   }
 
   // lien officiel
-  var offLink=document.getElementById('officialLink');
-  if(offLink&&p.url)offLink.href=p.url;
 
   // CTA add to cart
   var btnCart=document.getElementById('btnAddCart');
