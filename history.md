@@ -4,6 +4,14 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-02 · Portfolio Digital Project — mis en ligne
+
+- **URL portfolio :** https://digit-project.netlify.app
+- **Construit :** site one-page (Nunito 900, dark theme violet+orange, GSAP split-text, dot-grid hero animé, cartes services redesignées avec visuels CSS, section projets dual mockup site+app, compteurs, scroll reveals).
+- **Road Spirit redéployé** avec démo automatique (plus de login) + section Équipe supprimée.
+- **Lien App démo** sur la carte Road Spirit du portfolio → `/interne/app.html`.
+- **À faire :** brancher Formspree (remplacer `XXXXXXXX` dans le formulaire contact).
+
 ## 2026-06-02 · Projet Road Spirit — clôture définitive
 
 - **Décision de Mathis :** ne vendra pas le site (contraintes hors de son contrôle). Projet archivé comme **pièce de portfolio** + base de référence pour les prochains sites du même type (aller plus vite la prochaine fois).
