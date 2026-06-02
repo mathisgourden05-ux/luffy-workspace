@@ -328,10 +328,6 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
           Équipe
         </div>
-        <div class="nav-item" data-page="maintenance">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          Maintenance
-        </div>
       </div>
     </nav>
     <div class="sidebar-footer">
@@ -557,21 +553,6 @@ tbody tr:hover{background:rgba(255,255,255,.02)}
     </div>
 
     <!-- ─── ÉQUIPE (admin only) ────────────── -->
-    <!-- ─── MAINTENANCE ────────────────────── -->
-    <div class="page" id="page-maintenance">
-      <div class="main-header">
-        <div><h1>Maintenance</h1><p class="sub">Outils d'administration</p></div>
-      </div>
-      <div class="main-body">
-        <div class="table-wrap" style="padding:24px;max-width:560px">
-          <h2 style="font-family:var(--sub);font-size:18px;font-weight:700;margin-bottom:8px;color:var(--ink)">Migration des images</h2>
-          <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6">Transfère toutes les photos du catalogue vers ton stockage Supabase. À faire une seule fois. Après ça, le site ne dépend plus du tout de roadspirit.fr.</p>
-          <div id="migrate-status" style="display:none;padding:14px 16px;border-radius:8px;margin-bottom:16px;font-size:13px;line-height:1.6"></div>
-          <button class="btn-primary" id="btn-migrate-images" style="min-width:220px">Migrer les images (1 clic)</button>
-        </div>
-      </div>
-    </div>
-
     <div class="page" id="page-staff">
       <div class="main-header">
         <div><h1>Équipe</h1><p class="sub">Gestion des accès</p></div>
@@ -1678,48 +1659,6 @@ on('btn-save-employe','click', async()=>{
     toast('Employé créé'); closeModal('modal-employe'); loadStaff();
   }catch(e){ toast('Erreur : '+e.message,'error'); }
   finally{ btn.disabled=false; btn.textContent='Créer le compte'; }
-});
-
-// ══════════════════════════════════════════════════════════
-//  MIGRATION IMAGES
-// ══════════════════════════════════════════════════════════
-on('btn-migrate-images','click', async()=>{
-  if(isDemoMode){ toast('Action indisponible en démo'); return; }
-  const btn    = el('btn-migrate-images');
-  const status = el('migrate-status');
-  btn.disabled = true; btn.textContent = 'Migration en cours…';
-  status.style.display = 'block';
-  status.style.background = 'rgba(201,168,76,.08)';
-  status.style.border = '1px solid rgba(201,168,76,.25)';
-  status.style.color = 'var(--ink)';
-  status.textContent = 'Téléchargement et upload des photos… cela peut prendre 1-2 minutes.';
-  try {
-    const { data, error } = await db.functions.invoke('migrate-images', { body: {} });
-    if(error) throw new Error(error.message);
-    if(data && data.error) throw new Error(data.error);
-    const d = data || {};
-    if(d.message === 'Rien à migrer'){
-      status.style.background = 'rgba(39,174,96,.08)';
-      status.style.border = '1px solid rgba(39,174,96,.3)';
-      status.innerHTML = '✓ Toutes les images sont déjà dans Supabase.';
-    } else {
-      const errHtml = d.errors && d.errors.length
-        ? `<br><span style="color:var(--muted);font-size:12px">Erreurs (${d.errors.length}) : ${d.errors.slice(0,5).join(', ')}${d.errors.length>5?' …':''}</span>`
-        : '';
-      status.style.background = 'rgba(39,174,96,.08)';
-      status.style.border = '1px solid rgba(39,174,96,.3)';
-      status.innerHTML = `✓ Migration terminée — ${d.migrated} photo(s) transférée(s), ${d.skipped} ignorée(s).${errHtml}`;
-      toast('Migration réussie !');
-    }
-  } catch(e) {
-    status.style.background = 'rgba(192,57,43,.08)';
-    status.style.border = '1px solid rgba(192,57,43,.3)';
-    status.style.color = '#e74c3c';
-    status.textContent = 'Erreur : ' + e.message;
-    toast('Erreur migration','error');
-  } finally {
-    btn.disabled = false; btn.textContent = 'Migrer les images (1 clic)';
-  }
 });
 
 // ══════════════════════════════════════════════════════════
