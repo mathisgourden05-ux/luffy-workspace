@@ -4,6 +4,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-02 · Projet Road Spirit — clôture définitive
+
+- **Décision de Mathis :** ne vendra pas le site (contraintes hors de son contrôle). Projet archivé comme **pièce de portfolio** + base de référence pour les prochains sites du même type (aller plus vite la prochaine fois).
+- **URL finale :** https://road-spirit.netlify.app (site public) + `/interne/app.html` (app interne).
+- **Livrable complet :** site public (boutique Supabase, catalogue 150 produits, pages moto/équipement/services/contact, PWA), app interne (gestion produits + photos, commandes, réservations, équipe 3 rôles), sécurité RGPD OK.
+- **Ce projet a servi de template A→Z :** setup Supabase, RLS, Storage, Edge Functions, Netlify, app interne admin, catalogue dynamique. Réutilisable pour tout futur client concession/boutique.
+
 ## 2026-06-02 · Gestion d'équipe (3 rôles) — construit, à déployer demain (Mac)
 
 - **Demande Mathis :** que le patron (futur repreneur) gère ses employés depuis l'app, sans toucher Supabase, et que ça fasse pro. 3 rôles : **admin** (tous accès), **vendeur**, **atelier** (accès Vendeur/Atelier à détailler plus tard ; pour l'instant seul admin a tout).
@@ -48,6 +55,7 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - **Responsive** : filtre prix boutique visible sur mobile, `--muted` → #9A98A4 (WCAG AA).
 - **Reste pour Mathis** : exécuter SUPABASE-IMPORT-PRODUITS.sql, Stripe URL, rôle admin.
 - **À faire à la livraison client** : changer l'email Formspree (formspree.io → formulaire Road Spirit → Settings → mettre l'email du client à la place du tien).
+- **Vercel à faire** : vercel.com → Sign Up avec GitHub (mathisgourden05-ux) → Add New Project → repo luffy-workspace → Root Directory = `livrable/site-web` → Framework = Other → Deploy. Donne une URL publique pour montrer le site au client.
 
 ## À FAIRE — Prochaine session (priorités)
 
