@@ -1,6 +1,6 @@
 ---
 name: bts-mco
-description: Aide complète aux matières du BTS MCO (Management Commercial Opérationnel). Couvre le programme officiel de DRCVC, ADOC, Management, CEJM et Gestion Opérationnelle — fiches, exercices, calculs, cas pratiques, simulations d'épreuves.
+description: Aide complète aux matières du BTS MCO (Management Commercial Opérationnel). Couvre le programme officiel de Management, ADOC, DRCV, CEJM et Gestion Opérationnelle — fiches, exercices, calculs, cas pratiques, simulations d'épreuves.
 triggers:
   - BTS MCO
   - DRCV
@@ -26,25 +26,28 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 
 ---
 
-## Matière 1 — DRCVC (Développement de la Relation Client et Vente Conseil)
+## Matière 1 — Management de l'Équipe Commerciale
 
 ### Programme officiel
-- **Veille et études commerciales** : sources d'information, veille concurrentielle, sondages, panels
-- **Techniques de vente** : méthode CABP (Caractéristiques, Avantages, Bénéfices, Preuves), SPIN selling, traitement des objections, closing
-- **Accueil et communication client** : accueil physique/téléphonique, communication non verbale
-- **Fidélisation** : programme de fidélité, satisfaction client, NPS, gestion des réclamations
-- **Outils CRM** : base de données clients, segmentation RFM
+- **Styles de management** : directif, persuasif, participatif, délégatif (modèle Hersey & Blanchard)
+- **Recrutement** : fiche de poste, annonce, entretien, GPEC (Gestion Prévisionnelle des Emplois et Compétences)
+- **Organisation du travail** : plannings, délégation, répartition des tâches
+- **Animation d'équipe** : motivation (Maslow, Herzberg, théorie des attentes de Vroom), réunion, briefing
+- **Évaluation** : entretien annuel, objectifs SMART, indicateurs individuels
+- **Gestion des conflits** : types de conflits, médiation, techniques de résolution
 
-### Droit applicable (à maîtriser)
-- **Droit de la consommation** : code de la consommation, droit de rétractation (14 jours e-commerce), garanties légales (conformité, vices cachés)
-- **RGPD** : consentement, droit à l'effacement, obligation d'information, durée de conservation des données
-- **Contrat de vente** : formation du contrat (offre + acceptation), conditions générales de vente, clauses abusives
-- **Publicité** : interdiction de la publicité mensongère (L121-1 code conso), promotions réglementées
+### Droit du travail (à maîtriser — incontournable)
+- **Contrats** : CDI, CDD (motifs légaux, durée max, renouvellement), intérim, contrat d'apprentissage
+- **Temps de travail** : durée légale (35h), heures supplémentaires, repos obligatoires
+- **Rémunération** : SMIC, salaire brut/net, charges sociales, bulletin de paie
+- **Rupture du contrat** : démission, licenciement (motif réel et sérieux, procédure), rupture conventionnelle
+- **Représentation du personnel** : CSE (Comité Social et Économique), délégués syndicaux
+- **Discrimination** : critères interdits à l'embauche, harcèlement moral et sexuel
 
 ### Ce qui tombe à l'exam
-- Cas pratique : entretien de vente à reconstituer ou analyser (identifier les étapes)
-- Questions sur le RGPD et la protection des données clients
-- Analyse d'une fiche client / tableau de bord commercial
+- Analyser un cas de licenciement (procédure respectée ou non ?)
+- Choisir le bon type de contrat selon une situation
+- Proposer un plan de motivation adapté à une équipe
 
 ---
 
@@ -69,28 +72,25 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 
 ---
 
-## Matière 3 — Management de l'Équipe Commerciale
+## Matière 3 — DRCV (Développement de la Relation Client et Vente Conseil)
 
 ### Programme officiel
-- **Styles de management** : directif, persuasif, participatif, délégatif (modèle Hersey & Blanchard)
-- **Recrutement** : fiche de poste, annonce, entretien, GPEC (Gestion Prévisionnelle des Emplois et Compétences)
-- **Organisation du travail** : plannings, délégation, répartition des tâches
-- **Animation d'équipe** : motivation (Maslow, Herzberg, théorie des attentes de Vroom), réunion, briefing
-- **Évaluation** : entretien annuel, objectifs SMART, indicateurs individuels
-- **Gestion des conflits** : types de conflits, médiation, techniques de résolution
+- **Veille et études commerciales** : sources d'information, veille concurrentielle, sondages, panels
+- **Techniques de vente** : méthode CABP (Caractéristiques, Avantages, Bénéfices, Preuves), SPIN selling, traitement des objections, closing
+- **Accueil et communication client** : accueil physique/téléphonique, communication non verbale
+- **Fidélisation** : programme de fidélité, satisfaction client, NPS, gestion des réclamations
+- **Outils CRM** : base de données clients, segmentation RFM
 
-### Droit du travail (à maîtriser — incontournable)
-- **Contrats** : CDI, CDD (motifs légaux, durée max, renouvellement), intérim, contrat d'apprentissage
-- **Temps de travail** : durée légale (35h), heures supplémentaires, repos obligatoires
-- **Rémunération** : SMIC, salaire brut/net, charges sociales, bulletin de paie
-- **Rupture du contrat** : démission, licenciement (motif réel et sérieux, procédure), rupture conventionnelle
-- **Représentation du personnel** : CSE (Comité Social et Économique), délégués syndicaux
-- **Discrimination** : critères interdits à l'embauche, harcèlement moral et sexuel
+### Droit applicable (à maîtriser)
+- **Droit de la consommation** : code de la consommation, droit de rétractation (14 jours e-commerce), garanties légales (conformité, vices cachés)
+- **RGPD** : consentement, droit à l'effacement, obligation d'information, durée de conservation des données
+- **Contrat de vente** : formation du contrat (offre + acceptation), conditions générales de vente, clauses abusives
+- **Publicité** : interdiction de la publicité mensongère (L121-1 code conso), promotions réglementées
 
 ### Ce qui tombe à l'exam
-- Analyser un cas de licenciement (procédure respectée ou non ?)
-- Choisir le bon type de contrat selon une situation
-- Proposer un plan de motivation adapté à une équipe
+- Cas pratique : entretien de vente à reconstituer ou analyser (identifier les étapes)
+- Questions sur le RGPD et la protection des données clients
+- Analyse d'une fiche client / tableau de bord commercial
 
 ---
 

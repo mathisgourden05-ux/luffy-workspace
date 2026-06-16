@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#E43133">
+<link rel="icon" href="logo-charlemagne.png">
+<title>Librairies Charlemagne — Vos librairies indépendantes dans le Var</title>
+<meta name="description" content="6 librairies indépendantes dans le Var depuis 1927 : livres, BD, mangas, jeux & jouets, papeterie, beaux-arts. Toulon, La Valette, La Seyne, Six-Fours, Hyères, Fréjus. Coups de cœur, agenda, carte fidélité.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   LIBRAIRIES CHARLEMAGNE — pop coloré contemporain
+   ═══════════════════════════════════════════ */
+:root{
+  --paper:#FBF4E6;
+  --paper2:#F4E9D2;
+  --paper3:#EFE0C4;
+  --ink:#1A140C;
+  --ink2:#5A4F40;
+  --red:#E43133;
+  --red-dk:#C8242A;
+  --yellow:#FFC73A;
+  --pink:#E43133;
+  --blue:#2F62F0;
+  --green:#15B488;
+  --coral:#FF6A3A;
+  --lilac:#9A8BFF;
+  --ff-d:'Bricolage Grotesque',system-ui,sans-serif;
+  --ff-b:'Hanken Grotesk',system-ui,sans-serif;
+  --ff-s:'Fraunces',Georgia,serif;
+  --nav-h:74px;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+  --ease2:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--ff-b);font-size:16px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+ul{list-style:none;}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:4px;}
+button,a{min-height:44px;}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}
+}
+
+/* paper grain over everything */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+
+/* ── utils ── */
+.wrap{max-width:1240px;margin:0 auto;padding:0 40px;}
+@media(max-width:760px){.wrap{padding:0 22px;}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--ff-d);font-size:13px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink);
+  background:var(--yellow);padding:6px 14px;border:2.5px solid var(--ink);
+  border-radius:40px;box-shadow:3px 3px 0 var(--ink);
+}
+.section-title{
+  font-family:var(--ff-d);font-weight:800;
+  font-size:clamp(2.1rem,5vw,3.7rem);line-height:1;letter-spacing:-.03em;
+}
+.hl{position:relative;white-space:nowrap;z-index:0;}
+.hl::before{
+  content:'';position:absolute;z-index:-1;left:-.08em;right:-.08em;bottom:.04em;height:.42em;
+  border-radius:40px;transform:rotate(-1.4deg);
+}
+.hl.y::before{background:var(--yellow);}
+.hl.p::before{background:var(--pink);}
+.hl.b::before{background:var(--blue);}
+.hl.g::before{background:var(--green);}
+.hl.c::before{background:var(--coral);}
+.hl.b::before,.hl.p::before,.hl.c::before{opacity:.55;}
+
+/* ── buttons ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--ff-d);font-weight:700;font-size:15px;letter-spacing:-.01em;
+  padding:13px 26px;border-radius:40px;cursor:pointer;
+  border:2.5px solid var(--ink);transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.btn-fill{background:var(--red);color:#fff;box-shadow:4px 4px 0 var(--ink);}
+.btn-fill:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.btn-ghost{background:var(--paper);color:var(--ink);box-shadow:4px 4px 0 var(--ink);}
+.btn-ghost:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.btn:active{transform:translate(1px,1px)!important;box-shadow:2px 2px 0 var(--ink)!important;}
+.btn-sm{padding:9px 18px;font-size:13px;box-shadow:3px 3px 0 var(--ink);}
+
+/* sparkle deco */
+.spark{display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-22px) rotate(calc(var(--r,0deg) + 6deg));}}
+@keyframes floaty2{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(18px) rotate(calc(var(--r,0deg) - 7deg));}}
+@keyframes wob{0%,100%{transform:rotate(var(--r,0deg));}50%{transform:rotate(calc(var(--r,0deg) + 4deg));}}
+
+/* ═══════════ NAV ═══════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);
+  background:var(--paper);border-bottom:2.5px solid transparent;
+  transition:border-color .3s,box-shadow .3s;
+}
+.nav.scrolled{border-bottom-color:var(--ink);box-shadow:0 4px 0 -1px rgba(26,20,12,.08);}
+.nav-in{max-width:1240px;margin:0 auto;padding:0 40px;height:100%;display:flex;align-items:center;gap:26px;}
+@media(max-width:760px){.nav-in{padding:0 22px;}}
+.logo{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+.logo-img{height:38px;width:auto;display:block;border:2.5px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink);transition:transform .25s var(--ease);}
+.logo:hover .logo-img{transform:rotate(-2deg) scale(1.04);}
+.logo-img-ft{height:50px;width:auto;display:block;border:2.5px solid var(--paper);border-radius:8px;}
+@media(max-width:760px){.logo-img{height:33px;}}
+.logo-mark{
+  width:42px;height:42px;background:var(--blue);border:2.5px solid var(--ink);border-radius:12px;
+  display:grid;place-items:center;color:var(--paper);
+  font-family:var(--ff-d);font-size:22px;font-weight:800;flex-shrink:0;
+  box-shadow:2.5px 2.5px 0 var(--ink);transform:rotate(-4deg);transition:transform .25s var(--ease);
+}
+.logo:hover .logo-mark{transform:rotate(4deg) scale(1.06);}
+.logo-txt{display:flex;flex-direction:column;line-height:1.05;}
+.logo-name{font-family:var(--ff-d);font-size:18px;font-weight:800;letter-spacing:-.02em;}
+.logo-sub{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);}
+.nav-menu{display:flex;align-items:center;gap:3px;flex:1;}
+.nav-menu a{font-family:var(--ff-d);font-size:14.5px;font-weight:600;padding:8px 13px;border-radius:30px;color:var(--ink);transition:background .2s,color .2s;min-height:auto;display:inline-flex;align-items:center;}
+.nav-menu a:hover{background:var(--ink);color:var(--paper);}
+.nav-menu .pro a{background:var(--pink);border:2px solid var(--ink);color:var(--ink);}
+.nav-menu .pro a:hover{background:var(--ink);color:var(--paper);}
+.nav-ic{display:flex;gap:4px;}
+.ni{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:transparent;border:2px solid transparent;color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s;}
+.ni:hover{background:var(--yellow);border-color:var(--ink);}
+.ni-cart{position:relative;}
+.ni-dot{position:absolute;top:6px;right:6px;width:16px;height:16px;border-radius:50%;background:var(--coral);border:2px solid var(--paper);font-size:9px;font-weight:800;color:var(--paper);display:grid;place-items:center;font-family:var(--ff-d);}
+.burger{display:none;}
+@media(max-width:960px){.nav-menu{display:none;}.burger{display:grid;}}
+
+/* ═══════════ HERO ═══════════ */
+.hero{position:relative;padding:calc(var(--nav-h) + 54px) 0 70px;overflow:hidden;}
+.hero-shapes{position:absolute;inset:0;pointer-events:none;z-index:0;}
+.shape{position:absolute;will-change:transform;}
+.sh-circle{width:120px;height:120px;border-radius:50%;}
+.sh-ring{border-radius:50%;background:transparent;}
+.sh-blob{border-radius:64% 36% 54% 46%/52% 44% 56% 48%;}
+.star{display:block;}
+.s1{top:9%;left:5%;width:90px;height:90px;background:var(--yellow);border:2.5px solid var(--ink);--r:-8deg;animation:floaty 7s ease-in-out infinite;}
+.s2{top:62%;left:3%;width:74px;height:74px;border:2.5px solid var(--ink);border-radius:50%;background:var(--green);--r:6deg;animation:floaty2 8s ease-in-out infinite;}
+.s3{top:14%;right:6%;width:140px;height:140px;--r:10deg;animation:floaty 9s ease-in-out infinite .4s;}
+.s4{bottom:8%;right:9%;width:88px;height:88px;background:var(--pink);border:2.5px solid var(--ink);border-radius:64% 36% 54% 46%/52% 44% 56% 48%;--r:-6deg;animation:floaty2 7.5s ease-in-out infinite;}
+.s5{top:46%;right:2%;width:50px;height:50px;background:var(--coral);border:2.5px solid var(--ink);border-radius:50%;--r:0deg;animation:floaty 6s ease-in-out infinite;}
+.hero-in{position:relative;z-index:2;max-width:1240px;margin:0 auto;padding:0 40px;}
+@media(max-width:760px){.hero-in{padding:0 22px;}}
+.hero-eyebrow{margin-bottom:26px;}
+.hero h1{
+  font-family:var(--ff-d);font-weight:800;
+  font-size:clamp(3.4rem,12vw,9rem);line-height:.9;letter-spacing:-.045em;
+  margin-bottom:28px;
+}
+.hero h1 .ln{display:block;overflow:hidden;}
+.hero h1 .ln-i{display:inline-block;}
+.hero-sub{
+  font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink2);max-width:560px;
+  line-height:1.55;margin-bottom:34px;font-weight:500;
+}
+.hero-sub b{color:var(--ink);font-weight:700;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px;}
+.hero-stickers{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.sticker{
+  font-family:var(--ff-d);font-weight:700;font-size:13px;
+  padding:8px 15px;border:2.5px solid var(--ink);border-radius:40px;
+  display:inline-flex;align-items:center;gap:7px;background:var(--paper);
+  box-shadow:3px 3px 0 var(--ink);transition:transform .2s var(--ease);
+}
+.sticker:nth-child(1){transform:rotate(-3deg);}
+.sticker:nth-child(2){transform:rotate(2deg);background:var(--lilac);}
+.sticker:nth-child(3){transform:rotate(-2deg);}
+.sticker:hover{transform:rotate(0) scale(1.05);}
+.sticker .dot{width:9px;height:9px;border-radius:50%;}
+
+/* ═══════════ MARQUEE ═══════════ */
+.marquee{
+  background:var(--red);color:#fff;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  padding:16px 0;overflow:hidden;white-space:nowrap;
+}
+.mq-track{display:inline-flex;gap:30px;align-items:center;animation:mq 28s linear infinite;}
+.marquee:hover .mq-track{animation-play-state:paused;}
+@keyframes mq{to{transform:translateX(-50%);}}
+.mq-item{font-family:var(--ff-d);font-weight:700;font-size:22px;letter-spacing:.01em;display:inline-flex;align-items:center;gap:30px;}
+.mq-item .star-y{color:var(--yellow);}
+
+/* ═══════════ SECTION SHELL ═══════════ */
+.sec{padding:92px 0;position:relative;}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:46px;}
+.sec-head .lead{max-width:540px;}
+.sec-sub{font-size:1.02rem;color:var(--ink2);margin-top:14px;line-height:1.55;font-weight:500;}
+
+/* ═══════════ UNIVERS (catégories) ═══════════ */
+.s-univ{background:var(--paper2);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);}
+.univ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:900px){.univ-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:560px){.univ-grid{grid-template-columns:1fr;}}
+.univ{
+  position:relative;border:3px solid var(--ink);border-radius:24px;padding:26px 24px 22px;
+  background:var(--paper);box-shadow:5px 5px 0 var(--ink);cursor:pointer;overflow:hidden;
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+  display:flex;flex-direction:column;gap:14px;min-height:230px;
+}
+.univ:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.univ-ic{width:54px;height:54px;border:2.5px solid var(--ink);border-radius:14px;display:grid;place-items:center;color:var(--ink);flex-shrink:0;box-shadow:2.5px 2.5px 0 var(--ink);}
+.univ-name{font-family:var(--ff-d);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;line-height:1;}
+.univ-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+.univ-list span{font-size:12px;font-weight:600;color:var(--ink);background:var(--paper2);border:1.5px solid var(--ink);border-radius:30px;padding:3px 10px;}
+.univ-n{position:absolute;top:14px;right:18px;font-family:var(--ff-d);font-weight:800;font-size:3.2rem;line-height:1;color:var(--ink);opacity:.07;}
+.u-y{background:var(--yellow);}.u-y .univ-ic{background:var(--paper);}
+.u-p{background:var(--pink);}.u-p .univ-list span{background:var(--paper);}
+.u-b{background:var(--blue);color:var(--paper);}.u-b .univ-ic{background:var(--paper);color:var(--ink);}.u-b .univ-list span{background:rgba(255,255,255,.16);border-color:var(--paper);color:var(--paper);}.u-b .univ-n{color:var(--paper);opacity:.18;}
+.u-g{background:var(--green);}.u-g .univ-list span{background:var(--paper);}
+.u-c{background:var(--coral);}.u-c .univ-list span{background:var(--paper);}
+.u-l{background:var(--lilac);}.u-l .univ-list span{background:var(--paper);}
+
+/* ═══════════ AGENDA ═══════════ */
+.ag-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.ag-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:540px){.ag-grid{grid-template-columns:1fr;}}
+.ag{
+  border:3px solid var(--ink);border-radius:22px;background:var(--paper);overflow:hidden;cursor:pointer;
+  box-shadow:5px 5px 0 var(--ink);display:flex;flex-direction:column;
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+}
+.ag:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.ag-top{padding:18px 20px;border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.ag-top.t-y{background:var(--yellow);}.ag-top.t-p{background:var(--pink);}.ag-top.t-b{background:var(--blue);color:var(--paper);}.ag-top.t-g{background:var(--green);}
+.ag-date{font-family:var(--ff-d);font-weight:800;line-height:.85;}
+.ag-date .d{font-size:2.6rem;letter-spacing:-.04em;}
+.ag-date .m{font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;}
+.ag-when{font-family:var(--ff-d);font-weight:800;font-size:1.05rem;line-height:1.1;}
+.ag-pill{font-family:var(--ff-d);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:var(--paper);padding:5px 11px;border-radius:30px;white-space:nowrap;}
+.ag-top.t-b .ag-pill{background:var(--paper);color:var(--ink);}
+.ag-body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.ag-title{font-family:var(--ff-d);font-weight:700;font-size:1.18rem;line-height:1.15;letter-spacing:-.01em;}
+.ag-meta{font-size:13px;color:var(--ink2);font-weight:600;display:flex;align-items:flex-start;gap:7px;}
+.ag-meta svg{flex-shrink:0;margin-top:2px;color:var(--coral);}
+.ag-desc{font-size:13.5px;color:var(--ink2);line-height:1.5;}
+.ag-cta{margin-top:auto;font-family:var(--ff-d);font-weight:700;font-size:13.5px;color:var(--ink);display:inline-flex;align-items:center;gap:6px;transition:gap .2s;}
+.ag:hover .ag-cta{gap:11px;}
+
+/* ═══════════ COUP DE CŒUR ═══════════ */
+.s-cdc{background:var(--red);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);color:#fff;position:relative;overflow:hidden;}
+.s-cdc .star-deco{position:absolute;top:40px;right:8%;width:80px;color:var(--yellow);animation:spin 18s linear infinite;}
+.cdc-lay{display:grid;grid-template-columns:300px 1fr;gap:54px;align-items:center;}
+@media(max-width:820px){.cdc-lay{grid-template-columns:1fr;gap:34px;}}
+.cdc-cover{
+  position:relative;aspect-ratio:2/3;border:3px solid var(--ink);border-radius:10px;overflow:hidden;
+  background:var(--paper3);box-shadow:10px 10px 0 var(--ink);transform:rotate(-3deg);max-width:300px;
+}
+.cdc-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s;}
+.cdc-cover img.loaded{opacity:1;}
+.cdc-ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:20px;background:linear-gradient(150deg,var(--green),#0c8c6a);}
+.cdc-ph-t{font-family:var(--ff-d);font-weight:800;font-size:1.25rem;color:var(--paper);line-height:1.1;}
+.cdc-ph-a{font-size:13px;color:rgba(255,255,255,.85);font-weight:600;}
+.cdc-badge{position:absolute;top:-16px;left:-16px;z-index:3;background:var(--yellow);border:2.5px solid var(--ink);color:var(--ink);font-family:var(--ff-d);font-weight:800;font-size:13px;padding:8px 14px;border-radius:40px;box-shadow:3px 3px 0 var(--ink);transform:rotate(-8deg);}
+.cdc-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;background:var(--yellow);color:var(--ink);border:2.5px solid var(--ink);padding:6px 14px;border-radius:40px;margin-bottom:22px;box-shadow:3px 3px 0 var(--ink);}
+.cdc-q{font-family:var(--ff-s);font-style:italic;font-size:clamp(1.5rem,3.4vw,2.5rem);line-height:1.28;letter-spacing:-.01em;margin-bottom:24px;}
+.cdc-book{font-family:var(--ff-d);font-weight:800;font-size:1.3rem;line-height:1.1;}
+.cdc-auth{font-size:1rem;color:rgba(255,255,255,.8);font-weight:600;margin-top:4px;margin-bottom:20px;}
+.cdc-by{display:flex;align-items:center;gap:12px;}
+.cdc-av{width:46px;height:46px;border-radius:50%;background:var(--yellow);border:2.5px solid var(--ink);display:grid;place-items:center;font-family:var(--ff-d);font-weight:800;color:var(--ink);flex-shrink:0;}
+.cdc-by-t b{display:block;font-family:var(--ff-d);font-weight:700;font-size:14.5px;}
+.cdc-by-t span{font-size:12.5px;color:rgba(255,255,255,.7);}
+
+/* ═══════════ DOSSIER MORIN ═══════════ */
+.s-dos{background:var(--paper2);border-bottom:3px solid var(--ink);}
+.dos-head{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:end;margin-bottom:42px;}
+@media(max-width:820px){.dos-head{grid-template-columns:1fr;gap:20px;}}
+.dos-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;background:var(--coral);color:var(--paper);border:2.5px solid var(--ink);padding:6px 14px;border-radius:40px;box-shadow:3px 3px 0 var(--ink);margin-bottom:20px;}
+.dos-name{font-family:var(--ff-d);font-weight:800;font-size:clamp(2.4rem,6vw,4.4rem);line-height:.92;letter-spacing:-.035em;}
+.dos-desc{font-size:1.05rem;color:var(--ink2);line-height:1.6;font-weight:500;}
+.dos-scroll{display:flex;gap:20px;overflow-x:auto;padding:6px 4px 24px;scroll-snap-type:x mandatory;scrollbar-width:thin;}
+.dos-scroll::-webkit-scrollbar{height:10px;}
+.dos-scroll::-webkit-scrollbar-thumb{background:var(--ink);border-radius:10px;}
+.dos-scroll::-webkit-scrollbar-track{background:var(--paper3);border-radius:10px;}
+.dbk{flex:0 0 168px;scroll-snap-align:start;cursor:pointer;}
+.dbk-cover{
+  position:relative;aspect-ratio:2/3;border:2.5px solid var(--ink);border-radius:8px;overflow:hidden;
+  background:var(--paper3);box-shadow:4px 4px 0 var(--ink);margin-bottom:12px;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.dbk:hover .dbk-cover{transform:translate(-3px,-3px) rotate(-1.5deg);box-shadow:7px 7px 0 var(--ink);}
+.dbk-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s;}
+.dbk-cover img.loaded{opacity:1;}
+.dbk-ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:16px;color:var(--paper);}
+.dbk-ph-t{font-family:var(--ff-d);font-weight:700;font-size:.92rem;line-height:1.15;}
+.dbk-title{font-family:var(--ff-d);font-weight:700;font-size:.92rem;line-height:1.15;}
+.dbk-ed{font-size:11.5px;color:var(--ink2);font-weight:600;margin-top:2px;}
+
+/* ═══════════ CLUBS ═══════════ */
+.cl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:820px){.cl-grid{grid-template-columns:1fr;}}
+.cl{
+  position:relative;border:3px solid var(--ink);border-radius:24px;padding:30px 26px;overflow:hidden;
+  box-shadow:5px 5px 0 var(--ink);display:flex;flex-direction:column;gap:14px;cursor:pointer;
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+}
+.cl:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.cl.c-p{background:var(--pink);}.cl.c-y{background:var(--yellow);}.cl.c-g{background:var(--green);}
+.cl-emoji{font-size:2.4rem;width:64px;height:64px;background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;display:grid;place-items:center;box-shadow:3px 3px 0 var(--ink);transform:rotate(-4deg);transition:transform .25s var(--ease);}
+.cl:hover .cl-emoji{transform:rotate(5deg) scale(1.05);}
+.cl-name{font-family:var(--ff-d);font-weight:800;font-size:1.6rem;letter-spacing:-.02em;}
+.cl-desc{font-size:14.5px;color:var(--ink);font-weight:500;line-height:1.55;}
+.cl-perks{display:flex;flex-direction:column;gap:8px;}
+.cl-perks li{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;}
+.cl-perks li::before{content:'✦';color:var(--ink);font-size:13px;}
+.cl-lnk{margin-top:auto;font-family:var(--ff-d);font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:7px;background:var(--ink);color:var(--paper);align-self:flex-start;padding:9px 17px;border-radius:30px;border:2.5px solid var(--ink);transition:gap .2s;}
+.cl:hover .cl-lnk{gap:11px;}
+
+/* ═══════════ LIBRAIRIES ═══════════ */
+.s-mag{background:var(--ink);color:var(--paper);border-top:3px solid var(--ink);}
+.s-mag .section-title{color:var(--paper);}
+.s-mag .sec-sub{color:rgba(251,244,230,.75);}
+.mag-lay{display:grid;grid-template-columns:1fr 1.25fr;gap:54px;align-items:start;}
+@media(max-width:860px){.mag-lay{grid-template-columns:1fr;gap:32px;}}
+.mag-note{font-size:14px;color:rgba(251,244,230,.7);line-height:1.6;margin:18px 0 24px;font-weight:500;}
+.mag-spec{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.mag-spec span{font-family:var(--ff-d);font-weight:600;font-size:12.5px;background:rgba(251,244,230,.08);border:1.5px solid rgba(251,244,230,.25);padding:5px 12px;border-radius:30px;}
+.mag-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:520px){.mag-list{grid-template-columns:1fr;}}
+.mag{
+  background:var(--paper);color:var(--ink);border:2.5px solid var(--paper);border-radius:18px;padding:18px 20px;
+  display:flex;flex-direction:column;gap:5px;cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .2s var(--ease);
+}
+.mag:hover{transform:translateY(-4px);}
+.mag::after{content:'';position:absolute;left:0;bottom:0;height:5px;width:100%;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease2);}
+.mag:hover::after{transform:scaleX(1);}
+.mag:nth-child(1)::after{background:var(--yellow);}.mag:nth-child(2)::after{background:var(--pink);}.mag:nth-child(3)::after{background:var(--blue);}.mag:nth-child(4)::after{background:var(--green);}.mag:nth-child(5)::after{background:var(--coral);}.mag:nth-child(6)::after{background:var(--lilac);}
+.mag-city{font-family:var(--ff-d);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;}
+.mag-city .pin{color:var(--coral);}
+.mag-addr{font-size:13px;color:var(--ink2);font-weight:600;}
+.mag-pill{align-self:flex-start;margin-top:4px;font-family:var(--ff-d);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;background:var(--ink);color:var(--paper);padding:4px 11px;border-radius:30px;}
+
+/* ═══════════ GAZETTE / ACTUS ═══════════ */
+.gz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.gz-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.gz-grid{grid-template-columns:1fr;}}
+.gz{
+  border:3px solid var(--ink);border-radius:22px;padding:26px 22px;cursor:pointer;
+  box-shadow:5px 5px 0 var(--ink);display:flex;flex-direction:column;gap:12px;min-height:210px;
+  transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+}
+.gz:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink);}
+.gz.g-y{background:var(--yellow);}.gz.g-p{background:var(--pink);}.gz.g-b{background:var(--blue);color:var(--paper);}.gz.g-g{background:var(--green);}
+.gz-ic{width:48px;height:48px;background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;display:grid;place-items:center;color:var(--ink);box-shadow:2.5px 2.5px 0 var(--ink);}
+.gz-name{font-family:var(--ff-d);font-weight:800;font-size:1.35rem;line-height:1.05;letter-spacing:-.02em;}
+.gz-d{font-size:13.5px;font-weight:500;line-height:1.5;}
+.gz.g-b .gz-d{color:rgba(251,244,230,.85);}
+.gz-go{margin-top:auto;font-family:var(--ff-d);font-weight:700;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;transition:gap .2s;}
+.gz:hover .gz-go{gap:11px;}
+
+/* ═══════════ NEWSLETTER ═══════════ */
+.s-nl{background:var(--yellow);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);}
+.nl-box{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+@media(max-width:820px){.nl-box{grid-template-columns:1fr;gap:26px;}}
+.nl-t{font-family:var(--ff-d);font-weight:800;font-size:clamp(2rem,4.5vw,3.2rem);line-height:.96;letter-spacing:-.03em;margin-bottom:14px;}
+.nl-s{font-size:1.02rem;color:var(--ink);font-weight:600;max-width:420px;line-height:1.5;}
+.nl-form{display:flex;gap:12px;flex-wrap:wrap;}
+.nl-input{flex:1;min-width:220px;font-family:var(--ff-b);font-size:15px;font-weight:500;padding:15px 20px;border:3px solid var(--ink);border-radius:40px;background:var(--paper);color:var(--ink);box-shadow:4px 4px 0 var(--ink);}
+.nl-input::placeholder{color:var(--ink2);}
+.nl-input:focus{outline:none;transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink);}
+
+/* ═══════════ FOOTER ═══════════ */
+footer{background:var(--ink);color:var(--paper);}
+.ft-top{padding:64px 0 48px;}
+.ft-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;}
+@media(max-width:860px){.ft-grid{grid-template-columns:1fr 1fr;gap:34px;}.ft-brand{grid-column:span 2;}}
+@media(max-width:520px){.ft-grid{grid-template-columns:1fr;}.ft-brand{grid-column:auto;}}
+.ft-logo{display:flex;align-items:center;gap:11px;margin-bottom:16px;}
+.ft-logo .logo-mark{box-shadow:2.5px 2.5px 0 var(--paper);}
+.ft-logo .logo-name{color:var(--paper);}
+.ft-dc{font-size:14px;color:rgba(251,244,230,.65);line-height:1.6;max-width:280px;margin-bottom:18px;font-weight:500;}
+.ft-vals{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px;}
+.ft-vals span{font-family:var(--ff-d);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;border:1.5px solid rgba(251,244,230,.3);padding:4px 11px;border-radius:30px;color:rgba(251,244,230,.85);}
+.ft-socs{display:flex;gap:9px;}
+.ft-soc{width:42px;height:42px;border-radius:50%;background:rgba(251,244,230,.08);border:2px solid rgba(251,244,230,.2);display:grid;place-items:center;color:var(--paper);transition:background .2s,border-color .2s,transform .2s;}
+.ft-soc:hover{background:var(--yellow);border-color:var(--yellow);color:var(--ink);transform:translateY(-3px);}
+.ft-ch{font-family:var(--ff-d);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;color:var(--yellow);}
+.ft-lnks{display:flex;flex-direction:column;gap:9px;}
+.ft-lnks a{font-size:13.5px;color:rgba(251,244,230,.65);transition:color .2s;min-height:auto;display:inline-flex;width:fit-content;}
+.ft-lnks a:hover{color:var(--paper);}
+.ft-mid{padding:26px 0;border-top:1.5px solid rgba(251,244,230,.12);border-bottom:1.5px solid rgba(251,244,230,.12);}
+.ft-ph{font-family:var(--ff-d);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(251,244,230,.4);margin-bottom:13px;}
+.ft-ptrs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.ft-pb{font-size:12px;color:rgba(251,244,230,.55);background:rgba(251,244,230,.05);border:1.5px solid rgba(251,244,230,.14);padding:5px 12px;border-radius:30px;font-weight:600;}
+.ft-pay{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.ft-pyh{font-family:var(--ff-d);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(251,244,230,.4);margin-right:4px;}
+.ft-pyb{font-size:12px;color:rgba(251,244,230,.6);background:rgba(251,244,230,.05);border:1.5px solid rgba(251,244,230,.14);padding:4px 11px;border-radius:8px;font-weight:600;}
+.ft-bot{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ft-copy{font-size:13px;color:rgba(251,244,230,.45);}
+.ft-leg{display:flex;gap:18px;flex-wrap:wrap;}
+.ft-leg a{font-size:13px;color:rgba(251,244,230,.45);min-height:auto;transition:color .2s;}
+.ft-leg a:hover{color:var(--paper);}
+
+/* reveal base */
+.reveal{opacity:0;}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="nav" id="nav" aria-label="Navigation principale">
+  <div class="nav-in">
+    <a href="#top" class="logo" aria-label="Librairies Charlemagne — Accueil">
+      <img src="logo-charlemagne.png" alt="Librairies Charlemagne" class="logo-img" width="220" height="55">
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#actus">Actualités</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#univers">Librairie</a></li>
+      <li><a href="#univers">Jeux &amp; Jouets</a></li>
+      <li><a href="#clubs">Clubs</a></li>
+      <li><a href="#magasins">Magasins</a></li>
+      <li class="pro"><a href="#">Charlemagne&nbsp;Pro</a></li>
+    </ul>
+    <div class="nav-ic">
+      <button class="ni" aria-label="Rechercher"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></button>
+      <button class="ni" aria-label="Mon compte"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+      <button class="ni ni-cart" aria-label="Panier"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="ni-dot" aria-hidden="true">2</span></button>
+      <button class="ni burger" aria-label="Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<header class="hero" id="top">
+  <div class="hero-shapes" aria-hidden="true">
+    <div class="shape s1 sh-blob"></div>
+    <div class="shape s2"></div>
+    <svg class="shape s3 star" viewBox="0 0 100 100" fill="var(--red)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"><path d="M50 4 L61 38 L97 38 L68 60 L79 95 L50 73 L21 95 L32 60 L3 38 L39 38 Z"/></svg>
+    <div class="shape s4"></div>
+    <div class="shape s5"></div>
+  </div>
+  <div class="hero-in">
+    <span class="eyebrow hero-eyebrow reveal"><span class="spark">✦</span> Vos libraires dans le Var depuis 1927</span>
+    <h1>
+      <span class="ln"><span class="ln-i">Lire,</span></span>
+      <span class="ln"><span class="ln-i"><span class="hl y">jouer,</span></span></span>
+      <span class="ln"><span class="ln-i"><span class="hl p">grandir.</span></span></span>
+    </h1>
+    <p class="hero-sub reveal"><b>6 librairies indépendantes</b> à Toulon, La Valette, La Seyne, Six-Fours, Hyères et Fréjus. Des livres, des jeux &amp; jouets, de la papeterie, des beaux-arts — et des libraires passionnés pour vous guider.</p>
+    <div class="hero-ctas reveal">
+      <a href="#univers" class="btn btn-fill">Explorer le catalogue</a>
+      <a href="#agenda" class="btn btn-ghost">Voir l'agenda</a>
+    </div>
+    <div class="hero-stickers reveal">
+      <span class="sticker"><span class="dot" style="background:var(--green)"></span> Click &amp; Collect</span>
+      <span class="sticker">Carte fidélité avantage</span>
+      <span class="sticker"><span class="dot" style="background:var(--coral)"></span> 6 magasins de proximité</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════ MARQUEE ══════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-item">Enthousiasme <span class="star-y">✦</span> Solidarité <span class="star-y">✦</span> Excellence <span class="star-y">✦</span> Toulon <span class="star-y">✦</span> La Valette <span class="star-y">✦</span> La Seyne <span class="star-y">✦</span> Six-Fours <span class="star-y">✦</span> Hyères <span class="star-y">✦</span> Fréjus <span class="star-y">✦</span></span>
+    <span class="mq-item">Enthousiasme <span class="star-y">✦</span> Solidarité <span class="star-y">✦</span> Excellence <span class="star-y">✦</span> Toulon <span class="star-y">✦</span> La Valette <span class="star-y">✦</span> La Seyne <span class="star-y">✦</span> Six-Fours <span class="star-y">✦</span> Hyères <span class="star-y">✦</span> Fréjus <span class="star-y">✦</span></span>
+  </div>
+</div>
+
+<!-- ══════ UNIVERS / CATÉGORIES ══════ -->
+<section class="sec s-univ" id="univers" aria-labelledby="univ-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="eyebrow reveal">Le catalogue</span>
+        <h2 class="section-title reveal" id="univ-h" style="margin-top:18px">Tous nos <span class="hl b">univers</span></h2>
+        <p class="sec-sub reveal">Du polar au manga, du jeu de société au beau livre : nos rayons couvrent toutes les envies, en magasin comme en ligne.</p>
+      </div>
+      <a href="#" class="btn btn-ghost reveal">Voir tous les rayons</a>
+    </div>
+    <div class="univ-grid">
+      <a href="#" class="univ u-y reveal"><span class="univ-n" aria-hidden="true">01</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+        <span class="univ-name">Littérature</span>
+        <span class="univ-list"><span>Romans &amp; essais</span><span>Policier &amp; thriller</span><span>SF &amp; Fantasy</span><span>Romance</span><span>Young adult</span></span>
+      </a>
+      <a href="#" class="univ u-p reveal d1"><span class="univ-n" aria-hidden="true">02</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="univ-name">Jeunesse &amp; BD</span>
+        <span class="univ-list"><span>Jeunesse</span><span>BD · Comics · Manga</span><span>La Soupe de l'Espace</span></span>
+      </a>
+      <a href="#" class="univ u-b reveal d2"><span class="univ-n" aria-hidden="true">03</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+        <span class="univ-name">Savoirs</span>
+        <span class="univ-list"><span>Sciences humaines &amp; Histoire</span><span>Religion &amp; ésotérisme</span><span>Sciences &amp; techniques</span><span>Entreprise · Droit · Gestion</span><span>Dictionnaires</span></span>
+      </a>
+      <a href="#" class="univ u-g reveal"><span class="univ-n" aria-hidden="true">04</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
+        <span class="univ-name">Art de vivre</span>
+        <span class="univ-list"><span>Arts &amp; beaux livres</span><span>Tourisme &amp; voyages</span><span>Vie pratique &amp; loisirs</span><span>Beaux-Arts</span></span>
+      </a>
+      <a href="#" class="univ u-c reveal d1"><span class="univ-n" aria-hidden="true">05</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>
+        <span class="univ-name">Jeux &amp; Jouets</span>
+        <span class="univ-list"><span>Éveil &amp; éducatif</span><span>Jeux de société</span><span>Cartes &amp; jeux de rôle</span><span>Puzzles &amp; construction</span><span>Loisirs créatifs</span></span>
+      </a>
+      <a href="#" class="univ u-l reveal d2"><span class="univ-n" aria-hidden="true">06</span>
+        <span class="univ-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+        <span class="univ-name">Papeterie &amp; Numérique</span>
+        <span class="univ-list"><span>Papeterie</span><span>Scolaire &amp; parascolaire</span><span>Livres numériques</span><span>Prêt numérique bibliothèque</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ AGENDA ══════ -->
+<section class="sec" id="agenda" aria-labelledby="ag-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="eyebrow reveal"><span class="spark">✦</span> Rencontres &amp; dédicaces</span>
+        <h2 class="section-title reveal" id="ag-h" style="margin-top:18px">L'<span class="hl c">agenda</span></h2>
+        <p class="sec-sub reveal">Auteurs, dédicaces, ateliers : la vie des librairies se vit aussi en vrai. Entrée libre ou sur inscription.</p>
+      </div>
+      <a href="#" class="btn btn-ghost reveal">Tout l'agenda</a>
+    </div>
+    <div class="ag-grid">
+      <article class="ag reveal">
+        <div class="ag-top t-y"><span class="ag-when">Sur<br>inscription</span><span class="ag-pill">Rencontre</span></div>
+        <div class="ag-body">
+          <h3 class="ag-title">Rencontre avec Delphine de Vigan</h3>
+          <p class="ag-meta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Six-Fours-les-Plages</p>
+          <p class="ag-desc">Une soirée d'échange avec l'une des voix les plus marquantes de la littérature française.</p>
+          <span class="ag-cta">S'inscrire →</span>
+        </div>
+      </article>
+      <article class="ag reveal d1">
+        <div class="ag-top t-p"><span class="ag-when">Atelier<br>dédicace</span><span class="ag-pill">Dédicace</span></div>
+        <div class="ag-body">
+          <h3 class="ag-title">Atelier dédicace avec Guillaume Nail</h3>
+          <p class="ag-meta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Librairies Charlemagne · Var</p>
+          <p class="ag-desc">Un moment privilégié autour du travail de l'auteur, ouvert aux lecteurs de tous âges.</p>
+          <span class="ag-cta">En savoir plus →</span>
+        </div>
+      </article>
+      <article class="ag reveal d2">
+        <div class="ag-top t-g"><span class="ag-when">Rencontre<br>gourmande</span><span class="ag-pill">Rencontre</span></div>
+        <div class="ag-body">
+          <h3 class="ag-title">Rencontre gourmande avec Mireille Sanchez</h3>
+          <p class="ag-meta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Charlemagne Hyères</p>
+          <p class="ag-desc">Cuisine et littérature au menu : une rencontre à savourer dans tous les sens du terme.</p>
+          <span class="ag-cta">Découvrir →</span>
+        </div>
+      </article>
+      <article class="ag reveal d3">
+        <div class="ag-top t-b"><span class="ag-date"><span class="d">11</span><br><span class="m">Juil</span></span><span class="ag-pill">Dédicace</span></div>
+        <div class="ag-body">
+          <h3 class="ag-title">Dédicace de Monsieur Z</h3>
+          <p class="ag-meta"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Charlemagne Hyères Îles d'Or · 10h30–12h</p>
+          <p class="ag-desc">L'auteur dédicace « Colorier le sud » (Éditions Dessain et Tolra). Tous publics.</p>
+          <span class="ag-cta">Y aller →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ COUP DE CŒUR ══════ -->
+<section class="sec s-cdc" aria-labelledby="cdc-h">
+  <svg class="star-deco" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 4 L61 38 L97 38 L68 60 L79 95 L50 73 L21 95 L32 60 L3 38 L39 38 Z"/></svg>
+  <div class="wrap">
+    <div class="cdc-lay">
+      <div class="cdc-cover reveal">
+        <span class="cdc-badge">Coup de cœur ❤</span>
+        <div class="cdc-ph" id="cdc-ph"><span class="cdc-ph-t">Les vacances chez Papi et Mamie</span><span class="cdc-ph-a">Emmanuel Guibert</span></div>
+        <img id="cdc-img" src="" alt="Couverture : Les vacances chez Papi et Mamie d'Emmanuel Guibert">
+      </div>
+      <div class="reveal d1">
+        <span class="cdc-tag" id="cdc-h"><span class="spark">✦</span> Le conseil de nos libraires</span>
+        <p class="cdc-q">« Là, c'est vraiment les vacances ! Ce recueil sent bon l'été, on passe ses vacances avec Ariol, et avec papi et mamie bien sûr. »</p>
+        <div class="cdc-book">Les vacances chez Papi et Mamie</div>
+        <div class="cdc-auth">Emmanuel Guibert</div>
+        <div class="cdc-by">
+          <span class="cdc-av">L</span>
+          <span class="cdc-by-t"><b>Lucille D.</b><span>Librairie La Soupe de l'Espace</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DOSSIER EDGAR MORIN ══════ -->
+<section class="sec s-dos" aria-labelledby="dos-h">
+  <div class="wrap">
+    <div class="dos-head">
+      <div class="reveal">
+        <span class="dos-kicker"><span class="spark">✦</span> Le dossier du moment</span>
+        <h2 class="dos-name" id="dos-h">Edgar <span class="hl y">Morin</span></h2>
+      </div>
+      <p class="dos-desc reveal d1">Edgar Morin est le penseur de la complexité. Auteur de très nombreux livres sur le sujet, directeur de recherche émérite… On vous a réuni l'essentiel de son œuvre.</p>
+    </div>
+    <div class="dos-scroll" id="dos-scroll">
+      <!-- books injected/decorated via JS; titles + editors are real -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CLUBS ══════ -->
+<section class="sec" id="clubs" aria-labelledby="cl-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="eyebrow reveal">La communauté</span>
+        <h2 class="section-title reveal" id="cl-h" style="margin-top:18px">Rejoignez nos <span class="hl g">clubs</span></h2>
+        <p class="sec-sub reveal">Des rendez-vous réguliers pour partager ses lectures, jouer et rencontrer d'autres passionnés.</p>
+      </div>
+    </div>
+    <div class="cl-grid">
+      <article class="cl c-y reveal">
+        <span class="cl-emoji" aria-hidden="true">📚</span>
+        <h3 class="cl-name">Club J</h3>
+        <p class="cl-desc">Le club des jeunes lecteurs. Chaque mois, une sélection commentée par nos libraires.</p>
+        <ul class="cl-perks"><li>Sélections mensuelles 6–15 ans</li><li>Animations en librairie</li><li>Avantages membres</li></ul>
+        <a href="#" class="cl-lnk">Rejoindre →</a>
+      </article>
+      <article class="cl c-p reveal d1">
+        <span class="cl-emoji" aria-hidden="true">🎲</span>
+        <h3 class="cl-name">Ludo Club</h3>
+        <p class="cl-desc">Soirées jeux, conseils personnalisés et avantages fidélité sur tout le rayon jeux &amp; jouets.</p>
+        <ul class="cl-perks"><li>Soirées jeux en librairie</li><li>Accès anticipé aux nouveautés</li><li>Conseils personnalisés</li></ul>
+        <a href="#" class="cl-lnk">Rejoindre →</a>
+      </article>
+      <article class="cl c-g reveal d2">
+        <span class="cl-emoji" aria-hidden="true">🎨</span>
+        <h3 class="cl-name">Club BD / Manga</h3>
+        <p class="cl-desc">Rencontres, dédicaces et sélections régulières pour les passionnés de bulles et de planches.</p>
+        <ul class="cl-perks"><li>Rencontres &amp; dédicaces</li><li>Sélections régulières</li><li>Avantages carte fidélité</li></ul>
+        <a href="#" class="cl-lnk">Rejoindre →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ MAGASINS ══════ -->
+<section class="sec s-mag" id="magasins" aria-labelledby="mag-h">
+  <div class="wrap">
+    <div class="mag-lay">
+      <div>
+        <span class="eyebrow reveal" style="background:var(--yellow)">Présence locale</span>
+        <h2 class="section-title reveal" id="mag-h" style="margin-top:18px">6 librairies<br>dans le <span class="hl c">Var</span></h2>
+        <p class="mag-note reveal">De Toulon à Fréjus, des équipes qui connaissent leurs fonds par cœur et vous accueillent dans des espaces chaleureux : livres, papeterie, beaux-arts, loisirs créatifs et fournitures.</p>
+        <a href="#" class="btn btn-ghost reveal" style="background:var(--paper);box-shadow:4px 4px 0 var(--paper)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Trouver un magasin</a>
+        <div class="mag-spec reveal" style="margin-top:24px">
+          <span>Charlemagne Autographe</span><span>Charlemagne Beaux-Arts</span><span>La Soupe de l'Espace</span><span>Charlemagne Manga</span>
+        </div>
+      </div>
+      <div class="mag-list reveal">
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> Toulon</span><span class="mag-addr">50 bd de Strasbourg · 83000</span><span class="mag-pill">Librairie principale</span></a>
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> Hyères</span><span class="mag-addr">Hyères Îles d'Or · Var</span><span class="mag-pill">Librairie &amp; Papeterie</span></a>
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> La Seyne-sur-Mer</span><span class="mag-addr">Var</span></a>
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> La Valette-du-Var</span><span class="mag-addr">Var</span></a>
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> Six-Fours</span><span class="mag-addr">47 rue de la République · Var</span></a>
+        <a href="#" class="mag"><span class="mag-city"><span class="pin">●</span> Fréjus</span><span class="mag-addr">Var</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ACTUS / GAZETTE ══════ -->
+<section class="sec" id="actus" aria-labelledby="gz-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lead">
+        <span class="eyebrow reveal">Actualités</span>
+        <h2 class="section-title reveal" id="gz-h" style="margin-top:18px">Quoi de neuf <span class="hl b">en rayon&nbsp;?</span></h2>
+        <p class="sec-sub reveal">Coups de cœur, sélections du moment, édito et grands rendez-vous du livre dans le Var.</p>
+      </div>
+      <a href="#" class="btn btn-ghost reveal">Toutes les actus</a>
+    </div>
+    <div class="gz-grid">
+      <a href="#" class="gz g-y reveal">
+        <span class="gz-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+        <h3 class="gz-name">Coups de cœur</h3>
+        <p class="gz-d">Les livres que nos libraires ont aimés, choisis et défendus.</p>
+        <span class="gz-go">Lire →</span>
+      </a>
+      <a href="#" class="gz g-p reveal d1">
+        <span class="gz-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <h3 class="gz-name">Sélections du moment</h3>
+        <p class="gz-d">Nos thématiques et nos focus, mis à jour au fil des saisons.</p>
+        <span class="gz-go">Voir →</span>
+      </a>
+      <a href="#" class="gz g-b reveal d2">
+        <span class="gz-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></span>
+        <h3 class="gz-name">La Gazette</h3>
+        <p class="gz-d">Notre journal : interviews d'auteurs, dossiers et actualité littéraire.</p>
+        <span class="gz-go">Lire la Gazette →</span>
+      </a>
+      <a href="#" class="gz g-g reveal d3">
+        <span class="gz-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg></span>
+        <h3 class="gz-name">Fêtes du Livre &amp; Salons</h3>
+        <p class="gz-d">Retrouvez Charlemagne sur les grands événements du livre du Var.</p>
+        <span class="gz-go">Découvrir →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ NEWSLETTER ══════ -->
+<section class="sec s-nl" aria-labelledby="nl-h">
+  <div class="wrap">
+    <div class="nl-box">
+      <div class="reveal">
+        <h2 class="nl-t" id="nl-h">Ne ratez plus<br>une seule histoire.</h2>
+        <p class="nl-s">Coups de cœur, nouveautés et invitations aux rencontres : tout ça dans votre boîte mail, sans spam.</p>
+      </div>
+      <form class="nl-form reveal d1" onsubmit="return false">
+        <input class="nl-input" type="email" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+        <button class="btn btn-fill" type="submit" style="box-shadow:4px 4px 0 var(--blue)">Je m'abonne <span class="spark">✦</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="ft-top"><div class="wrap"><div class="ft-grid">
+    <div class="ft-brand">
+      <div class="ft-logo">
+        <img src="logo-charlemagne.png" alt="Librairies Charlemagne" class="logo-img-ft" width="220" height="55">
+      </div>
+      <p class="ft-dc">6 librairies indépendantes dans le Var. Une maison fondée en 1927, animée par des équipes passionnées.</p>
+      <div class="ft-vals"><span>Enthousiasme</span><span>Solidarité</span><span>Excellence</span></div>
+      <div class="ft-socs">
+        <a href="https://www.facebook.com/librairie.charlemagne/" class="ft-soc" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/librairies_charlemagne/" class="ft-soc" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
+        <a href="https://www.youtube.com/@librairiescharlemagne8564" class="ft-soc" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+    <div><div class="ft-ch">Service client</div><ul class="ft-lnks"><li><a href="#">Nous contacter</a></li><li><a href="#">Carte fidélité avantage</a></li><li><a href="#">Ma liste scolaire</a></li><li><a href="#">Modes de livraison</a></li><li><a href="#">Conditions générales de vente</a></li><li><a href="#">Charlemagne Pro librairie</a></li><li><a href="#">Charlemagne Pro Papeterie</a></li></ul></div>
+    <div><div class="ft-ch">Nos librairies</div><ul class="ft-lnks"><li><a href="#">Trouver un magasin</a></li><li><a href="#">Notre histoire</a></li><li><a href="#">Nos engagements</a></li><li><a href="#">Espace candidatures</a></li></ul></div>
+    <div><div class="ft-ch">Informations</div><ul class="ft-lnks"><li><a href="#">Droit de rétractation</a></li><li><a href="#">Mentions légales</a></li><li><a href="#">Mes données personnelles</a></li><li><a href="#">Accessibilité : partiellement conforme</a></li></ul></div>
+  </div></div></div>
+  <div class="ft-mid"><div class="wrap">
+    <div class="ft-ph">Partenaires &amp; soutiens</div>
+    <div class="ft-ptrs"><span class="ft-pb">Centre National du Livre</span><span class="ft-pb">Label LiR</span><span class="ft-pb">Région Sud</span><span class="ft-pb">Libraires Ensemble</span><span class="ft-pb">Théâtre Liberté – Châteauvallon</span><span class="ft-pb">FACE Var</span></div>
+    <div class="ft-pay"><span class="ft-pyh">Paiement sécurisé</span><span class="ft-pyb">3D Secure</span><span class="ft-pyb">CB</span><span class="ft-pyb">Visa</span><span class="ft-pyb">Mastercard</span></div>
+  </div></div>
+  <div class="wrap"><div class="ft-bot">
+    <div class="ft-copy">© 2026 Librairies Charlemagne — Var. Tous droits réservés.</div>
+    <div class="ft-leg"><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">CGV</a><a href="#">Switch to English</a></div>
+  </div></div>
+</footer>
+
+<!-- ══════ SCRIPTS ══════ -->
+<script>
+/* Safety net: if the animation module fails to load (no network / CDN down),
+   reveal all content after 1.5s so the page is never blank. */
+window.__revealFallback = setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => el.style.opacity = '1');
+  document.querySelectorAll('.hero h1 .ln-i').forEach(el => el.style.transform = 'none');
+}, 1500);
+</script>
+<script type="module">
+import { animate, stagger, inView } from 'https://cdn.jsdelivr.net/npm/motion@11/+esm';
+clearTimeout(window.__revealFallback);
+const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* nav scroll state */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), {passive:true});
+
+/* hero load reveal */
+if (!reduced){
+  animate('.hero h1 .ln-i', {opacity:[0,1], y:['110%','0%']}, {delay:stagger(.1,{startDelay:.1}), duration:.8, easing:[.22,1,.36,1]});
+  animate('.hero-eyebrow', {opacity:[0,1], y:[-10,0]}, {duration:.6});
+  animate('.hero-sub, .hero-ctas, .hero-stickers', {opacity:[0,1], y:[16,0]}, {delay:stagger(.1,{startDelay:.5}), duration:.6, easing:[.22,1,.36,1]});
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.style.opacity = '1');
+}
+
+/* scroll reveals */
+if (!reduced){
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.closest('.hero')) { el.style.opacity=''; return; }
+    const d = el.classList.contains('d1')?.1:el.classList.contains('d2')?.2:el.classList.contains('d3')?.3:0;
+    inView(el, () => { animate(el, {opacity:[0,1], y:[24,0]}, {duration:.6, delay:d, easing:[.22,1,.36,1]}); }, {margin:'-40px'});
+  });
+}
+
+/* button & card press feedback */
+if (!reduced){
+  document.querySelectorAll('.ag, .univ, .cl, .gz, .mag').forEach(c => {
+    c.addEventListener('pointerenter', () => animate(c, {}, {duration:.01}));
+  });
+}
+
+/* smooth anchors */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id.length < 2) return;
+    const t = document.querySelector(id);
+    if (t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
+});
+
+/* ── Edgar Morin dossier — real titles, covers via Google Books ── */
+const morin = [
+  {t:"Cahier Morin", a:"Collectif", ed:"Herne", q:"Cahier de l'Herne Edgar Morin"},
+  {t:"Sur la crise", a:"Edgar Morin", ed:"Flammarion", q:"Sur la crise Edgar Morin Flammarion"},
+  {t:"Pour et contre Marx", a:"Edgar Morin", ed:"Flammarion", q:"Pour et contre Marx Edgar Morin"},
+  {t:"Pour une crisologie", a:"Edgar Morin", ed:"Herne", q:"Pour une crisologie Edgar Morin Herne"},
+  {t:"Penser global", a:"Edgar Morin", ed:"Flammarion", q:"Penser global L'homme et son univers Edgar Morin"},
+  {t:"Vers l'abîme ?", a:"Edgar Morin", ed:"Herne", q:"Vers l'abîme Edgar Morin Herne"},
+  {t:"Vers l'abîme ? — 10 essais", a:"Edgar Morin", ed:"Flammarion", q:"Vers l'abîme 10 essais pour penser l'avenir Edgar Morin"},
+  {t:"Réveillons-nous !", a:"Edgar Morin", ed:"Denoël", q:"Réveillons-nous Edgar Morin Denoël"},
+  {t:"Changeons de voie", a:"Edgar Morin", ed:"Flammarion", q:"Changeons de voie leçons du coronavirus Edgar Morin"},
+  {t:"S'il est minuit dans le siècle", a:"Edgar Morin", ed:"Éditions de l'Aube", q:"S'il est minuit dans le siècle Edgar Morin Aube"},
+  {t:"La méthode de La Méthode", a:"Edgar Morin", ed:"Actes Sud", q:"La méthode de La Méthode Edgar Morin Actes Sud"},
+  {t:"La Rumeur d'Orléans", a:"Edgar Morin", ed:"Points", q:"La Rumeur d'Orléans Edgar Morin"},
+];
+const phColors = ['var(--yellow)','var(--pink)','var(--blue)','var(--green)','var(--coral)','var(--lilac)'];
+const scroll = document.getElementById('dos-scroll');
+morin.forEach((b, i) => {
+  const el = document.createElement('a');
+  el.href = '#'; el.className = 'dbk reveal';
+  const dark = (i % 6 === 2); // blue placeholder needs light text
+  el.innerHTML = `
+    <div class="dbk-cover">
+      <div class="dbk-ph" style="background:${phColors[i%phColors.length]};color:${(i%6===0||i%6===1||i%6===3||i%6===4||i%6===5)?'var(--ink)':'var(--paper)'}">
+        <span class="dbk-ph-t">${b.t}</span>
+      </div>
+      <img alt="Couverture : ${b.t} d'Edgar Morin">
+    </div>
+    <div class="dbk-title">${b.t}</div>
+    <div class="dbk-ed">${b.a} · ${b.ed}</div>`;
+  scroll.appendChild(el);
+  if (!reduced) inView(el, () => animate(el, {opacity:[0,1], y:[20,0]}, {duration:.5, delay:Math.min(i*.05,.4)}), {margin:'-20px'});
+  else el.style.opacity = '1';
+  // fetch cover
+  fetchCover(b.q, el.querySelector('img'), el.querySelector('.dbk-ph'));
+});
+
+/* ── coup de cœur cover ── */
+fetchCover("Les vacances chez papi et mamie Ariol Emmanuel Guibert", document.getElementById('cdc-img'), document.getElementById('cdc-ph'));
+
+async function fetchCover(q, imgEl, phEl){
+  if (!imgEl) return;
+  try{
+    const r = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=1&langRestrict=fr`);
+    const d = await r.json();
+    let thumb = d.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
+    if (thumb){
+      const src = thumb.replace('http:','https:').replace('&edge=curl','').replace('zoom=1','zoom=2');
+      imgEl.onload = () => { imgEl.classList.add('loaded'); if(phEl) phEl.style.opacity='0'; };
+      imgEl.src = src;
+    }
+  }catch{}
+}
+</script>
+</body>
+</html>

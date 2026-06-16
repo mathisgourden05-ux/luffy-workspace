@@ -53,10 +53,13 @@ Ce que Luffy sait de Mathis et qui reste vrai dans le temps. Mis à jour au fil 
 
 - **GitHub :** pseudo `mathisgourden05-ux` (nom d'affichage « Akalix »). Workspace versionné et poussé sur https://github.com/mathisgourden05-ux/luffy-workspace (dépôt privé, branche `main`). `gh` CLI pas installé.
 - **Multi-machines :** travaille sur PC + Mac → sync via GitHub. `.env` n'est jamais versionné (à recréer à la main sur chaque machine via `.env.example`).
+- **MCP Canva :** ajouté sur Mac (2026-06-02) via `claude mcp add --scope user canva npx -- -y mcp-remote@latest https://mcp.canva.com/mcp`. À refaire sur le PC au même endroit. Première utilisation = authentification OAuth Canva dans le navigateur.
+- **Matières BTS MCO de Mathis (ordre de son emploi du temps) :** Management / ADOC / DRCV / CEJM / Gestion Opérationnelle. Fichier skill réorganisé dans cet ordre.
 - **⚠️ Navigateur — extension Dark Reader (mode sombre) active.** Elle repeint les couleurs des sites en navigation NORMALE, mais est coupée en navigation privée. → **Si Mathis signale un bug de couleurs / de rendu sur un site : faire d'abord ouvrir en navigation privée. Si c'est parfait en privé mais cassé en normal = c'est l'extension, PAS le code.** (S'est produit le 2026-06-02 sur le site Road Spirit : 45 min perdues à corriger un faux bug « liens visités » avant d'identifier Dark Reader.)
 - **Portfolio — Road Spirit :** site concession Triumph réalisé de A à Z (Supabase, Netlify, app interne, catalogue, PWA). Archivé comme référence + pièce de portfolio. URL : https://road-spirit.netlify.app. Template réutilisable pour futurs clients boutique/concession.
+- **Projet Librairies Charlemagne :** maquette de site vitrine (`livrable/librairie-charlemagne/index.html`, fichier unique). Contenu calqué sur le **vrai site** https://www.librairiecharlemagne.com (librairie indépendante du Var, 6 magasins, fondée 1927, valeurs Enthousiasme/Solidarité/Excellence). Version actuelle = direction **« pop coloré contemporain »** (refonte du 2026-06-16). Pièce de portfolio / démarchage potentiel.
 - *(à compléter au fil des échanges : budget, nom définitif de l'assistant, réseau choisi pour le contenu…)*
 
 ---
 
-*Dernière mise à jour : 2026-06-02*
+*Dernière mise à jour : 2026-06-16*
