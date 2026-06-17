@@ -4,6 +4,18 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-17 · Charlemagne — maquette éditoriale mise en ligne
+
+- Maquette `editorial.html` déployée sur Netlify : **https://charlemagne-editorial.netlify.app** (déployée par Luffy via l'API Netlify + token perso fourni par Mathis, usage ponctuel). Vérifié : HTTP 200, logo servi, police Cormorant Garamond présente = bonne maquette.
+- La maquette **pop** (`index.html`) a été mise en ligne par Mathis lui-même (Netlify Drop) — URL à récupérer auprès de lui.
+- **Token Netlify** utilisé une fois → **Mathis doit le révoquer** (User settings → Applications → Personal access tokens).
+- Méthode de déploiement réutilisable : 2 dossiers prêts dans `livrable/librairie-charlemagne/_deploy/` (gitignoré). API Netlify = `POST /api/v1/sites` puis `POST /api/v1/sites/{id}/deploys` avec un zip.
+- **Pop aussi déployée par Luffy** (token .env) : **https://charlemagne-pop.netlify.app**. Donc 2 liens propres : charlemagne-pop + charlemagne-editorial. (Le 1er site mélangé déployé par Mathis lui-même peut être supprimé.)
+- **Couverture du coup de cœur (Ariol) intégrée en local** : `covers/ariol-vacances.jpg` (récupérée via le CDN Bédéthèque `bedetheque.com/media/Couvertures/Couv_<id>.jpg`, id 539422), référencée en dur dans les 2 maquettes, redéployée. Visible en ligne.
+- **⚠️ Couvertures des 12 Edgar Morin = NON récupérables automatiquement** : toutes les sources bloquent cet environnement (Google Books API 429, Google Books images = placeholder gris pour ces ISBN, Decitre/Flammarion/unithèque 403/WAF, epagine = placeholder, OpenLibrary 404). Restent en cartouches. **Solution proposée à Mathis : qu'il enregistre lui-même les 12 images depuis son navigateur (qui, lui, accède à ces sites) → je les câble en local.** Astuce retenue : pour une vraie couv par ISBN, `https://books.google.com/books/content?vid=ISBN<EAN>&printsec=frontcover&img=1&zoom=1` marche (hors rate-limit) MAIS renvoie un placeholder gris si Google n'a pas la couv.
+- **Portfolio Digital Project mis à jour** : ajout de Charlemagne en « Réalisation 02 » (visuel 2 maquettes + liens pop & éditorial), redéployé sur https://digit-project.netlify.app (vérifié en ligne).
+- Reste : Mathis choisit LA maquette finale ; fournir les couvertures Morin s'il les veut.
+
 ## 2026-06-16 · Ménage workspace + portail d'accueil + lancement projet CRM artisans
 
 - **Projet CRM artisans lancé** : créé `livrable/crm-artisans/PLAN.md` (plan de projet complet — fonctionnalités MVP + IA + plus tard, boîte à outils Supabase/Netlify/Stripe/API Claude/GitHub, 8 étapes ordonnées, pièges réglementaires). Idée = CRM SaaS simple + IA vendable à tout artisan (devis/factures/chantiers). **Mis en pause à l'étape 1 (maquette) à la demande de Mathis — à reprendre plus tard.**

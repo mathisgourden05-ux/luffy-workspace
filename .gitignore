@@ -38,3 +38,6 @@ logs/
 *.tmp
 *.temp
 tmp/
+
+# dossiers de déploiement (copies)
+livrable/librairie-charlemagne/_deploy/

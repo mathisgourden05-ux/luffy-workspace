@@ -579,7 +579,7 @@ footer{background:var(--ink);color:var(--paper);}
       <div class="cdc-cover reveal">
         <span class="cdc-badge">Coup de cœur ❤</span>
         <div class="cdc-ph" id="cdc-ph"><span class="cdc-ph-t">Les vacances chez Papi et Mamie</span><span class="cdc-ph-a">Emmanuel Guibert</span></div>
-        <img id="cdc-img" src="" alt="Couverture : Les vacances chez Papi et Mamie d'Emmanuel Guibert">
+        <img id="cdc-img" class="loaded" src="covers/ariol-vacances.jpg" alt="Couverture : Les vacances chez Papi et Mamie d'Emmanuel Guibert">
       </div>
       <div class="reveal d1">
         <span class="cdc-tag" id="cdc-h"><span class="spark">✦</span> Le conseil de nos libraires</span>
@@ -849,7 +849,8 @@ morin.forEach((b, i) => {
 });
 
 /* ── coup de cœur cover ── */
-fetchCover("Les vacances chez papi et mamie Ariol Emmanuel Guibert", document.getElementById('cdc-img'), document.getElementById('cdc-ph'));
+/* coup de cœur : couverture locale en dur (covers/ariol-vacances.jpg) */
+document.getElementById('cdc-ph').style.opacity = '0';
 
 async function fetchCover(q, imgEl, phEl){
   if (!imgEl) return;
