@@ -4,6 +4,13 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-06-16 · Ménage workspace + portail d'accueil + lancement projet CRM artisans
+
+- **Projet CRM artisans lancé** : créé `livrable/crm-artisans/PLAN.md` (plan de projet complet — fonctionnalités MVP + IA + plus tard, boîte à outils Supabase/Netlify/Stripe/API Claude/GitHub, 8 étapes ordonnées, pièges réglementaires). Idée = CRM SaaS simple + IA vendable à tout artisan (devis/factures/chantiers). **Mis en pause à l'étape 1 (maquette) à la demande de Mathis — à reprendre plus tard.**
+- **Portail d'accueil refait** : `OUVRIR.html` (racine) entièrement réécrit → tableau de bord clair de tous les projets avec liens (sites en ligne + fichiers locaux + mémoire). **L'ancien pointait vers `livrable/site-web/…` (mort depuis le renommage en `road-spirit`) → liens corrigés.** C'est le point d'entrée à ouvrir pour retrouver un projet.
+- **Ménage (demande Mathis : faire de la place, rien supprimer d'important)** : workspace passé de **39 Mo → 9.8 Mo**. Supprimés (tous sûrs/régénérables) : `node_modules/` (29 Mo, régénérable via `npm install`, hors dépôt), 4× `.DS_Store` (bruit macOS), dossier `interne/` racine (doublon identique de `road-spirit/migration-images.html`). **Gardés** : tous les projets, la mémoire, l'infra (`supabase/`, `netlify/`), et les dossiers de rangement intentionnels (`context/`, `contexte-import/`, `module-installs/` — vides mais avec README explicatif). `.DS_Store` désormais ignoré dans `.gitignore`.
+- **Pas encore commité** — à proposer à Mathis.
+
 ## 2026-06-16 · Librairies Charlemagne — refonte « pop coloré contemporain »
 
 - **Demande Mathis :** refaire le site `livrable/librairie-charlemagne/index.html` « au goût d'aujourd'hui », avec **exactement le même contenu que le vrai site** https://www.librairiecharlemagne.com.
