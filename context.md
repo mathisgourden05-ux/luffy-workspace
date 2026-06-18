@@ -27,7 +27,7 @@ Ce que Luffy sait de Mathis et qui reste vrai dans le temps. Mis à jour au fil 
 
 - **Temps disponible :** variable selon les périodes (études, stage, examens).
 - **Présence en ligne :** part de zéro (aucun compte développé).
-- **Budget :** non précisé (à demander si une piste nécessite un investissement).
+- **Budget :** serré — **pas de budget à mettre pour l'instant** (juin 2026) sur des outils/API payants. → Pour la formation et le prototypage, privilégier le **gratuit** : API IA gratuite (Google Gemini via AI Studio, pas de carte requise), tier gratuit de Make, etc. **Logique retenue :** ne passer au payant (API Claude, agents Anthropic) que **quand un client paie** (le coût en centimes est couvert par sa facture — Mathis ne sort jamais d'argent de sa poche).
 
 ## Préférences de communication
 

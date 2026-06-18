@@ -16,9 +16,9 @@
 - **Argument de vente :** « je parle d'IA sans bullshit » → tu rassures, tu ne survends pas.
 
 ### Module 2 — L'automatisation (no-code)
-- [ ] 2.1 — Make : connecter des outils à la souris
-- [ ] 2.2 — Y brancher l'IA (l'API Claude dans Make)
-- [ ] 2.3 — Tes 2-3 premières automatisations qui tournent
+- [x] 2.1 — Make : connecter des outils à la souris
+- [x] 2.2 — Y brancher l'IA (l'API Claude dans Make)
+- [x] 2.3 — Tes 2-3 premières automatisations qui tournent
 - **Argument :** tu montres une démo qui marche, pas un diaporama.
 
 ### Module 3 — Agents IA *(on construit des agents utiles à TOI d'abord)*
@@ -52,4 +52,4 @@
 
 ---
 
-*Créé le 2026-06-17. Module 1 terminé ✅ — prochain : Module 2 (Automatisation).*
+*Créé le 2026-06-17. Modules 1 & 2 terminés ✅. 1ʳᵉ automatisation construite et EN SERVICE : Sheets → Gemini → Sheets (générateur de posts). **Reprise : consolider avec 2-3 automatisations de plus (planning/RDV via Google Calendar, génération de devis, extraction de doc…) AVANT le Module 3 (Agents)** — choix de Mathis (« bien voir les automatisations d'abord »).*
