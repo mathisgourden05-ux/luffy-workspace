@@ -44,3 +44,4 @@ livrable/librairie-charlemagne/_deploy/
 
 # fichiers de test temporaires (detection IA)
 livrable/BTS/_dtest/
+.playwright-mcp/
