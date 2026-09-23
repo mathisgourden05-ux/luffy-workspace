@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-09-16 · Étude « compléter mes fins de mois » (mode économe)
+
+- Demande : trouver des moyens réalistes, peu chronophages, rapides à lancer, avec Luffy. **3 workflows multi-agents lancés et tués** (quota de session atteint la nuit, puis 2 interruptions Échap/fermeture) → Mathis a demandé d'**économiser ses tokens** (règle notée en mémoire). Refait en direct : 10 recherches web.
+- **Livrable** : page `E:\Mathis\Projets\Revenus complémentaires\plan-fins-de-mois.html` + artefact https://claude.ai/artifact/NfuHGwGKbCy5dF38reBxLs. Verdict : **1) cours particuliers** (Superprof, 18 €/h, CESU sans statut), **2) micro-tâches IA** (DataAnnotation/Outlier/Prolific, 8-20 €/h, irrégulier, sans IA), **3) site vitrine one-page à 590 €** pour commerces locaux (Luffy fabrique, Mathis démarche). Filet : StudentPop/StaffMe 15 €/h. Écartés chiffrés : TikTok/Shorts, produits numériques, rédaction plateformes, sondages. CM local = étape 2. Fiche admin (micro-entreprise via guichet unique, cotisations ~21-26 %, bourse N-2, APL réactive, CESU).
+- **« GO » reçu → liste de prospects livrée** : 129 fiches Google Maps vérifiées via Playwright (coiffeurs, garages, instituts, restaurants de Toulon) → **43 commerces sans vrai site** (16 sans rien, 5 réseaux seulement, 21 Planity seulement), avec téléphone + adresse, classés par priorité : `E:\Mathis\Projets\Revenus complémentaires\prospects-toulon.html` + artefact https://claude.ai/artifact/FkjzgBQh8LSVLcH4R4QyV5. **Technique économe retenue** : une seule `browser_evaluate` qui scrolle la liste Maps, clique chaque fiche, lit `a[data-item-id="authority"]` (site), `button[data-item-id^="phone"]`, `button[data-item-id="address"]`, puis bouton « Retour » — ~2,5 k tokens par catégorie (le tri par la seule liste donne 50 % de faux positifs). Prochaine fournée possible : Hyères, La Seyne, La Valette.
+
 ## 2026-09-16 · Grand rangement du PC (bureau + disques)
 
 - **Bureau** : 47 icônes en vrac (+ 19 du bureau Public `C:\Users\Public\Desktop`) → 2 dossiers `Jeux` / `Applications` + raccourci « Mes fichiers (E) ». 3 installeurs (ChatGPT, MTGA, Minecraft) + un `.winmd` → corbeille.
