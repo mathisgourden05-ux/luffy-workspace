@@ -4,6 +4,15 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-09-23 · rekordbox — playlist RAP + Luffy mixe deux morceaux pour de vrai
+
+- **Playlist « RAP » créée** dans rekordbox (via l'interface, pas la base : `master.db` est chiffrée et verrouillée quand l'appli tourne). Précision donnée à Mathis : dans rekordbox il n'y a qu'une seule « Collection », ce qu'on crée ce sont des listes de lecture.
+- **Mathis a demandé si je pouvais mixer deux sons → testé pour de vrai.** Méthode : pilotage souris/clavier en PowerShell + captures d'écran pour repérer chaque bouton (aucune API, UI Automation n'expose quasi rien : 636 éléments anonymes).
+- **1er essai (simple)** : In The Yuma (Chris Lake, 126) sur deck 1 + LOVE DEATH ROBOT[S] (Rounhaa, rap, 126) sur deck 2 — BPM identiques choisis exprès pour éviter l'étirement. BEAT SYNC + crossfader progressif sur 15 s. A marché.
+- **2e essai (avec effets)** : échange de graves, loop 4→2→1 temps sur le deck sortant, fondu. **2 ratés** : le clic « ECHO » a atterri sur le sélecteur de mode des pads (pads passés en PAD FX, remis en HOT CUE) ; les clics sur les potards d'EQ déclenchent les **boutons Kill** (coupure nette) au lieu de tourner progressivement. Un hot cue a peut-être été posé par erreur sur In The Yuma (A à 00:08).
+- **Limite de fond assumée** : je n'entends pas le son → je cale les tempos, jamais le phrasé (départ de phrase de 8/16 mesures). Pour aller plus loin : poser des cue points d'intro/sortie, trier par BPM + tonalité (Camelot), et laisser Mathis mixer.
+- Tous les repères de coordonnées sont notés dans `context.md` pour ne pas refaire le repérage.
+
 ## 2026-09-16 · Étude « compléter mes fins de mois » (mode économe)
 
 - Demande : trouver des moyens réalistes, peu chronophages, rapides à lancer, avec Luffy. **3 workflows multi-agents lancés et tués** (quota de session atteint la nuit, puis 2 interruptions Échap/fermeture) → Mathis a demandé d'**économiser ses tokens** (règle notée en mémoire). Refait en direct : 10 recherches web.
