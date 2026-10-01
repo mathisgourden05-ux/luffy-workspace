@@ -4,6 +4,39 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-01 · ADOC · Google Doc + grille simplifiée + 7 annexes
+
+- Version de Mathis (`drcvemarchadising.docx`) convertie en Google Doc. ⚠️ Déposé d'abord dans « Mathis E-Merch », dossier **partagé en écriture avec ses profs** → hérité du partage sans son accord ; déplacé en root (privé, vérifié). Règle notée (context.md + mémoire auto).
+- Grille refaite « en clair » (une ligne par technique + explication, X par site) en Google Doc séparé à coller (root, privé), version sans renvois d'annexes à sa demande.
+- **Annexes 1 à 7 capturées via Playwright** (Audemar : filtres, guide des tailles + « Vous aimerez aussi », blog ; Harley : Besoin de détails, avis, fiche Street Glide, demande d'essai) → `E:\Mathis\Cours BTS 2\ADOC\2026-10-01_annexes-e-merchandising.docx` (8 images + explication). Constat : la page « Afficher les avis » de Harley affiche **0 avis** (dispositif présent mais vide), signalé dans l'annexe 5.
+- Limite Drive : pas d'upload d'images via le connecteur sans passer des Mo en base64 → Mathis glisse le .docx dans Drive (Ouvrir avec Google Docs).
+
+## 2026-10-01 · ADOC · synthèse complète du dossier e-merchandising (skill bts-mco)
+
+- Fiche de synthèse du dossier du 29/09 (cadre, benchmark, grille résumée par objectif : UC 17 / Audemar 23 / Harley 16 techniques sur 32, tableau des 4 préconisations, à retenir pour l'oral). Livré : `E:\Mathis\Cours BTS 2\ADOC\2026-10-01_synthese-e-merchandising.docx` (copie `livrable/BTS/`), généré via docx-js, 0 tiret cadratin, ouvert pour Mathis dans LibreOffice.
+- Retouches : ligne Honda ajoutée, limites retirées. ⚠️ **Raté** : Mathis avait retravaillé le doc dans LibreOffice (coupes de ce qui n'était pas demandé + gras retiré) ; j'ai cru à un bug et régénéré par-dessus → ses modifs perdues (aucune sauvegarde LibreOffice exploitable). Refait d'après ses indications + la consigne du prof (Drive `B2C3Developperperfespacecommercial.docx`) : ne garder que Travail 1.1 (tableau + conclusion), 1.2 (grille), Travail 2 (préconisations). Règle notée en mémoire auto : ne jamais régénérer un livrable modifié par Mathis.
+
+## 2026-10-01 · Doc ADOC « illisible » + test détecteurs sur une synthèse
+
+- Mathis n'arrivait pas à ouvrir le .docx ADOC : fichier sain (converti OK par LibreOffice headless) → ouvert pour lui via `swriter.exe`. Cause probable : association .docx (Word absent).
+- Synthèse des réponses du doc en 2 versions (`livrable/BTS/_dtest/adoc-synthese_A-original.txt` brute, `_B-reecrit.txt` via `anti-detection-ia`), testées via Playwright.
+- **Résultats : ZeroGPT A = 0 %, B = 0 % IA. GPTZero A = 99 %, B = 100 % IA.** → Sur texte FR factuel chargé de chiffres, ZeroGPT ne voit rien du tout (même le brut), GPTZero voit tout (même la réécriture). La réécriture n'a rien changé sur aucun des deux. Confirme le 15/09 : ZeroGPT inutile comme référence, GPTZero (modèle entraîné, pas que perplexité/burstiness) ne se laisse pas avoir par une réécriture faite par la même IA. Résultats : `_dtest/adoc-synthese_resultats.md`.
+- Astuces Playwright : ZeroGPT = textarea + bouton « Detect Text », lire « Your Text is… » + % dans `innerText`. GPTZero = textarea + bouton « Scan » (role exact, sinon conflit avec « Advanced Scan ») → résultat dans un **nouvel onglet** app.gptzero.me, lisible sans compte.
+
+
+## 2026-09-29 · ADOC (Bloc 2 C3) · e-merchandising : benchmark + grille comparative + préconisations
+
+- **Contexte** : Mathis avait commencé un Google Doc (« Mathis e merch tab 1 ») avec le seul tableau SimilarWeb, et m'a envoyé la consigne du prof (`B2C3Developperperfespacecommercial.docx`). Demande : compléter jusqu'aux 3 préconisations (Travail 2). Travail 3 (réimplantation sur Wix) laissé de côté.
+- **Accès Google Docs** : connecteur Drive expiré → Mathis a relancé l'auth via `/mcp` (« Authentication successful »). L'extension Claude-in-Chrome n'est PAS connectée ; le Chromium de Playwright n'est pas connecté à son compte Google (redirige vers accounts.google.com). → **Pour lire un Google Doc privé : connecteur Google Drive MCP, c'est le seul chemin qui marche aujourd'hui.**
+- **UC = Road Spirit** (roadspirit.fr, son lieu de stage). Concurrents trouvés par recherche web à sa demande : **audemar.com** (groupe 5 concessions Toulon/Hyères, PrestaShop) et **harley-davidson-toulon.fr** (site vitrine, plateforme concession).
+- **Méthode d'analyse (économe)** : `browser_navigate` + **une seule `browser_evaluate`** par site qui lit le DOM et fait des `fetch()` same-origin sur catégorie + fiche produit, et renvoie un JSON compact de techniques détectées. Vérif visuelle de la fiche produit pour ne pas confondre une classe CSS du thème avec une fonctionnalité réellement affichée. Complété par un WebFetch sur la home de roadspirit.fr pour le menu de niveau 1.
+- **Résultats clés** : Road Spirit = WooCommerce, boutique d'équipement uniquement, **aucune page moto neuve/occasion, aucun formulaire d'essai, avis clients désactivés, pas de guide des tailles, pas de wishlist** ; home qui met encore en avant la « Nouvelle Speed Triple RR **2022** ». Audemar = facettes (marque/type/collection), quick view, guide des tailles, bloc Accessoires + cross-selling, blog actif, newsletter. Harley Toulon = **pas de e-commerce** (boutique = vitrine sans prix ni panier) mais 30 fiches modèles, 34 visuels, 20 coloris, specs, CTA « Réserver un essai » ×3, page d'avis par service, galerie vidéos.
+- **Lecture du benchmark** : Audemar gagne en volume (13 659 visites) mais a le pire rebond (40,63 %) et la visite la plus courte (59 s) ; Harley retient le mieux (7,75 pages, 4 min 20, rebond 26,79 %) **sans rien vendre en ligne** ; Road Spirit à 1,24 page/visite = le visiteur repart de la page d'arrivée. Limite signalée dans le doc : les 4 sites ne font pas le même métier.
+- **Livré** : `E:\Mathis\Cours BTS 2\ADOC\2026-09-29_e-merchandising-benchmark-preconisations.docx` (copie : `livrable/BTS/2026-09-29_adoc-e-merchandising-benchmark.docx`). Tableau fréquentation + grille de 35 techniques sur 5 objectifs + 4 préconisations justifiées (pages véhicules & formulaire d'essai / activer les avis / filtres + cross-selling + guide des tailles / actualiser la home). Passé par `humanizer`, 0 tiret cadratin, XML validé (2 tableaux, 43 lignes).
+- **Convention d'honnêteté retenue dans la grille** : X = technique constatée le 29/09 ; case vide = non constatée (≠ preuve d'absence). Dit à Mathis pour les lignes non observables de l'extérieur (tête de liste, suggestions personnalisées, up selling).
+- **Reste à sa charge** : les 7 captures d'écran d'annexes (liste fournie dans le doc) et le Travail 3 sur Wix.
+
+
 ## 2026-09-23 · rekordbox — playlist RAP + Luffy mixe deux morceaux pour de vrai
 
 - **Playlist « RAP » créée** dans rekordbox (via l'interface, pas la base : `master.db` est chiffrée et verrouillée quand l'appli tourne). Précision donnée à Mathis : dans rekordbox il n'y a qu'une seule « Collection », ce qu'on crée ce sont des listes de lecture.
