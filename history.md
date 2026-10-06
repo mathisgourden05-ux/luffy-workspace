@@ -55,6 +55,14 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - **Limite de fond assumée** : je n'entends pas le son → je cale les tempos, jamais le phrasé (départ de phrase de 8/16 mesures). Pour aller plus loin : poser des cue points d'intro/sortie, trier par BPM + tonalité (Camelot), et laisser Mathis mixer.
 - Tous les repères de coordonnées sont notés dans `context.md` pour ne pas refaire le repérage.
 
+## 2026-09-22 · Vérification des 4 tâches planifiées (Routines)
+
+- Audit des 4 Routines demandées : Actu IA (`trig_015S…`), Récap Nvidia/Apple (`trig_01Av…`), Veille alternance (`trig_01Ck…`), Sommaire artefacts (`trig_01Bg…`). Toutes existent, sont activées, aucun lancement échoué ni bloqué dans leur historique.
+- **Corrigé :** le cron du Récap Nvidia/Apple était réglé sur `CRON_TZ=Europe/Paris 0 9 * * 1` (9h Paris) au lieu de 8h → remis à `0 6 * * 1` (UTC, = 8h Paris avec l'heure d'été actuelle). Les 3 autres cron étaient déjà exacts (Actu IA `0 8 * * *`, Veille alternance `0 16 * * 1,4`, Sommaire `0 15,18 * * *`).
+- **Notifications push :** activées sur 3/4 (Actu IA, Nvidia/Apple, Veille alternance). **Absentes sur « Sommaire artefacts »** → pas de paramètre pour les activer sur une tâche existante via l'outil disponible (`update_trigger`), donc pas corrigeable depuis ici. À faire par Mathis dans l'interface Claude si l'option existe côté réglages de la tâche.
+- **Approbation automatique (permission_mode) :** seule Nvidia/Apple l'a explicitement à `auto`. Les 3 autres ne l'affichent pas dans leurs données, mais 2 d'entre elles (Actu IA, Sommaire artefacts) ont déjà réussi un lancement avec recherche web / actions sans se bloquer → risque probablement faible. Même limite technique que les notifications : pas de paramètre d'édition exposé pour forcer ce réglage sur une tâche déjà créée.
+- Aucune tâche supprimée, aucun prompt modifié (conforme à la demande de Mathis).
+
 ## 2026-09-16 · Étude « compléter mes fins de mois » (mode économe)
 
 - Demande : trouver des moyens réalistes, peu chronophages, rapides à lancer, avec Luffy. **3 workflows multi-agents lancés et tués** (quota de session atteint la nuit, puis 2 interruptions Échap/fermeture) → Mathis a demandé d'**économiser ses tokens** (règle notée en mémoire). Refait en direct : 10 recherches web.
