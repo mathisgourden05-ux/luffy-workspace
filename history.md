@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-06 · Road Spirit · version Wix lancée
+
+- Mathis a demandé de refaire « un peu le même site » Road Spirit sur Wix. Connecteur **Wix** trouvé dans le registre MCP et branché par Mathis (claude.ai → Connecteurs).
+- Méthode choisie par Mathis : **génération IA Wix** (site modifiable dans l'éditeur), plutôt que modèle ou copie exacte des fichiers. Prompt rédigé à partir du contenu réel du site Netlify (pages Accueil, Nos Triumph, Boutique, Services, Contact ; noir + or #D4A853 ; vraies infos Ollioules).
+- Génération lancée (site « Road Spirit » sur son compte Wix). Pas confirmé si c'est pour le Travail 3 de l'ADOC ou pour le portfolio.
+
 ## 2026-10-01 · ADOC · Google Doc + grille simplifiée + 7 annexes
 
 - Version de Mathis (`drcvemarchadising.docx`) convertie en Google Doc. ⚠️ Déposé d'abord dans « Mathis E-Merch », dossier **partagé en écriture avec ses profs** → hérité du partage sans son accord ; déplacé en root (privé, vérifié). Règle notée (context.md + mémoire auto).
