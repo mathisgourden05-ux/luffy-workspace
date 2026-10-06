@@ -9,6 +9,8 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - Mathis a demandé de refaire « un peu le même site » Road Spirit sur Wix. Connecteur **Wix** trouvé dans le registre MCP et branché par Mathis (claude.ai → Connecteurs).
 - Méthode choisie par Mathis : **génération IA Wix** (site modifiable dans l'éditeur), plutôt que modèle ou copie exacte des fichiers. Prompt rédigé à partir du contenu réel du site Netlify (pages Accueil, Nos Triumph, Boutique, Services, Contact ; noir + or #D4A853 ; vraies infos Ollioules).
 - Génération lancée (site « Road Spirit » sur son compte Wix). Pas confirmé si c'est pour le Travail 3 de l'ADOC ou pour le portfolio.
+- Site Wix créé (brouillon, plan gratuit, id `e3424291-237e-40db-9efb-e4e4ef5a1426`). Devise passée USD → **EUR** et fuseau → Europe/Paris. **7 produits ajoutés dans Wix Stores** (catalogue V3) avec photo et prix barré (-30 %) : Braddan Air Race, Vance, Tourer, Gants Triple Sports, Gants Raven, Bottes MX Tech 7, Jean Pure Riding. L'IA Wix n'avait pas généré de page Boutique.
+- **Horaires changés à la demande de Mathis : 14h-19h → 14h-18h** (mar-sam 9h-12h / 14h-18h). Fait dans `index.html` + `services.html` du site Netlify (à redéployer) et demandé à l'IA Wix pour le site Wix.
 
 ## 2026-10-01 · ADOC · Google Doc + grille simplifiée + 7 annexes
 
