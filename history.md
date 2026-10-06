@@ -11,6 +11,7 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 - Génération lancée (site « Road Spirit » sur son compte Wix). Pas confirmé si c'est pour le Travail 3 de l'ADOC ou pour le portfolio.
 - Site Wix créé (brouillon, plan gratuit, id `e3424291-237e-40db-9efb-e4e4ef5a1426`). Devise passée USD → **EUR** et fuseau → Europe/Paris. **7 produits ajoutés dans Wix Stores** (catalogue V3) avec photo et prix barré (-30 %) : Braddan Air Race, Vance, Tourer, Gants Triple Sports, Gants Raven, Bottes MX Tech 7, Jean Pure Riding. L'IA Wix n'avait pas généré de page Boutique.
 - **Horaires changés à la demande de Mathis : 14h-19h → 14h-18h** (mar-sam 9h-12h / 14h-18h). Fait dans `index.html` + `services.html` du site Netlify (à redéployer) et demandé à l'IA Wix pour le site Wix.
+- ⚠️ **Raté** : `WixSiteBuilder` relancé avec le jobId d'un site déjà généré répond « success » mais **ne modifie rien** (job resté sur le prompt d'origine, COMPLETED à 10:37). Les horaires Wix (encore 19h) et la galerie de la page Boutique sont donc à faire par Mathis dans l'éditeur. Il n'y a pas d'API pour modifier la mise en page. Site publié : https://mathisgourden05.wixsite.com/road-spirit
 
 ## 2026-10-01 · ADOC · Google Doc + grille simplifiée + 7 annexes
 
