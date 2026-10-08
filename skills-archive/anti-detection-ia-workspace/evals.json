@@ -1,0 +1,23 @@
+{
+  "skill_name": "anti-detection-ia",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "humanise cette synthese ADOC pour tester ZeroGPT (livrable/BTS/_dtest/adoc-synthese_A-original.txt)",
+      "expected_output": "Réécriture qui garde tous les chiffres et fait vraiment monter le rythme, mesurée avec scripts/stats.js.",
+      "assertions": [
+        "Tous les chiffres de l'original sont conservés",
+        "Coefficient de variation en hausse d'au moins 0,1 (résultat 06/10 : 0,38 -> 0,71)",
+        "Aucun mot-signal ni tiret cadratin",
+        "Tableau avant/après livré + rappel de tester sur le vrai détecteur"
+      ],
+      "result_2026_10_06": "OK : CV 0,38 -> 0,71 (ancienne réécriture du 01/10 : 0,38 -> 0,38). Fichier : livrable/BTS/_dtest/adoc-synthese_C-reecrit-v2.txt. Pas encore passé sur ZeroGPT/GPTZero."
+    },
+    {
+      "id": 2,
+      "prompt": "analyse pourquoi ce texte se fait detecter comme IA",
+      "expected_output": "Mode analyse : chiffres réels via stats.js + passages prévisibles + structures répétées + features utiles pour un détecteur maison.",
+      "assertions": ["Lance stats.js", "Ne réécrit pas le texte", "Propose des features mesurables"]
+    }
+  ]
+}

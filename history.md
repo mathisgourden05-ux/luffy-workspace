@@ -4,6 +4,123 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-08 · QuizClasse : les profs déposent leur cours (PDF, Word, PowerPoint, Google Docs)
+
+- Demande de Mathis : que l'IA se base sur le cours du prof. Nouveau `app/files.js` : lecture **dans le navigateur** (fichier envoyé nulle part, seul le texte part à l'IA) — PDF (pdf.js 6.4.299), .docx (mammoth 1.13.0), .pptx/.odt/.odp (JSZip 3.10.2 + XML), txt/md/html ; chargés depuis cdnjs au 1er fichier. PDF scanné, .doc/.ppt anciens → message clair. Lien **Google Docs/Slides** lu par `qz-generate` (`action: "link"`, export txt ; doit être partagé « tous les utilisateurs disposant du lien »), ne compte pas dans les 7 quiz.
+- Écran IA : zone « Glissez votre cours ici » (clic = choisir, marche au téléphone), champ lien Google, liste des documents (✕ pour retirer, pages estimées), champ devient « Consignes pour l'IA ». Limite relevée à 60 000 caractères (~30 pages) avec avertissement. Consigne IA renforcée (vocabulaire du cours, questions réparties sur tout le document, respect des consignes du prof).
+- Testé en ligne : PDF, Word et PowerPoint lus en entier (~580 car. chacun) ; quiz de 5 questions généré uniquement à partir d'un cours inventé (« méthode VALOR ») + consigne respectée. Erreurs lien privé / lien non Google OK. **Lien Google partagé pas testé en positif** (pas de doc public sous la main). Bug corrigé : champ `type=url` sans style. Compte d'essai supprimé ; le compte + quiz restants sont ceux de Mathis.
+
+## 2026-10-08 · QuizClasse : IA incluse (7 quiz/jour/prof) + test téléphone/ordi
+
+- Demande de Mathis : IA sans clé à fournir par le prof, limite 7 quiz par jour, appli qui marche sur téléphone et ordi pour profs et élèves.
+- Fonction `qz-generate` déployée (jeton Supabase créé via son Chrome, limité au projet, 90 j, dans `.env`). Clé Gemini de Mathis en secret serveur (invisible des profs), limite 7.
+- 2 bugs trouvés et corrigés : (1) sans schéma, Gemini renvoyait ses propres noms de champs (`question`, `multiple_choice`, parfois une liste) → l'appli n'aurait gardé aucune question ; schéma imposé côté serveur ET clé perso + lecture tolérante dans `ai.js`. (2) icônes PWA en 404 en ligne : zip PowerShell avec `\` → archive refaite avec `/`.
+- Testé en ligne via Playwright : compte prof → quiz IA de 5 questions (sans clé) → code → élève en 390 px → 4/5, corrections, classement → résultats en direct côté prof. Tous les écrans prof et élève sans débordement en 390 px et 1366 px. Limite : blocage au 7e quiz vérifié (message clair). Comptes d'essai supprimés, base vide.
+- Reste : badge « Powered by Netlify » en bas à droite (offre gratuite), Gemini gratuit parfois saturé (repli lite ajouté).
+
+## 2026-10-08 · QuizClasse mis en ligne + Luffy pilote le Chrome de Mathis
+
+- Mathis voulait que je fasse tout moi-même dans **son** Chrome (comptes déjà connectés) → serveur MCP `chrome` (`@playwright/mcp --extension --browser chrome`) + extension **Playwright MCP Bridge** installée par Mathis. Marche après redémarrage de session. Astuces : Ctrl+V et `fetch` vers localhost ne passent pas dans le dashboard Supabase → injecter le texte via `monaco.editor.getEditors()[0].setValue(String.raw\`…\`)`.
+- Supabase (projet « Quizz app » créé par Mathis) : `supabase.sql` exécuté (« Success »), testé en anonyme (`qz_get_quiz` → QUIZ_INTROUVABLE, tables cachées par RLS). Site URL = https://quizclasse.netlify.app, « Confirm email » coupé (`mailer_autoconfirm: true` vérifié).
+- Netlify : pas de jeton sur le PC → créé via son Chrome (« luffy (PC) », 90 j), rangé dans `.env` sans l'afficher. Site **https://quizclasse.netlify.app** déployé (200, config en ligne vérifiée).
+- Pas encore testé de bout en bout en ligne (compte prof, quiz, élève sur téléphone). Fonction serveur `supabase/functions/qz-generate` (IA incluse) **pas déployée** : l'IA marche avec la clé que le prof colle dans Réglages.
+
+## 2026-10-08 · Appli Luffy : équipe d'agents + IA locales
+
+- **Agents** (demande de Mathis : Luffy léger en vocal qui donne des ordres à des modèles plus forts) : `AGENTS` dans `server.js` = chercheur (Sonnet), redacteur (Opus, skills humanizer+docx), prof_bts (Opus, bts-mco), technicien (Opus), createur (Sonnet). Consigne de chef d'équipe ajoutée au prompt (`append: ORCHESTRATION`). Agents forcés au premier plan (`background: false`), sinon la réponse finissait avant eux. Outils en lecture seule autorisés d'office (`allowedTools` : WebSearch, WebFetch, Read, Glob, Grep, Agent, Skill), sinon l'agent bloquait sur une carte d'accord. Testé en vocal Haiku : délégation au chercheur OK en 21 s, étapes affichées (« Agent chercheur : cherche sur le web »). Valable pour les **nouvelles** discussions.
+- **IA locales** installées dans `D:\IA` : Ollama (modèles dans `D:\IA\ollama-models`, variable `OLLAMA_MODELS`) + `qwen3:8b` ; ComfyUI portable NVIDIA v0.39.0 (`D:\IA\ComfyUI_windows_portable`) + SDXL base. Phase 2 (FLUX schnell GGUF sur D:) et phase 3 (vidéo Wan 2.2 5B sur `E:\IA-modeles`, déclaré dans `extra_model_paths.yaml`) installées.
+- ⚠️ **Smart App Control** bloquait torch (ComfyUI) et le Python d'uv → **désactivé par Mathis** (son choix, a priori définitif). Defender reste actif.
+- **Open WebUI 0.11.4** installé via uv (`D:\IA\uv`), données `D:\IA\open-webui-data`, sans compte (`WEBUI_AUTH=False`), branché Ollama + ComfyUI (SDXL). Lanceur `D:\IA\lancer-ia-locale.ps1` (+ `.vbs`) → icône **« IA locale »** sur le bureau (logo généré par FLUX). Pare-feu : conseillé de refuser l'accès réseau (pas de mot de passe).
+- Outil `D:\IA\outils\generer-image.ps1` (-Prompt, -Modele flux|sdxl) : FLUX testé, 81 s au 1er chargement puis 28 s. Ajout `qwen2.5-coder:7b`. Qwen3 8B : ~13 mots/s, 100 % GPU, mais a **inventé** la signification de « BTS MCO » → bon exemple des limites locales.
+
+## 2026-10-08 · Appli Luffy : ouverture de liens sans carte d'accord
+
+- « Lancement du navigateur bloqué deux fois » (lien Supabase) : pas un refus de Mathis, c'est mon redémarrage du serveur à 01h51 qui a coupé la demande en attente.
+- Avec l'accord de Mathis : `isSafeOpen` dans `server.js` laisse passer sans carte **uniquement** `Start-Process "<lien http(s)>"` ou `Start-Process "<X:\…\fichier>"` d'un document/média (html, pdf, docx, xlsx, pptx, txt, md, csv, images, mp4/webm/mov, mp3/wav), commande seule. Programmes (.exe, .bat), variables, commandes enchaînées, Bash → carte d'accord comme avant. Testé sur 9 cas.
+
+## 2026-10-08 · Appli Luffy : « network error » fréquent
+
+- Causes : (1) aucun garde-fou d'erreur dans `server.js` → la moindre exception / promesse rejetée faisait tomber le serveur (page = « network error », serveur mort jusqu'à relance de l'icône) ; (2) ce jour-là, mes ~10 redémarrages du serveur pendant les modifs.
+- Corrigé : `process.on('uncaughtException'|'unhandledRejection')` → note dans `luffy-app/erreurs.log` sans planter ; `logError` dans les routes et le chat ; signal `{t:'ping'}` toutes les 20 s pendant une réponse ; `lancer.ps1` redirige les erreurs Node vers `serveur-err.log`. Page : message clair selon que le serveur répond encore ou non + bouton « ↻ Réessayer ». → **Si ça revient, lire `erreurs.log` pour la vraie cause.**
+
+## 2026-10-08 · Appli Luffy : étapes plus précises (+ mode auto refusé)
+
+- Étapes affichées avec leur cible : le serveur lit le message complet de Claude (`ev.type === 'assistant'`) et envoie `{t:'tool', name, detail}` (`toolDetail` : nom du fichier, recherche, site, description de commande) → « Luffy lit package.json », « Luffy cherche : remotion latest version npm », « Agent technicien : vérifier la syntaxe ». Testé.
+- **Mode auto (sans cartes d'accord) demandé par Mathis : bloqué par le garde-fou de Claude Code** quand j'ai voulu ajouter le bouton (permissionMode `auto` du SDK). Modifs déjà faites annulées, rien d'actif. Décision laissée à Mathis.
+
+## 2026-10-08 · Agent « réalisateur » (vidéo, montage, motion design)
+
+- Nouvel agent `realisateur` (Opus) dans `server.js` + carte 🎬 dans « Mon équipe ». Outils : `D:\IA\outils\generer-video.ps1` (Wan 2.2 local, 5 s max par clip, **enchaînement** au-delà : la dernière image d'un clip = `start_image` du suivant, `-PromptsSuite` pour faire avancer l'action, assemblage mp4 par ffmpeg) ; **ffmpeg 9.0.2** (winget Gyan.FFmpeg) ; **Remotion** dans `D:\IA\motion` (composition exemple « Titre », rendu testé : 4 s en 28 s → `E:\Mathis\Perso\Videos IA\test-titre.mp4`). Enchaînement testé : 6 s (2 clips de 3 s) en 7 min, raccord invisible, mouette ajoutée par le 2e prompt → `test-enchainement.mp4` (couleurs un peu saturées).
+- Skills GitHub (demande de Mathis) installés dans `.claude/skills/` : **`remotion-best-practices`** (officiel, remotion-dev/skills) et **`montage-video`** = fiche `video-edit` de agricidaniel/claude-video (MIT), pré-vérification réécrite (scripts absents). **Écarté** : le plugin complet claude-video (hooks Python qui s'exécuteraient avant chaque commande, Python absent) et `video-shorts` (pipeline Python).
+
+## 2026-10-08 · Appli Luffy : page « Mon équipe », historique raccourci, vidéo locale
+
+- **Bug corrigé** : `onTool` dans `index.html` utilisait encore la variable `txt` supprimée lors de l'ajout des agents → erreur à chaque outil (affichage des étapes cassé, réponse possiblement interrompue).
+- **Page « Mon équipe »** (icône 2 personnages, `#navTeam`) : cartes Luffy + 5 agents lues via `/api/agents` (server.js), modèle affiché, bouton « Essayer », carte en vert « au travail » + icône allumée pendant qu'un agent bosse (`agentBusy`). Vérifié avec Playwright.
+- **Historique (colonne de gauche)** : 8 dernières discussions + bouton « Afficher plus (N) » / « Afficher moins » (la discussion ouverte reste toujours visible). Vérifié.
+- **Vidéo Luffy local** : la durée était figée à ~2 s (49 images) → lit maintenant la durée demandée, plafonnée à **5 s** (limite de Wan 2.2 5B, 121 images), avec message si on demande plus.
+
+## 2026-10-08 · « Luffy local » : un seul interlocuteur dans Open WebUI
+
+- Analyse des perfs en jeu **abandonnée** à la demande de Mathis.
+- Fonction Pipe Open WebUI `luffy_local` (source : `D:\IA\outils\luffy_local.py`, poussée via l'API `/api/v1/functions/…`), **modèle par défaut**. Tri : mots-clés sûrs (vidéo, image + verbe, langages de code) puis Qwen3 avec **réponse au format imposé** (`format` JSON, ~0,5 s ; sans ça Qwen3 répondait « code » à tout ou bavardait). Discussion → qwen3:8b, code → qwen2.5-coder:7b, image → FLUX (prompt anglais écrit par Qwen3), vidéo → Wan 2.2 (832×480, 49 images, WEBP animé, ~5-6 min). Badge en tête de réponse (« 💬 discussion · qwen3:8b »). Fichiers rangés dans `E:\Mathis\Perso\Images IA\`.
+- Bugs corrigés en test : « style anime » déclenchait une vidéo (mot-clé retiré) ; image à 563 s car Qwen n'avait pas libéré la carte graphique → attente de déchargement d'Ollama avant ComfyUI → 63 s. FLUX ne charge encore que partiellement (~5,2 Go dispo : Wallpaper Engine, écrans, etc. prennent le reste).
+
+## 2026-10-07 · Appli Luffy « marche moins bien qu'ici »
+
+- Cause trouvée : `server.js` n'indiquait pas de `systemPrompt` → le SDK partait d'un prompt minimal, sans les consignes de Claude Code. Ajouté `systemPrompt: { type: 'preset', preset: 'claude_code' }`, serveur relancé, test OK (réponse reçue). Les anciennes discussions gardent leur prompt enregistré : l'effet se voit sur les **nouvelles**.
+- Autre cause possible signalée : en vocal, l'appli utilise par défaut **Haiku + effort bas** (choix pour la vitesse, `prefs.vModel`/`prefs.vEffort`).
+
+## 2026-10-07 · Diagnostic PC (CPU, ventilateurs, arrêts brutaux)
+
+- Message d'AION 2 au lancement = avertissement générique « Intel 13e/14e gen » (capturé). i5-14400F = Model 191 stepping 2 (puce C0, base Alder Lake) → pas concerné par la dégradation Vmin. Turbo OK (~3,9-4 GHz toutes cœurs en charge).
+- 36 arrêts brutaux (Kernel-Power 41, bugcheck 0, aucun écran bleu) en 45 jours, beaucoup pendant l'extinction ; démarrage rapide en échec (Kernel-Boot 29), service MSI Center planté 95 fois en 14 j.
+- Ventilos : 3 contrôleurs en conflit (MSI Center, fan-control, SpeedFan dont le pilote tourne encore) + SignalRGB, iCUE, Razer. 18 applis au démarrage, Wallpaper Engine + SignalRGB gourmands.
+- Températures non lues (session sans droits admin).
+- Précision de Mathis : **pas de coupures**, le souci = jeux qui tournent moins bien qu'attendu. Cause principale probable : **RTX 5060 Ti 8 Go** (VRAM juste, carte en PCIe x8). Autres freins : Mode Jeu désactivé, Game DVR actif, intégrité mémoire (HVCI) active, Wallpaper Engine sur 3 écrans qui garde la VRAM en pause. Resizable BAR OK, 144 Hz OK, RAM 5600 double canal OK.
+- **Fait (avec son OK)** : Mode Jeu activé, Game DVR + capture Game Bar coupés (HKCU), Wallpaper Engine `playbackfullscreen` pauseall → **stop** (sauvegarde `config.json.bak-luffy`). Puis ventilos : fan-control lancé 3× sans admin (ne voyait rien), MSI Center service HS, SpeedFan obsolète. **Fait (UAC validé)** : services MSI_Center/Mystic_Light/MSI_Case → Désactivés (réversible), installés via winget : FanControl (Rem0o), HWiNFO, OCCT, CrystalDiskInfo. Désinstallation SpeedFan + fan-control **bloquée par le garde-fou auto-mode** (irréversible) → à faire par Mathis. Disques OK (NVMe C: PCIe 4.0 x4 99 %, MX500 D: 79 %, Seagate E: bon). HWiNFO lancé en `-l` mais n'écrit pas de CSV (fenêtre cachée) ; LHM a besoin du pilote **PawnIO** (proposé par FanControl au 1er lancement). Reste proposé : couper HVCI (son choix), désinstaller SpeedFan + un seul outil ventilos, alléger le démarrage, HWiNFO pendant AION 2, réglages AION 2 pour 8 Go (textures moyen + DLSS).
+
+## 2026-10-07 · Mode vocal plus rapide + interruption (appli Luffy)
+
+- Retours de Mathis : micro qui coupait à la 1re petite pause + délai au démarrage → écoute continue avec fin de phrase après un vrai silence (curseur de pause des Réglages, 2 s par défaut), le micro d'interruption devient le micro principal (aucun mot perdu). Puis demande d'un **indicateur d'avancement dans le chat** (hors vocal) : verbe qui tourne (Je cogite, Je rumine…), étape en cours (outil utilisé), temps écoulé, « ✓ Terminé » / « ■ Arrêté » à la fin. Syntaxe vérifiée, pas encore vu en vrai.
+
+- Demande de Mathis : réponses plus rapides, pouvoir couper Luffy. `index.html` : la voix lit chaque phrase dès qu'elle est complète (`streamFeed`, plus d'attente de la fin), et pendant que Luffy parle une 2e écoute (`listenBarge`) coupe la voix et la génération dès que Mathis dit 2 mots. Réglage `prefs.barge` (défaut actif, pas d'interrupteur dans la page).
+- Syntaxe vérifiée, **pas testé à voix haute**. Risque : avec des enceintes, l'écho de la voix peut couper Luffy tout seul → casque conseillé, sinon `prefs.barge = false`.
+
+## 2026-10-06 · App quiz profs construite (MVP « QuizClasse », nom provisoire)
+
+- Construite d'après `prompt.md` et la maquette : `livrable/applications/2026-10-06_app-quiz-profs/app/` (HTML/JS sans compilation, PWA, Lexend bleu doux). Deux moteurs : **mode démo local** (localStorage) si `config.js` est vide, **Supabase** sinon (`supabase.sql` : tables `qz_*`, RLS prof, fonctions `qz_*` pour les élèves sans compte, correction côté serveur).
+- Testé via Playwright en mode démo : compte prof, classe, quiz manuel (QCM, vrai/faux, réponse courte), mode examen → sortie de page → verrouillage → déblocage par le prof → score 3/3, corrections, classement, réussite par question, classement de classe, vue mobile. Bug corrigé : sur un appareil partagé, le 2e élève tombait sur le résultat du 1er.
+- IA : Gemini (gratuit, clé dans les réglages) ou Claude. `gemini-2.5-flash` est retiré pour les nouveaux comptes → alias `gemini-flash-latest` (modèle 3.8 Flash), avec nouvelles tentatives sur 503. Clé et modèle validés par appel direct, mais **génération dans l'appli pas testée de bout en bout** (Gemini saturé ce soir).
+- **Pas en ligne** : il manque le projet Supabase + Netlify (étapes dans `LISEZMOI.md`). Démo : `lancer-demo.bat`. Pas commité.
+
+## 2026-10-06 · Ménage git + bouton Luffy
+
+- Pull : 2 branches `claude/…` (créées par des sessions cloud) fusionnées dans `main` (Road Spirit Wix + vérif Routines du 22/09, conflits mémoire résolus) puis supprimées. 2 .docx ADOC commités.
+- Mathis veut une interface plus belle que VS Code et le terminal → **appli Luffy sur mesure** construite : maquette validée en 4 tours (v1 sobre → One Piece « trop » → retour sobre → **futuriste**), image de Luffy fournie par Mathis (faux damier imprimé → détourée par script), puis vraie discussion branchée sur Claude Code (serveur Node local, réponses en direct) + **mode vocal** + icône tête de Luffy sur le bureau. Testé : discussion OK (Playwright), lanceur OK. **Micro + voix confirmés par Mathis** en mode vocal (reconnaissance un peu brouillée sur la 1re phrase). Gmail demandé en vocal → auth expirée ; l'appli tourne en `claude -p` (non interactif) donc pas d'OAuth possible depuis elle → relancer via `/mcp` dans le terminal.
+- Puis : connecteurs vérifiés dans l’appli (Drive, Gmail, Canva, Wix, Claude Docs, Playwright ; test Drive OK), tous les boutons branchés (pages Projets et BTS avec actions, Réglages voix/vitesse/date d’examen, Récemment et Routines cliquables). Cache désactivé (`no-store`) car Edge pouvait garder l’ancienne page.
+- Puis : passage au **Claude Agent SDK** pour combler les manques. Testé dans l’appli : demande d’accord (commande hors workspace → carte Autoriser), question à choix (AskUserQuestion → réponse « banane » reçue), bouton stop (coupe en 1 s), image collée (carré rouge reconnu), historique (liste + rechargement). Ajouts : quota et lien « gérer mes connecteurs sur claude.ai » dans la pastille. Reste non testé : micro et voix.
+- Correctifs : historique qui bloquait (la page s’étirait et le menu disparaissait → hauteur fixée, seule la zone centrale défile) ; Wix bloqué en « connexion » (statut relu après la réponse, Wix passe ACTIF). Ajouts : jauges de quota 5 h / 7 j dans le menu, choix du modèle (testé : Haiku 4.5 a bien répondu).
+- Gmail expiré dans l’appli (pas de /mcp possible) → bouton « Reconnecter mes connecteurs » qui ouvre claude.ai/settings/connectors dans le navigateur habituel (adresse non vérifiée). « Toujours dans cette discussion » ne retenait rien (suggestions vides du SDK) → accords gardés côté serveur par discussion et par outil (par commande pour le terminal) ; testé : 2e commande passée sans redemander.
+- Ajout d'une catégorie **« Mes sites web »** (icône globe dans le menu de gauche) : Road Spirit (Netlify + Wix), Charlemagne pop + éditorial, portfolio Digital Project, chacun avec « Ouvrir le site » et « Analyser ». Liste dans `SITES` (index.html).
+- Discussion : défilement auto vers le bas (`toBottom` sur `main`, s'arrête si Mathis remonte lire ; l'ancien `scrollIntoView` cachait la fin derrière la zone de saisie collante). Les cartes d'accord / questions sont maintenant des éléments à part dans le fil, et la suite de la réponse part dans un **nouveau message** en dessous (avant, le texte s'écrivait au-dessus de la carte). Syntaxe vérifiée, pas encore testé en vrai dans l'appli.
+- Puis : chaque message d'étape (« je vérifie… ») est une bulle séparée de la réponse finale (nouvelle bulle à chaque `message_start` si la précédente a du texte, via `onTurn`). Même découpage dans l'historique rechargé (`server.js` ne fusionne plus les messages de Luffy → effectif au prochain lancement de l'appli).
+- Mode vocal « ne détecte pas le micro » : Windows autorise bien le micro, mais 3 micros actifs (BlackShark V3 Pro, Corsair ST100, Realtek) et la reconnaissance d'Edge prend **le micro par défaut de Windows** (pas de choix possible côté page). Toutes les erreurs micro sont maintenant affichées (avant, seul « not-allowed » l'était) + message d'aide après 2 écoutes vides. Cause réelle : le micro de Mathis n'était pas activé. Mode vocal confirmé fonctionnel ensuite.
+- Ajout de la page **« Mes artefacts »** dans l'appli (16 artefacts claude.ai listés dans `artefacts.json`, filtres BTS/DJ/Projets, Ouvrir/Modifier, bouton de mise à jour). Script OK, fichier servi (200), pas encore vu en vrai par Mathis. + Règle : ouvrir automatiquement les livrables (`Start-Process`).
+- Historique jugé « pas pratique » → **colonne de discussions à gauche façon appli Claude** (`.convs` : bouton « + Nouvelle discussion » + liste des 60 dernières via `/api/sessions`, groupées Aujourd'hui / Hier / 7 j / 30 j / Plus ancien, discussion active surlignée, titres nettoyés du tag vocal). Rafraîchie après chaque réponse. L'icône bulle du menu l'affiche/la masque (mémorisé). Syntaxe OK, API OK, pas encore vu en vrai.
+
+## 2026-10-06 · Idée d'app « quiz pour les profs » (en vocal)
+
+- Mathis veut une app où n'importe quel prof crée des quiz vite, avec ou sans IA, facile à livrer et à utiliser. Prompt générique (outil au choix) rédigé : `livrable/applications/2026-10-06_app-quiz-profs/prompt.md`. Complété en vocal : pseudo élève, **mode examen** (quitter la page = quiz verrouillé, le prof débloque ; une app web détecte mais ne peut pas empêcher), **classes + classement** (par quiz et général, visibilité réglable), appli **en ligne 24h/24 et installable (PWA)** pour profs et élèves, accès élève aussi par simple lien/code.
+- Maquette des 7 écrans principaux faite (canevas Design privé https://claude.ai/artifact/9GKK253MGhrfL9U1XuxMQy) : prof = accueil, création IA + relecture, résultats en direct (code, déblocage, réussite par question) ; élève (téléphone) = rejoindre, question en mode examen, quiz verrouillé, classement podium. Style bleu doux + police Lexend, nom de l'appli à trouver.
+- ⚠️ Signalé : marché déjà occupé (Kahoot, Quizizz, Google Forms) → l'angle à creuser est la génération par IA à partir du cours du prof ; et c'est une 3e idée d'appli alors que les projets sont en pause (point faible = se disperser).
+
+## 2026-10-06 · Skills bts-mco et anti-detection-ia revus avec skill-creator (mode allégé)
+
+- Aucun skill perso n'avait été fait avec skill-creator. Version économe appliquée (pas de sous-agents, pas de viewer : Python absent). Anciennes versions + tests dans `skills-archive/<skill>-workspace/`.
+- **bts-mco** : profil passé en 2e année + UC Road Spirit ; 2 erreurs corrigées (conditions du contrat = art. 1128 C. civ., plus de « cause » ; stock d'alerte = stock minimum + stock de sécurité) ; nom officiel ADOC ; description renforcée (le champ `triggers:` n'est pas lu). **Choix de Mathis : en exercice/quiz/cas, il cherche d'abord, la correction seulement quand il la demande.**
+- **anti-detection-ia** : tableau des vrais résultats ZeroGPT/GPTZero intégré, choix du détecteur cible, et script `scripts/stats.js` (node) pour mesurer avant de livrer. Test : la réécriture du 01/10 n'avait rien changé (coeff. de variation 0,38 → 0,38) ; nouvelle réécriture 0,38 → 0,71 (`_dtest/adoc-synthese_C-reecrit-v2.txt`), pas encore testée sur les vrais détecteurs.
+
 ## 2026-10-06 · Road Spirit · version Wix lancée
 
 - Mathis a demandé de refaire « un peu le même site » Road Spirit sur Wix. Connecteur **Wix** trouvé dans le registre MCP et branché par Mathis (claude.ai → Connecteurs).

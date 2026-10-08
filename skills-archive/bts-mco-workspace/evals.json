@@ -1,0 +1,36 @@
+{
+  "skill_name": "bts-mco",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "fais moi une fiche courte sur les conditions de validite d'un contrat en CEJM",
+      "expected_output": "Fiche Définition → Points clés → Exemple → Ce qui tombe à l'exam, avec l'art. 1128 du Code civil (consentement, capacité, contenu licite et certain), sans la « cause ».",
+      "assertions": [
+        "Cite l'article 1128 du Code civil",
+        "Liste consentement, capacité, contenu licite et certain",
+        "Ne présente pas la cause comme condition actuelle",
+        "Suit la structure Définition / Points clés / Exemple / Exam"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "entraine moi sur les calculs de marge : un casque acheté 40 € HT est vendu 72 € TTC (TVA 20 %)",
+      "expected_output": "Mode entraînement : pose les questions et laisse Mathis chercher avant de corriger. Valeurs attendues : PV HT 60 €, marge 20 €, taux de marque 33,33 %, taux de marge 50 %, coefficient 1,8.",
+      "assertions": [
+        "Ne donne pas toutes les réponses d'emblée (fait chercher d'abord)",
+        "Valeurs justes dans la correction : PV HT 60, marge 20, taux de marque 33,33 %, taux de marge 50 %, coef 1,8",
+        "Montre les formules et les étapes"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "donne moi un petit cas pratique ADOC pour m'entrainer",
+      "expected_output": "Cas court ancré dans le retail, idéalement Road Spirit, méthode situation → problème → analyse → préconisations, puis attend la réponse de Mathis.",
+      "assertions": [
+        "Contexte réaliste (Road Spirit ou commerce de détail)",
+        "Questions de niveau BTS, pas au-delà",
+        "Attend la réponse avant de corriger"
+      ]
+    }
+  ]
+}

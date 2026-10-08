@@ -1,28 +1,14 @@
 ---
 name: bts-mco
-description: Aide complète aux matières du BTS MCO (Management Commercial Opérationnel). Couvre le programme officiel de Management, ADOC, DRCV, CEJM et Gestion Opérationnelle — fiches, exercices, calculs, cas pratiques, simulations d'épreuves.
-triggers:
-  - BTS MCO
-  - DRCV
-  - DRCVC
-  - ADOC
-  - animation dynamique
-  - management commercial
-  - CEJM
-  - gestion opérationnelle
-  - fiche de révision
-  - épreuve BTS
-  - stage BTS
-  - rapport de stage
-  - merchandising
-  - taux de marque
-  - coefficient multiplicateur
+description: Révisions et entraînement pour le BTS MCO (Management Commercial Opérationnel) de Mathis — Management, ADOC, DRCV, CEJM, Gestion opérationnelle. Fiches de révision, quiz, exercices de calcul (marges, taux de marque, coefficient multiplicateur, stocks, seuil de rentabilité), cas pratiques, droit (contrats, consommation, travail, RGPD), merchandising, benchmark e-merchandising, préparation des épreuves et de l'oral. Utilise ce skill dès que Mathis parle d'un cours, d'un chapitre, d'un DM, d'un cas d'entreprise, de son stage ou de son UC (Road Spirit), ou demande de réviser, même sans dire « BTS » ni nommer la matière.
 ---
 
 # Skill BTS MCO — Programme officiel
 
 ## Profil étudiant
-Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, avec des exemples tirés du commerce réel.
+Mathis, **2e (dernière) année** de BTS MCO, examen mi-2027. Son unité commerciale (UC) pour les dossiers = **Road Spirit**, concession Triumph de Toulon où il a fait son stage. Expliquer clairement, avec des exemples tirés du commerce réel (et de Road Spirit quand ça colle).
+
+Ce qu'on fait ensemble = **entraînement, compréhension, méthode, révision**. Mathis rend lui-même ses travaux notés : ne pas présumer de triche, mais ne pas non plus produire à sa place un rendu noté « prêt à rendre ». Pour tout exercice, quiz ou cas pratique : poser les questions et laisser Mathis chercher, sans donner les réponses. Ne livrer la correction que quand il la demande (« corrige », « donne le corrigé », « la réponse ») ou quand il envoie ses réponses. Choix exprimé par Mathis le 06/10/2026 : il veut chercher d'abord.
 
 ---
 
@@ -51,7 +37,7 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 
 ---
 
-## Matière 2 — ADOC (Animation, Mise en Dynamique de l'Offre Commerciale)
+## Matière 2 — ADOC (Animation et Dynamisation de l'Offre Commerciale)
 
 ### Programme officiel
 - **Élaboration de l'offre** : gamme, assortiment (largeur/profondeur), politique de prix, positionnement
@@ -104,7 +90,7 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 
 ### Droit
 - **Sources du droit** : Constitution, loi, règlement, jurisprudence, droit européen
-- **Droit des contrats** : conditions de validité (consentement, capacité, objet, cause), vices du consentement (erreur, dol, violence)
+- **Droit des contrats** : conditions de validité depuis la réforme de 2016 (art. 1128 Code civil) = consentement, capacité, contenu licite et certain — la « cause » et l'« objet » n'existent plus comme conditions distinctes, ne pas les enseigner. Vices du consentement : erreur, dol, violence (dont l'abus de dépendance économique)
 - **Droit commercial** : fonds de commerce, statut du commerçant, bail commercial, marques et brevets
 - **Droit de la consommation** : voir DRCV
 - **Responsabilité civile** : contractuelle vs délictuelle, réparation du préjudice
@@ -139,7 +125,8 @@ Mathis, 1re année de BTS MCO, en stage. Débutant — expliquer clairement, ave
 | Taux de rotation | CA HT / Stock moyen |
 
 ### Gestion des stocks
-- **Stock minimum** = stock de sécurité + stock d'alerte
+- **Stock minimum** = consommation pendant le délai de livraison
+- **Stock d'alerte** (niveau de recommande) = stock minimum + stock de sécurité
 - **Quantité économique de commande (Wilson)** : minimiser coût de passation + coût de possession
 - **Approvisionnement** : calendrier fixe/quantité variable vs calendrier variable/quantité fixe
 

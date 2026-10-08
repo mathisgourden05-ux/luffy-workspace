@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luffy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070D; --glass:rgba(16,22,38,.55); --glass2:rgba(26,34,56,.6); --line:rgba(120,170,255,.14);
+  --ink:#E8F0FF; --muted:#7B89A8; --cyan:#4CE0FF; --violet:#8B5CF6; --pink:#FF4FD8; --straw:#F2C14E;
+  --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Sora",system-ui,sans-serif;font-weight:400;min-height:100vh;display:flex;overflow:hidden}
+
+/* Fond : halos + grille en perspective */
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg::before{content:"";position:absolute;inset:-20%;background:
+  radial-gradient(35% 30% at 80% 5%,rgba(139,92,246,.22),transparent 70%),
+  radial-gradient(35% 30% at 15% 100%,rgba(76,224,255,.14),transparent 70%)}
+.floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;
+  background-image:linear-gradient(rgba(76,224,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(76,224,255,.18) 1px,transparent 1px);
+  background-size:60px 60px;transform:perspective(500px) rotateX(62deg);transform-origin:bottom;
+  -webkit-mask-image:linear-gradient(to top,#000 10%,transparent 85%);mask-image:linear-gradient(to top,#000 10%,transparent 85%);
+  animation:move 6s linear infinite;opacity:.55}
+@keyframes move{to{background-position:0 60px}}
+
+/* Barre latérale */
+aside{width:78px;background:rgba(8,12,22,.7);backdrop-filter:blur(14px);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:8px;position:relative;z-index:2}
+.logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;background:linear-gradient(135deg,var(--cyan),var(--violet));box-shadow:0 0 22px rgba(76,224,255,.45)}
+.logo svg{width:28px}
+.nav{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:var(--muted);cursor:pointer;transition:.2s;position:relative}
+.nav:hover{background:var(--glass2);color:var(--ink)}
+.nav.on{color:var(--cyan);background:rgba(76,224,255,.08);box-shadow:inset 0 0 0 1px rgba(76,224,255,.35),0 0 18px rgba(76,224,255,.15)}
+.nav.on::before{content:"";position:absolute;left:-15px;width:3px;height:24px;border-radius:3px;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.nav svg{width:22px;height:22px}
+.nav .tip{position:absolute;left:60px;background:#0B1120;border:1px solid var(--line);padding:6px 10px;border-radius:8px;font:500 12px "JetBrains Mono";white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;color:var(--ink)}
+.nav:hover .tip{opacity:1}
+.spacer{flex:1}
+
+main{flex:1;overflow-y:auto;padding:44px 56px 50px;position:relative;z-index:1}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* En-tête */
+.top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;position:relative}
+.date{font:500 12px "JetBrains Mono";color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;opacity:.85}
+.date::before{content:"// ";color:var(--muted)}
+h1{font-family:"Chakra Petch";font-weight:700;font-size:clamp(38px,4.6vw,60px);letter-spacing:-.01em;line-height:1}
+h1 span{background:linear-gradient(90deg,var(--cyan),var(--violet) 60%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(76,224,255,.35))}
+.status{display:flex;align-items:center;gap:10px;font:500 12px "JetBrains Mono";color:var(--muted);background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);padding:9px 15px;border-radius:999px;position:relative;z-index:1}
+.dot{width:8px;height:8px;border-radius:50%;background:#3DFFA8;box-shadow:0 0 12px #3DFFA8;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero-luffy{position:absolute;right:0;top:-44px;height:230px;opacity:0;transition:opacity .6s;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);mask-image:linear-gradient(to left,#000 55%,transparent);filter:drop-shadow(0 0 24px rgba(139,92,246,.45))}
+.hero-luffy.ok{opacity:1}
+
+/* Zone de discussion : bordure dégradée animée */
+.ask{position:relative;border-radius:22px;padding:1px;margin-bottom:14px;background:linear-gradient(120deg,rgba(76,224,255,.5),rgba(139,92,246,.35),rgba(255,79,216,.35),rgba(76,224,255,.5));background-size:300% 300%;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.ask-in{background:rgba(9,13,24,.92);backdrop-filter:blur(16px);border-radius:21px;padding:18px 18px 14px 22px}
+.ask:focus-within{box-shadow:0 0 34px rgba(76,224,255,.18)}
+.ask textarea{width:100%;background:none;border:0;outline:0;color:var(--ink);font:inherit;font-size:18px;font-weight:300;resize:none;height:56px}
+.ask textarea::placeholder{color:#55617D}
+.ask-row{display:flex;justify-content:space-between;align-items:center}
+.tools{display:flex;gap:6px}
+.tool{font:500 12px "JetBrains Mono";color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:999px;cursor:pointer;transition:.15s}
+.tool:hover{color:var(--cyan);border-color:rgba(76,224,255,.4)}
+.send{width:46px;height:46px;border-radius:14px;border:0;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05070D;cursor:pointer;display:grid;place-items:center;transition:.2s;box-shadow:0 0 20px rgba(76,224,255,.4)}
+.send:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(76,224,255,.65)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.chip{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);color:var(--ink);padding:9px 15px;border-radius:10px;font:inherit;font-size:14px;cursor:pointer;transition:.2s}
+.chip:hover{border-color:rgba(76,224,255,.55);box-shadow:0 0 16px rgba(76,224,255,.18);color:#fff}
+.chip b{margin-right:6px}
+
+/* Gros micro */
+.mic{width:64px;height:64px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#fff;margin-right:10px;position:relative;
+  background:radial-gradient(circle at 30% 30%,#FF7BE5,var(--pink) 45%,var(--violet));box-shadow:0 0 26px rgba(255,79,216,.45);transition:.2s}
+.mic:hover{transform:scale(1.06)}
+.mic svg{width:28px;height:28px}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--pink);opacity:0}
+.mic.on::before{animation:ring 1.4s infinite}.mic.on::after{animation:ring 1.4s .7s infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.mic.on{background:radial-gradient(circle at 30% 30%,#7FF0FF,var(--cyan) 45%,var(--violet));box-shadow:0 0 34px rgba(76,224,255,.6)}
+.right{display:flex;align-items:center}
+.hint{font:400 11px "JetBrains Mono";color:var(--muted);margin-right:14px}
+.mic.on~.hint{color:var(--cyan)}
+
+/* Cartes verre + coins HUD */
+.grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px}
+.card{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:var(--r);padding:22px;position:relative;transition:.25s}
+.card:hover{border-color:rgba(76,224,255,.3);box-shadow:0 0 28px rgba(76,224,255,.08)}
+.card::before,.card::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--cyan);opacity:.7}
+.card::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-top-left-radius:var(--r)}
+.card::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-bottom-right-radius:var(--r)}
+.card h2{font-family:"Chakra Petch";font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.card h2 small{font:400 11px "JetBrains Mono";letter-spacing:.04em;text-transform:none;color:var(--muted)}
+.subj{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.subj div{background:var(--glass2);border-radius:12px;padding:14px 8px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;transition:.2s;border:1px solid transparent}
+.subj div:hover{border-color:rgba(76,224,255,.5);color:var(--ink);box-shadow:0 0 14px rgba(76,224,255,.15)}
+.subj i{display:block;font-style:normal;font-family:"Chakra Petch";font-weight:700;font-size:19px;margin-bottom:4px;color:var(--ink)}
+.exam{margin-top:16px;display:flex;align-items:center;gap:16px;border-radius:12px;padding:14px 16px;background:linear-gradient(90deg,rgba(255,79,216,.14),transparent);border:1px solid rgba(255,79,216,.2)}
+.exam strong{font:700 32px "Chakra Petch";color:var(--pink);text-shadow:0 0 18px rgba(255,79,216,.5);font-variant-numeric:tabular-nums}
+.exam span{font-size:12px;color:var(--muted)}
+.list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.35}
+.list .d{font:400 12px "JetBrains Mono";color:var(--cyan);opacity:.75;min-width:44px;padding-top:1px}
+.tag{font:500 10px "JetBrains Mono";letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:rgba(139,92,246,.14);color:#B9A4FF;margin-left:auto;white-space:nowrap}
+.tag.done{background:rgba(61,255,168,.1);color:#3DFFA8}
+.wide{grid-column:span 2}
+.routines{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rt{background:var(--glass2);border-radius:12px;padding:14px;border-left:2px solid var(--violet)}
+.rt p{font-size:14px;margin-bottom:6px}
+.rt span{font:400 11px "JetBrains Mono";color:var(--muted)}
+.files{display:flex;flex-direction:column;gap:8px}
+.file{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--glass2);font-size:14px;cursor:pointer;transition:.2s;border:1px solid transparent}
+.file:hover{border-color:rgba(76,224,255,.35)}
+.ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(76,224,255,.1)}
+
+/* Apparition en cascade */
+.rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.rise{opacity:1;transform:none}}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.routines{grid-template-columns:repeat(2,1fr)}main{padding:28px 16px}aside{display:none}.subj{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg"><div class="floor"></div></div>
+
+<aside>
+  <div class="logo" title="Luffy">
+    <svg viewBox="0 0 32 32"><ellipse cx="16" cy="20" rx="14" ry="4.5" fill="#05070D"/><path d="M8 20c0-6 3.6-10 8-10s8 4 8 10" fill="#05070D"/><rect x="8.4" y="16.5" width="15.2" height="2.6" fill="#F2C14E"/></svg>
+  </div>
+  <div class="nav on"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="tip">Accueil</span></div>
+  <div class="nav"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="tip">Discussions</span></div>
+  <div class="nav"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19V6a2 2 0 012-2h12v15H6a2 2 0 00-2 2zm0 0a2 2 0 002 2h12"/></svg><span class="tip">BTS MCO</span></div>
+  <div class="nav"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg><span class="tip">Projets</span></div>
+  <div class="nav"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span class="tip">Mes fichiers</span></div>
+  <div class="spacer"></div>
+  <div class="nav"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span class="tip">Réglages</span></div>
+</aside>
+
+<main><div class="wrap">
+
+  <div class="top rise">
+    <div>
+      <p class="date" id="date"></p>
+      <h1 id="hello">Salut <span>Mathis</span>.</h1>
+    </div>
+    <img class="hero-luffy" src="luffy.png" alt="" onload="this.classList.add('ok');this.nextElementSibling.style.marginRight='230px'" onerror="this.remove()">
+    <div class="status"><span class="dot"></span>LUFFY EN LIGNE · MÉMOIRE OK</div>
+  </div>
+
+  <div class="ask rise" style="animation-delay:.08s"><div class="ask-in">
+    <textarea placeholder="Qu'est-ce qu'on fait aujourd'hui ?"></textarea>
+    <div class="ask-row">
+      <div class="tools"><span class="tool">+ joindre</span></div>
+      <div class="right">
+      <button class="mic" id="mic" aria-label="Parler à Luffy"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button>
+      <span class="hint" id="hint">appuie et parle</span>
+      <button class="send" aria-label="Envoyer"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+  </div></div>
+
+  <div class="chips rise" style="animation-delay:.14s">
+    <button class="chip"><b>📚</b>Réviser une matière</button>
+    <button class="chip"><b>🛰️</b>Quoi de neuf en IA ?</button>
+    <button class="chip"><b>✍️</b>Rédiger un document</button>
+    <button class="chip"><b>🗓️</b>Organiser ma semaine</button>
+    <button class="chip"><b>🔎</b>Analyser un site</button>
+  </div>
+
+  <div class="grid">
+    <section class="card rise" style="animation-delay:.2s">
+      <h2>BTS MCO <small>2e année</small></h2>
+      <div class="subj">
+        <div><i>MGT</i>Management</div>
+        <div><i>ADOC</i>Offre</div>
+        <div><i>DRCV</i>Relation client</div>
+        <div><i>CEJM</i>Éco-droit</div>
+        <div><i>GO</i>Gestion op.</div>
+      </div>
+      <div class="exam"><strong id="days">—</strong><span>jours environ avant les épreuves<br>(date exacte à renseigner)</span></div>
+    </section>
+
+    <section class="card rise" style="animation-delay:.26s">
+      <h2>Récemment <small>history.md</small></h2>
+      <ul class="list">
+        <li><span class="d">06/10</span>Road Spirit sur Wix + ménage GitHub</li>
+        <li><span class="d">01/10</span>ADOC : synthèse et 7 annexes</li>
+        <li><span class="d">29/09</span>ADOC : benchmark e-merchandising</li>
+        <li><span class="d">23/09</span>rekordbox : playlist RAP et premier mix</li>
+      </ul>
+    </section>
+
+    <section class="card rise" style="animation-delay:.32s">
+      <h2>Projets <small>en pause</small></h2>
+      <ul class="list">
+        <li>Prestataire IA PME<span class="tag">standby</span></li>
+        <li>CRM artisans<span class="tag">standby</span></li>
+        <li>Librairies Charlemagne<span class="tag">standby</span></li>
+        <li>Road Spirit<span class="tag done">portfolio</span></li>
+      </ul>
+    </section>
+
+    <section class="card wide rise" style="animation-delay:.38s">
+      <h2>Mes routines <small>tâches automatiques</small></h2>
+      <div class="routines">
+        <div class="rt"><p>Actu IA</p><span>Tous les jours · 10h</span></div>
+        <div class="rt"><p>Récap Nvidia / Apple</p><span>Lundi · 8h</span></div>
+        <div class="rt"><p>Veille alternance</p><span>Lun. et jeu. · 18h</span></div>
+        <div class="rt"><p>Sommaire artefacts</p><span>17h et 20h</span></div>
+      </div>
+    </section>
+
+    <section class="card rise" style="animation-delay:.44s">
+      <h2>Raccourcis</h2>
+      <div class="files">
+        <div class="file"><span class="ico">📘</span>Cours BTS 2</div>
+        <div class="file"><span class="ico">🗂️</span>Administratif</div>
+        <div class="file"><span class="ico">🚀</span>Projets</div>
+      </div>
+    </section>
+  </div>
+
+</div></main>
+
+<script>
+const now=new Date();
+document.getElementById('date').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const h=now.getHours();
+const mot=h<5?'Encore debout':h<12?'Bonjour':h<18?'Salut':'Bonsoir';
+document.getElementById('hello').innerHTML=mot+' <span>Mathis</span>.';
+// Date d'examen provisoire (mi-mai 2027) : à remplacer par la vraie date
+const exam=new Date('2027-05-15');
+const target=Math.max(0,Math.ceil((exam-now)/864e5));
+// Compteur qui défile jusqu'au nombre de jours
+const el=document.getElementById('days');let n=0;
+const tick=()=>{n=Math.min(target,n+Math.ceil(target/40));el.textContent=n;if(n<target)requestAnimationFrame(tick)};
+setTimeout(tick,500);
+
+// Micro : dictée vocale (reconnaissance intégrée au navigateur Edge)
+const mic=document.getElementById("mic"),hint=document.getElementById("hint"),ta=document.querySelector(".ask textarea");
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null,base="";
+mic.onclick=()=>{
+  if(!SR){hint.textContent="non dispo ici · essaie Win + H";return}
+  if(rec){rec.stop();return}
+  rec=new SR();rec.lang="fr-FR";rec.interimResults=true;rec.continuous=true;base=ta.value?ta.value+" ":"";
+  rec.onresult=e=>{let t="";for(const r of e.results)t+=r[0].transcript;ta.value=base+t};
+  rec.onstart=()=>{mic.classList.add("on");hint.textContent="je t'écoute…"};
+  rec.onend=()=>{mic.classList.remove("on");hint.textContent="appuie et parle";rec=null};
+  rec.onerror=e=>{hint.textContent="micro : "+e.error};
+  rec.start();
+};
+</script>
+</body>
+</html>

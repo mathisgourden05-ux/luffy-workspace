@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luffy</title>
+<link rel="icon" href="luffy.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070D; --glass:rgba(16,22,38,.55); --glass2:rgba(26,34,56,.6); --line:rgba(120,170,255,.14);
+  --ink:#E8F0FF; --muted:#7B89A8; --cyan:#4CE0FF; --violet:#8B5CF6; --pink:#FF4FD8; --straw:#F2C14E;
+  --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Sora",system-ui,sans-serif;font-weight:400;min-height:100vh;display:flex;overflow:hidden}
+
+/* Fond : halos + grille en perspective */
+.bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg::before{content:"";position:absolute;inset:-20%;background:
+  radial-gradient(35% 30% at 80% 5%,rgba(139,92,246,.22),transparent 70%),
+  radial-gradient(35% 30% at 15% 100%,rgba(76,224,255,.14),transparent 70%)}
+.floor{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;
+  background-image:linear-gradient(rgba(76,224,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(76,224,255,.18) 1px,transparent 1px);
+  background-size:60px 60px;transform:perspective(500px) rotateX(62deg);transform-origin:bottom;
+  -webkit-mask-image:linear-gradient(to top,#000 10%,transparent 85%);mask-image:linear-gradient(to top,#000 10%,transparent 85%);
+  animation:move 6s linear infinite;opacity:.55}
+@keyframes move{to{background-position:0 60px}}
+
+/* Barre latérale */
+aside{width:78px;background:rgba(8,12,22,.7);backdrop-filter:blur(14px);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:8px;position:relative;z-index:2}
+.logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;background:linear-gradient(135deg,var(--cyan),var(--violet));box-shadow:0 0 22px rgba(76,224,255,.45)}
+.logo svg{width:28px}
+.nav{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:var(--muted);cursor:pointer;transition:.2s;position:relative}
+.nav:hover{background:var(--glass2);color:var(--ink)}
+.nav.on{color:var(--cyan);background:rgba(76,224,255,.08);box-shadow:inset 0 0 0 1px rgba(76,224,255,.35),0 0 18px rgba(76,224,255,.15)}
+.nav.on::before{content:"";position:absolute;left:-15px;width:3px;height:24px;border-radius:3px;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.nav svg{width:22px;height:22px}
+.nav .tip{position:absolute;left:60px;background:#0B1120;border:1px solid var(--line);padding:6px 10px;border-radius:8px;font:500 12px "JetBrains Mono";white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;color:var(--ink)}
+.nav:hover .tip{opacity:1}
+.spacer{flex:1}
+
+main{flex:1;overflow-y:auto;padding:44px 56px 50px;position:relative;z-index:1}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* En-tête */
+.top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;position:relative}
+.date{font:500 12px "JetBrains Mono";color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;opacity:.85}
+.date::before{content:"// ";color:var(--muted)}
+h1{font-family:"Chakra Petch";font-weight:700;font-size:clamp(38px,4.6vw,60px);letter-spacing:-.01em;line-height:1}
+h1 span{background:linear-gradient(90deg,var(--cyan),var(--violet) 60%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(76,224,255,.35))}
+.status{display:flex;align-items:center;gap:10px;font:500 12px "JetBrains Mono";color:var(--muted);background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);padding:9px 15px;border-radius:999px;position:relative;z-index:1}
+.dot{width:8px;height:8px;border-radius:50%;background:#3DFFA8;box-shadow:0 0 12px #3DFFA8;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero-luffy{position:absolute;right:0;top:-44px;height:230px;opacity:0;transition:opacity .6s;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);mask-image:linear-gradient(to left,#000 55%,transparent);filter:drop-shadow(0 0 24px rgba(139,92,246,.45))}
+.hero-luffy.ok{opacity:1}
+
+/* Zone de discussion : bordure dégradée animée */
+.ask{position:relative;border-radius:22px;padding:1px;margin-bottom:14px;background:linear-gradient(120deg,rgba(76,224,255,.5),rgba(139,92,246,.35),rgba(255,79,216,.35),rgba(76,224,255,.5));background-size:300% 300%;animation:flow 8s linear infinite}
+@keyframes flow{to{background-position:300% 0}}
+.ask-in{background:rgba(9,13,24,.92);backdrop-filter:blur(16px);border-radius:21px;padding:18px 18px 14px 22px}
+.ask:focus-within{box-shadow:0 0 34px rgba(76,224,255,.18)}
+.ask textarea{width:100%;background:none;border:0;outline:0;color:var(--ink);font:inherit;font-size:18px;font-weight:300;resize:none;height:56px}
+.ask textarea::placeholder{color:#55617D}
+.ask-row{display:flex;justify-content:space-between;align-items:center}
+.tools{display:flex;gap:6px}
+.tool{font:500 12px "JetBrains Mono";color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:999px;cursor:pointer;transition:.15s}
+.tool:hover{color:var(--cyan);border-color:rgba(76,224,255,.4)}
+.send{width:46px;height:46px;border-radius:14px;border:0;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05070D;cursor:pointer;display:grid;place-items:center;transition:.2s;box-shadow:0 0 20px rgba(76,224,255,.4)}
+.send:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(76,224,255,.65)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
+.chip{background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--line);color:var(--ink);padding:9px 15px;border-radius:10px;font:inherit;font-size:14px;cursor:pointer;transition:.2s}
+.chip:hover{border-color:rgba(76,224,255,.55);box-shadow:0 0 16px rgba(76,224,255,.18);color:#fff}
+.chip b{margin-right:6px}
+
+/* Gros micro */
+.mic{width:64px;height:64px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#fff;margin-right:10px;position:relative;
+  background:radial-gradient(circle at 30% 30%,#FF7BE5,var(--pink) 45%,var(--violet));box-shadow:0 0 26px rgba(255,79,216,.45);transition:.2s}
+.mic:hover{transform:scale(1.06)}
+.mic svg{width:28px;height:28px}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--pink);opacity:0}
+.mic.on::before{animation:ring 1.4s infinite}.mic.on::after{animation:ring 1.4s .7s infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.7);opacity:0}}
+.mic.on{background:radial-gradient(circle at 30% 30%,#7FF0FF,var(--cyan) 45%,var(--violet));box-shadow:0 0 34px rgba(76,224,255,.6)}
+.right{display:flex;align-items:center}
+.hint{font:400 11px "JetBrains Mono";color:var(--muted);margin-right:14px}
+.mic.on~.hint{color:var(--cyan)}
+
+/* Cartes verre + coins HUD */
+.grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:16px}
+.card{background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:var(--r);padding:22px;position:relative;transition:.25s}
+.card:hover{border-color:rgba(76,224,255,.3);box-shadow:0 0 28px rgba(76,224,255,.08)}
+.card::before,.card::after{content:"";position:absolute;width:14px;height:14px;border:2px solid var(--cyan);opacity:.7}
+.card::before{top:-1px;left:-1px;border-right:0;border-bottom:0;border-top-left-radius:var(--r)}
+.card::after{bottom:-1px;right:-1px;border-left:0;border-top:0;border-bottom-right-radius:var(--r)}
+.card h2{font-family:"Chakra Petch";font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.card h2 small{font:400 11px "JetBrains Mono";letter-spacing:.04em;text-transform:none;color:var(--muted)}
+.subj{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.subj div{background:var(--glass2);border-radius:12px;padding:14px 8px;text-align:center;font-size:12px;color:var(--muted);cursor:pointer;transition:.2s;border:1px solid transparent}
+.subj div:hover{border-color:rgba(76,224,255,.5);color:var(--ink);box-shadow:0 0 14px rgba(76,224,255,.15)}
+.subj i{display:block;font-style:normal;font-family:"Chakra Petch";font-weight:700;font-size:19px;margin-bottom:4px;color:var(--ink)}
+.exam{margin-top:16px;display:flex;align-items:center;gap:16px;border-radius:12px;padding:14px 16px;background:linear-gradient(90deg,rgba(255,79,216,.14),transparent);border:1px solid rgba(255,79,216,.2)}
+.exam strong{font:700 32px "Chakra Petch";color:var(--pink);text-shadow:0 0 18px rgba(255,79,216,.5);font-variant-numeric:tabular-nums}
+.exam span{font-size:12px;color:var(--muted)}
+.list{list-style:none;display:flex;flex-direction:column;gap:13px}
+.list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.35}
+.list .d{font:400 12px "JetBrains Mono";color:var(--cyan);opacity:.75;min-width:44px;padding-top:1px}
+.tag{font:500 10px "JetBrains Mono";letter-spacing:.06em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:rgba(139,92,246,.14);color:#B9A4FF;margin-left:auto;white-space:nowrap}
+.tag.done{background:rgba(61,255,168,.1);color:#3DFFA8}
+.wide{grid-column:span 2}
+.routines{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rt{background:var(--glass2);border-radius:12px;padding:14px;border-left:2px solid var(--violet)}
+.rt p{font-size:14px;margin-bottom:6px}
+.rt span{font:400 11px "JetBrains Mono";color:var(--muted)}
+.files{display:flex;flex-direction:column;gap:8px}
+.file{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;background:var(--glass2);font-size:14px;cursor:pointer;transition:.2s;border:1px solid transparent}
+.file:hover{border-color:rgba(76,224,255,.35)}
+.ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(76,224,255,.1)}
+
+/* Apparition en cascade */
+.rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.rise{opacity:1;transform:none}}
+@media (max-width:1000px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.routines{grid-template-columns:repeat(2,1fr)}main{padding:28px 16px}aside{display:none}.subj{grid-template-columns:repeat(3,1fr)}}
+
+/* Gros bouton mode vocal */
+.voice-btn{display:flex;align-items:center;gap:12px;height:58px;padding:0 22px 0 8px;border-radius:999px;border:0;cursor:pointer;margin-right:10px;color:#fff;font:600 15px "Sora";
+  background:linear-gradient(120deg,var(--pink),var(--violet));box-shadow:0 0 28px rgba(255,79,216,.4);transition:.2s}
+.voice-btn:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(255,79,216,.6)}
+.voice-btn .m{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.voice-btn svg{width:22px;height:22px}
+
+/* Fil de discussion */
+.thread{display:none;flex-direction:column;gap:18px;margin-bottom:18px}
+body.chatting .thread{display:flex}
+body.chatting .chips,body.chatting .grid{display:none}
+body.chatting .ask{position:sticky;bottom:0;z-index:3}
+.back{align-self:flex-start;font:500 12px "JetBrains Mono";color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.back:hover{color:var(--cyan)}
+.msg{max-width:82%;line-height:1.6;font-size:15px}
+.msg.me{align-self:flex-end;background:linear-gradient(120deg,rgba(76,224,255,.16),rgba(139,92,246,.18));border:1px solid rgba(76,224,255,.25);padding:12px 16px;border-radius:18px 18px 4px 18px;white-space:pre-wrap}
+.msg.bot{align-self:flex-start;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);padding:14px 18px;border-radius:18px 18px 18px 4px}
+.msg.bot p{margin:.4em 0}.msg.bot ul,.msg.bot ol{margin:.4em 0 .4em 1.3em}
+.msg.bot code{font:13px "JetBrains Mono";background:rgba(76,224,255,.1);padding:1px 5px;border-radius:5px}
+.msg.bot pre{background:#070B14;border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;margin:.6em 0}
+.msg.bot pre code{background:none;padding:0}
+.msg.bot h4{font-family:"Chakra Petch";margin:.7em 0 .2em}
+.msg.bot a{color:var(--cyan)}
+.msg.bot table{border-collapse:collapse;margin:.6em 0;font-size:14px}.msg.bot td,.msg.bot th{border:1px solid var(--line);padding:5px 9px}
+.who{font:500 11px "JetBrains Mono";color:var(--cyan);margin-bottom:4px;letter-spacing:.08em}
+.act{font:400 12px "JetBrains Mono";color:var(--muted);margin:2px 0}
+.act::before{content:"⚙ ";color:var(--violet)}
+.stat{display:flex;align-items:center;gap:8px;margin-top:10px;font:500 12px "JetBrains Mono";color:var(--cyan)}
+.stat .sp{display:inline-block;width:12px;height:12px;border:2px solid var(--cyan);border-right-color:transparent;border-radius:50%;animation:spn .8s linear infinite}
+.stat .tm{color:var(--muted)}
+.stat.done{color:#4ade80}.stat.done .sp,.stat.stopped .sp{display:none}.stat.stopped{color:var(--muted)}
+@keyframes spn{to{transform:rotate(360deg)}}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);margin-right:4px;animation:bl 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bl{50%{opacity:.2}}
+.subj div,.chip,.file{user-select:none}
+
+/* Écran du mode vocal */
+.vmode{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:rgba(3,5,10,.86);backdrop-filter:blur(20px);padding:24px;text-align:center}
+.vmode.open{display:flex}
+.orb{width:220px;height:220px;border-radius:50%;cursor:pointer;position:relative;transition:transform .4s;
+  background:radial-gradient(circle at 35% 30%,#B8F6FF,var(--cyan) 30%,var(--violet) 70%,#2A1060);box-shadow:0 0 80px rgba(76,224,255,.45),inset 0 0 40px rgba(255,255,255,.25)}
+.orb::before,.orb::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:2px solid rgba(76,224,255,.5);opacity:0}
+.vmode[data-s="listen"] .orb{animation:breathe 1.8s ease-in-out infinite}
+.vmode[data-s="listen"] .orb::before{animation:vring 1.8s infinite}.vmode[data-s="listen"] .orb::after{animation:vring 1.8s .9s infinite}
+.vmode[data-s="think"] .orb{background:conic-gradient(from 0deg,var(--cyan),var(--violet),var(--pink),var(--cyan));animation:spin 1.6s linear infinite;box-shadow:0 0 90px rgba(139,92,246,.55)}
+.vmode[data-s="speak"] .orb{background:radial-gradient(circle at 35% 30%,#FFD0F5,var(--pink) 32%,var(--violet) 72%,#2A1060);animation:talk .5s ease-in-out infinite alternate;box-shadow:0 0 90px rgba(255,79,216,.5)}
+.vmode[data-s="idle"] .orb{filter:saturate(.5) brightness(.8)}
+@keyframes breathe{50%{transform:scale(1.06)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes talk{to{transform:scale(1.08)}}
+@keyframes vring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.35);opacity:0}}
+.vstate{font:600 14px "JetBrains Mono";letter-spacing:.2em;text-transform:uppercase;color:var(--cyan)}
+.vheard{font-size:20px;font-weight:300;max-width:760px;min-height:30px}
+.vreply{font-size:15px;color:var(--muted);max-width:760px;max-height:30vh;overflow:auto;line-height:1.6}
+.vend{font:500 13px "JetBrains Mono";color:var(--ink);background:var(--glass2);border:1px solid var(--line);border-radius:999px;padding:10px 20px;cursor:pointer}
+.vend:hover{border-color:var(--pink)}
+.vimg{position:absolute;right:4vw;bottom:0;height:46vh;opacity:.9;pointer-events:none;filter:drop-shadow(0 0 30px rgba(139,92,246,.4))}
+@media (max-width:900px){.vimg{display:none}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none!important}}
+body.chatting .hero-luffy{display:none}
+body.chatting .status{margin-right:0!important}
+body.chatting h1{font-size:34px}
+body.chatting .top{margin-bottom:18px}
+
+/* Connecteurs */
+.status{cursor:pointer}
+.status:hover{border-color:rgba(76,224,255,.4)}
+.conn{position:absolute;right:0;top:calc(100% + 10px);z-index:20;width:300px;background:#0B1120;border:1px solid var(--line);border-radius:14px;padding:14px;display:none;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.conn.open{display:block}
+.conn h3{font:600 12px "JetBrains Mono";letter-spacing:.1em;color:var(--cyan);margin-bottom:10px}
+.conn li{list-style:none;display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(120,170,255,.07)}
+.conn li span{font:500 10px "JetBrains Mono";text-transform:uppercase;letter-spacing:.06em}
+.conn .ok{color:#3DFFA8}.conn .wait{color:var(--straw)}.conn .off{color:var(--muted)}
+.conn p{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+
+[data-q],[data-k]{cursor:pointer}
+.list li[data-q]:hover,.rt[data-q]:hover{color:var(--cyan)}
+.rt[data-q]{transition:.2s}
+
+/* Correctifs d'affichage : la liste des connecteurs passe au-dessus du reste, et la page ne déborde plus */
+main{min-width:0;height:100vh}
+body{height:100vh}
+aside{height:100vh;flex:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(120,170,255,.2);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(76,224,255,.4)}
+.top{z-index:10}
+.conn{max-height:60vh;overflow-y:auto}
+.ask-row{gap:10px;flex-wrap:wrap}
+@media (max-width:1250px){.hero-luffy{height:170px;top:-30px}}
+
+/* Pages Projets et BTS */
+.panel.big{width:min(920px,100%);max-height:86vh;overflow:auto}
+.panel .x{float:right;background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer}
+.items{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.item{background:var(--glass2);border:1px solid var(--line);border-radius:14px;padding:16px}
+.item h4{font:600 16px "Chakra Petch";display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.item p{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.item .row{margin-top:0}
+.item.agent .who{font-size:22px;margin-right:8px}
+.item.agent .live{display:none;font:500 10px "JetBrains Mono";color:#3DFFA8;letter-spacing:.06em;text-transform:uppercase}
+.item.agent.busy{border-color:rgba(61,255,168,.55);box-shadow:0 0 26px rgba(61,255,168,.18)}
+.item.agent.busy .live{display:inline-block;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+.nav.working svg{color:#3DFFA8;filter:drop-shadow(0 0 6px rgba(61,255,168,.7))}
+@media (max-width:700px){.items{grid-template-columns:1fr}}
+
+
+/* Pièces jointes */
+.att{display:flex;flex-wrap:wrap;gap:8px}
+.att:not(:empty){margin-bottom:10px}
+.fchip{display:inline-flex;align-items:center;gap:8px;font-size:13px;background:var(--glass2);border:1px solid var(--line);border-radius:10px;padding:5px 8px 5px 6px;max-width:260px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.fchip img{width:34px;height:34px;object-fit:cover;border-radius:6px}
+.fchip button{background:none;border:0;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px}
+.fchip button:hover{color:var(--pink)}
+.att-sent{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.att-sent img{max-width:220px;max-height:160px;border-radius:10px;border:1px solid var(--line)}
+body.drag::after{content:"Lâche ici pour joindre à Luffy";position:fixed;inset:16px;z-index:60;border:2px dashed var(--cyan);border-radius:24px;background:rgba(5,7,13,.8);display:grid;place-items:center;font:600 22px "Chakra Petch";color:var(--cyan);pointer-events:none}
+
+/* Bouton envoyer devenu stop */
+.send.stop{background:linear-gradient(135deg,var(--pink),#FF7A59);box-shadow:0 0 22px rgba(255,79,216,.5)}
+
+/* Demandes d'accord et questions à choix */
+.askcard{margin-top:12px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:14px;text-align:left}
+.askcard .ak-t{font-weight:600;margin-bottom:8px}
+.askcard .ak-d{display:block;font:12px "JetBrains Mono";background:#070B14;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;white-space:pre-wrap;word-break:break-all;max-height:140px;overflow:auto}
+.askcard .ak-q+.ak-q{margin-top:14px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-bottom:8px}
+.opt{text-align:left;background:var(--glass2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);cursor:pointer;font:inherit}
+.opt b{display:block;font-size:14px;margin-bottom:2px}
+.opt span{font-size:12px;color:var(--muted)}
+.opt:hover{border-color:rgba(76,224,255,.5)}
+.opt.on{border-color:var(--cyan);background:rgba(76,224,255,.12);box-shadow:0 0 14px rgba(76,224,255,.2)}
+.other{width:100%;background:var(--glass2);border:1px solid var(--line);border-radius:10px;color:var(--ink);font:inherit;font-size:13px;padding:8px 10px;margin-bottom:6px}
+.askcard.answered{opacity:.75}
+.askcard .ak-done{margin-top:8px;font:500 12px "JetBrains Mono";color:var(--cyan)}
+.askcard.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.vask{width:min(640px,100%)}
+.muted{color:var(--muted)}
+
+/* Historique */
+.hlist{display:flex;flex-direction:column;gap:6px}
+.hitem{display:flex;justify-content:space-between;gap:14px;align-items:center;text-align:left;background:var(--glass2);border:1px solid transparent;border-radius:10px;padding:11px 14px;color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.hitem:hover{border-color:rgba(76,224,255,.4)}
+.hitem.on{border-color:var(--cyan)}
+.hitem span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hitem small{flex:none;font:400 11px "JetBrains Mono";color:var(--muted)}
+
+/* Quota */
+.usage{font-size:12px;color:var(--muted);margin:2px 0 12px;line-height:1.5}
+.usage b{color:var(--ink)}
+.conn .btn{margin-top:10px;width:100%}
+
+/* Jauges de quota (menu de gauche) */
+.gauges{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.gauge{width:48px;height:48px;position:relative;display:grid;place-items:center;cursor:default;--p:0;--gc:var(--cyan)}
+.gauge svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.gauge circle{fill:none;stroke-width:3}
+.gauge .gbg{stroke:rgba(120,170,255,.12)}
+.gauge .gfg{stroke:var(--gc);stroke-dasharray:calc(var(--p) * 1px) 100px;pathLength:100;stroke-linecap:round;filter:drop-shadow(0 0 4px var(--gc));transition:stroke-dasharray .8s}
+.gauge b{font:600 10px "JetBrains Mono";color:var(--ink);margin-top:-6px}
+.gauge span{position:absolute;bottom:9px;font:400 8px "JetBrains Mono";color:var(--muted)}
+.uline{display:flex;justify-content:space-between;font-size:12px;margin-top:6px}
+.ubar{height:6px;border-radius:6px;background:rgba(120,170,255,.12);overflow:hidden;margin:4px 0 2px}
+.ubar i{display:block;height:100%;border-radius:6px;box-shadow:0 0 8px currentColor;transition:width .8s}
+.usage small{font:400 10px "JetBrains Mono";color:var(--muted)}
+/* Sélecteur de modèle */
+.msel{background:transparent;color:var(--muted);appearance:none;-webkit-appearance:none;padding-right:22px;cursor:pointer;color-scheme:dark;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 12px) 50%,calc(100% - 8px) 50%;background-size:4px 4px;background-repeat:no-repeat}
+.msel option{background:#0B1120;color:var(--ink)}
+
+/* Réglages */
+.sheet{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(3,5,10,.7);backdrop-filter:blur(10px);padding:16px}
+.sheet.open{display:flex}
+.panel{width:min(460px,100%);background:#0B1120;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.panel h3{font:700 20px "Chakra Petch";margin-bottom:18px}
+.field{margin-bottom:16px}
+.field label{display:block;font:500 11px "JetBrains Mono";letter-spacing:.08em;color:var(--cyan);margin-bottom:6px;text-transform:uppercase}
+.field select,.field input{width:100%;background:var(--glass2);border:1px solid var(--line);border-radius:10px;color:var(--ink);font:inherit;font-size:14px;padding:10px 12px;color-scheme:dark}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.btn{font:500 13px "Sora";color:var(--ink);background:var(--glass2);border:1px solid var(--line);border-radius:10px;padding:9px 14px;cursor:pointer}
+.btn:hover{border-color:rgba(76,224,255,.5)}
+a.btn{text-decoration:none;display:inline-block}
+
+/* Colonne des discussions (comme l'appli Claude) */
+.convs{width:270px;flex:none;height:100vh;display:flex;flex-direction:column;background:rgba(8,12,22,.55);backdrop-filter:blur(14px);border-right:1px solid var(--line);padding:18px 12px;gap:10px;position:relative;z-index:2}
+body.convs-off .convs{display:none}
+.convs .cnew{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font:600 14px "Sora";color:#05070D;background:linear-gradient(135deg,var(--cyan),var(--violet));border:0;border-radius:12px;padding:11px;cursor:pointer;box-shadow:0 0 18px rgba(76,224,255,.25)}
+.convs .cnew:hover{filter:brightness(1.08)}
+.convs .clist{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:2px;margin:0 -4px;padding:0 4px}
+.convs .cgrp{font:500 10px "JetBrains Mono";letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 8px 4px}
+.convs .citem{display:block;width:100%;text-align:left;background:none;border:1px solid transparent;border-radius:9px;padding:8px 10px;color:var(--ink);font:400 13px "Sora";cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85}
+.convs .citem:hover{background:var(--glass2);opacity:1}
+.convs .citem.on{background:rgba(76,224,255,.1);border-color:rgba(76,224,255,.35);opacity:1}
+.convs .cnone{font-size:13px;color:var(--muted);padding:8px}
+.convs .cmore{margin:10px 6px 4px;background:none;border:1px dashed var(--line);border-radius:9px;padding:8px;color:var(--cyan);font:500 12px "JetBrains Mono";cursor:pointer}
+.convs .cmore:hover{border-color:rgba(76,224,255,.45);background:rgba(76,224,255,.06)}
+@media (max-width:1000px){.convs{display:none}}
+.btn.main{background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05070D;border:0;font-weight:600}
+.flash{animation:flash 1.2s}
+@keyframes flash{30%{box-shadow:0 0 0 2px var(--cyan),0 0 40px rgba(76,224,255,.35)}}
+</style>
+</head>
+<body>
+<div class="bg"><div class="floor"></div></div>
+
+<aside>
+  <div class="logo" title="Luffy">
+    <svg viewBox="0 0 32 32"><ellipse cx="16" cy="20" rx="14" ry="4.5" fill="#05070D"/><path d="M8 20c0-6 3.6-10 8-10s8 4 8 10" fill="#05070D"/><rect x="8.4" y="16.5" width="15.2" height="2.6" fill="#F2C14E"/></svg>
+  </div>
+  <div class="nav on" id="navHome"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span class="tip">Accueil</span></div>
+  <div class="nav" id="navChat"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"/></svg><span class="tip">Historique des discussions</span></div>
+  <div class="nav" id="navBts"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19V6a2 2 0 012-2h12v15H6a2 2 0 00-2 2zm0 0a2 2 0 002 2h12"/></svg><span class="tip">BTS MCO</span></div>
+  <div class="nav" id="navProj"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg><span class="tip">Projets</span></div>
+  <div class="nav" id="navSites"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="tip">Mes sites web</span></div>
+  <div class="nav" id="navArts"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg><span class="tip">Mes artefacts</span></div>
+  <div class="nav" id="navTeam"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.9.2 5 2.5 5 5.8"/></svg><span class="tip">Mon équipe</span></div>
+  <div class="nav" data-k="luffy"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg><span class="tip">Dossier Luffy</span></div>
+  <div class="spacer"></div>
+  <div class="gauges" title="Ta consommation de l'abonnement">
+    <div class="gauge" id="g5" data-label="Limite sur 5 h"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" class="gbg"/><circle cx="18" cy="18" r="15.9" class="gfg"/></svg><b>–</b><span>5 h</span></div>
+    <div class="gauge" id="g7" data-label="Limite sur 7 jours"><svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15.9" class="gbg"/><circle cx="18" cy="18" r="15.9" class="gfg"/></svg><b>–</b><span>7 j</span></div>
+  </div>
+  <div class="nav" id="navSet"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span class="tip">Réglages</span></div>
+</aside>
+
+<nav class="convs" id="convs">
+  <button class="cnew" id="cNew">+ Nouvelle discussion</button>
+  <div class="clist" id="cList"><p class="cnone">Chargement…</p></div>
+</nav>
+
+<main><div class="wrap">
+
+  <div class="top rise">
+    <div>
+      <p class="date" id="date"></p>
+      <h1 id="hello">Salut <span>Mathis</span>.</h1>
+    </div>
+    <img class="hero-luffy" src="luffy.png" alt="" onload="this.classList.add('ok');this.nextElementSibling.style.marginRight='230px'" onerror="this.remove()">
+    <div class="status" id="status"><span class="dot"></span><span id="statusTxt">LUFFY EN LIGNE · MÉMOIRE OK</span><div class="conn" id="conn"><h3>CONNECTEURS</h3><p>La liste apparaît après ton premier message.</p></div></div>
+  </div>
+
+  <div class="thread" id="thread"><button class="back" id="back">← accueil</button></div>
+
+  <div class="ask rise" style="animation-delay:.08s"><div class="ask-in">
+    <div class="att" id="att"></div>
+    <textarea id="input" placeholder="Qu'est-ce qu'on fait aujourd'hui ? (tu peux coller une capture ou glisser un fichier)"></textarea>
+    <div class="ask-row">
+      <div class="tools"><span class="tool" id="attach">📎 joindre</span><span class="tool" id="newchat">+ nouvelle discussion</span><select class="tool msel" id="model" title="Choisir le modèle"></select><select class="tool msel" id="effort" title="Niveau de réflexion : plus c'est haut, plus c'est précis mais lent"><option value="">⚡ Réflexion : auto</option><option value="low">⚡ Rapide</option><option value="medium">⚡ Normale</option><option value="high">⚡ Poussée</option><option value="max">⚡ Maximum</option></select><input type="file" id="picker" multiple hidden></div>
+      <div class="right">
+      <button class="voice-btn" id="voiceBtn"><span class="m"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>Mode vocal</button>
+      <button class="send" id="send" aria-label="Envoyer"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+  </div></div>
+
+  <div class="chips rise" style="animation-delay:.14s">
+    <button class="chip" data-q="Fais-moi réviser une matière du BTS : propose-moi 3 choix de thèmes."><b>📚</b>Réviser une matière</button>
+    <button class="chip" data-q="Quoi de neuf en IA aujourd'hui ? Fais-moi une veille rapide."><b>🛰️</b>Quoi de neuf en IA ?</button>
+    <button class="chip" data-q="J'ai besoin de rédiger un document. Pose-moi une question à la fois pour cadrer."><b>✍️</b>Rédiger un document</button>
+    <button class="chip" data-q="Aide-moi à organiser ma semaine. Pose-moi les bonnes questions."><b>🗓️</b>Organiser ma semaine</button>
+    <button class="chip" data-q="Je veux analyser un site web. Demande-moi l'adresse."><b>🔎</b>Analyser un site</button>
+  </div>
+
+  <div class="grid">
+    <section class="card rise" id="cardBts" style="animation-delay:.2s">
+      <h2>BTS MCO <small>2e année</small></h2>
+      <div class="subj">
+        <div data-q="On révise Management : propose-moi 3 thèmes ou un mini-quiz."><i>MGT</i>Management</div>
+        <div data-q="On révise ADOC (développement de l'offre) : propose-moi 3 thèmes ou un mini-quiz."><i>ADOC</i>Offre</div>
+        <div data-q="On révise DRCV (relation client) : propose-moi 3 thèmes ou un mini-quiz."><i>DRCV</i>Relation client</div>
+        <div data-q="On révise CEJM : propose-moi 3 thèmes ou un mini-quiz."><i>CEJM</i>Éco-droit</div>
+        <div data-q="On révise Gestion opérationnelle : propose-moi 3 thèmes ou un mini-quiz."><i>GO</i>Gestion op.</div>
+      </div>
+      <div class="exam"><strong id="days">—</strong><span>jours environ avant les épreuves<br>(date modifiable dans Réglages)</span></div>
+    </section>
+
+    <section class="card rise" style="animation-delay:.26s">
+      <h2>Récemment <small>history.md</small></h2>
+      <ul class="list" id="recent">
+        <li><span class="d">06/10</span>Road Spirit sur Wix + ménage GitHub</li>
+        <li><span class="d">01/10</span>ADOC : synthèse et 7 annexes</li>
+        <li><span class="d">29/09</span>ADOC : benchmark e-merchandising</li>
+        <li><span class="d">23/09</span>rekordbox : playlist RAP et premier mix</li>
+      </ul>
+    </section>
+
+    <section class="card rise" id="cardProj" style="animation-delay:.32s">
+      <h2>Projets <small>en pause</small></h2>
+      <ul class="list">
+        <li data-q="Fais-moi le point sur le projet Prestataire IA PME : où on en est, et la prochaine étape si je le reprends.">Prestataire IA PME<span class="tag">standby</span></li>
+        <li data-q="Fais-moi le point sur le projet CRM artisans : où on en est, et la prochaine étape si je le reprends.">CRM artisans<span class="tag">standby</span></li>
+        <li data-q="Fais-moi le point sur le projet Librairies Charlemagne : où on en est, et la prochaine étape si je le reprends.">Librairies Charlemagne<span class="tag">standby</span></li>
+        <li data-q="Fais-moi le point sur le projet Road Spirit : où on en est, et la prochaine étape si je le reprends.">Road Spirit<span class="tag done">portfolio</span></li>
+      </ul>
+    </section>
+
+    <section class="card wide rise" style="animation-delay:.38s">
+      <h2>Mes routines <small>tâches automatiques</small></h2>
+      <div class="routines">
+        <div class="rt" data-q="Fais-moi l'actu IA du jour, en bref."><p>Actu IA</p><span>Tous les jours · 10h</span></div>
+        <div class="rt" data-q="Fais-moi un récap rapide de l'actu Nvidia et Apple de la semaine."><p>Récap Nvidia / Apple</p><span>Lundi · 8h</span></div>
+        <div class="rt" data-q="Fais une veille rapide des offres d'alternance qui pourraient m'intéresser après mon BTS MCO."><p>Veille alternance</p><span>Lun. et jeu. · 18h</span></div>
+        <div class="rt" data-q="Fais-moi le sommaire de mes artefacts claude.ai récents."><p>Sommaire artefacts</p><span>17h et 20h</span></div>
+      </div>
+    </section>
+
+    <section class="card rise" style="animation-delay:.44s">
+      <h2>Raccourcis</h2>
+      <div class="files">
+        <div class="file" data-k="bts"><span class="ico">📘</span>Cours BTS 2</div>
+        <div class="file" data-k="admin"><span class="ico">🗂️</span>Administratif</div>
+        <div class="file" data-k="projets"><span class="ico">🚀</span>Projets</div>
+      </div>
+    </section>
+  </div>
+
+</div></main>
+
+<div class="sheet" id="sheet"><div class="panel">
+  <h3>Réglages</h3>
+  <div class="field"><label>Voix de Luffy</label><select id="pVoice"></select>
+    <div class="row"><button class="btn" id="pTest">▶ Tester la voix</button></div></div>
+  <div class="field"><label>Vitesse de parole</label><input type="range" id="pRate" min="0.8" max="1.4" step="0.05"></div>
+  <div class="field"><label>Modèle en mode vocal (plus rapide = plus fluide)</label><select id="pVModel"></select></div>
+  <div class="field"><label>Réflexion en mode vocal</label><select id="pVEffort"><option value="low">Rapide</option><option value="medium">Normale</option><option value="high">Poussée</option><option value="">Auto</option></select></div>
+  <div class="field"><label>Pause avant que je réponde : <span id="pPauseV"></span> s</label><input type="range" id="pPause" min="1" max="4" step="0.25"></div>
+  <div class="field"><label>Date des épreuves du BTS</label><input type="date" id="pExam"></div>
+  <div class="row"><button class="btn" id="pNew">Nouvelle discussion</button><button class="btn" data-k="luffy">Ouvrir le dossier Luffy</button><span style="flex:1"></span><button class="btn main" id="pClose">OK</button></div>
+</div></div>
+
+<div class="sheet" id="pageHist"><div class="panel big">
+  <button class="x" data-close>×</button><h3>Discussions</h3>
+  <div class="row" style="margin:0 0 14px"><button class="btn main" id="hNew">+ Nouvelle discussion</button></div>
+  <div class="hlist" id="hList"></div>
+</div></div>
+
+<div class="sheet" id="pageProj"><div class="panel big">
+  <button class="x" data-close>×</button><h3>Mes projets</h3>
+  <div class="items" id="projItems"></div>
+</div></div>
+
+<div class="sheet" id="pageTeam"><div class="panel big">
+  <button class="x" data-close>×</button><h3>Mon équipe</h3>
+  <p class="muted" style="margin:-4px 0 14px">Tu parles à Luffy ; il confie le travail lourd au bon agent. La carte s'allume quand un agent travaille.</p>
+  <div class="items" id="teamItems"></div>
+</div></div>
+<div class="sheet" id="pageSites"><div class="panel big">
+  <button class="x" data-close>×</button><h3>Mes sites web</h3>
+  <div class="items" id="siteItems"></div>
+</div></div>
+<div class="sheet" id="pageArts"><div class="panel big">
+  <button class="x" data-close>×</button><h3>Mes artefacts</h3>
+  <div class="row" id="artFilters" style="margin-bottom:12px"></div>
+  <div class="items" id="artItems"></div>
+  <p class="muted" style="margin-top:12px"><small id="artMaj"></small></p>
+</div></div>
+
+<div class="sheet" id="pageBts"><div class="panel big">
+  <button class="x" data-close>×</button><h3>BTS MCO · révisions</h3>
+  <div class="items" id="btsItems"></div>
+</div></div>
+
+<div class="vmode" id="vmode" data-s="idle">
+  <img class="vimg" src="luffy.png" alt="" onerror="this.remove()">
+  <div class="vstate" id="vstate">Prêt</div>
+  <div class="orb" id="orb" title="Touche pour parler ou couper Luffy"></div>
+  <div class="vheard" id="vheard"></div>
+  <div class="vreply" id="vreply"></div>
+  <div class="vask" id="vask"></div>
+  <button class="vend" id="vend">Terminer</button>
+</div>
+
+<script>
+// ---------- Accueil ----------
+const $ = id => document.getElementById(id);
+const now = new Date();
+$('date').textContent = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+const hr = now.getHours();
+const mot = hr < 5 ? 'Encore debout' : hr < 12 ? 'Bonjour' : hr < 18 ? 'Salut' : 'Bonsoir';
+$('hello').innerHTML = mot + ' <span>Mathis</span>.';
+// Date d'examen provisoire (mi-mai 2027) : à remplacer par la vraie date
+const prefs = (() => { try { return JSON.parse(localStorage.getItem('luffy-prefs')) || {}; } catch { return {}; } })();
+const savePrefs = () => { try { localStorage.setItem('luffy-prefs', JSON.stringify(prefs)); } catch {} };
+const exam = new Date(prefs.exam || '2027-05-15');
+const target = Math.max(0, Math.ceil((exam - now) / 864e5));
+let n = 0;
+const tick = () => { n = Math.min(target, n + Math.ceil(target / 40)); $('days').textContent = n; if (n < target) requestAnimationFrame(tick); };
+setTimeout(tick, 500);
+
+const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+fetch('/api/recent').then(r => r.json()).then(list => {
+  if (!list.length) return;
+  $('recent').innerHTML = list.slice(0, 4).map(i => `<li data-q="${esc(`Rappelle-moi en bref ce qu'on a fait le ${i.date} : ${i.title}`)}"><span class="d">${i.date}</span>${esc(i.title)}</li>`).join('');
+}).catch(() => {});
+
+document.addEventListener('click', e => {
+  const k = e.target.closest('[data-k]'); if (k) return fetch('/api/open?k=' + k.dataset.k);
+  const q = e.target.closest('[data-q]'); if (q) ask(q.dataset.q);
+});
+
+// ---------- Session (mémorisée pour reprendre la discussion) ----------
+const store = {
+  get: () => { try { return localStorage.getItem('luffy-session'); } catch { return null; } },
+  set: v => { try { v ? localStorage.setItem('luffy-session', v) : localStorage.removeItem('luffy-session'); } catch {} },
+};
+let session = store.get();
+let busy = false;
+
+// ---------- Mise en forme simple du markdown ----------
+function md(src) {
+  const blocks = [];
+  let t = esc(src).replace(/```[^\n]*\n([\s\S]*?)```/g, (_, c) => { blocks.push(c); return `\u0000${blocks.length - 1}\u0000`; });
+  const inline = s => s
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
+    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+  const out = []; let list = null;
+  const close = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  const lines = t.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    let m;
+    if (/^\u0000\d+\u0000$/.test(l.trim())) { close(); out.push(l.trim()); continue; }
+    if (/^\|.*\|$/.test(l.trim())) {
+      close(); const rows = [];
+      while (i < lines.length && /^\|.*\|$/.test(lines[i].trim())) { if (!/^\|[\s:|-]+\|$/.test(lines[i].trim())) rows.push(lines[i].trim()); i++; }
+      i--;
+      out.push('<table>' + rows.map((r, k) => '<tr>' + r.slice(1, -1).split('|').map(c => `<${k ? 'td' : 'th'}>${inline(c.trim())}</${k ? 'td' : 'th'}>`).join('') + '</tr>').join('') + '</table>');
+      continue;
+    }
+    if ((m = l.match(/^#{1,6}\s+(.*)/))) { close(); out.push(`<h4>${inline(m[1])}</h4>`); continue; }
+    if ((m = l.match(/^\s*[-*]\s+(.*)/))) { if (list !== 'ul') { close(); out.push('<ul>'); list = 'ul'; } out.push(`<li>${inline(m[1])}</li>`); continue; }
+    if ((m = l.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== 'ol') { close(); out.push('<ol>'); list = 'ol'; } out.push(`<li>${inline(m[1])}</li>`); continue; }
+    close();
+    if (l.trim()) out.push(`<p>${inline(l)}</p>`);
+  }
+  close();
+  return out.join('').replace(/\u0000(\d+)\u0000/g, (_, k) => `<pre><code>${blocks[k]}</code></pre>`);
+}
+
+// ---------- Échange avec Claude Code (via server.js) ----------
+const TOOLS = { WebSearch: 'cherche sur le web', WebFetch: 'lit une page web', Read: 'lit un fichier', Write: 'écrit un fichier', Edit: 'modifie un fichier', Bash: 'lance une commande', PowerShell: 'lance une commande', Glob: 'cherche des fichiers', Grep: 'cherche dans les fichiers', Skill: 'utilise un skill', Agent: 'lance un assistant', AskUserQuestion: 'te pose une question' };
+const TOOL_VERB = { Read: 'lit', Write: 'écrit', Edit: 'modifie', NotebookEdit: 'modifie', WebSearch: 'cherche :', WebFetch: 'lit la page', Grep: 'cherche', Glob: 'cherche', Skill: 'utilise le skill' };
+let files = []; // pièces jointes en attente : { name, type, data, url }
+
+async function talk(text, { voice = false, attachments = [], onText, onTool, onAsk, onTurn } = {}) {
+  const r = await fetch('/api/chat', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    // En vocal : modèle et réflexion du mode vocal (rapides par défaut) pour répondre vite
+    body: JSON.stringify({ message: text, session, voice,
+      model: (voice ? (prefs.vModel ?? 'haiku') : prefs.model) || undefined,
+      effort: (voice ? (prefs.vEffort ?? 'low') : prefs.effort) || undefined, attachments: attachments.map(({ name, type, data }) => ({ name, type, data })) }),
+  });
+  if (!r.ok) { let m = 'erreur ' + r.status; try { m = (await r.json()).error || m; } catch { } throw new Error(m); }
+  const reader = r.body.getReader(); const dec = new TextDecoder();
+  let buf = '', full = '', err = null;
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, i); buf = buf.slice(i + 1);
+      if (!line.trim()) continue;
+      const ev = JSON.parse(line);
+      if (ev.t === 'session' || (ev.t === 'done' && ev.id)) { session = ev.id; store.set(session); }
+      if (ev.connectors) showConn(ev.connectors);
+      if (ev.t === 'usage') showUsage(ev.usage);
+      if (ev.t === 'turn') { if (full && !full.endsWith('\n\n')) full += '\n\n'; onTurn && onTurn(full); }
+      if (ev.t === 'text') { full += ev.text; onText && onText(full); }
+      if (ev.t === 'tool') onTool && onTool(ev.name, ev.detail);
+      if (ev.t === 'permission' || ev.t === 'question') onAsk && onAsk(ev);
+      if (ev.t === 'error' || (ev.t === 'done' && ev.error)) err = ev.text || ev.error;
+    }
+  }
+  if (err && !full) throw new Error(err);
+  return full;
+}
+
+const answer = (id, value) => fetch('/api/answer', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, value }) });
+const stopLuffy = () => fetch('/api/stop', { method: 'POST' });
+
+// Carte « Luffy demande ton accord » ou « Luffy te pose une question »
+function askCard(ev, container, onDone) {
+  const c = document.createElement('div'); c.className = 'askcard';
+  const finish = label => {
+    c.classList.add('answered'); c.querySelectorAll('button,input').forEach(x => (x.disabled = true));
+    const s = document.createElement('div'); s.className = 'ak-done'; s.textContent = '→ ' + label; c.appendChild(s);
+    onDone && onDone();
+  };
+  if (ev.t === 'permission') {
+    c.innerHTML = `<div class="ak-t">🔐 Luffy veut ${esc(ev.action)}</div>${ev.detail ? `<code class="ak-d">${esc(ev.detail)}</code>` : ''}
+      <div class="row"><button class="btn main" data-v="allow">Autoriser</button><button class="btn" data-v="always">Toujours dans cette discussion</button><button class="btn" data-v="deny">Refuser</button></div>`;
+    c.querySelectorAll('[data-v]').forEach(b => (b.onclick = () => { answer(ev.id, b.dataset.v); finish(b.textContent); }));
+  } else {
+    c.innerHTML = ev.questions.map((q, qi) => `<div class="ak-q" data-qi="${qi}" data-multi="${q.multiSelect ? 1 : 0}">
+        <div class="ak-t">${esc(q.question)}</div>
+        <div class="opts">${q.options.map(o => `<button class="opt" data-label="${esc(o.label)}"><b>${esc(o.label)}</b><span>${esc(o.description || '')}</span></button>`).join('')}</div>
+        <input class="other" placeholder="Ou écris ta propre réponse…">
+      </div>`).join('') + '<div class="row"><button class="btn main ak-ok">Valider</button></div>';
+    c.querySelectorAll('.opt').forEach(o => (o.onclick = () => {
+      const q = o.closest('.ak-q');
+      if (q.dataset.multi !== '1') q.querySelectorAll('.opt').forEach(x => x.classList.remove('on'));
+      o.classList.toggle('on');
+      q.querySelector('.other').value = '';
+    }));
+    c.querySelector('.ak-ok').onclick = () => {
+      const answers = {}; let missing = false;
+      c.querySelectorAll('.ak-q').forEach(q => {
+        const text = ev.questions[+q.dataset.qi].question;
+        const other = q.querySelector('.other').value.trim();
+        const picked = [...q.querySelectorAll('.opt.on')].map(o => o.dataset.label);
+        const v = other || picked.join(', ');
+        if (!v) missing = true; else answers[text] = v;
+      });
+      if (missing) { c.classList.add('shake'); setTimeout(() => c.classList.remove('shake'), 500); return; }
+      answer(ev.id, answers); finish(Object.values(answers).join(' · '));
+    };
+  }
+  container.appendChild(c); toBottom(true);
+  return c;
+}
+
+// Défilement automatique : on suit le bas de la discussion, sauf si Mathis est remonté lire plus haut.
+// (scrollIntoView laissait la fin du message cachée derrière la zone de saisie collée en bas)
+const mainEl = document.querySelector('main');
+let stick = true;
+mainEl.addEventListener('scroll', () => { stick = mainEl.scrollHeight - mainEl.scrollTop - mainEl.clientHeight < 150; });
+function toBottom(force) {
+  if (force) stick = true;
+  if (stick) requestAnimationFrame(() => { mainEl.scrollTop = mainEl.scrollHeight; });
+}
+
+function bubble(cls, html) {
+  const d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html;
+  $('thread').appendChild(d); toBottom(true); return d;
+}
+
+function openChat() { document.body.classList.add('chatting'); $('navChat').classList.add('on'); $('navHome').classList.remove('on'); }
+function openHome() { document.body.classList.remove('chatting'); $('navHome').classList.add('on'); $('navChat').classList.remove('on'); document.querySelector('main').scrollTop = 0; }
+
+const STOP_ICON = '<svg width="16" height="16" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" fill="currentColor"/></svg>';
+const SEND_ICON = $('send').innerHTML;
+function setBusy(b) { busy = b; $('send').classList.toggle('stop', b); $('send').innerHTML = b ? STOP_ICON : SEND_ICON; $('send').title = b ? 'Arrêter Luffy' : 'Envoyer'; }
+
+async function ask(text, voice = false, onFull = null) {
+  text = (text || '').trim();
+  if (busy) return null;
+  const att = voice ? [] : files.splice(0);
+  renderFiles();
+  if (!text && !att.length) return null;
+  setBusy(true); openChat();
+  bubble('me', esc(text) + (att.length ? '<div class="att-sent">' + att.map(a => a.url ? `<img src="${a.url}" alt="">` : `<span class="fchip">📎 ${esc(a.name)}</span>`).join('') + '</div>' : ''));
+  // Une réponse peut être coupée par une demande d'accord ou une question :
+  // la suite part alors dans un nouveau message, sous la carte.
+  let b, body, acts, base = 0, full = '';
+  // Indicateur d'avancement (hors mode vocal) : mot qui tourne, étape en cours, temps écoulé, coche à la fin
+  const VERBS = ['Je réfléchis', 'Je cogite', 'Je rumine', 'Je mijote ça', 'Je fouille', 'J\'assemble les idées', 'Je peaufine', 'Je tire les ficelles'];
+  let stat = null, t0 = Date.now(), step = '', vi = 0, tick = null;
+  const secs = () => { const s = Math.round((Date.now() - t0) / 1000); return s < 60 ? s + ' s' : Math.floor(s / 60) + ' min ' + (s % 60) + ' s'; };
+  const paintStat = () => { if (stat && tick) stat.innerHTML = `<span class="sp"></span><span>${esc(step || VERBS[vi % VERBS.length])}…</span><span class="tm">${secs()}</span>`; };
+  if (!voice) {
+    stat = document.createElement('div'); stat.className = 'stat';
+    tick = setInterval(() => { if (Math.round((Date.now() - t0) / 1000) % 3 === 0) vi++; paintStat(); }, 1000);
+  }
+  const endStat = (cls, label) => {
+    if (!stat) return;
+    clearInterval(tick); tick = null;
+    stat.className = 'stat ' + cls; stat.innerHTML = `<span>${label}</span><span class="tm">${secs()}</span>`;
+  };
+  const newBot = () => {
+    b = bubble('bot', '<div class="who">LUFFY</div><div class="body"><span class="typing"><span></span><span></span><span></span></span></div><div class="acts"></div>');
+    body = b.querySelector('.body'); acts = b.querySelector('.acts'); base = full.length;
+    if (stat) { b.appendChild(stat); paintStat(); } // l'indicateur suit la bulle en cours
+  };
+  newBot();
+  let reply = '';
+  try {
+    reply = await talk(text, {
+      voice, attachments: att,
+      onText: t => {
+        full = t; step = 'Je rédige'; // le texte arrive : on n'est plus sur un outil
+        onFull && onFull(t); // mode vocal : lecture dès qu'une phrase est finie
+        const part = t.slice(base);
+        if (!part.trim()) return;
+        body.innerHTML = md(part); toBottom();
+      },
+      // Nouveau tour de Luffy (après un outil) : si la bulle en cours a déjà du texte
+      // (« je vérifie… »), la suite part dans une nouvelle bulle
+      onTurn: t => { if (t.slice(base).trim()) { full = t; newBot(); } },
+      onTool: (name, detail) => {
+        if (/(^|· )(ToolSearch|TodoWrite|AskUserQuestion)$/.test(name)) return;
+        // Avec un détail : verbe court + cible (« écrit index.html », « cherche : prix Claude »)
+        const label = n => {
+          const base = n.startsWith('mcp__') ? 'utilise ' + n.split('__')[1].replace(/^claude_ai_/, '').replace(/_/g, ' ') : (TOOLS[n] || 'utilise ' + n);
+          if (!detail) return base;
+          if (TOOL_VERB[n]) return TOOL_VERB[n] + ' ' + detail;
+          if (/^(Bash|PowerShell)$/.test(n)) return ': ' + detail;
+          return base + ' · ' + detail;
+        };
+        const sub = name.match(/^(\S+) · (.+)$/); // outil utilisé par un agent
+        const boss = name.match(/^Agent (\S+)$/); // Luffy met un agent au travail
+        step = boss ? `Luffy met l'agent ${boss[1].replace('_', ' ')} au travail` + (detail ? ` (${detail})` : '')
+             : sub ? `Agent ${sub[1].replace('_', ' ')} ${label(sub[2])}`
+             : 'Luffy ' + label(name);
+        paintStat();
+        agentBusy(boss ? boss[1] : sub ? sub[1] : null);
+        if (acts.lastChild && acts.lastChild.textContent === step) return;
+        const el = document.createElement('div'); el.className = 'act'; el.textContent = step; acts.appendChild(el);
+      },
+      onAsk: ev => {
+        if (vOn) { voiceAsk(ev); return; }
+        // Le message en cours encore vide (juste « … ») est retiré : la carte prend sa place
+        if (!full.slice(base).trim() && !acts.children.length) b.remove();
+        askCard(ev, $('thread'));
+        newBot();
+      },
+    });
+    if (!reply) body.innerHTML = '<p class="muted">(arrêté)</p>';
+    // Dernier message resté vide après une carte (Luffy n'a rien ajouté) : on l'enlève
+    else if (base > 0 && !full.slice(base).trim() && !acts.children.length) b.remove();
+    // Connecteur expiré : bouton pour le reconnecter directement
+    if (/expir|reconnect|\/mcp|needs.auth|authenti/i.test(reply)) {
+      const btn = document.createElement('button'); btn.className = 'btn main'; btn.style.marginTop = '10px';
+      btn.textContent = '🔌 Reconnecter mes connecteurs sur claude.ai';
+      btn.onclick = () => { fetch('/api/connecteurs-claude'); btn.textContent = 'Ouvert dans ton navigateur ✓ (reconnecte, puis redemande-moi)'; };
+      acts.appendChild(btn);
+    }
+  } catch (e) {
+    // Connexion coupée : on regarde si le serveur répond encore, pour dire quoi faire
+    let up = false;
+    try { up = (await fetch('/api/usage', { cache: 'no-store' })).ok; } catch {}
+    body.innerHTML = up
+      ? `<p>La connexion a été coupée pendant la réponse (${esc(String(e.message || e))}). Le serveur tourne toujours : tu peux réessayer.</p>`
+      : `<p>Le serveur de Luffy ne répond plus. Ferme cette fenêtre et relance l'icône Luffy du bureau, puis réessaie.</p>`;
+    const again = document.createElement('button'); again.className = 'btn main'; again.style.marginTop = '10px';
+    again.textContent = '↻ Réessayer'; again.onclick = () => { again.remove(); ask(text); };
+    acts.appendChild(again);
+  }
+  endStat(reply ? 'done' : 'stopped', reply ? '✓ Terminé' : '■ Arrêté');
+  setBusy(false);
+  agentBusy(null);
+  refreshConvs(); // la discussion apparaît / remonte en haut de la colonne
+  return reply;
+}
+
+// ---------- Pièces jointes : bouton, glisser-déposer, copier-coller ----------
+const MAX_FILE = 15e6;
+function addFiles(list) {
+  for (const f of list) {
+    if (!f) continue;
+    if (f.size > MAX_FILE) { alert(`« ${f.name} » est trop gros (15 Mo max).`); continue; }
+    const rd = new FileReader();
+    rd.onload = () => {
+      files.push({ name: f.name || 'capture.png', type: f.type, data: String(rd.result).split(',')[1], url: f.type.startsWith('image/') ? rd.result : null });
+      renderFiles();
+    };
+    rd.readAsDataURL(f);
+  }
+}
+function renderFiles() {
+  $('att').innerHTML = files.map((f, i) => `<span class="fchip">${f.url ? `<img src="${f.url}" alt="">` : '📎'} ${esc(f.name)} <button data-rm="${i}" title="Retirer">×</button></span>`).join('');
+}
+$('att').onclick = e => { const b = e.target.closest('[data-rm]'); if (b) { files.splice(+b.dataset.rm, 1); renderFiles(); } };
+$('attach').onclick = () => $('picker').click();
+$('picker').onchange = e => { addFiles(e.target.files); e.target.value = ''; };
+const input = $('input');
+input.addEventListener('paste', e => {
+  const got = [...(e.clipboardData?.items || [])].filter(i => i.kind === 'file').map(i => i.getAsFile());
+  if (got.length) { e.preventDefault(); addFiles(got); }
+});
+let dragDepth = 0;
+document.addEventListener('dragenter', e => { if (e.dataTransfer?.types?.includes('Files')) { dragDepth++; document.body.classList.add('drag'); } });
+document.addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove('drag'); } });
+document.addEventListener('dragover', e => e.preventDefault());
+document.addEventListener('drop', e => { e.preventDefault(); dragDepth = 0; document.body.classList.remove('drag'); if (e.dataTransfer?.files?.length) { addFiles(e.dataTransfer.files); input.focus(); } });
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+function send() {
+  if (busy) return stopLuffy();
+  const t = input.value;
+  if (!t.trim() && !files.length) return;
+  input.value = ''; ask(t);
+}
+$('send').onclick = send;
+$('back').onclick = openHome; $('navHome').onclick = openHome;
+function newChat() { session = null; store.set(null); [...$('thread').querySelectorAll('.msg,.askcard')].forEach(m => m.remove()); openHome(); refreshConvs(); $('input').focus(); }
+$('newchat').onclick = newChat;
+
+// ---------- Historique des discussions ----------
+const ago = t => {
+  const d = (Date.now() - t) / 6e4;
+  if (d < 60) return `il y a ${Math.max(1, Math.round(d))} min`;
+  if (d < 1440) return `il y a ${Math.round(d / 60)} h`;
+  return new Date(t).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+};
+async function openHistory() {
+  $('pageHist').classList.add('open');
+  $('hList').innerHTML = '<p class="muted">Chargement…</p>';
+  try {
+    const list = await (await fetch('/api/sessions')).json();
+    $('hList').innerHTML = list.length ? list.map(s => `<button class="hitem${s.id === session ? ' on' : ''}" data-sid="${s.id}"><span>${esc(s.title)}</span><small>${ago(s.at)}</small></button>`).join('') : '<p class="muted">Aucune discussion pour l\'instant.</p>';
+  } catch { $('hList').innerHTML = '<p class="muted">Impossible de lire l\'historique.</p>'; }
+}
+async function loadSession(id) {
+  $('pageHist').classList.remove('open');
+  [...$('thread').querySelectorAll('.msg')].forEach(m => m.remove());
+  openChat();
+  const wait = bubble('bot', '<div class="who">LUFFY</div><p class="muted">Je recharge la discussion…</p>');
+  try {
+    const msgs = await (await fetch('/api/session?id=' + id)).json();
+    wait.remove();
+    msgs.forEach(m => m.role === 'me'
+      ? bubble('me', esc(m.text.length > 1500 ? m.text.slice(0, 1500) + '…' : m.text) + (m.images ? `<div class="att-sent"><span class="fchip">🖼 ${m.images} image(s)</span></div>` : ''))
+      : bubble('bot', '<div class="who">LUFFY</div><div class="body">' + md(m.text) + '</div>'));
+    session = id; store.set(id);
+  } catch { wait.innerHTML = '<p>Impossible de recharger cette discussion.</p>'; }
+}
+$('hNew').onclick = () => { $('pageHist').classList.remove('open'); newChat(); input.focus(); };
+$('hList').onclick = e => { const b = e.target.closest('[data-sid]'); if (b) loadSession(b.dataset.sid); };
+
+// Colonne de gauche : dernières discussions classées par date (remplace la fenêtre d'historique)
+const cleanTitle = t => (t || 'Discussion').replace(/\[Mode vocal[^\]]*\]\s*/g, '').replace(/\[Fichiers joints[^\]]*\]\s*/g, '').replace(/<[^>]+>/g, '').trim() || 'Discussion';
+function convGroup(t) {
+  const d0 = new Date(); d0.setHours(0, 0, 0, 0);
+  const days = (d0 - new Date(t).setHours(0, 0, 0, 0)) / 864e5;
+  return days <= 0 ? 'Aujourd\'hui' : days === 1 ? 'Hier' : days < 7 ? '7 derniers jours' : days < 30 ? '30 derniers jours' : 'Plus ancien';
+}
+// Seules les 8 dernières sont affichées ; les autres derrière « Afficher plus »
+const CONVS_SHOWN = 8;
+let convsAll = false, convsCache = [];
+async function refreshConvs() {
+  try {
+    convsCache = await (await fetch('/api/sessions')).json();
+    drawConvs();
+  } catch { $('cList').innerHTML = '<p class="cnone">Impossible de lire l\'historique.</p>'; }
+}
+function drawConvs() {
+  const list = convsCache;
+  {
+    if (!list.length) { $('cList').innerHTML = '<p class="cnone">Aucune discussion pour l\'instant.</p>'; return; }
+    let html = '', last = '';
+    const shown = convsAll ? list : list.filter((s, i) => i < CONVS_SHOWN || s.id === session);
+    for (const s of shown) {
+      const g = convGroup(s.at);
+      if (g !== last) { html += `<div class="cgrp">${g}</div>`; last = g; }
+      const t = cleanTitle(s.title);
+      html += `<button class="citem${s.id === session ? ' on' : ''}" data-sid="${s.id}" title="${esc(t)} · ${ago(s.at)}">${esc(t)}</button>`;
+    }
+    if (list.length > CONVS_SHOWN) html += `<button class="cmore" data-more>${convsAll ? 'Afficher moins' : `Afficher plus (${list.length - shown.length})`}</button>`;
+    $('cList').innerHTML = html;
+  }
+}
+$('cList').onclick = e => {
+  if (e.target.closest('[data-more]')) { convsAll = !convsAll; drawConvs(); return; }
+  const b = e.target.closest('[data-sid]'); if (!b || busy) return;
+  $('cList').querySelectorAll('.citem.on').forEach(x => x.classList.remove('on')); b.classList.add('on');
+  loadSession(b.dataset.sid);
+};
+$('cNew').onclick = newChat;
+// L'icône « bulle » du menu affiche / masque la colonne
+const convsOff = () => { try { return localStorage.getItem('luffy-convs-off') === '1'; } catch { return false; } };
+if (convsOff()) document.body.classList.add('convs-off');
+$('navChat').onclick = () => {
+  const off = document.body.classList.toggle('convs-off');
+  try { localStorage.setItem('luffy-convs-off', off ? '1' : '0'); } catch { }
+  if (!off) refreshConvs();
+};
+$('navChat').querySelector('.tip').textContent = 'Afficher / masquer les discussions';
+refreshConvs();
+
+// ---------- Mode vocal : écoute → Luffy réfléchit → répond à voix haute → réécoute ----------
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const vm = $('vmode');
+let vOn = false, rec = null, empties = 0, voiceFr = null;
+
+function pickVoice() {
+  const vs = speechSynthesis.getVoices().filter(v => v.lang && v.lang.startsWith('fr'));
+  voiceFr = vs.find(v => v.name === prefs.voice) || vs.find(v => /Henri.*Natural/i.test(v.name)) || vs.find(v => /Natural/i.test(v.name)) || vs.find(v => /Online/i.test(v.name)) || vs[0] || null;
+}
+pickVoice(); speechSynthesis.onvoiceschanged = pickVoice;
+
+const setState = (s, label) => { vm.dataset.s = s; $('vstate').textContent = label; };
+
+function listen(existing) {
+  if (!vOn) return;
+  if (!SR) { setState('idle', 'Micro non disponible'); $('vheard').textContent = 'La reconnaissance vocale ne marche pas dans ce navigateur. Ouvre Luffy avec Edge.'; return; }
+  // `existing` = micro déjà ouvert pendant que Luffy parlait : on le garde, pour ne perdre aucun mot ni attendre le démarrage
+  rec = existing || new SR(); rec.lang = 'fr-FR'; rec.interimResults = true; rec.continuous = true;
+  let finalText = '', silence = null;
+  const pauseMs = (prefs.pause || 2) * 1000; // pause de fin de phrase réglable (Réglages)
+  const arm = () => { clearTimeout(silence); silence = setTimeout(() => { try { rec && rec.stop(); } catch { } }, pauseMs); };
+  rec.onstart = () => setState('listen', 'Je t\'écoute');
+  if (existing) setState('listen', 'Je t\'écoute');
+  rec.onresult = e => {
+    let t = ''; finalText = '';
+    for (const r of e.results) { t += r[0].transcript; if (r.isFinal) finalText += r[0].transcript; }
+    $('vheard').textContent = t;
+    if (t.trim()) arm(); // on n'envoie qu'après un vrai silence, pas à la première petite pause
+  };
+  if (existing) { const t = $('vheard').textContent; if (t.trim()) arm(); }
+  // Toutes les erreurs du micro s'affichent (avant, seule « not-allowed » était visible : le reste échouait en silence)
+  const MIC_ERR = {
+    'not-allowed': ['Micro bloqué', 'Autorise le micro pour Luffy (icône à gauche de la barre d\'adresse ou réglages Edge).'],
+    'service-not-allowed': ['Micro bloqué', 'Edge refuse la reconnaissance vocale. Réglages Edge → Cookies et autorisations de site → Microphone.'],
+    'audio-capture': ['Aucun micro trouvé', 'Windows ne donne aucun son à Edge. Paramètres Windows → Son → Entrée : choisis ton micro (ex. BlackShark V3 Pro) et parle pour voir la barre bouger.'],
+    'network': ['Pas de connexion', 'La reconnaissance vocale d\'Edge passe par Internet : vérifie ta connexion.'],
+  };
+  rec.onerror = e => {
+    const m = MIC_ERR[e.error];
+    if (!m) return; // « no-speech » / « aborted » : on laisse la relance normale
+    setState('idle', m[0]); $('vheard').textContent = m[1]; vOn = false;
+  };
+  rec.onend = async () => {
+    clearTimeout(silence);
+    rec = null;
+    if (!vOn) return;
+    const said = (finalText || $('vheard').textContent).trim();
+    if (!said) {
+      if (++empties >= 2) {
+        setState('idle', 'Je n\'entends rien');
+        // Cas typique : Windows écoute un autre micro que celui dans lequel Mathis parle
+        $('vheard').textContent = 'Si tu as parlé : Windows écoute sûrement un autre micro. Paramètres Windows → Son → Entrée, choisis le bon micro, puis touche l\'orbe.';
+        return;
+      }
+      return listen();
+    }
+    empties = 0;
+    if (/^(stop|arr[êe]te|termin[ée]|au revoir|merci luffy,? c'est (tout|bon))\.?$/i.test(said)) return closeVoice();
+    setState('think', 'Je réfléchis');
+    $('vreply').textContent = '';
+    // Si Mathis vient de couper la parole, on attend que la réponse précédente soit bien arrêtée
+    for (let i = 0; busy && i < 30; i++) await new Promise(r => setTimeout(r, 100));
+    const gen = ++voiceGen;
+    streamStart(gen);
+    const reply = await ask(said, true, t => { if (gen === voiceGen) streamFeed(plain(t), false); });
+    if (!vOn || gen !== voiceGen) return; // coupé entre-temps : la suite est déjà gérée
+    if (reply) { $('vreply').textContent = plain(reply); streamFeed(plain(reply), true); }
+    else { speechSynthesis.cancel(); listen(); }
+  };
+  try { rec.start(); } catch { }
+}
+
+// ---------- Lecture au fil de l'eau : on parle dès qu'une phrase est complète ----------
+let voiceGen = 0;                       // change à chaque réponse ou interruption
+let sq = null;                          // { gen, sent, queued, ended, final, started }
+function streamStart(gen) {
+  speechSynthesis.cancel();
+  sq = { gen, sent: 0, queued: 0, ended: 0, final: false, started: 0 };
+}
+function streamSay(text) {
+  const s = sq; if (!s) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'fr-FR'; if (voiceFr) u.voice = voiceFr; u.rate = prefs.rate || 1.05;
+  const done = () => {
+    if (sq !== s) return;
+    s.ended++;
+    if (s.final && s.ended >= s.queued && vOn) { sq = null; stopBarge(); listen(); }
+  };
+  u.onend = done; u.onerror = done;
+  if (!s.queued) { s.started = Date.now(); setState('speak', 'Luffy parle'); if (prefs.barge !== false) listenBarge(s.gen); }
+  s.queued++;
+  speechSynthesis.speak(u);
+}
+function streamFeed(full, final) {
+  const s = sq; if (!s || s.gen !== voiceGen) return;
+  const rest = full.slice(s.sent);
+  // Phrase complète = ponctuation suivie d'un espace (ou fin de réponse). Les très courtes phrases sont regroupées.
+  const re = /[^.!?…]+[.!?…]+(?=\s|$)/g;
+  let m, end = 0, chunk = '';
+  while ((m = re.exec(rest)) && (final || rest[m.index + m[0].length] !== undefined)) {
+    chunk += m[0]; end = m.index + m[0].length;
+    if (chunk.trim().length >= 25) { streamSay(chunk.trim()); s.sent += end; chunk = ''; end = 0; return streamFeed(full, final); }
+  }
+  if (final) {
+    const tail = rest.trim();
+    if (tail) streamSay(tail);
+    s.sent = full.length; s.final = true;
+    if (!s.queued) { sq = null; listen(); }
+    else if (s.ended >= s.queued) { sq = null; stopBarge(); listen(); }
+  }
+}
+
+// ---------- Couper la parole à Luffy : on écoute pendant qu'il parle ----------
+let bargeRec = null;
+function stopBarge() { if (bargeRec) { try { bargeRec.abort(); } catch { } bargeRec = null; } }
+function listenBarge(gen) {
+  if (!SR || !vOn || bargeRec) return;
+  const r = new SR(); r.lang = 'fr-FR'; r.interimResults = true; r.continuous = true;
+  bargeRec = r;
+  r.onresult = e => {
+    if (gen !== voiceGen || !sq) return;
+    const t = Array.from(e.results).map(x => x[0].transcript).join(' ').trim();
+    // Ignorer le tout début (écho de la voix de Luffy) et les bruits très courts
+    if (Date.now() - sq.started < 600 || t.split(/\s+/).length < 2) return;
+    voiceGen++; sq = null;
+    speechSynthesis.cancel();
+    if (busy) stopLuffy();
+    bargeRec = null; // on ne l'arrête pas : ce micro devient le micro principal, sans perdre tes premiers mots
+    $('vheard').textContent = t;
+    listen(r);
+  };
+  r.onend = () => { if (bargeRec === r) { bargeRec = null; if (vOn && sq && sq.gen === gen && speechSynthesis.speaking) listenBarge(gen); } };
+  r.onerror = () => { };
+  try { r.start(); } catch { bargeRec = null; }
+}
+
+// Texte lisible à voix haute (sans markdown ni liens)
+const plain = t => t.replace(/```[\s\S]*?```/g, ' ').replace(/https?:\/\/\S+/g, 'le lien').replace(/[*_#`>|]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\n+/g, ' ').trim();
+
+function speak(text) {
+  speechSynthesis.cancel();
+  const parts = text.match(/[^.!?…]+[.!?…]*/g) || [text];
+  setState('speak', 'Luffy parle');
+  parts.forEach((p, i) => {
+    const u = new SpeechSynthesisUtterance(p.trim());
+    u.lang = 'fr-FR'; if (voiceFr) u.voice = voiceFr; u.rate = prefs.rate || 1.05;
+    if (i === parts.length - 1) u.onend = () => { if (vOn) listen(); };
+    speechSynthesis.speak(u);
+  });
+}
+
+function openVoice() {
+  vOn = true; empties = 0; vm.classList.add('open');
+  $('vheard').textContent = ''; $('vreply').textContent = 'Parle normalement. Dis « stop » pour terminer.';
+  listen();
+}
+function closeVoice() {
+  vOn = false; voiceGen++; sq = null; stopBarge(); vm.classList.remove('open'); speechSynthesis.cancel(); $('vask').innerHTML = '';
+  if (busy) stopLuffy();
+  if (rec) { try { rec.abort(); } catch { } rec = null; }
+  setState('idle', 'Prêt');
+}
+// Luffy a besoin d'un accord ou d'un choix pendant le mode vocal
+function voiceAsk(ev) {
+  setState('idle', 'J\'attends ta réponse');
+  speechSynthesis.cancel();
+  const say = new SpeechSynthesisUtterance(ev.t === 'permission' ? 'J\'ai besoin de ton accord pour ' + ev.action + '.' : ev.questions[0].question);
+  say.lang = 'fr-FR'; if (voiceFr) say.voice = voiceFr; say.rate = prefs.rate || 1.05;
+  speechSynthesis.speak(say);
+  askCard(ev, $('vask'), () => { setTimeout(() => { $('vask').innerHTML = ''; }, 600); setState('think', 'Je réfléchis'); });
+}
+$('voiceBtn').onclick = openVoice;
+$('vend').onclick = closeVoice;
+$('orb').onclick = () => {
+  const s = vm.dataset.s;
+  if (s === 'speak') { voiceGen++; sq = null; stopBarge(); speechSynthesis.cancel(); if (busy) stopLuffy(); listen(); }   // couper Luffy et reprendre la parole
+  else if (s === 'idle') { empties = 0; vOn = true; listen(); }
+  else if (s === 'listen' && rec) rec.stop();                    // envoyer tout de suite
+};
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && vOn) closeVoice(); });
+
+// ---------- Connecteurs (Drive, Gmail, Canva…) ----------
+const LABELS = { connected: ['actif', 'ok'], pending: ['connexion lente', 'wait'], 'needs-auth': ['à autoriser', 'off'], failed: ['en panne', 'off'] };
+function showConn(list) {
+  if (!list || !list.length) return;
+  const on = list.filter(c => c.status === 'connected').length;
+  $('statusTxt').textContent = `LUFFY EN LIGNE · ${on} CONNECTEURS`;
+  const order = { connected: 0, pending: 1, 'needs-auth': 2, failed: 3 };
+  $('conn').innerHTML = '<h3>CONNECTEURS</h3><ul>' + [...list].sort((a, b) => (order[a.status] ?? 9) - (order[b.status] ?? 9))
+    .map(c => { const [t, k] = LABELS[c.status] || [c.status, 'off']; return `<li>${esc(c.name)}<span class="${k}">${t}</span></li>`; }).join('') +
+    '</ul><p>Pour activer un connecteur « à autoriser » ou en réautoriser un qui a expiré (Google Drive par exemple) :</p><button class="btn" id="connLink">Gérer mes connecteurs sur claude.ai</button>';
+  $('conn').insertAdjacentHTML('afterbegin', '<h3>QUOTA</h3><div class="usage" id="usage">Visible après ton premier message.</div>');
+  $('connLink').onclick = () => { fetch('/api/connecteurs-claude'); $('connLink').textContent = 'Ouvert dans ton navigateur ✓'; };
+  if (lastUsage) showUsage(lastUsage);
+}
+let lastUsage = null;
+const QUOTA = { five_hour: 'sur 5 h', seven_day: 'sur 7 jours', seven_day_opus: 'Opus sur 7 jours' };
+const when = s => new Date(s * 1000).toLocaleString('fr-FR', { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+const pctOf = v => Math.round(v <= 1 ? v * 100 : v);
+// Jauge circulaire du menu de gauche
+function gauge(id, w) {
+  const g = $(id); if (!g || !w || typeof w.utilization !== 'number') return;
+  const p = Math.min(100, pctOf(w.utilization));
+  g.style.setProperty('--p', p);
+  g.style.setProperty('--gc', p >= 90 ? 'var(--pink)' : p >= 70 ? 'var(--straw)' : 'var(--cyan)');
+  g.querySelector('b').textContent = p + '%';
+  g.title = `${g.dataset.label} : ${p} % utilisé` + (w.resetsAt ? ` · remise à zéro ${when(w.resetsAt)}` : '');
+}
+function showUsage(u) {
+  if (!u) return;
+  lastUsage = u;
+  const win = u.unifiedWindows || {};
+  gauge('g5', win.five_hour); gauge('g7', win.seven_day);
+  const el = $('usage'); if (!el) return;
+  const lines = [['five_hour', 'Limite sur 5 h'], ['seven_day', 'Limite sur 7 jours']].filter(([k]) => win[k]).map(([k, label]) => {
+    const p = Math.min(100, pctOf(win[k].utilization || 0));
+    return `<div class="uline"><span>${label}</span><b>${p} %</b></div><div class="ubar"><i style="width:${p}%;background:${p >= 90 ? 'var(--pink)' : p >= 70 ? 'var(--straw)' : 'var(--cyan)'}"></i></div><small>remise à zéro ${win[k].resetsAt ? when(win[k].resetsAt) : '?'}</small>`;
+  });
+  el.innerHTML = lines.length ? lines.join('') : `Limite ${QUOTA[u.rateLimitType] || ''} : ${u.status === 'allowed' ? 'OK' : 'bientôt atteinte'}`;
+}
+fetch('/api/usage').then(r => r.json()).then(showUsage).catch(() => {});
+fetch('/api/connectors').then(r => r.json()).then(showConn).catch(() => {});
+$('status').onclick = e => {
+  e.stopPropagation();
+  if (e.target.closest('#conn')) return;
+  const opening = !$('conn').classList.contains('open');
+  $('conn').classList.toggle('open');
+  if (opening) fetch('/api/connectors').then(r => r.json()).then(showConn).catch(() => {}); // statut le plus récent
+};
+document.addEventListener('click', () => $('conn').classList.remove('open'));
+
+// ---------- Menu de gauche ----------
+function goCard(id) { openHome(); const c = $(id); c.scrollIntoView({ behavior: 'smooth', block: 'center' }); c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); }
+const PROJETS = [
+  { n: 'Prestataire IA PME', tag: 'standby', d: 'Sites + automatisations IA + CRM pour les PME locales, vendus clé en main. Statut auto-entrepreneur à créer au 1er client.' },
+  { n: 'CRM artisans', tag: 'standby', d: 'Outil de devis, factures et suivi de chantiers avec IA pour les artisans du bâtiment. À valider auprès de 3 à 5 artisans avant de coder.' },
+  { n: 'Librairies Charlemagne', tag: 'standby', d: '2 maquettes de site (pop et éditoriale) en ligne sur Netlify. Il reste à choisir la bonne.' },
+  { n: 'Road Spirit', tag: 'portfolio', d: 'Site concession Triumph fait de A à Z (Supabase, Netlify, appli interne), plus une version Wix.' },
+  { n: 'App réseaux sociaux', tag: 'idée', d: 'Publier une photo + un texte IA sur plusieurs réseaux en 1 clic. Gros piège : les API des réseaux.' },
+  { n: 'Revenus complémentaires', tag: 'idée', d: 'Cours particuliers, micro-tâches IA, sites one-page à 590 € : 43 prospects à Toulon déjà listés.' },
+];
+const MATIERES = [
+  ['Management', "Management de l'équipe commerciale"], ['ADOC', "Animation et dynamisation de l'offre commerciale"],
+  ['DRCV', 'Développement de la relation client et vente conseil'], ['CEJM', 'Culture économique, juridique et managériale'],
+  ['Gestion opérationnelle', 'Calculs commerciaux, budgets, indicateurs'],
+].map(([n, d]) => ({ n, d }));
+const openPage = id => { $(id).classList.add('open'); };
+document.addEventListener('click', e => { const c = e.target.closest('[data-close]'); if (c) c.closest('.sheet').classList.remove('open'); });
+document.querySelectorAll('.sheet').forEach(sh => sh.addEventListener('click', e => { if (e.target === sh) sh.classList.remove('open'); }));
+// Un clic sur une action ferme la page puis lance la demande
+const act = (label, q, main) => `<button class="btn${main ? ' main' : ''}" data-close data-q="${esc(q)}">${label}</button>`;
+$('projItems').innerHTML = PROJETS.map(p => `<div class="item"><h4>${esc(p.n)}<span class="tag${p.tag === 'portfolio' ? ' done' : ''}">${p.tag}</span></h4><p>${esc(p.d)}</p><div class="row">
+  ${act('Faire le point', `Fais-moi le point sur le projet ${p.n} : où on en est et ce qui reste.`, true)}
+  ${act('Prochaine étape', `Si je reprends le projet ${p.n} aujourd'hui, quelle est la toute prochaine étape concrète ? Une seule.`)}</div></div>`).join('');
+$('btsItems').innerHTML = MATIERES.map(m => `<div class="item"><h4>${esc(m.n)}</h4><p>${esc(m.d)}</p><div class="row">
+  ${act('Fiche de révision', `Fais-moi une fiche de révision courte sur un point clé de ${m.n} (BTS MCO). Demande-moi d'abord le chapitre.`, true)}
+  ${act('Quiz', `Fais-moi un quiz de 5 questions sur ${m.n} (BTS MCO), une question à la fois, et corrige-moi au fur et à mesure.`)}
+  ${act('Cas pratique', `Donne-moi un petit cas pratique d'entraînement en ${m.n} (BTS MCO), puis attends ma réponse pour corriger.`)}</div></div>`).join('');
+$('navBts').onclick = () => openPage('pageBts');
+$('navProj').onclick = () => openPage('pageProj');
+const SITES = [
+  { n: 'Road Spirit', tag: 'Netlify', url: 'https://road-spirit.netlify.app', d: 'Site de la concession Triumph : boutique, catalogue, services, appli interne.' },
+  { n: 'Road Spirit (Wix)', tag: 'Wix', url: 'https://mathisgourden05.wixsite.com/road-spirit', d: 'Version Wix générée par IA, avec 7 produits dans la boutique.' },
+  { n: 'Charlemagne · pop', tag: 'Netlify', url: 'https://charlemagne-pop.netlify.app', d: 'Maquette colorée pour les Librairies Charlemagne.' },
+  { n: 'Charlemagne · éditorial', tag: 'Netlify', url: 'https://charlemagne-editorial.netlify.app', d: 'Maquette chic, façon magazine, pour les Librairies Charlemagne.' },
+  { n: 'Digital Project', tag: 'Netlify', url: 'https://digit-project.netlify.app', d: 'Ton portfolio : services et réalisations (Road Spirit, Charlemagne).' },
+];
+$('siteItems').innerHTML = SITES.map(s => `<div class="item"><h4>${esc(s.n)}<span class="tag">${s.tag}</span></h4><p>${esc(s.d)}<br><small class="muted">${esc(s.url.replace('https://', ''))}</small></p><div class="row">
+  <a class="btn main" href="${s.url}" target="_blank" rel="noopener">Ouvrir le site</a>
+  ${act('Analyser', `Analyse mon site ${s.n} (${s.url}) : ce qui marche, ce qui cloche, et les 3 améliorations prioritaires.`)}</div></div>`).join('');
+$('navSites').onclick = () => openPage('pageSites');
+
+// ---------- Mon équipe : les agents de Luffy (définis dans server.js) ----------
+const TEAM_LOOK = {
+  chercheur: { e: '🔎', n: 'Chercheur', essai: "Demande à l'agent chercheur une veille des 3 actus IA les plus importantes de la semaine, avec sources." },
+  redacteur: { e: '✍️', n: 'Rédacteur', essai: "Demande à l'agent rédacteur un mail court et pro pour relancer une entreprise à qui j'ai envoyé ma candidature d'alternance." },
+  prof_bts: { e: '🎓', n: 'Prof BTS', essai: "Demande à l'agent prof BTS un quiz de 3 questions sur le calcul de marge, une question à la fois." },
+  technicien: { e: '🛠️', n: 'Technicien', essai: "Demande à l'agent technicien de vérifier l'espace libre de mes disques et de me dire si je dois faire du ménage." },
+  createur: { e: '🎨', n: 'Créateur', essai: "Demande à l'agent créateur une image d'un bureau futuriste néon cyan et violet, générée en local." },
+  realisateur: { e: '🎬', n: 'Réalisateur', essai: "Demande à l'agent réalisateur une intro animée de 4 secondes avec le titre « Mathis » en motion design, style néon cyan et violet." },
+};
+const MODEL_NAME = m => ({ opus: 'Opus', sonnet: 'Sonnet', haiku: 'Haiku' })[m] || m;
+let TEAM = [], busyAgent = null;
+function drawTeam() {
+  $('teamItems').innerHTML = `<div class="item agent"><h4><span><span class="who">🏴‍☠️</span>Luffy</span><span class="tag done">chef d'équipe</span></h4>
+    <p>Te répond directement quand c'est simple, sinon répartit le travail entre les agents et te résume le résultat.</p></div>`
+    + TEAM.map(a => { const l = TEAM_LOOK[a.id] || { e: '🤖', n: a.id };
+      return `<div class="item agent${busyAgent === a.id ? ' busy' : ''}"><h4><span><span class="who">${l.e}</span>${esc(l.n)} <span class="live">● au travail</span></span><span class="tag">${esc(MODEL_NAME(a.model))}</span></h4>
+      <p>${esc(a.desc)}</p>${l.essai ? `<div class="row">${act('Essayer', l.essai, true)}</div>` : ''}</div>`; }).join('');
+}
+function agentBusy(id) {
+  busyAgent = id && TEAM.some(a => a.id === id) ? id : null;
+  $('navTeam').classList.toggle('working', !!busyAgent);
+  if (TEAM.length) drawTeam();
+}
+fetch('/api/agents').then(r => r.json()).then(t => { TEAM = t; drawTeam(); }).catch(() => {});
+$('navTeam').onclick = () => { drawTeam(); openPage('pageTeam'); };
+
+// ---------- Mes artefacts (liste dans artefacts.json, mise à jour par Luffy) ----------
+let ARTS = [], artCat = 'Tous';
+function drawArts() {
+  const cats = ['Tous', ...new Set(ARTS.map(a => a.c))];
+  $('artFilters').innerHTML = cats.map(c => `<button class="btn${c === artCat ? ' main' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')
+    + act('Mettre à jour la liste', "Mets à jour la liste de mes artefacts dans l'appli : appelle Artifact list (scope all, limit 50) et réécris livrable/applications/luffy-app/artefacts.json au même format (t, u, d, c = BTS / DJ / Projets / Autre), sans rien d'autre.");
+  const vis = ARTS.filter(a => artCat === 'Tous' || a.c === artCat);
+  $('artItems').innerHTML = vis.map(a => `<div class="item"><h4>${esc(a.t)}<span class="tag">${esc(a.c)}</span></h4><p><small class="muted">Modifié le ${esc(a.d.split('-').reverse().join('/'))}</small></p><div class="row">
+    <a class="btn main" href="${esc(a.u)}" target="_blank" rel="noopener">Ouvrir</a>
+    ${act('Modifier', `Je veux modifier mon artefact « ${a.t} » (${a.u}). Lis-le d'abord, puis demande-moi ce que je veux changer.`)}</div></div>`).join('') || '<p class="muted">Aucun artefact.</p>';
+  $('artFilters').querySelectorAll('[data-cat]').forEach(b => b.onclick = () => { artCat = b.dataset.cat; drawArts(); });
+}
+$('navArts').onclick = async () => {
+  try { const r = await (await fetch('/artefacts.json', { cache: 'no-store' })).json(); ARTS = r.liste || []; $('artMaj').textContent = `${ARTS.length} artefacts · liste du ${r.maj.split('-').reverse().join('/')}`; }
+  catch { ARTS = []; $('artMaj').textContent = 'Liste introuvable : clique sur « Mettre à jour la liste ».'; }
+  drawArts(); openPage('pageArts');
+};
+
+// ---------- Réglages ----------
+function fillVoices() {
+  const vs = speechSynthesis.getVoices().filter(v => v.lang && v.lang.startsWith('fr'));
+  $('pVoice').innerHTML = vs.length ? vs.map(v => `<option ${voiceFr && v.name === voiceFr.name ? 'selected' : ''}>${esc(v.name)}</option>`).join('') : '<option>Aucune voix française trouvée</option>';
+}
+$('navSet').onclick = () => {
+  fillVoices();
+  $('pRate').value = prefs.rate || 1.05;
+  $('pExam').value = prefs.exam || '2027-05-15';
+  $('sheet').classList.add('open');
+};
+$('pVoice').onchange = () => { prefs.voice = $('pVoice').value; savePrefs(); pickVoice(); };
+$('pRate').oninput = () => { prefs.rate = +$('pRate').value; savePrefs(); };
+$('pExam').onchange = () => {
+  prefs.exam = $('pExam').value; savePrefs();
+  $('days').textContent = Math.max(0, Math.ceil((new Date(prefs.exam) - new Date()) / 864e5));
+};
+$('pTest').onclick = () => { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance('Salut Mathis, c\x27est Luffy. On met le cap sur quoi aujourd\x27hui ?'); u.lang = 'fr-FR'; if (voiceFr) u.voice = voiceFr; u.rate = prefs.rate || 1.05; speechSynthesis.speak(u); };
+$('pNew').onclick = () => { newChat(); $('sheet').classList.remove('open'); };
+$('pClose').onclick = () => $('sheet').classList.remove('open');
+$('sheet').onclick = e => { if (e.target.id === 'sheet') $('sheet').classList.remove('open'); };
+
+// ---------- Choix du modèle ----------
+const FALLBACK_MODELS = [{ value: 'opus', name: 'Opus' }, { value: 'sonnet', name: 'Sonnet' }, { value: 'haiku', name: 'Haiku' }];
+function fillModels(list) {
+  const def = (list || []).find(m => m.value === 'default');
+  const opts = [{ value: '', name: 'Par défaut' + (def ? ' (' + def.desc.split(' · ')[0] + ')' : '') }, ...(list && list.length ? list : FALLBACK_MODELS).filter(m => m.value !== 'default')];
+  if (prefs.model && !opts.some(o => o.value === prefs.model)) opts.push({ value: prefs.model, name: prefs.model });
+  $('model').innerHTML = opts.map(o => `<option value="${esc(o.value)}" ${o.value === (prefs.model || '') ? 'selected' : ''} title="${esc(o.desc || '')}">🧠 ${esc(o.name)}</option>`).join('');
+  // Modèle du mode vocal : Haiku par défaut (le plus rapide)
+  const vm0 = prefs.vModel ?? 'haiku';
+  const vopts = opts.filter(o => o.value);
+  if (!vopts.some(o => o.value === vm0)) vopts.push({ value: vm0, name: vm0 });
+  $('pVModel').innerHTML = vopts.map(o => `<option value="${esc(o.value)}" ${o.value === vm0 ? 'selected' : ''}>${esc(o.name)}</option>`).join('');
+}
+fillModels([]);
+fetch('/api/models').then(r => r.json()).then(fillModels).catch(() => {});
+$('model').onchange = () => { prefs.model = $('model').value; savePrefs(); };
+$('effort').value = prefs.effort || '';
+$('effort').onchange = () => { prefs.effort = $('effort').value; savePrefs(); };
+$('pVEffort').value = prefs.vEffort ?? 'low';
+$('pVEffort').onchange = () => { prefs.vEffort = $('pVEffort').value; savePrefs(); };
+$('pVModel').onchange = () => { prefs.vModel = $('pVModel').value; savePrefs(); };
+$('pPause').value = prefs.pause || 2; $('pPauseV').textContent = prefs.pause || 2;
+$('pPause').oninput = () => { prefs.pause = +$('pPause').value; $('pPauseV').textContent = prefs.pause; savePrefs(); };
+</script>
+</body>
+</html>

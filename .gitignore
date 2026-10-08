@@ -45,3 +45,8 @@ livrable/librairie-charlemagne/_deploy/
 # fichiers de test temporaires (detection IA)
 livrable/BTS/_dtest/
 .playwright-mcp/
+
+# Appli Luffy : état local qui change en permanence
+livrable/applications/luffy-app/quota.json
+livrable/applications/luffy-app/modeles.json
+livrable/applications/luffy-app/connecteurs.json
