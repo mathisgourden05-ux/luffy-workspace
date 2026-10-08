@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-08 · QuizClasse : champ du code cassé sur téléphone + QR code
+
+- Signalé par Mathis : champ « Code du quiz » bugué sur téléphone. Cause : `<input>` sans `type` → aucun style de champ (même défaut que `type=url`). Corrigé : `input:not([type])` dans le style de base, `type="text"` + `autocapitalize="characters"` sur les 3 champs de code, `input.code-input` (sinon le style général écrasait la grande taille), taille adaptée aux petits écrans. Vérifié à 360 px. Cache hors ligne passé en v4.
+- QR code vers l'appli : `livrable/applications/2026-10-06_app-quiz-profs/qr-quizclasse.png` (api.qrserver.com).
+- Mode live (type Kahoot) : validé par Mathis mais **reporté à plus tard** (« on s'y mettra plus tard »), rien de codé.
+
 ## 2026-10-08 · QuizClasse : les profs déposent leur cours (PDF, Word, PowerPoint, Google Docs)
 
 - Demande de Mathis : que l'IA se base sur le cours du prof. Nouveau `app/files.js` : lecture **dans le navigateur** (fichier envoyé nulle part, seul le texte part à l'IA) — PDF (pdf.js 6.4.299), .docx (mammoth 1.13.0), .pptx/.odt/.odp (JSZip 3.10.2 + XML), txt/md/html ; chargés depuis cdnjs au 1er fichier. PDF scanné, .doc/.ppt anciens → message clair. Lien **Google Docs/Slides** lu par `qz-generate` (`action: "link"`, export txt ; doit être partagé « tous les utilisateurs disposant du lien »), ne compte pas dans les 7 quiz.

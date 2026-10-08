@@ -99,7 +99,7 @@ function home() {
     <h1 style="margin-top:20px">Le quiz de ta classe, en 30 secondes</h1></div>
     <div class="card"><h2>Je suis élève</h2>
       <form id="f-code"><label for="code">Code du quiz</label>
-      <input id="code" class="code-input" maxlength="6" autocomplete="off" placeholder="ABC123" required>
+      <input id="code" class="code-input" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC123" required>
       <button class="btn big block" style="margin-top:12px">Rejoindre</button></form>
       <p class="small muted" style="margin:12px 0 0">Pas de compte, juste un pseudo. <a href="#/e">Mes classes et mon classement</a></p>
     </div>
@@ -638,12 +638,12 @@ function evolutionChart(items) {
 async function eleveHome() {
   const dv = device.get();
   $app.innerHTML = eleveShell(`<h1>Mon espace</h1>
-    <form id="fq" class="card"><label for="code">Code du quiz</label><input id="code" class="code-input" maxlength="6" autocomplete="off" placeholder="ABC123" required>
+    <form id="fq" class="card"><label for="code">Code du quiz</label><input id="code" class="code-input" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC123" required>
       <button class="btn big block" style="margin-top:12px">Jouer</button></form>
     <div class="card"><h2>Mes classes</h2>
       ${dv.classes.length ? dv.classes.map((c) => `<a class="row between" href="#/e/classe/${c.class_id}" style="padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit"><span><strong>${esc(c.class_name)}</strong><br><span class="small muted">Pseudo : ${esc(c.pseudo)}</span></span><span class="tag">Classement →</span></a>`).join("") : `<p class="muted">Tu n'as encore rejoint aucune classe.</p>`}
       <form id="fj" style="margin-top:16px"><h3>Rejoindre une classe</h3>
-        <div class="grid" style="grid-template-columns:1fr 1fr"><input id="cc" class="code-input" style="font-size:1.2rem" maxlength="6" placeholder="Code classe" required><input id="ps" type="text" maxlength="24" placeholder="Ton pseudo" required></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr"><input id="cc" class="code-input" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" style="font-size:1.2rem" maxlength="6" placeholder="Code classe" required><input id="ps" type="text" maxlength="24" placeholder="Ton pseudo" required></div>
         <button class="btn ghost block" style="margin-top:10px">Rejoindre</button></form></div>
     <p class="small muted" style="text-align:center">Tes classes sont retenues sur cet appareil. Installe l'appli (menu du navigateur → « Ajouter à l'écran d'accueil ») pour les retrouver en un clic.</p>`);
   on("#fq", "submit", (e) => { e.preventDefault(); go(`#/q/${document.getElementById("code").value.trim().toUpperCase()}`); });
