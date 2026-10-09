@@ -67,6 +67,8 @@ h1 span{background:linear-gradient(90deg,var(--cyan),var(--violet) 60%,var(--pin
 .tools{display:flex;gap:6px}
 .tool{font:500 12px "JetBrains Mono";color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:999px;cursor:pointer;transition:.15s}
 .tool:hover{color:var(--cyan);border-color:rgba(76,224,255,.4)}
+.tool.rec{color:var(--pink);border-color:var(--pink);box-shadow:0 0 14px rgba(255,79,216,.35);animation:recPulse 1.4s ease-in-out infinite}
+@keyframes recPulse{50%{box-shadow:0 0 4px rgba(255,79,216,.15)}}
 .send{width:46px;height:46px;border-radius:14px;border:0;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#05070D;cursor:pointer;display:grid;place-items:center;transition:.2s;box-shadow:0 0 20px rgba(76,224,255,.4)}
 .send:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(76,224,255,.65)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px}
@@ -376,7 +378,7 @@ body.convs-off .convs{display:none}
     <div class="att" id="att"></div>
     <textarea id="input" placeholder="Qu'est-ce qu'on fait aujourd'hui ? (tu peux coller une capture ou glisser un fichier)"></textarea>
     <div class="ask-row">
-      <div class="tools"><span class="tool" id="attach">📎 joindre</span><span class="tool" id="newchat">+ nouvelle discussion</span><select class="tool msel" id="model" title="Choisir le modèle"></select><select class="tool msel" id="effort" title="Niveau de réflexion : plus c'est haut, plus c'est précis mais lent"><option value="">⚡ Réflexion : auto</option><option value="low">⚡ Rapide</option><option value="medium">⚡ Normale</option><option value="high">⚡ Poussée</option><option value="max">⚡ Maximum</option></select><input type="file" id="picker" multiple hidden></div>
+      <div class="tools"><span class="tool" id="attach">📎 joindre</span><span class="tool" id="dictee" title="Ce que tu dis s'écrit ici, sans être envoyé">🎙 dictée</span><span class="tool" id="newchat">+ nouvelle discussion</span><select class="tool msel" id="model" title="Choisir le modèle"></select><select class="tool msel" id="effort" title="Niveau de réflexion : plus c'est haut, plus c'est précis mais lent"><option value="">⚡ Réflexion : auto</option><option value="low">⚡ Rapide</option><option value="medium">⚡ Normale</option><option value="high">⚡ Poussée</option><option value="max">⚡ Maximum</option></select><input type="file" id="picker" multiple hidden></div>
       <div class="right">
       <button class="voice-btn" id="voiceBtn"><span class="m"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>Mode vocal</button>
       <button class="send" id="send" aria-label="Envoyer"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
@@ -809,6 +811,7 @@ document.addEventListener('drop', e => { e.preventDefault(); dragDepth = 0; docu
 
 input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
 function send() {
+  stopDictee();
   if (busy) return stopLuffy();
   const t = input.value;
   if (!t.trim() && !files.length) return;
@@ -1053,6 +1056,7 @@ function speak(text) {
 }
 
 function openVoice() {
+  stopDictee();
   vOn = true; empties = 0; vm.classList.add('open');
   $('vheard').textContent = ''; $('vreply').textContent = 'Parle normalement. Dis « stop » pour terminer.';
   listen();
@@ -1073,6 +1077,51 @@ function voiceAsk(ev) {
   askCard(ev, $('vask'), () => { setTimeout(() => { $('vask').innerHTML = ''; }, 600); setState('think', 'Je réfléchis'); });
 }
 $('voiceBtn').onclick = openVoice;
+
+// Mode dictée : le micro écrit dans la zone de saisie, rien n'est envoyé.
+// Mathis relit, corrige, puis envoie lui-même (Entrée ou la flèche).
+let dict = null;
+function stopDictee() {
+  if (!dict) return;
+  dict.stop = true;
+  try { dict.r.stop(); } catch {}
+  dict = null;
+  $('dictee').classList.remove('rec');
+  $('dictee').textContent = '🎙 dictée';
+}
+function startDictee() {
+  if (!SR) { alert('La dictée a besoin de Edge ou Chrome.'); return; }
+  const inp = $('input');
+  const d = dict = { stop: false, r: null };
+  $('dictee').classList.add('rec');
+  $('dictee').textContent = '● j\'écoute… (cliquer pour arrêter)';
+  inp.focus();
+  const run = () => {
+    // Le texte déjà présent est gardé ; la dictée s'écrit à la suite.
+    let done = inp.value && !/\s$/.test(inp.value) ? inp.value + ' ' : inp.value;
+    const r = new SR(); r.lang = 'fr-FR'; r.interimResults = true; r.continuous = true; d.r = r;
+    r.onresult = (e) => {
+      let tmp = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) done += t.trim() + ' '; else tmp += t;
+      }
+      inp.value = done + tmp;
+      inp.dispatchEvent(new Event('input'));
+      inp.scrollTop = inp.scrollHeight;
+    };
+    r.onerror = (e) => {
+      if (e.error === 'not-allowed' || e.error === 'audio-capture' || e.error === 'service-not-allowed') {
+        stopDictee(); alert('Micro indisponible : vérifie qu\'il est branché, activé, et autorisé pour cette page.');
+      }
+    };
+    // Edge coupe l'écoute après un silence : on relance tant que la dictée est active.
+    r.onend = () => { if (!d.stop && dict === d) run(); };
+    try { r.start(); } catch { stopDictee(); }
+  };
+  run();
+}
+$('dictee').onclick = () => (dict ? stopDictee() : startDictee());
 $('vend').onclick = closeVoice;
 $('orb').onclick = () => {
   const s = vm.dataset.s;

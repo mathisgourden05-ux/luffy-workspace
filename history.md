@@ -4,6 +4,10 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-09 · Appli Luffy : mode dictée
+
+- Demande de Mathis (en vocal) : un mode qui écrit seulement ce qu'il dit, sans envoyer. Bouton « 🎙 dictée » à côté de « 📎 joindre » (`index.html`) : reconnaissance Edge fr-FR continue, texte ajouté à la suite de la zone de saisie, relance auto après les silences, bouton rose pulsé pendant l'écoute, re-clic pour arrêter. Coupée à l'envoi et à l'ouverture du mode vocal. Syntaxe vérifiée ; **micro pas testé** (je ne peux pas parler). Pas de redémarrage serveur nécessaire (page en `no-store`).
+
 ## 2026-10-09 · Projet EHPAD (robotique) : lecture des docs + avis
 
 - Les 2 .docx du dossier « Projet EHPAD » convertis en PDF (LibreOffice) et ouverts. Texte extrait dans `contexte-import/ehpad/`.
