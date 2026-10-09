@@ -4,6 +4,12 @@ Journal chronologique des tâches et décisions importantes. **Entrée la plus r
 
 ---
 
+## 2026-10-09 · Projet EHPAD (robotique) : lecture des docs + avis
+
+- Les 2 .docx du dossier « Projet EHPAD » convertis en PDF (LibreOffice) et ouverts. Texte extrait dans `contexte-import/ehpad/`.
+- Avis donné : démarche terrain solide (observer → mesurer → tester) ; points faibles = fabricants retenus (humanoïdes US pensés pour le domicile, pas dispo en France, distribution non ouverte) vs étude ciblée EHPAD, aucun revenu avant ~2031, robots de service déjà vendus en France absents du dossier, réglementaire/instances du personnel/financement à creuser, questionnaires déclaratifs (ajouter observation chronométrée, résidents/familles, infrastructure). Plan en 7 étapes proposé, 1re étape = clarifier le rôle de Mathis avec l'associé.
+- QuizClasse : bouton « Installer l'appli » refait (installation directe si possible, sinon instructions iPhone/Android/ordi) + bouton sur l'accueil, déployé en ligne (cache v5) ; vérifié le 09/10 (Chromium : installation directe ; iPhone simulé : fenêtre d'aide Partager → Sur l'écran d'accueil, se ferme), commité.
+
 ## 2026-10-08 · QuizClasse : champ du code cassé sur téléphone + QR code
 
 - Signalé par Mathis : champ « Code du quiz » bugué sur téléphone. Cause : `<input>` sans `type` → aucun style de champ (même défaut que `type=url`). Corrigé : `input:not([type])` dans le style de base, `type="text"` + `autocapitalize="characters"` sur les 3 champs de code, `input.code-input` (sinon le style général écrasait la grande taille), taille adaptée aux petits écrans. Vérifié à 360 px. Cache hors ligne passé en v4.

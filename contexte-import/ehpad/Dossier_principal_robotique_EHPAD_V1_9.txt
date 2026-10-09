@@ -1,0 +1,275 @@
+﻿
+DOSSIER FONDATEUR  /  STRUCTURE ACTUELLE
+Sommaire
+Une structure simple qui évolue avec le projet.
+
+01   Vision du fondateur2
+02   Fabricants prioritaires5
+1X Technologies / NEO5
+Figure AI / Figure 037
+Sunday Robotics / Memo9
+Synthèse des 3 fabricants prioritaires12
+03   Marché des EHPAD en France13
+Ce sommaire sera enrichi à chaque nouvelle section ajoutée au dossier.
+
+01
+Vision du fondateur
+Le projet part d’un constat humain avant d’être technologique.
+Les modes de vie occidentaux ont profondément changé : de nombreuses personnes âgées vivent seules à domicile ou rejoignent des établissements spécialisés, tandis que les familles disposent de moins de temps et de moyens pour assurer une présence quotidienne. L’expérience personnelle du fondateur face à la prise en charge d’un proche en EHPAD renforce une conviction : la qualité de vie, l’attention et l’autonomie de nos anciens peuvent être améliorées.
+La robotique de service et, à terme, les robots humanoïdes polyvalents peuvent devenir une nouvelle couche d’assistance : entretien du logement, aide aux tâches du quotidien, préparation ou assistance autour des repas, présence sociale, stimulation, accompagnement et soutien aux professionnels. L’objectif n’est pas de remplacer la relation humaine, mais de libérer du temps, réduire certaines contraintes et prolonger l’autonomie.
+La vision
+Créer une entreprise spécialisée dans l’intégration de solutions robotiques pour le bien-vieillir, capable d’écouter un besoin concret, d’identifier la technologie la plus pertinente parmi plusieurs fabricants, de l’installer, de former les utilisateurs et d’assurer son suivi pendant toute sa durée de vie.
+Principe directeur
+Ne pas vendre « un robot ». Vendre une solution d’autonomie adaptée à une personne, une famille ou un établissement.
+Le positionnement envisagé
+    • Ne pas fabriquer les robots : sélectionner et distribuer les solutions de plusieurs constructeurs.
+    • Devenir un interlocuteur unique capable de diagnostiquer le besoin, recommander la bonne configuration et accompagner le client.
+    • Construire une offre personnalisée : certains clients auront surtout besoin d’aide ménagère, d’autres d’assistance quotidienne, d’autres encore de présence sociale ou de stimulation.
+    • Créer des revenus récurrents autour de l’installation, de la formation, de la maintenance, des mises à jour, du support et éventuellement de la location ou de l’abonnement.
+    • À terme, bâtir une marque nationale, voire européenne, spécialisée dans les solutions robotiques dédiées au vieillissement et à l’autonomie.
+Le timing stratégique
+La priorité n’est pas de lancer trop tôt une activité lourde en capitaux. La priorité est d’être en avance lorsque le marché deviendra réellement exploitable en Europe. La crainte principale identifiée n’est donc pas l’entrepreneuriat lui-même, mais d’arriver trop tard sur le marché.
+Le projet doit utiliser les prochaines années comme une phase de préparation active : veille technologique, cartographie des fabricants, compréhension de la réglementation, constitution d’un réseau, validation des besoins terrain et construction progressive d’une légitimité sectorielle.
+Premiers axes de travail
+    • Interroger des EHPAD et des acteurs de l’aide à domicile, en commençant par la région PACA, pour identifier les problèmes opérationnels les plus fréquents.
+    • Cartographier les fabricants de robots humanoïdes et de robots de service susceptibles d’être distribués ou intégrés en Europe.
+    • Comparer les usages réellement utiles : ménage, manutention légère, assistance aux repas, surveillance non médicale, interaction sociale, téléprésence et accompagnement.
+    • Identifier les contraintes de sécurité, de responsabilité, de données personnelles et d’acceptabilité auprès des seniors et des professionnels.
+    • Tester plusieurs modèles économiques sans immobiliser un stock important : commande client, partenariat fabricant, location, leasing, abonnement et maintenance.
+    • Construire dès le départ une méthode réplicable afin qu’un lancement régional puisse devenir un réseau national sans reconstruire l’entreprise de zéro.
+Hypothèse de développement
+Phase 1 — 2026–2028 : étude, réseau, veille fabricants, entretiens terrain et définition précise des cas d’usage.
+Phase 2 — 2028–2031 : premiers partenariats, démonstrateurs et expérimentations lorsque les solutions deviennent suffisamment fiables.
+Phase 3 — 2031–2035 : commercialisation structurée, développement des services récurrents et extension géographique selon la maturité réelle du marché.
+
+Cap 2035 : être déjà identifié comme un acteur crédible lorsque la robotique d’assistance se démocratise.
+
+Journal des versions
+Version	Date	Contenu	Statut
+1.0	Septembre 2026	Page de garde, sommaire, vision du fondateur et premières orientations stratégiques.	Socle initial
+1.1	Septembre 2026	Ajout d’une illustration de couverture : robot humanoïde et personne âgée.	Mise à jour visuelle
+
+Prochaine mise à jour proposée : étude terrain EHPAD PACA + première cartographie des fabricants et solutions robotiques.
+
+FICHE FABRICANT 01
+1X Technologies / NEO
+Candidat prioritaire à surveiller pour une future offre de robotique domestique et d’assistance.
+Positionnement	Produit	Commercialisation	Intérêt projet
+Humanoïdes généralistes pour la maison	NEO Home Robot	États-Unis dès 2026, autres marchés annoncés à partir de 2027	Très élevé - à suivre comme partenaire potentiel
+Pourquoi 1X est stratégique
+    • NEO est conçu spécifiquement pour l’environnement domestique, ce qui correspond directement à notre vision d’assistance à domicile et de bien-vieillir.
+    • 1X présente NEO comme capable d’exécuter ou d’apprendre des tâches telles que ranger, plier du linge, aller chercher des objets, ouvrir une porte, éteindre des lumières et interagir naturellement par la voix.
+    • Le robot combine autonomie progressive et assistance distante programmée par un expert 1X pour les tâches qu’il ne maîtrise pas encore.
+    • Le modèle commercial annoncé comprend un achat Early Access à 20 000 $ et une formule d’abonnement à 499 $ par mois, ce qui confirme l’intérêt futur d’un modèle location/abonnement plutôt que de la seule vente.
+    • La production est en phase d’industrialisation : 1X indique une capacité de 10 000 NEO par an dans son usine de Hayward, en Californie.
+Caractéristiques utiles pour notre marché
+    • Corps souple et architecture pensée pour évoluer à proximité des personnes.
+    • Environ 30 kg, capacité annoncée à porter environ 25 kg et à soulever davantage ponctuellement.
+    • Interaction vocale, vision contextuelle, mémoire conversationnelle et application mobile.
+    • Recharge autonome et connectivité Wi-Fi, Bluetooth et 5G.
+    • Mains à forte dextérité : 1X a présenté en 2026 une nouvelle architecture à 25 degrés de liberté destinée aux manipulations fines.
+Points de vigilance
+    • NEO reste un produit très jeune : les capacités réellement autonomes en conditions domestiques devront être validées sur le terrain.
+    • Le recours possible à un expert distant soulève des questions importantes de confidentialité, de données personnelles et d’acceptabilité, particulièrement chez des personnes âgées.
+    • Le lancement commercial débute prioritairement aux États-Unis ; aucune date française précise n’est annoncée à ce stade.
+    • Les conditions actuelles de précommande sont réservées à un usage personnel et domestique et interdisent la revente ou la distribution par l’acheteur. Une activité de distribution en France nécessiterait donc un accord commercial direct avec 1X.
+    • Pour un usage en EHPAD, il faudra distinguer les fonctions d’assistance non médicale des usages pouvant relever d’exigences réglementaires plus fortes.
+Opportunité pour notre future entreprise
+Hypothèse stratégique : ne pas attendre l’arrivée commerciale française pour prendre contact. L’objectif serait de suivre 1X dès maintenant, comprendre sa stratégie européenne et identifier le moment où la société cherchera des partenaires locaux pour la démonstration, l’installation, la formation, le support ou la distribution.
+Adéquation avec le bien-vieillir	5 / 5
+Maturité commerciale actuelle	3 / 5
+Potentiel domicile	5 / 5
+Potentiel EHPAD	4 / 5 à valider
+Potentiel partenariat France	À investiguer
+Priorité de veille	TRÈS HAUTE
+Sources de veille
+Sources officielles 1X consultées en septembre 2026 : présentation NEO Home Robot, page de commande, usine NEO, présentation des mains NEO et conditions légales de précommande. Les prix, calendriers et capacités sont susceptibles d’évoluer.
+Action recommandée
+1. Inscrire 1X dans la catégorie « fabricants prioritaires » de notre cartographie.
+2. Suivre l’ouverture européenne et les annonces de partenariats/distribution.
+3. Préparer ultérieurement une prise de contact professionnelle présentant notre projet français autour du bien-vieillir.
+4. Comparer NEO aux principaux concurrents domestiques avant toute décision de partenariat.
+
+VERSION 1.3 • Ajout de la première fiche fabricant : 1X Technologies / NEO
+
+FICHE FABRICANT 02
+Figure AI / Figure 03
+Fabricant américain prioritaire : un humanoïde généraliste désormais explicitement conçu pour le domicile, avec une forte capacité d’industrialisation.
+Positionnement	Produit	Maturité	Intérêt projet
+Humanoïde généraliste : industrie puis domicile	Figure 03 + IA Helix 02	Déploiements industriels réels + montée en production	Très élevé - fabricant prioritaire n°2
+Pourquoi Figure est stratégique
+    • Figure 03 a été repensé pour le domicile : enveloppes souples, réduction de masse et de volume, recharge sans fil, audio amélioré et dispositifs de sécurité adaptés à un environnement humain.
+    • Figure présente déjà des tâches ménagères autonomes : linge, nettoyage et vaisselle. Helix 02 a notamment réalisé une séquence complète de déchargement et rechargement d’un lave-vaisselle sans intervention humaine.
+    • La feuille de route officielle de Figure cite explicitement l’assistance à domicile et la prise en charge des personnes âgées parmi les grands marchés de long terme.
+    • Figure dispose d’une expérience industrielle concrète : Figure 02 a cumulé plus de 1 250 heures chez BMW, manipulé plus de 90 000 pièces et contribué à la production de plus de 30 000 véhicules.
+    • Figure 03 est déjà en phase d’industrialisation : plus de 350 unités produites au 29 avril 2026 et cadence démontrée d’un robot par heure.
+Caractéristiques utiles pour notre marché
+    • Autonomie annoncée : 5 heures.
+    • Charge utile annoncée : 20 kg ; poids du robot : 61 kg.
+    • IA Helix 02 : contrôle du corps entier à partir de la vision, du toucher et de la proprioception.
+    • Mains à cinq doigts avec caméras dans les paumes et capteurs tactiles permettant des manipulations fines.
+    • Recharge inductive sans fil à 2 kW, permettant au robot de rejoindre une station de charge.
+    • Architecture pensée pour la production en volume : BotQ est annoncé avec une capacité initiale allant jusqu’à 12 000 humanoïdes par an.
+Points de vigilance
+    • Aucun prix public grand public n’est affiché actuellement sur le site officiel de Figure.
+    • Aucune date précise de commercialisation en France ou en Europe n’est annoncée publiquement à ce stade.
+    • Figure contrôle fortement sa technologie, son IA et sa production ; l’existence future d’un réseau de distributeurs ou d’intégrateurs indépendants en France reste à confirmer.
+    • Les démonstrations domestiques sont très prometteuses mais ne suffisent pas encore à prouver une fiabilité quotidienne à grande échelle auprès de personnes âgées.
+    • Les capacités très fines montrées par Helix 02, notamment autour de pilules ou d’une seringue, ne doivent pas être assimilées à une autorisation d’usage médical. Toute application de santé devra être étudiée séparément sur le plan réglementaire et de la responsabilité.
+Opportunité pour notre future entreprise
+Hypothèse stratégique : Figure pourrait devenir un fournisseur majeur lorsque les humanoïdes domestiques arriveront réellement en Europe. Notre objectif n’est pas de dépendre d’un seul constructeur, mais d’être suffisamment tôt dans l’écosystème pour pouvoir proposer Figure 03 si son rapport autonomie / sécurité / prix devient pertinent pour les seniors et les établissements.
+Adéquation avec le bien-vieillir	5 / 5
+Maturité technologique	4 / 5
+Potentiel domicile	5 / 5
+Potentiel EHPAD	4 / 5 à valider
+Potentiel partenariat France	À investiguer
+Priorité de veille	TRÈS HAUTE
+Comparatif initial : 1X NEO vs Figure 03
+Critère	1X NEO	Figure 03
+Orientation actuelle	Domicile en priorité	Industrie + domicile
+Commercialisation grand public	Précommande annoncée	Pas de prix/commande publique affichés
+Modèle économique public	20 000 $ Early Access / 499 $ par mois annoncés	Non communiqué publiquement
+Autonomie annoncée	À suivre selon version commerciale	5 heures
+Charge utile	Environ 25 kg annoncés	20 kg
+Lecture pour notre projet	Le plus directement accessible pour le domicile	Très forte technologie et industrialisation
+Conclusion provisoire
+Classement actuel : 1X NEO et Figure 03 constituent nos deux fabricants de référence à surveiller. 1X paraît aujourd’hui plus directement orienté vers la commercialisation domestique, tandis que Figure présente une avance particulièrement forte en IA embarquée, manipulation autonome, expérience industrielle et capacité de montée en production. Aucun choix exclusif ne doit être fait à ce stade.
+Sources de veille
+Sources officielles Figure consultées en septembre 2026 : Figure 03, Helix 02, déploiement BMW, montée en production BotQ, Master Plan et pages société. Les caractéristiques et calendriers peuvent évoluer.
+VERSION 1.4 • Ajout de la fiche Figure AI / Figure 03 et du premier comparatif fabricants
+
+FICHE FABRICANT 03
+Sunday Robotics / Memo
+Un robot domestique autonome pensé dès l'origine pour accomplir des tâches ménagères réelles dans des foyers.
+Positionnement	Produit	Étape 2026	Intérêt projet
+Robot domestique autonome sur roues	Memo	Bêta foyers annoncée fin 2026	Très élevé - fabricant prioritaire
+Pourquoi Sunday Robotics est stratégique
+    • Sunday ne cherche pas d'abord à construire un humanoïde spectaculaire : Memo est conçu spécifiquement pour rendre service dans une maison réelle. Cette orientation correspond directement à notre marché cible.
+    • Les tâches présentées sont concrètes : débarrasser, manipuler de la vaisselle, charger un lave-vaisselle, préparer un espresso, plier des chaussettes et réaliser progressivement davantage de tâches grâce à une bibliothèque de compétences.
+    • Sunday veut éviter la téléopération humaine dans le domicile. L'apprentissage est alimenté en amont par son Skill Capture Glove, porté par des contributeurs qui enregistrent des mouvements humains.
+    • La société contrôle l'ensemble de la chaîne - matériel, logiciel, données, entraînement et évaluation - afin d'accélérer l'amélioration du robot.
+    • La bêta publique est annoncée pour fin 2026, ce qui permettra d'obtenir des informations beaucoup plus pertinentes sur la fiabilité en conditions domestiques réelles.
+Technologie et méthode d'apprentissage
+    • Memo repose sur des modèles d'IA robotique développés par Sunday, notamment la famille ACT.
+    • Le Skill Capture Glove permet de recueillir des mouvements humains à grande échelle sans faire intervenir un téléopérateur dans le logement du futur client.
+    • Sunday indique avoir expédié des milliers de gants à ses 'Memory Developers' afin de constituer une base propriétaire de données de manipulation.
+    • L'objectif est la généralisation : apprendre des compétences réutilisables dans des logements et configurations différents, plutôt que programmer une démonstration unique.
+    • En juillet 2026, Sunday a présenté ACT-2 comme une nouvelle étape visant à améliorer la fiabilité et la généralisation des comportements.
+Financement et capacité à passer à l'échelle
+    • En mars 2026, Sunday Robotics a annoncé une levée de Série B de 165 millions de dollars.
+    • La société indique une valorisation de 1,15 milliard de dollars lors de ce tour.
+    • Les fonds sont destinés à passer des démonstrations au déploiement réel de Memo ; Sunday dit avoir fortement renforcé ses équipes d'ingénierie, de recherche et d'opérations de données.
+    • Cette capitalisation ne garantit pas le succès commercial, mais elle réduit le risque qu'il s'agisse d'un simple projet expérimental sans moyens d'industrialisation.
+Pourquoi Memo peut être pertinent pour le bien-vieillir
+    • Les tâches ménagères répétitives sont précisément celles qui deviennent difficiles avec la perte progressive de mobilité, de force ou d'endurance.
+    • Un robot sur roues peut être moins polyvalent qu'un humanoïde à jambes, mais potentiellement plus stable, plus simple et plus pertinent dans un logement accessible.
+    • L'absence revendiquée de téléopération dans le domicile constitue un argument intéressant en matière d'intimité et d'acceptabilité chez les seniors.
+    • Memo pourrait donc compléter, plutôt que remplacer, des solutions humanoïdes : notre future entreprise doit sélectionner la meilleure forme de robot selon le logement et le besoin réel.
+Points de vigilance
+    • Memo n'est pas encore un produit grand public mature : la bêta 2026 devra démontrer sa fiabilité quotidienne.
+    • Sunday ne publie pas encore de prix grand public définitif ni de calendrier précis de commercialisation en France.
+    • Le déplacement sur roues implique des contraintes : escaliers, seuils, étages et certains logements anciens peuvent limiter son champ d'action.
+    • Les capacités montrées aujourd'hui concernent surtout les tâches domestiques. Les fonctions spécifiques d'assistance aux personnes âgées, d'alerte ou de care devront être confirmées.
+    • Aucun programme public de distribution ou d'intégration en France n'est identifié à ce stade ; un futur partenariat devra être investigué directement.
+Opportunité pour notre future entreprise
+Hypothèse stratégique : Sunday est particulièrement cohérent avec notre modèle d'intégrateur multi-marques. Nous ne devons pas nous enfermer dans l'idée qu'un robot d'assistance doit obligatoirement être humanoïde. Si Memo accomplit mieux certaines tâches domestiques, à un coût et avec une fiabilité supérieurs, il pourrait devenir une solution très pertinente pour le maintien à domicile.
+Adéquation tâches domestiques	5 / 5
+Adéquation bien-vieillir	4,5 / 5 à valider
+Maturité commerciale actuelle	3 / 5
+Respect de la vie privée - approche annoncée	Très intéressant
+Potentiel domicile	5 / 5
+Potentiel EHPAD	3,5 / 5 à étudier
+Priorité de veille	TRÈS HAUTE
+Position dans notre cartographie
+Sunday Robotics rejoint le groupe des fabricants prioritaires. Sa différence principale est importante : contrairement à 1X NEO et Figure 03, Memo ne cherche pas à reproduire complètement la morphologie humaine. Il privilégie une architecture mobile sur roues et des bras manipulateurs pour résoudre les tâches domestiques. Pour notre projet, cette approche doit être considérée comme un avantage potentiel si elle apporte davantage de fiabilité et un prix plus accessible.
+Actions recommandées
+    • Suivre les premiers retours de la bêta Memo fin 2026.
+    • Surveiller le prix, le modèle économique et les premières zones de commercialisation.
+    • Identifier l'ouverture éventuelle à des partenaires, intégrateurs ou distributeurs européens.
+    • Évaluer spécifiquement les tâches utiles aux seniors : vaisselle, linge, rangement, transport d'objets et assistance aux routines.
+    • Comparer Memo à NEO et Figure 03 sur le critère le plus important pour notre entreprise : le service réellement rendu par euro dépensé, et non la forme du robot.
+Sources de veille
+Sources officielles Sunday Robotics consultées en septembre 2026 : présentation de Memo, page Technology, programme bêta 2026, annonce de la Série B du 12 mars 2026, ACT-1 et ACT-2 Preview. Les caractéristiques, prix et calendriers restent susceptibles d'évoluer.
+VERSION 1.5 • Ajout de la fiche Sunday Robotics / Memo
+
+
+
+ÉTUDE DE MARCHÉ 01
+Le marché des EHPAD en France
+Première lecture stratégique du marché pour une future offre de robotique de service dédiée au bien-vieillir.
+1. Taille et dynamique du marché
+La France compte environ 7 400 EHPAD et plus de 600 000 places. Le marché est donc suffisamment vaste pour envisager une activité B2B structurée, auprès d'établissements publics, associatifs et privés.
+La dynamique démographique renforce l'intérêt de long terme : selon les projections 2026 de l'Insee, les 75 ans et plus représenteraient 12,3 % de la population en 2030, 14,8 % en 2040 et 16,5 % en 2050. Le besoin d'accompagnement des personnes âgées va donc augmenter au moment même où le secteur rencontre déjà des difficultés de recrutement et de fidélisation.
+2. Un marché sous forte contrainte économique
+Le potentiel est important, mais les EHPAD disposent de marges financières limitées. Les pouvoirs publics continuent d'apporter des soutiens importants aux établissements en difficulté. Cette réalité doit guider notre modèle commercial : la technologie ne pourra pas être vendue uniquement pour son caractère innovant.
+Principe commercial à retenir
+« Votre établissement consacre aujourd'hui X heures à cette tâche. Notre solution coûte Y € par mois et permet de libérer Z heures, tout en améliorant les conditions de travail et/ou le service rendu aux résidents. »
+3. Comprendre le financement des établissements
+Le financement des EHPAD repose sur plusieurs composantes, notamment les soins, la dépendance et l'hébergement. Le chemin budgétaire d'une solution robotique dépendra donc directement de son usage.
+    • Un robot logistique ou ménager ne sera pas nécessairement financé de la même manière qu'une technologie liée au soin.
+    • Notre future entreprise devra maîtriser non seulement le robot pertinent, mais également le budget, le décideur et la justification économique adaptés.
+    • Les modèles de location, abonnement, maintenance et expérimentation pourraient être plus accessibles qu'un achat comptant important.
+4. Premières opportunités pour la robotique
+La première phase du projet devrait éviter les actes médicaux complexes et privilégier les tâches répétitives, chronophages et à faible valeur relationnelle.
+    • Transport de matériel, linge, repas et petits équipements.
+    • Débarrassage, rangement et certaines tâches d'entretien.
+    • Récupération et déplacement d'objets.
+    • Assistance lors de routines quotidiennes non médicales.
+    • Animation, interaction et présence sociale.
+    • Certaines fonctions de surveillance ou d'assistance nocturne non médicale, sous réserve de validation réglementaire.
+L'objectif n'est pas de remplacer la relation humaine. La valeur potentielle du robot réside dans sa capacité à prendre en charge une partie des tâches périphériques afin que les professionnels consacrent davantage de temps aux résidents.
+5. Le recrutement et la pénibilité : un axe commercial majeur
+Les difficultés de recrutement peuvent devenir l'un des arguments les plus importants du projet. Si un établissement manque de personnel et que les équipes consacrent une part significative de leur journée à des déplacements, du transport, du rangement ou des tâches logistiques, le robot peut devenir un outil de soutien.
+Positionnement à privilégier : ROBOT = SOUTIEN AU PERSONNEL, et non ROBOT = REMPLACEMENT DU PERSONNEL.
+6. Une porte d'entrée par l'expérimentation
+L'entrée sur le marché ne passera pas forcément par la vente immédiate d'un robot. Les dispositifs publics de soutien à l'innovation médico-sociale peuvent rendre possible une première expérimentation.
+Scénario stratégique : fabricant + notre entreprise + EHPAD pilote + financement public ou partenaire = expérimentation robotique.
+Cette approche permettrait de mesurer les gains réels, l'acceptabilité par les résidents et les équipes, la fiabilité du robot et le retour économique avant de construire une offre commerciale à plus grande échelle.
+7. Première lecture stratégique
+Critère	Évaluation pour notre projet
+Taille du marché	Très importante
+Croissance du besoin	Très forte
+Besoin de main-d'œuvre	Très élevé
+Capacité financière directe	Faible à moyenne
+Besoin d'innovation	Élevé
+Potentiel robotique	Très élevé à terme
+Adoption immédiate	Encore faible
+Location / abonnement / expérimentation	Très intéressant
+8. Conclusion et prochaine étape
+Le marché des EHPAD apparaît très intéressant pour notre projet, mais il doit être abordé par la résolution de problèmes mesurables plutôt que par la simple vente d'un robot. Notre avantage futur devra être de diagnostiquer le besoin, sélectionner la technologie pertinente, construire le modèle économique et accompagner l'établissement.
+Prochaine étape recommandée : identifier les 10 principaux problèmes opérationnels rencontrés par les directeurs et salariés d'EHPAD, puis mettre en face de chacun les solutions robotiques susceptibles d'apporter une réponse.
+Sources de référence
+Première analyse fondée sur les données et publications de l'Insee, de la DREES et de la CNSA consultées en septembre 2026. Les données devront être actualisées au fil du projet et complétées par une étude terrain en PACA puis dans le Var.
+
+ÉTUDE TERRAIN • EHPAD
+Principaux problèmes opérationnels
+Première grille de lecture destinée à préparer les futurs entretiens avec les directions et les équipes terrain.
+01  Côté direction
+Problème	Enjeu pour l'établissement	Potentiel robotique
+Difficultés de recrutement	Postes vacants, tensions sur aides-soignants / ASH	★★★★★
+Absentéisme et remplacements	Désorganisation, intérim et surcoûts	★★★★☆
+Coût du personnel	Poste de dépenses majeur	★★★★☆
+Turnover	Recrutement et formation permanents	★★★☆☆
+Pénibilité du travail	Fatigue, TMS, arrêts et départs	★★★★★
+Manque de temps auprès des résidents	Impact direct sur la qualité d'accompagnement	★★★★★
+Organisation logistique interne	Déplacements et tâches répétitives	★★★★★
+Sécurité des résidents	Chutes, errance, incidents nocturnes	★★★★☆
+Contraintes budgétaires	Freinent l'investissement technologique	★★★☆☆
+Qualité de service / image	Familles, réputation et attractivité	★★★★☆
+
+02  Côté équipes terrain
+Problème quotidien	Exemple	Potentiel robotique
+Déplacements incessants	Chercher linge, matériel ou produits	★★★★★
+Transport de charges	Linge, plateaux, déchets, matériel	★★★★★
+Débarrassage / vaisselle	Repas, chambres, espaces communs	★★★★★
+Rangement	Chambres, linge, matériel, consommables	★★★★★
+Nettoyage répétitif	Sols, surfaces, petits incidents	★★★★★
+Distribution / transport des repas	Chariots, plateaux, allers-retours cuisine	★★★★☆
+Sollicitations simples répétitives	Eau, objet, couverture, petites demandes	★★★★★
+Surveillance nocturne non médicale	Présence, déplacements, situations inhabituelles	★★★★☆
+Manque de temps relationnel	Discussion, accompagnement, stimulation	★★★★☆
+Fatigue physique et mentale	Accumulation des petites tâches quotidiennes	★★★★★
+
+Lecture stratégique
+Le potentiel le plus immédiat semble se situer dans les tâches périphériques : déplacements, logistique, transport, rangement, débarrassage et sollicitations simples. L'objectif n'est pas de remplacer le soignant, mais de lui rendre du temps pour les soins, l'écoute et l'accompagnement humain.
+VERSION 1.9 • Ajout des grilles de problèmes opérationnels EHPAD

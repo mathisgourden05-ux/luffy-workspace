@@ -1,6 +1,6 @@
 ﻿// Service worker : l'appli s'ouvre mÃªme avec un rÃ©seau capricieux.
 // RÃ©seau d'abord (pour avoir toujours la derniÃ¨re version), copie locale en secours.
-const CACHE = "quizclasse-v4";
+const CACHE = "quizclasse-v5";
 const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./data.js", "./ai.js", "./files.js", "./config.js", "./manifest.webmanifest", "./icons/icon-192.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });

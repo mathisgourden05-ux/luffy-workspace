@@ -105,7 +105,9 @@ function home() {
     </div>
     <div class="card"><h2>Je suis prof</h2><p class="muted">Créez un quiz à la main ou avec l'IA, partagez un code, suivez les résultats en direct.</p>
       <a class="btn ghost block" href="#/prof">Accéder à mon espace prof</a></div>
+    ${isStandalone() ? "" : `<p style="text-align:center"><button class="btn line small" id="inst">📲 Installer l'appli sur ce téléphone</button></p>`}
   </main>`;
+  on("#inst", "click", installApp);
   on("#f-code", "submit", (e) => { e.preventDefault(); const c = document.getElementById("code").value.trim().toUpperCase(); if (c) go(`#/q/${c}`); });
 }
 
@@ -441,7 +443,7 @@ function settingsPage() {
       <div class="row"><button class="btn">Enregistrer</button>${s.key ? `<button type="button" class="btn line" id="rm">Retirer la clé</button>` : ""}</div>
     </form>
     <div class="card"><h2>Installer l'appli</h2><p class="muted small">Sur téléphone : menu du navigateur → « Ajouter à l'écran d'accueil ». Sur ordinateur : l'icône d'installation dans la barre d'adresse.</p>
-      <button class="btn ghost" id="inst" ${installEvt ? "" : "hidden"}>Installer maintenant</button></div>
+      <button class="btn ghost" id="inst">📲 Installer l'appli</button></div>
     <div class="card"><h2>Données</h2><p class="muted small">Mode actuel : <strong>${ONLINE ? "en ligne (Supabase)" : "démo locale (ce navigateur uniquement)"}</strong>. Les élèves ne donnent qu'un pseudo : aucun nom, aucun e-mail.</p></div></div>`);
   const help = () => {
     document.getElementById("help").innerHTML = document.getElementById("p").value === "gemini"
@@ -452,10 +454,44 @@ function settingsPage() {
   on("#p", "change", help);
   on("#f", "submit", (e) => { e.preventDefault(); aiSettings.set({ provider: document.getElementById("p").value, key: document.getElementById("k").value.trim() }); toast("Réglages enregistrés."); settingsPage(); });
   on("#rm", "click", () => { aiSettings.set({ provider: s.provider, key: "" }); toast("Clé retirée."); settingsPage(); });
-  on("#inst", "click", async () => { if (installEvt) { installEvt.prompt(); installEvt = null; } });
+  on("#inst", "click", installApp);
 }
+
+/* ===================== Installation (PWA) ===================== */
+// Chrome/Edge/Android proposent l'installation directe (beforeinstallprompt).
+// Safari (iPhone/iPad) et certains navigateurs ne le permettent pas : on explique la marche à suivre.
 let installEvt = null;
 window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); installEvt = e; });
+window.addEventListener("appinstalled", () => { installEvt = null; toast("QuizClasse est installée sur l'écran d'accueil."); });
+const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+async function installApp() {
+  if (isStandalone()) return toast("L'appli est déjà installée : vous l'utilisez en ce moment.");
+  if (installEvt) {
+    const evt = installEvt; installEvt = null;
+    evt.prompt();
+    const { outcome } = await evt.userChoice.catch(() => ({}));
+    if (outcome === "dismissed") installEvt = evt;
+    return;
+  }
+  const ua = navigator.userAgent;
+  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const how = ios
+    ? (/CriOS|FxiOS|EdgiOS/.test(ua)
+      ? `Ouvrez cette page dans <strong>Safari</strong>, puis touchez <strong>Partager</strong> (le carré avec une flèche) → <strong>Sur l'écran d'accueil</strong> → Ajouter.`
+      : `Touchez <strong>Partager</strong> (le carré avec une flèche, en bas de l'écran) → <strong>Sur l'écran d'accueil</strong> → Ajouter.`)
+    : /Android/.test(ua)
+      ? `Touchez le menu <strong>⋮</strong> en haut à droite → <strong>Installer l'application</strong> (ou « Ajouter à l'écran d'accueil »).`
+      : `Cliquez sur l'icône d'installation à droite de la barre d'adresse (un écran avec une flèche), ou menu <strong>⋮</strong> → <strong>Installer QuizClasse</strong>.`;
+  const box = document.createElement("div");
+  box.className = "modal";
+  box.innerHTML = `<div class="card modal-card" role="dialog" aria-modal="true" aria-label="Installer l'appli">
+    <h2>📲 Installer QuizClasse</h2><p>${how}</p>
+    <p class="small muted">L'icône QuizClasse apparaît ensuite avec vos autres applis et s'ouvre en plein écran.</p>
+    <button class="btn block" id="ok-inst">J'ai compris</button></div>`;
+  document.body.append(box);
+  const close = () => box.remove();
+  box.addEventListener("click", (e) => { if (e.target === box || e.target.id === "ok-inst") close(); });
+}
 
 /* ===================== Prof : résultats en direct ===================== */
 async function results(id) {
